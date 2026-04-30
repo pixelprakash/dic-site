@@ -1,0 +1,54 @@
+/* ─── DIC Design System ─── */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap');
+
+:root {
+  /* Typography */
+  --font-heading: 'DM Serif Display', serif;
+  --font-body: 'DM Sans', sans-serif;
+
+  /* Colors — warm, earthy, academic */
+  --color-cream: #FAF4EC;
+  --color-sand: #F0E6D6;
+  --color-warm-gray: #C4B8A8;
+  --color-stone: #8C7E6E;
+  --color-charcoal: #2A2520;
+  --color-ink: #1A1714;
+  --color-terracotta: #C4704B;
+  --color-terracotta-light: #D4906B;
+  --color-sage: #7A9178;
+  --color-teal-dark: #1B4B5A;
+  --color-white: #FFFFFF;
+  --color-overlay: rgba(26, 23, 20, 0.65);
+
+  /* Layout */
+  --margin-x: 120px;
+  --section-gap: 140px;
+  --border-radius: 16px;
+  --border-radius-sm: 8px;
+
+  /* Transitions */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration: 0.6s;
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --margin-x: 48px;
+    --section-gap: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --margin-x: 24px;
+    --section-gap: 72px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --margin-x: 16px;
+    --section-gap: 56px;
+  }
+}
