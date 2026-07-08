@@ -20,6 +20,11 @@
   --color-white: #FFFFFF;
   --color-overlay: rgba(26, 23, 20, 0.65);
 
+  /* Brand colors — sampled from the DIC logo */
+  --color-dic-red: #F0301B;
+  --color-dic-orange: #EF7621;
+  --color-dic-blue: #2F3192;
+
   /* Layout */
   --margin-x: 120px;
   --section-gap: 140px;

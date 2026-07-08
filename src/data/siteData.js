@@ -124,6 +124,13 @@ export const PARTNERS = [
   "Ministry of Culture", "IIT Hyderabad", "ICMR",
 ];
 
+export const ABOUT_STACK_IMAGES = [
+  { src: "/images/image7.jpg", alt: "Product design lab at DIC", rotation: -12 },
+  { src: "/images/image67.jpg", alt: "Cultural heritage documentation", rotation: 6 },
+  { src: "/images/image85.jpg", alt: "Autonomous air mobility prototype", rotation: -5 },
+  { src: "/images/image39.jpg", alt: "VR and AR education research", rotation: 10 },
+];
+
 export const MARQUEE_IMAGES = [
   "/images/image103.jpeg",
   "/images/image67.jpg",
