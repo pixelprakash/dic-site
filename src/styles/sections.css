@@ -1,3 +1,32 @@
+/* ─── Pill CTA (used inline in section headers) ─── */
+.pill-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  background: var(--color-terracotta);
+  color: var(--color-white);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  border-radius: 100px;
+  transition: all 0.35s var(--ease-out);
+}
+
+.pill-cta:hover {
+  background: var(--color-charcoal);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+
+.pill-cta svg {
+  transition: transform 0.3s var(--ease-out);
+}
+
+.pill-cta:hover svg {
+  transform: translateX(4px);
+}
+
 /* ─── Stats Strip ─── */
 .stats {
   padding: 64px var(--margin-x);

@@ -1,49 +1,53 @@
 .navbar {
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
   z-index: 100;
   padding: 0 var(--margin-x);
-  height: 72px;
+  height: 84px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  transition: background 0.4s var(--ease-smooth), box-shadow 0.4s var(--ease-smooth);
+  gap: 24px;
+  background: var(--color-white);
+  border-bottom: 1px solid rgba(26, 23, 20, 0.08);
+  transition: box-shadow 0.4s var(--ease-smooth);
 }
 
 .navbar.scrolled {
-  background: rgba(250, 244, 236, 0.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
 }
 
 .navbar__logo {
-  font-family: var(--font-heading);
-  font-style: italic;
-  font-size: 1.5rem;
-  color: var(--color-ink);
-  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
 }
 
-.navbar__logo span {
-  color: var(--color-terracotta);
+.navbar__logo img {
+  height: 52px;
+  width: auto;
+  display: block;
 }
 
 .navbar__links {
   display: flex;
-  gap: 36px;
+  gap: 40px;
   align-items: center;
+  flex: 1;
+  margin-left: 56px;
 }
 
 .navbar__link {
-  font-size: 0.85rem;
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  color: var(--color-stone);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  color: var(--color-ink);
   position: relative;
   padding: 4px 0;
+  white-space: nowrap;
 }
 
 .navbar__link::after {
@@ -64,7 +68,79 @@
 
 .navbar__link:hover,
 .navbar__link.active {
+  color: var(--color-terracotta);
+}
+
+/* Contact — interactive hover pill button */
+.navbar__contact {
+  position: relative;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 128px;
+  height: 44px;
+  padding: 2px;
+  border: 1px solid rgba(26, 23, 20, 0.18);
+  border-radius: 999px;
+  overflow: hidden;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.05em;
   color: var(--color-ink);
+}
+
+.navbar__contact-text {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.3s var(--ease-out), opacity 0.3s var(--ease-out);
+}
+
+.navbar__contact-text--default {
+  transform: translateX(2px);
+}
+
+.navbar__contact-text--hover {
+  position: absolute;
+  color: var(--color-white);
+  transform: translateX(48px);
+  opacity: 0;
+}
+
+.navbar__contact:hover .navbar__contact-text--default {
+  transform: translateX(48px);
+  opacity: 0;
+}
+
+.navbar__contact:hover .navbar__contact-text--hover {
+  transform: translateX(-4px);
+  opacity: 1;
+}
+
+.navbar__contact-dot {
+  position: absolute;
+  left: 20%;
+  top: 40%;
+  z-index: 1;
+  width: 8px;
+  height: 8px;
+  border-radius: 8px;
+  background: var(--color-terracotta);
+  transform: scale(1);
+  transition: all 0.35s var(--ease-out);
+}
+
+.navbar__contact:hover .navbar__contact-dot {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transform: scale(1.8);
+  border-radius: 999px;
 }
 
 /* Mobile hamburger */
@@ -74,6 +150,7 @@
   gap: 5px;
   padding: 8px;
   z-index: 110;
+  flex-shrink: 0;
 }
 
 .navbar__toggle span {
@@ -122,10 +199,35 @@
   font-size: 1.5rem;
   font-family: var(--font-heading);
   font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.navbar__mobile-contact {
+  color: var(--color-terracotta) !important;
+}
+
+@media (max-width: 1024px) {
+  .navbar__links {
+    gap: 28px;
+    margin-left: 32px;
+  }
 }
 
 @media (max-width: 768px) {
+  .navbar {
+    height: 72px;
+  }
+
+  .navbar__logo img {
+    height: 40px;
+  }
+
   .navbar__links {
+    display: none;
+  }
+
+  .navbar__contact {
     display: none;
   }
 

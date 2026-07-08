@@ -138,9 +138,10 @@ export const MARQUEE_IMAGES = [
 ];
 
 export const NAV_LINKS = [
-  { label: "About", path: "/about" },
-  { label: "Research", path: "/research" },
-  { label: "Projects", path: "/projects" },
-  { label: "Education", path: "/education" },
-  { label: "Contact", path: "/contact" },
+  { label: "Who We Are", path: "/about" },
+  { label: "What We Do", path: "/research" },
+  { label: "Updates", path: "/projects" },
+  { label: "Reports", path: "/education" },
 ];
+
+export const CONTACT_LINK = { label: "Contact", path: "/contact" };

@@ -102,7 +102,7 @@ export default function Home() {
             <p className="section-label">Featured Work</p>
             <h2 className="section-title">Project films</h2>
           </div>
-          <Link to="/projects" className="hero__cta" style={{ fontSize: '0.85rem', padding: '12px 24px' }}>
+          <Link to="/projects" className="pill-cta" style={{ fontSize: '0.85rem', padding: '12px 24px' }}>
             View all
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
               <path d="M5 12h14M12 5l7 7-7 7" />

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { NAV_LINKS } from '../data/siteData';
+import { NAV_LINKS, CONTACT_LINK } from '../data/siteData';
 import '../styles/Navbar.css';
 
 export default function Navbar() {
@@ -22,7 +22,7 @@ export default function Navbar() {
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <Link to="/" className="navbar__logo">
-        D<span>I</span>C
+        <img src="/images/diclogo.webp" alt="DIC — Design Innovation Centre, IIT Hyderabad" />
       </Link>
 
       <div className="navbar__links">
@@ -36,6 +36,19 @@ export default function Navbar() {
           </Link>
         ))}
       </div>
+
+      <Link to={CONTACT_LINK.path} className="navbar__contact">
+        <span className="navbar__contact-text navbar__contact-text--default">
+          {CONTACT_LINK.label}
+        </span>
+        <span className="navbar__contact-text navbar__contact-text--hover">
+          {CONTACT_LINK.label}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </span>
+        <span className="navbar__contact-dot" />
+      </Link>
 
       <button
         className={`navbar__toggle ${menuOpen ? 'open' : ''}`}
@@ -56,6 +69,13 @@ export default function Navbar() {
             {link.label}
           </Link>
         ))}
+        <Link
+          to={CONTACT_LINK.path}
+          className="navbar__link navbar__mobile-contact"
+          onClick={() => setMenuOpen(false)}
+        >
+          {CONTACT_LINK.label}
+        </Link>
       </div>
     </nav>
   );
