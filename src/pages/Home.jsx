@@ -20,9 +20,9 @@ export default function Home() {
         {/* 01 — About */}
         <StorySection
           aria-label="About the Centre"
+          className="story-section--intro"
           style={{ background: 'var(--color-dic-red)', color: '#fff' }}
         >
-          <p className="story-label">01 — Who We Are</p>
           <hr className="story-divider" />
           <div className="story-about__grid">
             <div className="story-about__text">
@@ -51,7 +51,6 @@ export default function Home() {
           aria-label="Research domains"
           style={{ background: 'var(--color-dic-orange)', color: '#fff' }}
         >
-          <p className="story-label">02 — What We Do</p>
           <hr className="story-divider" />
           <h2 className="story-headline">Research domains</h2>
           <p className="story-copy">
@@ -81,7 +80,6 @@ export default function Home() {
           aria-label="Get involved"
           style={{ background: 'var(--color-dic-blue)', color: '#fff' }}
         >
-          <p className="story-label">03 — Get Involved</p>
           <hr className="story-divider" />
           <h2 className="story-headline">
             Let's build

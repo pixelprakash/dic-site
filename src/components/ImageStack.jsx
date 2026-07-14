@@ -9,7 +9,9 @@ export default function ImageStack({ images, className = '' }) {
           className="image-stack__item"
           style={{ '--rotation': `${img.rotation}deg`, zIndex: i + 1 }}
         >
-          <img src={img.src} alt={img.alt ?? ''} loading="lazy" />
+          <div className="image-stack__card">
+            <img src={img.src} alt={img.alt ?? ''} loading="lazy" />
+          </div>
         </div>
       ))}
     </div>

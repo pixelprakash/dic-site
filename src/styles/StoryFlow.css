@@ -54,10 +54,16 @@
   line-height: 1.7;
   max-width: 56ch;
   opacity: 0.9;
+  color: inherit;
 }
 
 .story-copy + .story-copy {
   margin-top: -12px;
+}
+
+.story-section--intro .story-section__inner {
+  justify-content: center;
+  padding-top: clamp(32px, 5vw, 64px);
 }
 
 /* About section layout */
@@ -94,6 +100,7 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   opacity: 0.65;
+  color: inherit;
 }
 
 @media (max-width: 767px) {

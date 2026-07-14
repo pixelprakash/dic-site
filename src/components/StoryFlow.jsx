@@ -18,7 +18,13 @@ export function StorySection({ className = '', style = {}, children, 'aria-label
 
 export default function StoryFlow({ children, className = '', 'aria-label': ariaLabel = 'Story scroll' }) {
   const containerRef = useRef(null);
-  const [skipEffect, setSkipEffect] = useState(false);
+  const [skipEffect, setSkipEffect] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return (
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      || window.matchMedia('(max-width: 767px)').matches
+    );
+  });
 
   useEffect(() => {
     const reduceMq = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -35,12 +41,24 @@ export default function StoryFlow({ children, className = '', 'aria-label': aria
 
   useGSAP(
     () => {
-      if (!containerRef.current || skipEffect) return;
+      if (!containerRef.current) return;
 
       const sections = Array.from(
         containerRef.current.querySelectorAll('[data-flow-section]'),
       );
       if (sections.length === 0) return;
+
+      const inners = sections
+        .map((section) => section.querySelector('[data-flow-inner]'))
+        .filter(Boolean);
+
+      // Always reset first — guards against a leftover rotation/z-index
+      // getting stuck when skipEffect flips (e.g. resize across the
+      // mobile breakpoint) after the effect already ran once.
+      gsap.set(inners, { clearProps: 'transform' });
+      gsap.set(sections, { clearProps: 'zIndex' });
+
+      if (skipEffect) return;
 
       const triggers = [];
 

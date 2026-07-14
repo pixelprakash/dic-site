@@ -1,6 +1,7 @@
 /* ─── Pill CTA (used inline in section headers) ─── */
 .pill-cta {
   display: inline-flex;
+  align-self: flex-start;
   align-items: center;
   gap: 10px;
   padding: 14px 32px;

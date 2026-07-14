@@ -145,10 +145,130 @@ export const MARQUEE_IMAGES = [
 ];
 
 export const NAV_LINKS = [
-  { label: "Who We Are", path: "/about" },
-  { label: "What We Do", path: "/research" },
-  { label: "Updates", path: "/projects" },
-  { label: "Reports", path: "/education" },
+  {
+    label: "Who We Are",
+    path: "/about",
+    menu: {
+      columns: [
+        {
+          heading: "Lorem Ipsum",
+          items: [
+            { label: "Lorem ipsum dolor", desc: "Consectetur adipiscing elit sed do eiusmod.", path: "/about" },
+            { label: "Sit amet consectetur", desc: "Tempor incididunt ut labore et dolore.", path: "/about" },
+            { label: "Adipiscing elit sed do", desc: "Magna aliqua ut enim ad minim veniam.", path: "/about" },
+          ],
+        },
+        {
+          heading: "Dolor Sit Amet",
+          items: [
+            { label: "Ut enim ad minim", desc: "Veniam quis nostrud exercitation ullamco.", path: "/about" },
+            { label: "Quis nostrud exercitation", desc: "Laboris nisi ut aliquip ex ea commodo.", path: "/about" },
+            { label: "Duis aute irure dolor", desc: "Reprehenderit in voluptate velit esse.", path: "/about" },
+          ],
+        },
+      ],
+      featured: {
+        image: "/images/image7.jpg",
+        label: "Lorem Ipsum Dolor",
+        desc: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        path: "/about",
+        cta: "Learn more",
+      },
+    },
+  },
+  {
+    label: "What We Do",
+    path: "/research",
+    menu: {
+      columns: [
+        {
+          heading: "Lorem Ipsum",
+          items: [
+            { label: "Excepteur sint occaecat", desc: "Cupidatat non proident sunt in culpa.", path: "/research" },
+            { label: "Qui officia deserunt", desc: "Mollit anim id est laborum lorem.", path: "/research" },
+            { label: "Ipsum dolor sit amet", desc: "Consectetur adipiscing elit sed do.", path: "/research" },
+          ],
+        },
+        {
+          heading: "Dolor Sit Amet",
+          items: [
+            { label: "Eiusmod tempor incididunt", desc: "Ut labore et dolore magna aliqua.", path: "/research" },
+            { label: "Ut enim ad minim veniam", desc: "Quis nostrud exercitation ullamco.", path: "/research" },
+            { label: "Laboris nisi ut aliquip", desc: "Ex ea commodo consequat duis aute.", path: "/research" },
+          ],
+        },
+      ],
+      featured: {
+        image: "/images/image85.jpg",
+        label: "Lorem Ipsum Dolor",
+        desc: "Ut enim ad minim veniam quis nostrud exercitation ullamco laboris.",
+        path: "/research",
+        cta: "Learn more",
+      },
+    },
+  },
+  {
+    label: "Updates",
+    path: "/projects",
+    menu: {
+      columns: [
+        {
+          heading: "Lorem Ipsum",
+          items: [
+            { label: "Sed ut perspiciatis", desc: "Unde omnis iste natus error sit.", path: "/projects" },
+            { label: "Voluptatem accusantium", desc: "Doloremque laudantium totam rem.", path: "/projects" },
+            { label: "Aperiam eaque ipsa", desc: "Quae ab illo inventore veritatis.", path: "/projects" },
+          ],
+        },
+        {
+          heading: "Dolor Sit Amet",
+          items: [
+            { label: "Quasi architecto beatae", desc: "Vitae dicta sunt explicabo nemo.", path: "/projects" },
+            { label: "Enim ipsam voluptatem", desc: "Quia voluptas sit aspernatur aut.", path: "/projects" },
+            { label: "Odit aut fugit sed", desc: "Quia consequuntur magni dolores.", path: "/projects" },
+          ],
+        },
+      ],
+      featured: {
+        image: "/images/image39.jpg",
+        label: "Lorem Ipsum Dolor",
+        desc: "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet.",
+        path: "/projects",
+        cta: "Learn more",
+      },
+    },
+  },
+  {
+    label: "Reports",
+    path: "/education",
+    menu: {
+      columns: [
+        {
+          heading: "Lorem Ipsum",
+          items: [
+            { label: "Nemo enim ipsam", desc: "Voluptatem quia voluptas sit aspernatur.", path: "/education" },
+            { label: "Aut odit aut fugit", desc: "Sed quia consequuntur magni dolores.", path: "/education" },
+            { label: "Eos qui ratione", desc: "Voluptatem sequi nesciunt neque porro.", path: "/education" },
+          ],
+        },
+        {
+          heading: "Dolor Sit Amet",
+          items: [
+            { label: "Quisquam est qui dolorem", desc: "Ipsum quia dolor sit amet consectetur.", path: "/education" },
+            { label: "Adipisci velit sed quia", desc: "Non numquam eius modi tempora.", path: "/education" },
+            { label: "Incidunt ut labore", desc: "Et dolore magnam aliquam quaerat.", path: "/education" },
+          ],
+        },
+      ],
+      featured: {
+        image: "/images/image56.jpg",
+        label: "Lorem Ipsum Dolor",
+        desc: "At vero eos et accusamus et iusto odio dignissimos ducimus.",
+        path: "/education",
+        cta: "Learn more",
+      },
+    },
+  },
 ];
 
 export const CONTACT_LINK = { label: "Contact", path: "/contact" };
