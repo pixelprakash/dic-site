@@ -1,0 +1,244 @@
+.search {
+  --search-field-w: min(360px, 32vw);
+  --search-panel-w: min(400px, 38vw);
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.search__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  color: var(--color-ink);
+  border: 1px solid rgba(26, 23, 20, 0.14);
+  flex-shrink: 0;
+  transition: background 0.3s var(--ease-smooth), color 0.3s var(--ease-smooth), border-color 0.3s var(--ease-smooth), transform 0.2s var(--ease-out);
+  z-index: 2;
+}
+
+.search__toggle:hover,
+.search__toggle:focus-visible {
+  background: var(--color-dic-red);
+  border-color: var(--color-dic-red);
+  color: var(--color-white);
+  transform: translateY(-1px);
+}
+
+.search--open .search__toggle {
+  background: var(--color-dic-red);
+  border-color: var(--color-dic-red);
+  color: var(--color-white);
+}
+
+.search__field {
+  position: absolute;
+  right: 0;
+  display: flex;
+  align-items: center;
+  height: 42px;
+  width: 0;
+  overflow: hidden;
+  background: var(--color-white);
+  border: 1px solid rgba(26, 23, 20, 0.14);
+  border-radius: 999px;
+  opacity: 0;
+  transition: width 0.35s var(--ease-out), opacity 0.25s var(--ease-out), border-color 0.3s var(--ease-smooth);
+  pointer-events: none;
+}
+
+.search--open .search__field {
+  width: var(--search-field-w);
+  opacity: 1;
+  pointer-events: auto;
+  padding-right: 46px;
+  border-color: var(--color-dic-red);
+}
+
+.search__field input {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  padding: 0 44px 0 20px;
+  border: none;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  color: var(--color-ink);
+}
+
+.search__field input:focus {
+  outline: none;
+}
+
+.search__field input::placeholder {
+  color: var(--color-stone);
+}
+
+.search__clear {
+  position: absolute;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  color: var(--color-stone);
+  transition: background 0.25s var(--ease-smooth), color 0.25s var(--ease-smooth);
+}
+
+.search__clear:hover {
+  background: var(--color-sand);
+  color: var(--color-dic-red);
+}
+
+.search__panel {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: var(--search-panel-w);
+  max-width: calc(100vw - 32px);
+  background: var(--color-white);
+  border-radius: var(--border-radius);
+  box-shadow: 0 24px 56px rgba(26, 23, 20, 0.18);
+  border: 1px solid rgba(26, 23, 20, 0.08);
+  opacity: 0;
+  transform: translateY(-8px);
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s var(--ease-out), transform 0.25s var(--ease-out), visibility 0s linear 0.25s;
+  z-index: 3;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.search__panel.open {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 0.25s var(--ease-out), transform 0.25s var(--ease-out), visibility 0s linear 0s;
+}
+
+.search__list {
+  padding: 8px;
+}
+
+.search__group-label {
+  padding: 10px 14px 6px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-stone);
+}
+
+.search__item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 14px;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  transition: background 0.2s var(--ease-smooth);
+  position: relative;
+}
+
+.search__item.active,
+.search__item:hover {
+  background: var(--color-cream);
+}
+
+.search__item-title {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.search__item-title mark {
+  background: rgba(240, 48, 27, 0.16);
+  color: var(--color-dic-red);
+  border-radius: 3px;
+}
+
+.search__item-desc {
+  font-size: 0.78rem;
+  color: var(--color-stone);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.search__item-tag {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-terracotta);
+}
+
+.search__empty {
+  padding: 24px;
+  text-align: center;
+  font-size: 0.88rem;
+  color: var(--color-stone);
+}
+
+@media (max-width: 1024px) {
+  .search {
+    --search-field-w: min(300px, 42vw);
+    --search-panel-w: min(360px, 50vw);
+  }
+}
+
+@media (max-width: 768px) {
+  .search {
+    --search-field-w: min(240px, 52vw);
+    --search-panel-w: min(320px, 80vw);
+  }
+
+  .search__panel {
+    right: -8px;
+  }
+}
+
+/* Below ~480px the icon sits close to the logo with little room to spare,
+   so the expanding field and results panel switch to a viewport-anchored
+   overlay (fixed, inset by a constant margin) instead of growing from the
+   icon — this guarantees they never overlap the logo or spill off-screen,
+   regardless of exact viewport width. */
+@media (max-width: 480px) {
+  .search__field {
+    position: fixed;
+    top: 15px;
+    left: 16px;
+    right: 16px;
+    width: 0;
+  }
+
+  .search--open .search__field {
+    width: auto;
+  }
+
+  .search__field input {
+    font-size: 16px;
+  }
+
+  .search__panel {
+    position: fixed;
+    top: 73px;
+    left: 16px;
+    right: 16px;
+    width: auto;
+    max-width: none;
+    max-height: calc(100vh - 90px);
+  }
+}

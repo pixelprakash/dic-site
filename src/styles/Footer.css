@@ -1,0 +1,350 @@
+.footer {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-teal-dark);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.footer__inner {
+  position: relative;
+  z-index: 1;
+  padding: clamp(48px, 7vw, 80px) var(--margin-x) 0;
+  /* Let clicks/hovers fall through the empty space of this content layer to
+     the swimming fish behind it — only real controls opt back in below. */
+  pointer-events: none;
+}
+
+.footer__inner a,
+.footer__inner button,
+.footer__inner input,
+.footer__inner select,
+.footer__inner textarea,
+.footer__inner label {
+  pointer-events: auto;
+}
+
+/* ─── Main columns ─── */
+.footer__top {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: clamp(48px, 6vw, 96px);
+  padding-bottom: clamp(56px, 7vw, 88px);
+}
+
+.footer__left {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(40px, 5vw, 56px);
+}
+
+.footer__logo {
+  height: 38px;
+  width: auto;
+  margin-bottom: 18px;
+  filter: brightness(0) invert(1);
+  opacity: 0.95;
+}
+
+.footer__brand > p {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.55);
+  max-width: 42ch;
+  margin-bottom: 24px;
+}
+
+.footer__socials {
+  display: flex;
+  gap: 12px;
+}
+
+.footer__socials a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.7);
+  transition: background 0.3s var(--ease-smooth), border-color 0.3s var(--ease-smooth), color 0.3s var(--ease-smooth), transform 0.3s var(--ease-out);
+}
+
+.footer__socials a:hover {
+  background: var(--color-dic-red);
+  border-color: var(--color-dic-red);
+  color: var(--color-white);
+  transform: translateY(-2px);
+}
+
+.footer__columns {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 32px;
+}
+
+.footer__col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.footer__col > h4 {
+  font-family: var(--font-body);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.footer__col > a {
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.72);
+  transition: color 0.2s, transform 0.2s var(--ease-out);
+  padding: 2px 0;
+}
+
+.footer__col > a:hover {
+  color: var(--color-white);
+  transform: translateX(2px);
+}
+
+.footer__contact-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.footer__contact-group h4 {
+  font-family: var(--font-body);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 4px;
+}
+
+.footer__contact-group span {
+  display: block;
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* ─── Contact form ─── */
+.footer__form {
+  background: rgba(0, 0, 0, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius);
+  padding: clamp(28px, 3vw, 36px);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-self: start;
+}
+
+.footer__form-title {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.4rem;
+  color: var(--color-white);
+  margin-bottom: 4px;
+}
+
+.footer__field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.footer__field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer__field label {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.footer__field select,
+.footer__field input,
+.footer__field textarea {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--border-radius-sm);
+  padding: 12px 14px;
+  color: var(--color-white);
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  resize: none;
+  transition: border-color 0.3s var(--ease-smooth), background 0.3s var(--ease-smooth);
+}
+
+.footer__field select:focus,
+.footer__field input:focus,
+.footer__field textarea:focus {
+  outline: none;
+  border-color: var(--color-dic-red);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.footer__field select {
+  appearance: none;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23ffffff99' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 34px;
+}
+
+.footer__field select option {
+  color: var(--color-ink);
+}
+
+.footer__field input::placeholder,
+.footer__field textarea::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.footer__field-optional {
+  text-transform: none;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.footer__consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+}
+
+.footer__consent input {
+  margin-top: 3px;
+  accent-color: var(--color-dic-red);
+  flex-shrink: 0;
+}
+
+.footer__consent a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.footer__consent a:hover {
+  color: var(--color-white);
+}
+
+.footer__form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.footer__form-message {
+  font-size: 0.78rem;
+  color: #E8896F;
+  max-width: 32ch;
+}
+
+.footer__submit {
+  flex-shrink: 0;
+  padding: 13px 32px;
+  border-radius: 100px;
+  background: var(--color-dic-red);
+  color: var(--color-white);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background 0.3s var(--ease-smooth), opacity 0.3s var(--ease-smooth), transform 0.3s var(--ease-out);
+}
+
+.footer__submit:hover:not(:disabled) {
+  background: var(--color-terracotta);
+  transform: translateY(-2px);
+}
+
+.footer__submit:disabled {
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.4);
+  cursor: not-allowed;
+}
+
+/* ─── Bottom bar ─── */
+/* Sits low in the tank near the sandy substrate, so it gets its own scrim
+   to stay legible regardless of what the fish/background are doing there. */
+.footer__bottom {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 0 calc(-1 * var(--margin-x));
+  padding: 20px var(--margin-x);
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(6, 18, 24, 0.4);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.footer__legal {
+  display: flex;
+  gap: 24px;
+}
+
+.footer__legal a {
+  color: rgba(255, 255, 255, 0.55);
+  transition: color 0.2s;
+}
+
+.footer__legal a:hover {
+  color: var(--color-white);
+}
+
+@media (max-width: 900px) {
+  .footer__top {
+    grid-template-columns: 1fr;
+  }
+
+  .footer__columns {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .footer__columns {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .footer__field-row {
+    grid-template-columns: 1fr;
+  }
+
+  .footer__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+}

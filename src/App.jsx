@@ -33,8 +33,11 @@ function Loader() {
 export default function App() {
   return (
     <BrowserRouter>
+      <a href="#main-content" className="skip-link">
+        Skip to content
+      </a>
       <Navbar />
-      <main>
+      <main id="main-content">
         <Suspense fallback={<Loader />}>
           <Routes>
             <Route path="/" element={<Home />} />

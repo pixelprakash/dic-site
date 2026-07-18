@@ -102,7 +102,7 @@
   right: 0;
   bottom: 0;
   z-index: 95;
-  background: rgba(26, 23, 20, 0.35);
+  background: rgba(24, 25, 74, 0.4);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.35s var(--ease-smooth);
@@ -120,8 +120,8 @@
   right: 0;
   z-index: 101;
   background: var(--color-white);
-  border-top: 1px solid rgba(26, 23, 20, 0.08);
-  box-shadow: 0 32px 64px rgba(26, 23, 20, 0.14);
+  border-top: 3px solid var(--color-dic-blue);
+  box-shadow: 0 32px 64px rgba(47, 49, 146, 0.2);
   visibility: hidden;
   opacity: 0;
   transform: translateY(-12px);
@@ -155,7 +155,8 @@
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-stone);
+  color: var(--color-dic-blue);
+  opacity: 0.6;
   margin-bottom: 16px;
 }
 
@@ -170,7 +171,7 @@
 }
 
 .navbar__mega-item:hover {
-  background: var(--color-cream);
+  background: rgba(47, 49, 146, 0.06);
   transform: translateX(4px);
 }
 
@@ -184,7 +185,7 @@
 }
 
 .navbar__mega-item:hover .navbar__mega-item-label {
-  color: var(--color-dic-red);
+  color: var(--color-dic-blue);
 }
 
 .navbar__mega-item-desc {
@@ -199,7 +200,7 @@
   flex-direction: column;
   border-radius: var(--border-radius);
   overflow: hidden;
-  background: var(--color-cream);
+  background: var(--color-dic-blue);
   transition: transform 0.35s var(--ease-out);
 }
 
@@ -233,14 +234,14 @@
   font-size: 1rem;
   font-weight: 600;
   letter-spacing: -0.02em;
-  color: var(--color-ink);
+  color: var(--color-white);
   margin-bottom: 6px;
 }
 
 .navbar__mega-featured-desc {
   font-family: var(--font-body);
   font-size: 0.82rem;
-  color: var(--color-stone);
+  color: rgba(255, 255, 255, 0.72);
   line-height: 1.5;
   margin-bottom: 14px;
 }
@@ -252,7 +253,7 @@
   font-family: var(--font-body);
   font-size: 0.85rem;
   font-weight: 600;
-  color: var(--color-dic-red);
+  color: var(--color-white);
 }
 
 .navbar__mega-featured-cta svg {
@@ -328,7 +329,7 @@
   width: 8px;
   height: 8px;
   border-radius: 8px;
-  background: var(--color-terracotta);
+  background: var(--color-dic-red);
   transform: scale(1);
   transition: all 0.35s var(--ease-out);
 }
@@ -514,5 +515,12 @@
 
   .navbar__mobile-menu {
     display: flex;
+  }
+
+  /* With links/contact hidden, only the logo, search, and toggle remain —
+     push search flush against the hamburger instead of letting
+     space-between float it in the middle of the bar. */
+  .search {
+    margin-left: auto;
   }
 }

@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { NAV_LINKS, CONTACT_LINK } from '../data/siteData';
+import SearchBar from './SearchBar';
+import ScrollProgress from './ScrollProgress';
 import '../styles/Navbar.css';
 
 export default function Navbar() {
@@ -47,6 +49,8 @@ export default function Navbar() {
   const activeLink = NAV_LINKS.find((link) => link.path === openMenu);
 
   return (
+    <>
+    <ScrollProgress />
     <nav className={`navbar ${scrolled ? 'scrolled' : ''} ${openMenu ? 'mega-open' : ''}`}>
       <Link to="/" className="navbar__logo">
         <img src="/images/diclogo.webp" alt="DIC — Design Innovation Centre, IIT Hyderabad" />
@@ -73,6 +77,8 @@ export default function Navbar() {
           </div>
         ))}
       </div>
+
+      <SearchBar />
 
       <Link to={CONTACT_LINK.path} className="navbar__contact">
         <span className="navbar__contact-text navbar__contact-text--default">
@@ -193,5 +199,6 @@ export default function Navbar() {
         </Link>
       </div>
     </nav>
+    </>
   );
 }

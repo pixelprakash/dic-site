@@ -33,13 +33,6 @@
   opacity: 0.85;
 }
 
-.story-divider {
-  border: none;
-  border-top: 1px solid currentColor;
-  opacity: 0.25;
-  margin: 0;
-}
-
 .story-headline {
   font-family: var(--font-heading);
   font-style: italic;
@@ -63,7 +56,22 @@
 
 .story-section--intro .story-section__inner {
   justify-content: center;
-  padding-top: clamp(32px, 5vw, 64px);
+  padding-top: clamp(110px, 14vw, 180px);
+  padding-bottom: clamp(90px, 10vw, 140px);
+}
+
+/* Research domains needs to fit the sidebar+grid panel without scrolling,
+   so it gets a smaller headline and tighter vertical padding than the
+   other story sections. */
+.story-section--domains .story-section__inner {
+  justify-content: center;
+  gap: clamp(16px, 2.5vw, 28px);
+  padding-top: clamp(56px, 8vw, 88px);
+  padding-bottom: 40px;
+}
+
+.story-section--domains .story-headline {
+  font-size: clamp(1.8rem, 3.6vw, 2.8rem);
 }
 
 /* About section layout */

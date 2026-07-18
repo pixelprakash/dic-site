@@ -1,0 +1,188 @@
+.aquarium {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #12303f 0%, #17475a 30%, #1f5a68 62%, #2c6f76 88%, #cdb693 100%);
+  pointer-events: auto;
+  cursor: crosshair;
+}
+
+.aquarium__glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 24% 0%, rgba(255, 255, 255, 0.14), transparent 55%);
+  pointer-events: none;
+}
+
+/* soft drifting caustic light rays for underwater atmosphere */
+.aquarium__rays {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.35;
+}
+
+.aquarium__ray {
+  position: absolute;
+  top: -10%;
+  width: 140px;
+  height: 140%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), transparent 70%);
+  transform: rotate(10deg);
+  filter: blur(6px);
+  animation: rayDrift 14s ease-in-out infinite;
+}
+
+.aquarium__ray--1 { left: 8%; animation-duration: 16s; }
+.aquarium__ray--2 { left: 42%; width: 100px; animation-duration: 12s; animation-delay: -4s; }
+.aquarium__ray--3 { left: 74%; width: 120px; animation-duration: 18s; animation-delay: -9s; }
+
+@keyframes rayDrift {
+  0%, 100% { transform: translateX(0) rotate(8deg); }
+  50% { transform: translateX(60px) rotate(13deg); }
+}
+
+.aquarium__sand {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 64px;
+  background: linear-gradient(180deg, rgba(205, 182, 147, 0) 0%, rgba(196, 170, 132, 0.92) 45%, #c4a984 100%);
+  pointer-events: none;
+}
+
+.aquarium__caption {
+  position: absolute;
+  right: var(--margin-x);
+  bottom: 10px;
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  letter-spacing: 0.03em;
+  color: rgba(255, 255, 255, 0.45);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─── Fish ─── */
+.aquarium__fish {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 32px;
+  margin: -16px 0 0 -30px;
+  transform: translate(-9999px, -9999px);
+  will-change: transform;
+}
+
+.aquarium__fish .fish__svg {
+  display: block;
+  transform: scale(var(--fish-scale, 1));
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.28));
+}
+
+.aquarium__fish .fish__tail {
+  animation: fishTailWag var(--wag-duration, 0.5s) ease-in-out infinite;
+  animation-delay: var(--wag-delay, 0s);
+}
+
+.aquarium__fish .fish__pectoral {
+  animation: finFlutter 0.6s ease-in-out infinite;
+  animation-delay: var(--wag-delay, 0s);
+}
+
+.aquarium__fish .fish__dorsal {
+  animation: dorsalSway 2.4s ease-in-out infinite;
+}
+
+@keyframes fishTailWag {
+  0%, 100% { transform: rotate(-20deg); }
+  50% { transform: rotate(20deg); }
+}
+
+@keyframes finFlutter {
+  0%, 100% { transform: rotate(-8deg); }
+  50% { transform: rotate(8deg); }
+}
+
+@keyframes dorsalSway {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+
+/* ─── Bubbles ─── */
+.aquarium__bubbles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.aquarium__bubble {
+  position: absolute;
+  bottom: 6%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  animation: bubbleRise linear infinite;
+}
+
+@keyframes bubbleRise {
+  0% { transform: translateY(0) scale(0.6); opacity: 0; }
+  8% { opacity: 0.7; }
+  92% { opacity: 0.3; }
+  100% { transform: translateY(-92vh) scale(1.1); opacity: 0; }
+}
+
+/* ─── Food pellet ─── */
+.aquarium__food {
+  position: absolute;
+  z-index: 1;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffd782, #d99a3b);
+  box-shadow: 0 0 6px rgba(255, 200, 120, 0.7);
+  animation: foodSink 5.2s ease-in forwards;
+  pointer-events: none;
+}
+
+@keyframes foodSink {
+  0% { transform: translateY(0); opacity: 0; }
+  8% { opacity: 1; }
+  100% { transform: translateY(46px); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aquarium__fish .fish__tail,
+  .aquarium__fish .fish__pectoral,
+  .aquarium__fish .fish__dorsal,
+  .aquarium__bubble,
+  .aquarium__ray,
+  .aquarium__food {
+    animation: none;
+  }
+
+  .aquarium {
+    cursor: default;
+  }
+}
+
+@media (max-width: 768px) {
+  .aquarium__caption {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .aquarium__fish {
+    width: 44px;
+    height: 24px;
+    margin: -12px 0 0 -22px;
+  }
+}

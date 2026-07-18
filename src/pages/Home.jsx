@@ -1,29 +1,28 @@
 import Hero from '../components/Hero';
+import NewsHighlights from '../components/NewsHighlights';
 import StoryFlow, { StorySection } from '../components/StoryFlow';
 import ImageStack from '../components/ImageStack';
-import { useReveal } from '../hooks/useReveal';
-import {
-  STATS, DOMAINS, VIDEOS, PARTNERS, MARQUEE_IMAGES, ABOUT_STACK_IMAGES,
-} from '../data/siteData';
-import YouTubeEmbed from '../components/YouTubeEmbed';
+import Collaborators from '../components/Collaborators';
+import ResearchDomainsNav from '../components/ResearchDomainsNav';
+import Gallery from '../components/Gallery';
+import Testimonials from '../components/Testimonials';
+import FAQ from '../components/FAQ';
+import { STATS, ABOUT_STACK_IMAGES } from '../data/siteData';
 import { Link } from 'react-router-dom';
 
 export default function Home() {
-  const [projectsRef, projectsVis] = useReveal();
-  const [partnersRef, partnersVis] = useReveal();
-
   return (
     <>
       <Hero />
+      <NewsHighlights />
 
       <StoryFlow aria-label="DIC story">
-        {/* 01 — About */}
+        {/* 01 — About + Collaborators */}
         <StorySection
           aria-label="About the Centre"
           className="story-section--intro"
           style={{ background: 'var(--color-dic-red)', color: '#fff' }}
         >
-          <hr className="story-divider" />
           <div className="story-about__grid">
             <div className="story-about__text">
               <h2 className="story-headline">
@@ -44,35 +43,17 @@ export default function Home() {
             </div>
             <ImageStack images={ABOUT_STACK_IMAGES} />
           </div>
+          <Collaborators />
         </StorySection>
 
-        {/* 02 — What we do */}
+        {/* 02 — Research domains */}
         <StorySection
           aria-label="Research domains"
+          className="story-section--domains"
           style={{ background: 'var(--color-dic-orange)', color: '#fff' }}
         >
-          <hr className="story-divider" />
-          <h2 className="story-headline">Research domains</h2>
-          <p className="story-copy">
-            Four fields of expertise, one design-led mission — from preserving heritage to
-            prototyping the future of mobility and learning.
-          </p>
-          <div className="domains__grid">
-            {DOMAINS.map((d) => (
-              <Link to="/research" className="domain-card" key={d.title}>
-                <img src={d.image} alt={d.title} loading="lazy" />
-                <div className="domain-card__overlay">
-                  <h4 className="domain-card__title">{d.title}</h4>
-                  <p className="domain-card__desc">{d.desc}</p>
-                </div>
-                <div className="domain-card__arrow">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round">
-                    <path d="M7 17L17 7M17 7H7M17 7v10" />
-                  </svg>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <h2 className="story-headline">Research Domains</h2>
+          <ResearchDomainsNav />
         </StorySection>
 
         {/* 03 — Get involved */}
@@ -80,7 +61,6 @@ export default function Home() {
           aria-label="Get involved"
           style={{ background: 'var(--color-dic-blue)', color: '#fff' }}
         >
-          <hr className="story-divider" />
           <h2 className="story-headline">
             Let's build
             <br />
@@ -107,53 +87,9 @@ export default function Home() {
         </StorySection>
       </StoryFlow>
 
-      {/* Image Marquee */}
-      <section className="marquee">
-        <div className="marquee__track">
-          {[...MARQUEE_IMAGES, ...MARQUEE_IMAGES].map((src, i) => (
-            <img key={i} src={src} alt="" loading="lazy" />
-          ))}
-        </div>
-      </section>
-
-      {/* Projects */}
-      <section
-        className={`projects reveal ${projectsVis ? 'visible' : ''}`}
-        ref={projectsRef}
-        id="projects"
-      >
-        <div className="projects__header">
-          <div>
-            <p className="section-label">Featured Work</p>
-            <h2 className="section-title">Project films</h2>
-          </div>
-          <Link to="/projects" className="pill-cta" style={{ fontSize: '0.85rem', padding: '12px 24px' }}>
-            View all
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </Link>
-        </div>
-        <div className="video-grid">
-          {VIDEOS.slice(0, 4).map((v) => (
-            <YouTubeEmbed key={v.id} videoId={v.id} title={v.title} />
-          ))}
-        </div>
-      </section>
-
-      {/* Partners */}
-      <section
-        className={`partners reveal ${partnersVis ? 'visible' : ''}`}
-        ref={partnersRef}
-      >
-        <p className="section-label">Collaborations</p>
-        <h2 className="section-title">Partners &amp; supporters</h2>
-        <div className="partners__logos">
-          {PARTNERS.map((p) => (
-            <span key={p}>{p}</span>
-          ))}
-        </div>
-      </section>
+      <Gallery />
+      <Testimonials />
+      <FAQ />
     </>
   );
 }
