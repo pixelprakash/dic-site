@@ -89,15 +89,15 @@ export default function About() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 20 }}>
           <div className="course-card">
             <h4 style={{ fontFamily: 'var(--font-heading)', fontStyle: 'italic', marginBottom: 4 }}>Prof. Deepak John Mathew</h4>
-            <p style={{ fontSize: '0.85rem', color: 'var(--color-stone)', margin: 0 }}>Principal Investigator</p>
+            <p style={{ fontSize: 'var(--text-sm)', color: 'var(--color-stone)', margin: 0 }}>Principal Investigator</p>
           </div>
           <div className="course-card">
             <h4 style={{ fontFamily: 'var(--font-heading)', fontStyle: 'italic', marginBottom: 4 }}>2 Project Staff</h4>
-            <p style={{ fontSize: '0.85rem', color: 'var(--color-stone)', margin: 0 }}>Full-time researchers</p>
+            <p style={{ fontSize: 'var(--text-sm)', color: 'var(--color-stone)', margin: 0 }}>Full-time researchers</p>
           </div>
           <div className="course-card">
             <h4 style={{ fontFamily: 'var(--font-heading)', fontStyle: 'italic', marginBottom: 4 }}>4 Outsource Agency</h4>
-            <p style={{ fontSize: '0.85rem', color: 'var(--color-stone)', margin: 0 }}>External collaborators</p>
+            <p style={{ fontSize: 'var(--text-sm)', color: 'var(--color-stone)', margin: 0 }}>External collaborators</p>
           </div>
         </div>
       </section>

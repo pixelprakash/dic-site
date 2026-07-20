@@ -53,7 +53,7 @@
 .hero__cta-secondary {
   position: relative;
   font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-size: var(--text-sm);
   font-weight: 600;
   color: var(--color-ink);
   padding-bottom: 4px;

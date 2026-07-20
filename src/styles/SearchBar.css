@@ -67,7 +67,7 @@
   border: none;
   background: transparent;
   font-family: var(--font-body);
-  font-size: 0.92rem;
+  font-size: var(--text-sm);
   color: var(--color-ink);
 }
 
@@ -131,7 +131,7 @@
 
 .search__group-label {
   padding: 10px 14px 6px;
-  font-size: 0.68rem;
+  font-size: var(--text-2xs);
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -155,7 +155,7 @@
 }
 
 .search__item-title {
-  font-size: 0.92rem;
+  font-size: var(--text-sm);
   font-weight: 600;
   color: var(--color-ink);
 }
@@ -167,7 +167,7 @@
 }
 
 .search__item-desc {
-  font-size: 0.78rem;
+  font-size: var(--text-xs);
   color: var(--color-stone);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -178,7 +178,7 @@
   position: absolute;
   top: 10px;
   right: 14px;
-  font-size: 0.65rem;
+  font-size: var(--text-2xs);
   font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -188,7 +188,7 @@
 .search__empty {
   padding: 24px;
   text-align: center;
-  font-size: 0.88rem;
+  font-size: var(--text-sm);
   color: var(--color-stone);
 }
 

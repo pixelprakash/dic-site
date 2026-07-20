@@ -53,8 +53,8 @@ export default function Research() {
         <div className="courses__grid">
           {PATENTS.map((p) => (
             <div className="course-card" key={p.name}>
-              <strong style={{ display: 'block', marginBottom: 4, fontSize: '0.9rem' }}>{p.name}</strong>
-              <span style={{ fontSize: '0.8rem', color: 'var(--color-stone)' }}>
+              <strong style={{ display: 'block', marginBottom: 4, fontSize: 'var(--text-sm)' }}>{p.name}</strong>
+              <span style={{ fontSize: 'var(--text-xs)', color: 'var(--color-stone)' }}>
                 {p.inventor}{p.type ? ` · ${p.type}` : ''}
               </span>
             </div>

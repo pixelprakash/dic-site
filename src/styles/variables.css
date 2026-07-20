@@ -2,9 +2,39 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap');
 
 :root {
+  /* Base size — a modest bump over the browser default (16px → 17px) so
+     every rem-based size in the type scale below reads comfortably at
+     normal laptop viewing distance. */
+  font-size: 106.25%;
+
   /* Typography */
   --font-heading: 'DM Serif Display', serif;
   --font-body: 'DM Sans', sans-serif;
+
+  /* Type scale — use these instead of one-off rem values. Named by role,
+     not just size, so components stay consistent as the site grows.
+       2xs  fine print / tags           — rarely used, never smaller than this
+       xs   captions, meta, micro-labels
+       sm   secondary body, nav links, form labels
+       base default body copy
+       md   emphasized / lead body text
+       lg   card & list titles
+       xl   small subheadings
+       2xl  standalone headings (e.g. footer form title) */
+  --text-2xs: 0.8125rem;
+  --text-xs: 0.875rem;
+  --text-sm: 0.9375rem;
+  --text-base: 1rem;
+  --text-md: 1.0625rem;
+  --text-lg: 1.1875rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+
+  /* Line-heights paired with the scale above */
+  --lh-tight: 1.2;
+  --lh-snug: 1.4;
+  --lh-normal: 1.6;
+  --lh-relaxed: 1.75;
 
   /* Colors — warm, earthy, academic */
   --color-cream: #FAF4EC;

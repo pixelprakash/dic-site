@@ -39,7 +39,7 @@
 .faq__index {
   flex-shrink: 0;
   font-family: var(--font-body);
-  font-size: 0.85rem;
+  font-size: var(--text-sm);
   font-weight: 600;
   color: var(--color-terracotta-light);
   min-width: 2.4ch;
@@ -76,7 +76,7 @@
 
 .faq__answer p {
   color: rgba(255, 255, 255, 0.65);
-  font-size: 0.95rem;
+  font-size: var(--text-sm);
   line-height: 1.7;
   padding: 0 40px 24px calc(2.4ch + 20px + 4px);
   max-width: 62ch;

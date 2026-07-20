@@ -82,11 +82,11 @@
 .testimonials__name {
   font-weight: 600;
   color: var(--color-ink);
-  font-size: 0.95rem;
+  font-size: var(--text-sm);
 }
 
 .testimonials__role {
-  font-size: 0.82rem;
+  font-size: var(--text-xs);
   color: var(--color-stone);
 }
 

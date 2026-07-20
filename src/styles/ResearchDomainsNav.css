@@ -35,7 +35,7 @@
   padding: 10px 12px;
   border-radius: var(--border-radius-sm);
   font-family: var(--font-body);
-  font-size: 0.98rem;
+  font-size: var(--text-sm);
   font-weight: 500;
   color: var(--color-stone);
   transition: background 0.25s var(--ease-smooth), color 0.25s var(--ease-smooth);
@@ -67,7 +67,7 @@
   gap: 8px;
   margin-top: 12px;
   padding: 6px 4px;
-  font-size: 0.85rem;
+  font-size: var(--text-sm);
   font-weight: 600;
   color: var(--color-dic-red);
 }
@@ -117,7 +117,7 @@
 
 .rd__card-overlay h4 {
   color: var(--color-white);
-  font-size: 1.02rem;
+  font-size: var(--text-md);
   font-style: normal;
   font-family: var(--font-body);
   font-weight: 600;
