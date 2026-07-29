@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { REQUEST_TYPES } from '../data/siteData';
-import AquariumBand from './AquariumBand';
+// Playful fish-tank footer treatment — parked for now while the site keeps a
+// more serious tone. Not deleted: flip this back on by uncommenting the
+// import and the <AquariumBand /> usage below.
+// import AquariumBand from './AquariumBand';
 import '../styles/Footer.css';
 
 const SOCIALS = [
@@ -78,7 +81,7 @@ export default function Footer() {
 
   return (
     <footer className="footer">
-      <AquariumBand />
+      {/* <AquariumBand /> — parked for now, see import note above */}
       <div className="footer__inner">
       <div className="footer__top">
         <div className="footer__left">
