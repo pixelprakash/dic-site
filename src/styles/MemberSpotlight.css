@@ -1,0 +1,42 @@
+/* Same card chrome as .member-card (navy, sharp corners, thin border,
+   hover lift) — just laid out as a row instead of a column since these
+   single-member sections read better as one wide bar. */
+.member-spotlight {
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+  background: var(--color-navy);
+  border: 1px solid rgba(26, 23, 20, 0.12);
+  transition: transform 0.25s var(--ease-out);
+}
+
+.member-spotlight:hover {
+  transform: translateY(-4px);
+}
+
+.member-spotlight .member-spotlight__photo {
+  flex-shrink: 0;
+  width: 300px;
+  aspect-ratio: 4 / 5;
+}
+
+.member-spotlight .member-card__info {
+  justify-content: center;
+  gap: 14px;
+  padding: 32px 40px;
+}
+
+.member-spotlight .member-card__tags {
+  margin-top: 2px;
+}
+
+@media (max-width: 760px) {
+  .member-spotlight {
+    flex-direction: column;
+  }
+
+  .member-spotlight .member-spotlight__photo {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+  }
+}

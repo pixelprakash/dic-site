@@ -104,8 +104,17 @@ export default function Hero() {
           <h1 className="hero__title">
             Design Innovation
             <br />
-            Centre, IIT&nbsp;Hyderabad
+            Centre
           </h1>
+          <p className="hero__affiliation">
+            <a href="https://design.iith.ac.in" target="_blank" rel="noopener noreferrer">
+              Design Department
+            </a>
+            ,{' '}
+            <a href="https://www.iith.ac.in" target="_blank" rel="noopener noreferrer">
+              IIT Hyderabad
+            </a>
+          </p>
           <p className="hero__subtitle">
             Driving innovation through design and technology — across cultural heritage,
             autonomous mobility, immersive education, and sustainable product design.

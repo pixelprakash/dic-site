@@ -282,19 +282,19 @@ export const NEWS = [
 ];
 
 export const COLLABORATORS = [
-  "MeitY",
-  "SHRI",
-  "Suzuki",
-  "TalentSprint",
-  "Wacom India",
-  "Govt. of Rajasthan",
-  "WWF",
-  "ASI Hyderabad",
-  "DST",
-  "DSIR",
-  "Ministry of Culture",
-  "ICMR",
-].map((name, i) => ({ id: `c${i + 1}`, name }));
+  { name: "MeitY", logo: "/images/collablogos/1.meity.webp" },
+  { name: "SHRI", logo: null },
+  { name: "Suzuki", logo: "/images/collablogos/3.suzuki.webp" },
+  { name: "TalentSprint", logo: "/images/collablogos/4.talentsprint.webp" },
+  { name: "Wacom India", logo: "/images/collablogos/5.wacom.webp" },
+  { name: "Govt. of Rajasthan", logo: "/images/collablogos/6.govtofrajastan.webp" },
+  { name: "WWF", logo: "/images/collablogos/7.wwf.webp" },
+  { name: "ASI Hyderabad", logo: "/images/collablogos/8.asihyd.webp" },
+  { name: "DST", logo: "/images/collablogos/9.dst.webp" },
+  { name: "DSIR", logo: "/images/collablogos/10.dsir.webp" },
+  { name: "Ministry of Culture", logo: "/images/collablogos/11.ministryofculture.webp" },
+  { name: "ICMR", logo: "/images/collablogos/12.icmr.webp" },
+].map((c, i) => ({ id: `c${i + 1}`, ...c }));
 
 export const REQUEST_TYPES = [
   "General enquiry",

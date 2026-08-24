@@ -22,35 +22,34 @@
 
 .collaborators__tile {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 6px;
   aspect-ratio: 5 / 2;
   border-radius: var(--border-radius-sm);
-  border: 1.5px dashed rgba(255, 255, 255, 0.4);
-  color: rgba(255, 255, 255, 0.8);
-  background: rgba(255, 255, 255, 0.06);
-  transition: background 0.3s var(--ease-smooth), border-color 0.3s var(--ease-smooth), transform 0.3s var(--ease-out);
+  background: var(--color-white);
+  padding: 14px 16px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-smooth);
 }
 
 .collaborators__tile:hover {
-  background: rgba(255, 255, 255, 0.14);
-  border-color: rgba(255, 255, 255, 0.7);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.18);
 }
 
-.collaborators__tile svg {
-  width: 16px;
-  height: 16px;
+.collaborators__tile img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
 .collaborators__tile span {
-  font-size: var(--text-xs);
-  font-weight: 600;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
   letter-spacing: 0.01em;
   text-align: center;
-  padding: 0 8px;
+  color: var(--color-charcoal);
 }
 
 @media (max-width: 768px) {

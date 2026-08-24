@@ -2,7 +2,10 @@ import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { NAV_LINKS, CONTACT_LINK } from '../data/siteData';
 import SearchBar from './SearchBar';
-import ScrollProgress from './ScrollProgress';
+// Page scroll-progress bar — parked for now, undecided whether to keep it.
+// Not deleted: uncomment this import and the <ScrollProgress /> below to
+// bring it back.
+// import ScrollProgress from './ScrollProgress';
 import '../styles/Navbar.css';
 
 export default function Navbar() {
@@ -56,7 +59,7 @@ export default function Navbar() {
 
   return (
     <>
-    <ScrollProgress />
+    {/* <ScrollProgress /> */}
     <nav className={`navbar ${scrolled ? 'scrolled' : ''} ${openMenu ? 'mega-open' : ''}`}>
       <Link to="/" className="navbar__logo">
         <img src="/images/diclogo.webp" alt="DIC — Design Innovation Centre, IIT Hyderabad" />

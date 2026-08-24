@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { MEMBER_CATEGORIES, MEMBERS } from '../data/peopleData';
 import MemberCard from '../components/MemberCard';
+import MemberSpotlight from '../components/MemberSpotlight';
 import '../styles/People.css';
 
 export default function People() {
@@ -136,7 +137,9 @@ export default function People() {
               style={{ scrollMarginTop: offset }}
             >
               <h2 className="people-section__title">{c.label}</h2>
-              {members.length > 0 ? (
+              {members.length === 1 ? (
+                <MemberSpotlight member={members[0]} />
+              ) : members.length > 0 ? (
                 <div className={`people-grid reveal-stagger ${revealed ? 'visible' : ''}`}>
                   {members.map((m) => (
                     <MemberCard key={m.id} member={m} />
