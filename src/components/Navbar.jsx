@@ -23,7 +23,13 @@ export default function Navbar() {
     setMenuOpen(false);
     setOpenMenu(null);
     setMobileExpanded(null);
-    window.scrollTo(0, 0);
+    // A hash in the destination (search's FAQ jump, People's category
+    // anchors, a profile page's breadcrumb) means something else on the
+    // page is about to scroll to a specific spot — resetting to the top
+    // here would immediately fight that.
+    if (!location.hash) {
+      window.scrollTo(0, 0);
+    }
   }, [location]);
 
   useEffect(() => {
@@ -81,16 +87,10 @@ export default function Navbar() {
       <SearchBar />
 
       <Link to={CONTACT_LINK.path} className="navbar__contact">
-        <span className="navbar__contact-text navbar__contact-text--default">
-          {CONTACT_LINK.label}
-        </span>
-        <span className="navbar__contact-text navbar__contact-text--hover">
-          {CONTACT_LINK.label}
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M5 12h14M12 5l7 7-7 7" />
-          </svg>
-        </span>
-        <span className="navbar__contact-dot" />
+        {CONTACT_LINK.label}
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
       </Link>
 
       <button

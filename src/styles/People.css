@@ -1,0 +1,129 @@
+/* ─── People — Members of DIC ─── */
+
+.people-header {
+  position: sticky;
+  z-index: 40;
+  background: var(--color-cream);
+  padding: 24px var(--margin-x);
+  border-bottom: 1px solid var(--color-sand);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+}
+
+.people-header__title {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  color: var(--color-ink);
+  line-height: 1.15;
+  flex-shrink: 0;
+}
+
+.people-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.people-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 16px;
+  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--color-warm-gray);
+  background: var(--color-white);
+  color: var(--color-charcoal);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background 0.2s var(--ease-smooth), color 0.2s var(--ease-smooth), border-color 0.2s var(--ease-smooth);
+}
+
+.people-tag:hover {
+  border-color: var(--color-dic-red);
+  color: var(--color-dic-red);
+}
+
+.people-tag:focus-visible {
+  outline: 2px solid var(--color-dic-red);
+  outline-offset: 2px;
+}
+
+.people-tag[aria-current='true'] {
+  background: var(--color-dic-red);
+  border-color: var(--color-dic-red);
+  color: var(--color-white);
+}
+
+.people-body {
+  padding: 0 var(--margin-x) 120px;
+}
+
+.people-section {
+  padding: 36px 0;
+}
+
+.people-section:first-child {
+  padding-top: 36px;
+}
+
+.people-section:last-child {
+  padding-bottom: 0;
+}
+
+.people-section + .people-section {
+  border-top: 1px solid rgba(26, 23, 20, 0.1);
+}
+
+/* Snappy, slightly overshooting entrance for each category as it scrolls
+   into view — a back-out easing instead of the site's usual smooth
+   ease-out, scoped here so it doesn't change .reveal's feel elsewhere. */
+.people-section.reveal {
+  transition: opacity 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.people-grid.reveal-stagger > * {
+  transition: opacity 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.people-section__title {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.375rem, 2.4vw, 1.75rem);
+  color: var(--color-ink);
+  margin-bottom: 20px;
+}
+
+.people-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.people-empty {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-stone);
+  border: 1px dashed var(--color-warm-gray);
+  border-radius: var(--border-radius-sm);
+  padding: 28px;
+  max-width: 420px;
+}
+
+@media (max-width: 768px) {
+  .people-header {
+    padding: 20px var(--margin-x);
+  }
+
+  .people-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+  }
+}

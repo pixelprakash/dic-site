@@ -113,6 +113,9 @@ ul, ol {
 .reveal-stagger.visible > *:nth-child(6) { transition-delay: 0.4s; opacity: 1; transform: translateY(0); }
 .reveal-stagger.visible > *:nth-child(7) { transition-delay: 0.48s; opacity: 1; transform: translateY(0); }
 .reveal-stagger.visible > *:nth-child(8) { transition-delay: 0.56s; opacity: 1; transform: translateY(0); }
+/* Longer grids (e.g. a full cohort of students) fall back to the last
+   stagger step rather than staying invisible past the 8th item. */
+.reveal-stagger.visible > *:nth-child(n+9) { transition-delay: 0.56s; opacity: 1; transform: translateY(0); }
 
 /* ─── Accessibility ─── */
 .sr-only {

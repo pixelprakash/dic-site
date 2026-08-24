@@ -209,34 +209,7 @@ export const NAV_LINKS = [
   },
   {
     label: "People",
-    path: "/about",
-    menu: {
-      columns: [
-        {
-          heading: "Lorem Ipsum",
-          items: [
-            { label: "Lorem ipsum dolor", desc: "Consectetur adipiscing elit sed do eiusmod.", path: "/about" },
-            { label: "Sit amet consectetur", desc: "Tempor incididunt ut labore et dolore.", path: "/about" },
-            { label: "Adipiscing elit sed do", desc: "Magna aliqua ut enim ad minim veniam.", path: "/about" },
-          ],
-        },
-        {
-          heading: "Dolor Sit Amet",
-          items: [
-            { label: "Ut enim ad minim", desc: "Veniam quis nostrud exercitation ullamco.", path: "/about" },
-            { label: "Quis nostrud exercitation", desc: "Laboris nisi ut aliquip ex ea commodo.", path: "/about" },
-            { label: "Duis aute irure dolor", desc: "Reprehenderit in voluptate velit esse.", path: "/about" },
-          ],
-        },
-      ],
-      featured: {
-        image: "/images/image7.jpg",
-        label: "Lorem Ipsum Dolor",
-        desc: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        path: "/about",
-        cta: "Learn more",
-      },
-    },
+    path: "/people",
   },
   {
     label: "Publications",
@@ -271,7 +244,7 @@ export const NAV_LINKS = [
   },
 ];
 
-export const CONTACT_LINK = { label: "Join the Lab", path: "/contact" };
+export const CONTACT_LINK = { label: "Contact", path: "/contact" };
 
 export const NEWS = [
   {

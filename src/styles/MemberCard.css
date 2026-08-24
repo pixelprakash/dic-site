@@ -1,0 +1,177 @@
+.member-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 0;
+  overflow: hidden;
+  background: var(--color-navy);
+  border: 1px solid rgba(26, 23, 20, 0.12);
+  transition: transform 0.25s var(--ease-out);
+}
+
+.member-card:hover {
+  transform: translateY(-4px);
+}
+
+/* ─── Photo ─── */
+.member-card__photo {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  /* White, not the page's sand tone — several member photos (e.g. Deepak's)
+     are cut out with a transparent background, so this shows through as
+     the actual backdrop rather than a container filler. */
+  background: var(--color-white);
+}
+
+.member-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.member-card__fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(150deg, var(--color-navy), var(--color-teal-dark));
+  color: rgba(255, 255, 255, 0.85);
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 2.6rem;
+}
+
+.member-card__fallback--placeholder {
+  background: var(--color-sand);
+  color: var(--color-warm-gray);
+}
+
+.member-card__joined {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  z-index: 2;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(16, 27, 66, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--color-white);
+  font-family: var(--font-body);
+  font-size: var(--text-2xs);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* Floating LinkedIn / Google Scholar buttons on the photo — a dark glass
+   pill so the icon stays legible over any photo, light or dark (several
+   cutouts run on white), rather than a light chip that could wash out. */
+.member-card__socials {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.member-card__social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(16, 27, 66, 0.55);
+  backdrop-filter: blur(10px) saturate(160%);
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  color: var(--color-white);
+  transition: background 0.22s var(--ease-smooth), border-color 0.22s var(--ease-smooth), transform 0.2s var(--ease-out);
+}
+
+.member-card__social:hover {
+  background: var(--color-dic-red);
+  border-color: var(--color-dic-red);
+  transform: translateY(-2px) scale(1.06);
+}
+
+.member-card__social:focus-visible {
+  outline: 2px solid var(--color-white);
+  outline-offset: 2px;
+}
+
+/* ─── Info panel ─── */
+.member-card__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px 20px 24px;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.member-card__name {
+  font-family: var(--font-body);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.4rem;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: var(--color-white);
+}
+
+.member-card__role {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  color: var(--color-white);
+}
+
+.member-card__bio {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: none;
+  margin: 0;
+}
+
+/* Glassmorphic interest chips */
+.member-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.member-card__tag {
+  font-family: var(--font-body);
+  font-size: var(--text-2xs);
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px) saturate(140%);
+  -webkit-backdrop-filter: blur(8px) saturate(140%);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.member-card__link {
+  align-self: flex-start;
+  margin-top: 6px;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-white);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s var(--ease-smooth);
+}
+
+.member-card__link:hover {
+  color: var(--color-terracotta-light);
+}

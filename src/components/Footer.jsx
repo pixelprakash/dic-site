@@ -49,7 +49,7 @@ const CONTACT_GROUPS = [
 
 const PAGES = [
   { label: 'Home', path: '/' },
-  { label: 'About', path: '/about' },
+  { label: 'People', path: '/people' },
   { label: 'Research', path: '/research' },
   { label: 'Projects', path: '/projects' },
   { label: 'Education', path: '/education' },

@@ -5,7 +5,7 @@
   right: 0;
   z-index: 100;
   padding: 0 var(--margin-x);
-  height: 84px;
+  height: 68px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -31,7 +31,7 @@
 }
 
 .navbar__logo img {
-  height: 52px;
+  height: 42px;
   width: auto;
   display: block;
 }
@@ -54,7 +54,7 @@
   align-items: center;
   gap: 6px;
   font-family: var(--font-body);
-  font-size: var(--text-sm);
+  font-size: var(--text-md);
   font-weight: 600;
   letter-spacing: -0.05em;
   color: var(--color-ink);
@@ -97,7 +97,7 @@
 /* Mega menu */
 .navbar__mega-backdrop {
   position: fixed;
-  top: 84px;
+  top: 68px;
   left: 0;
   right: 0;
   bottom: 0;
@@ -271,77 +271,38 @@
   }
 }
 
-/* Contact — interactive hover pill button */
+/* Contact — rectangular CTA button */
 .navbar__contact {
-  position: relative;
   flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 172px;
+  gap: 8px;
   height: 44px;
-  padding: 2px;
+  padding: 0 22px;
   border: 1px solid rgba(26, 23, 20, 0.18);
-  border-radius: 999px;
-  overflow: hidden;
+  border-radius: 4px;
   font-family: var(--font-body);
   font-size: var(--text-sm);
   font-weight: 600;
   letter-spacing: -0.05em;
   color: var(--color-ink);
   white-space: nowrap;
+  transition: background 0.3s var(--ease-smooth), color 0.3s var(--ease-smooth), border-color 0.3s var(--ease-smooth);
 }
 
-.navbar__contact-text {
-  position: relative;
-  z-index: 2;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: transform 0.3s var(--ease-out), opacity 0.3s var(--ease-out);
+.navbar__contact svg {
+  transition: transform 0.3s var(--ease-out);
 }
 
-.navbar__contact-text--default {
-  transform: translateX(2px);
-}
-
-.navbar__contact-text--hover {
-  position: absolute;
-  color: var(--color-white);
-  transform: translateX(48px);
-  opacity: 0;
-}
-
-.navbar__contact:hover .navbar__contact-text--default {
-  transform: translateX(48px);
-  opacity: 0;
-}
-
-.navbar__contact:hover .navbar__contact-text--hover {
-  transform: translateX(-4px);
-  opacity: 1;
-}
-
-.navbar__contact-dot {
-  position: absolute;
-  left: 20%;
-  top: 40%;
-  z-index: 1;
-  width: 8px;
-  height: 8px;
-  border-radius: 8px;
+.navbar__contact:hover {
   background: var(--color-dic-red);
-  transform: scale(1);
-  transition: all 0.35s var(--ease-out);
+  border-color: var(--color-dic-red);
+  color: var(--color-white);
 }
 
-.navbar__contact:hover .navbar__contact-dot {
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  transform: scale(1.8);
-  border-radius: 999px;
+.navbar__contact:hover svg {
+  transform: translateX(3px);
 }
 
 /* Mobile hamburger */
@@ -495,11 +456,11 @@
 
 @media (max-width: 768px) {
   .navbar {
-    height: 72px;
+    height: 60px;
   }
 
   .navbar__logo img {
-    height: 40px;
+    height: 34px;
   }
 
   .navbar__links {

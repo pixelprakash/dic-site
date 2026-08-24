@@ -47,6 +47,7 @@
   --color-terracotta-light: #D4906B;
   --color-sage: #7A9178;
   --color-teal-dark: #1B4B5A;
+  --color-navy: #101B42;
   --color-white: #FFFFFF;
   --color-overlay: rgba(26, 23, 20, 0.65);
 
@@ -56,7 +57,7 @@
   --color-dic-blue: #2F3192;
 
   /* Layout */
-  --margin-x: 120px;
+  --margin-x: 60px;
   --section-gap: 140px;
   --border-radius: 16px;
   --border-radius-sm: 8px;

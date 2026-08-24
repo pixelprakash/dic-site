@@ -1,0 +1,203 @@
+/* ─── Members of DIC — category tags double as the in-page nav.
+   MEMBERS[category.id] holds the member cards for that section. Entries
+   without a `photo` fall back to a neutral placeholder in MemberCard;
+   `placeholder: true` marks a stand-in record (no confirmed person yet)
+   so the card avoids implying a fabricated identity — and is excluded
+   from getMemberBySlug, so a stand-in never gets a shareable profile URL.
+   `id` doubles as the /people/:slug route for real members. ─── */
+export const MEMBER_CATEGORIES = [
+  { id: 'principal-investigator', label: 'Principal Investigator' },
+  { id: 'design-manager', label: 'Design Manager' },
+  { id: 'phd-students', label: 'Phd Students' },
+  { id: 'project-staff', label: 'Project Staff' },
+  { id: 'interns', label: 'Interns' },
+  { id: 'past-members', label: 'Past Members' },
+];
+
+const standIn = (role, i) => ({
+  id: `${role}-${i}`,
+  name: 'Member name',
+  role,
+  joinedYear: '',
+  bio: '',
+  fullBio: '',
+  tags: [],
+  interests: [],
+  photo: '',
+  email: '',
+  website: '',
+  linkedin: '',
+  scholar: '',
+  placeholder: true,
+});
+
+export const MEMBERS = {
+  'principal-investigator': [
+    {
+      id: 'deepak-john-mathew',
+      name: 'Prof. Deepak John Mathew',
+      role: 'Principal Investigator',
+      bio: 'Leads the Design Innovation Centre and heads the Department of Design at IIT Hyderabad.',
+      fullBio: 'Dr. Mathew leads the Design Innovation Centre as its Principal Investigator and heads the Department of Design at IIT Hyderabad. His work spans digital heritage preservation, immersive technologies (AR/VR), autonomous and urban air mobility, photography and design education — bridging design and technology to address real-world challenges. Formerly Head of Photography Design at NID, he was instrumental in building design education at IIT Hyderabad.',
+      tags: ['Digital Heritage', 'AR/VR', 'Air Mobility', 'Design Education'],
+      photo: '/images/people/deepak.webp',
+      linkedin: 'https://www.linkedin.com/in/deepak-john-mathew-b079ab1a/',
+      scholar: 'https://scholar.google.com/citations?user=UBODlvYAAAAJ&hl=en',
+    },
+  ],
+  'design-manager': [
+    {
+      id: 'vijay-kumawat',
+      name: 'Vijay Kumawat',
+      role: 'Design Manager',
+      bio: 'Design Manager at the Design Innovation Centre, IIT Hyderabad, supported by the Ministry of Education.',
+      fullBio: [
+        "Vijay Kumawat is a design graduate from NIFT Himachal Pradesh. He has worked with organisations and institutes including NID Gandhinagar, NID Bangalore, D'source – Ekalpa (MHRD, Government of India), GMR Group, Elite Techno Group (Formula One Racing Marshals), the Wacom Design Challenge, Vivaran/Tabledege, the Archaeological Survey of India, Action for India, GSEB, CII, Hyderabad Runners, Airtel, AICTE, and the National Stock Exchange report design.",
+        'He currently works with the Design Innovation Centre, supported by the Ministry of Education, at IIT Hyderabad (Hub). In the years ahead, he is looking to explore deep learning, VR and metaverse technologies.',
+      ],
+      tags: ['Graphic Design', 'Identity Design', 'Design Strategy', 'Book Design'],
+      interests: [
+        'Graphic & Visual Design',
+        'History of Graphic Design',
+        'Design Interventions',
+        'Design Prototyping',
+        'Digital Conservation & Preservation',
+        'Signage Systems',
+        'Identity Design',
+        'Design Strategy',
+        'Printing & Bindings',
+        'Book Design',
+        'Organising Design Events',
+      ],
+      photo: '/images/people/vijay.webp',
+      email: 'vj.kumawat@des.iith.ac.in',
+      linkedin: '',
+      scholar: '',
+    },
+  ],
+  'phd-students': [
+    {
+      id: 'kashish-nair',
+      name: 'Kashish Nair',
+      role: 'PhD Student',
+      joinedYear: '2025',
+      bio: 'Supervised by Prof. Deepak John Mathew.',
+      fullBio: 'Kashish Nair joined the Design Innovation Centre as a PhD scholar in 2025, supervised by Prof. Deepak John Mathew. Their research explores cultural heritage and craft preservation.',
+      tags: ['Cultural Heritage', 'Craft Preservation'],
+      interests: ['Cultural Heritage', 'Craft Preservation'],
+      photo: '/images/people/kashish.webp',
+      email: 'md25resch11004@iith.ac.in',
+      website: '',
+      linkedin: 'https://www.linkedin.com/in/kashish-nair',
+      scholar: '',
+    },
+    {
+      id: 'harikrishna-manoj',
+      name: 'Harikrishna Manoj (Elias)',
+      role: 'PhD Student',
+      joinedYear: '2024',
+      bio: 'Supervised by Prof. Deepak John Mathew.',
+      fullBio: 'Harikrishna Manoj joined the Design Innovation Centre as a PhD scholar in 2024, supervised by Prof. Deepak John Mathew.',
+      tags: [],
+      interests: [],
+      photo: '/images/people/elias.webp',
+      email: 'md21b24p100001@iith.ac.in',
+      website: '',
+      linkedin: 'https://www.linkedin.com/in/eliasmaketh/',
+      scholar: '',
+    },
+    {
+      id: 'malthurkar-ganesh-kumar',
+      name: 'Malthurkar Ganesh Kumar',
+      role: 'PhD Student',
+      joinedYear: '2024',
+      bio: 'Supervised by Prof. Deepak John Mathew.',
+      fullBio: 'Malthurkar Ganesh Kumar joined the Design Innovation Centre as a PhD scholar in 2024, supervised by Prof. Deepak John Mathew. Their research explores art design education, and STEM and STEAM education in Indian schools.',
+      tags: ['Art Design Education', 'STEM Education', 'STEAM Education'],
+      interests: ['Art Design Education', 'STEM Education in Indian Schools', 'STEAM Education in Indian Schools'],
+      photo: '',
+      email: 'md24resch01003@iith.ac.in',
+      website: '',
+      linkedin: '',
+      scholar: '',
+    },
+    {
+      id: 'salil-s',
+      name: 'Salil S',
+      role: 'PhD Student',
+      joinedYear: '2023',
+      bio: 'Supervised by Prof. Deepak John Mathew.',
+      fullBio: 'Salil S joined the Design Innovation Centre as a PhD scholar in 2023, supervised by Prof. Deepak John Mathew. Their research explores design futures.',
+      tags: ['Design Futures'],
+      interests: ['Design Futures'],
+      photo: '',
+      email: '',
+      website: '',
+      linkedin: '',
+      scholar: '',
+    },
+    {
+      id: 'usha-kiran-mangalgiri',
+      name: 'Usha Kiran Mangalgiri',
+      role: 'PhD Student',
+      joinedYear: '2022',
+      bio: 'Supervised by Prof. Deepak John Mathew.',
+      fullBio: 'Usha Kiran Mangalgiri joined the Design Innovation Centre as a PhD scholar in 2022, supervised by Prof. Deepak John Mathew. Their research explores the impact of VR on STEM education in Indian middle schools.',
+      tags: ['VR in Education', 'STEM Education'],
+      interests: ['Impact of VR on STEM Education in Indian Middle Schools'],
+      photo: '',
+      email: 'md22resch01002@iith.ac.in',
+      website: '',
+      linkedin: 'https://www.linkedin.com/in/usha-kiran-mangalgiri-912575267/',
+      scholar: '',
+    },
+  ],
+  'project-staff': [],
+  interns: [],
+  'past-members': [
+    {
+      id: 'krishna-jayeshbhai-trivedi',
+      name: 'Krishna Jayeshbhai Trivedi',
+      role: 'PhD Alumnus',
+      joinedYear: '2020',
+      bio: 'Supervised by Prof. Deepak John Mathew.',
+      fullBio: 'Krishna Jayeshbhai Trivedi joined the Design Innovation Centre as a PhD scholar in 2020, supervised by Prof. Deepak John Mathew. Their research explored indigenous cultural heritage and material culture.',
+      tags: ['Indigenous Cultural Heritage', 'Material Culture'],
+      interests: ['Indigenous Cultural Heritage', 'Material Culture'],
+      photo: '',
+      email: 'md20resch11003@iith.ac.in',
+      website: '',
+      linkedin: '',
+      scholar: '',
+    },
+    {
+      id: 'ketan-madan-chaturmutha',
+      name: 'Ketan Madan Chaturmutha',
+      role: 'PhD Alumnus',
+      joinedYear: '2021',
+      bio: 'Supervised by Prof. Deepak John Mathew.',
+      fullBio: 'Ketan Madan Chaturmutha joined the Design Innovation Centre as a PhD scholar in 2021, supervised by Prof. Deepak John Mathew. Their research explored transportation, urban air mobility, product semantics and perception of safety.',
+      tags: ['Transportation', 'Urban Air Mobility', 'Product Semantics', 'Perception of Safety'],
+      interests: ['Transportation', 'Urban Air Mobility', 'Product Semantics', 'Perception of Safety'],
+      photo: '',
+      email: 'md21resch11005@iith.ac.in',
+      website: '',
+      linkedin: 'https://www.linkedin.com/in/ketanchaturmutha',
+      scholar: '',
+    },
+  ],
+};
+
+export const ALL_MEMBERS = Object.values(MEMBERS).flat();
+
+export function getMemberBySlug(slug) {
+  return ALL_MEMBERS.find((m) => m.id === slug && !m.placeholder);
+}
+
+// The category a member's card lives under — used for the profile page's
+// breadcrumb, so it can link back to that section on /people rather than
+// just the top of the page.
+export function getMemberCategory(slug) {
+  const categoryId = Object.keys(MEMBERS).find((id) => MEMBERS[id].some((m) => m.id === slug));
+  return MEMBER_CATEGORIES.find((c) => c.id === categoryId) || null;
+}
