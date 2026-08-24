@@ -21,18 +21,41 @@
 }
 
 .site-switcher__capsule {
-  display: inline-flex;
+  position: relative;
+  display: flex;
   align-items: center;
-  gap: 2px;
   padding: 3px;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 999px;
 }
 
+/* A single sliding pill under whichever option is active reads as a real
+   toggle — "you are here, moving to there" — rather than each option
+   just swapping its own background independently. */
+.site-switcher__indicator {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  width: calc(50% - 3px);
+  border-radius: 999px;
+  background: var(--color-dic-red);
+  transform: translateX(0%);
+  transition: transform 0.32s var(--ease-out);
+}
+
+.site-switcher__indicator.is-right {
+  transform: translateX(100%);
+}
+
 .site-switcher__option {
+  position: relative;
+  z-index: 1;
+  flex: 1;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   padding: 6px 18px;
   border-radius: 999px;
   font-family: var(--font-body);
@@ -40,7 +63,8 @@
   font-weight: 600;
   letter-spacing: 0.01em;
   color: rgba(255, 255, 255, 0.6);
-  transition: background 0.25s var(--ease-smooth), color 0.25s var(--ease-smooth);
+  white-space: nowrap;
+  transition: color 0.25s var(--ease-smooth);
 }
 
 .site-switcher__option:hover {
@@ -48,13 +72,18 @@
 }
 
 .site-switcher__option.is-active {
-  background: var(--color-dic-red);
   color: var(--color-white);
 }
 
 .site-switcher__option:focus-visible {
   outline: 2px solid var(--color-white);
   outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-switcher__indicator {
+    transition: none;
+  }
 }
 
 @media (max-width: 560px) {

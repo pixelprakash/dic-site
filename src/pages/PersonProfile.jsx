@@ -48,10 +48,62 @@ function WebsiteIcon() {
   );
 }
 
+function ShareIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="18" cy="5" r="3" />
+      <circle cx="6" cy="12" r="3" />
+      <circle cx="18" cy="19" r="3" />
+      <path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9" />
+    </svg>
+  );
+}
+
+function CheckIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M20 6 9 17l-5-5" />
+    </svg>
+  );
+}
+
 export default function PersonProfile() {
   const { slug } = useParams();
   const member = getMemberBySlug(slug);
   const [imgError, setImgError] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const handleShare = async () => {
+    const url = window.location.href;
+    const shareData = member
+      ? {
+          title: `${member.name} — DIC · IITH`,
+          text: `${member.name}, ${member.role} at the Design Innovation Centre, IIT Hyderabad`,
+          url,
+        }
+      : { url };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch {
+        // User cancelled the share sheet — nothing to do.
+      }
+      return;
+    }
+
+    if (navigator.clipboard) {
+      try {
+        await navigator.clipboard.writeText(url);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } catch {
+        // Clipboard permission denied or unavailable — nothing more we
+        // can do without a server round-trip, so just leave the button
+        // as-is rather than crash.
+      }
+    }
+  };
 
   if (!member) {
     return (
@@ -132,6 +184,11 @@ export default function PersonProfile() {
               )}
             </div>
           )}
+
+          <button type="button" className="profile__share" onClick={handleShare}>
+            {copied ? <CheckIcon /> : <ShareIcon />}
+            {copied ? 'Link copied!' : 'Share profile'}
+          </button>
         </div>
 
         <div className="profile__photo">

@@ -95,12 +95,20 @@
 }
 
 /* Mega menu */
+/* Anchored to .navbar itself (like .navbar__mega below) rather than a
+   fixed pixel offset from the viewport top — a hardcoded offset only
+   matched the navbar's own height, so it overlapped the navbar's bottom
+   edge whenever the (non-sticky) SiteSwitcher bar above it was still in
+   view, pushing the navbar further down than that offset accounted for.
+   That overlap let the backdrop's pointer-events fight the navbar's own
+   hover handlers right at the boundary, causing the mega menu to flicker
+   open/closed. */
 .navbar__mega-backdrop {
-  position: fixed;
-  top: 68px;
+  position: absolute;
+  top: 100%;
   left: 0;
   right: 0;
-  bottom: 0;
+  height: 100vh;
   z-index: 95;
   background: rgba(40, 12, 8, 0.4);
   opacity: 0;

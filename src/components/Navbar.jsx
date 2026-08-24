@@ -31,7 +31,12 @@ export default function Navbar() {
     // page is about to scroll to a specific spot — resetting to the top
     // here would immediately fight that.
     if (!location.hash) {
-      window.scrollTo(0, 0);
+      // Explicit 'instant' — the site sets html{scroll-behavior:smooth}
+      // globally, which also hijacks plain scrollTo(0,0) calls. Without
+      // this override, switching pages while scrolled down animates a
+      // smooth scroll back to the top, visibly flashing through whatever
+      // content sits between (worst on Home's colorful story bands).
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     }
   }, [location]);
 

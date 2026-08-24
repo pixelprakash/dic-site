@@ -10,6 +10,10 @@ export default function SiteSwitcher() {
       <div className="site-switcher__inner">
         <span className="site-switcher__label">You&rsquo;re viewing</span>
         <div className="site-switcher__capsule" role="group" aria-label="Switch between DIC sites">
+          <span
+            className={`site-switcher__indicator ${isNodal ? 'is-left' : 'is-right'}`}
+            aria-hidden="true"
+          />
           <Link
             to="/nodal"
             className={`site-switcher__option ${isNodal ? 'is-active' : ''}`}
