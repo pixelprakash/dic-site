@@ -73,7 +73,7 @@ export default function PersonProfile() {
 
   const { name, role, joinedYear, fullBio, bio, tags = [], interests = [], photo, email, website, linkedin, scholar } = member;
   const showPhoto = Boolean(photo) && !imgError;
-  const bioParagraphs = fullBio ? [].concat(fullBio) : [bio];
+  const bioParagraphs = (fullBio ? [].concat(fullBio) : [bio]).filter(Boolean);
   const chips = interests.length > 0 ? interests : tags;
   const category = getMemberCategory(slug);
 
