@@ -19,14 +19,21 @@ export default function SiteSwitcher() {
             className={`site-switcher__option ${isNodal ? 'is-active' : ''}`}
             aria-current={isNodal ? 'page' : undefined}
           >
-            DIC Nodal
+            <span className="site-switcher__option-top">
+              <span className="site-switcher__option-title">DIC Nodal</span>
+              <span className="site-switcher__badge">Coming soon</span>
+            </span>
+            <span className="site-switcher__option-sub">National design network</span>
           </Link>
           <Link
             to="/"
             className={`site-switcher__option ${!isNodal ? 'is-active' : ''}`}
             aria-current={!isNodal ? 'page' : undefined}
           >
-            DIC · IITH
+            <span className="site-switcher__option-top">
+              <span className="site-switcher__option-title">DIC · IITH</span>
+            </span>
+            <span className="site-switcher__option-sub">Design Dept, IIT Hyderabad</span>
           </Link>
         </div>
       </div>

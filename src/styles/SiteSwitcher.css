@@ -3,21 +3,30 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+/* Grid rather than flex: the label sits in its own column so it doesn't
+   push the capsule off-centre. With two equal 1fr side columns and the
+   capsule in the middle "auto" one, the capsule lands on the page's true
+   centre no matter how wide the label is. */
 .site-switcher__inner {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: center;
   gap: 12px;
   padding: 10px var(--margin-x);
 }
 
 .site-switcher__label {
   font-family: var(--font-body);
-  font-size: var(--text-xs);
+  font-size: var(--text-md);
   font-weight: 500;
   letter-spacing: 0.04em;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.7);
   white-space: nowrap;
+  justify-self: start;
+}
+
+.site-switcher__capsule {
+  justify-self: center;
 }
 
 .site-switcher__capsule {
@@ -53,18 +62,69 @@
   position: relative;
   z-index: 1;
   flex: 1;
-  display: inline-flex;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 6px 18px;
+  gap: 2px;
+  padding: 8px 20px 9px;
   border-radius: 999px;
   font-family: var(--font-body);
-  font-size: var(--text-xs);
-  font-weight: 600;
-  letter-spacing: 0.01em;
   color: rgba(255, 255, 255, 0.6);
   white-space: nowrap;
+  text-align: center;
   transition: color 0.25s var(--ease-smooth);
+}
+
+/* flex-wrap as a safety valve — at very cramped widths "Coming soon" can
+   drop under the title instead of forcing the pill wider than its 50%
+   share and spilling past its own rounded background. */
+.site-switcher__option-top {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  white-space: normal;
+}
+
+.site-switcher__option-title {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+/* A one-line descriptor under the pill name — "DIC Nodal" / "DIC · IITH"
+   alone don't tell a first-time visitor what they'd be switching into,
+   so this spells it out before they click rather than after. */
+.site-switcher__option-sub {
+  font-size: var(--text-xs);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.4);
+  transition: color 0.25s var(--ease-smooth);
+}
+
+.site-switcher__option.is-active .site-switcher__option-sub {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* Neutral translucent-white treatment so it reads cleanly whether it's
+   sitting on the red active-pill fill or the transparent inactive side. */
+.site-switcher__badge {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.site-switcher__option.is-active .site-switcher__badge {
+  background: rgba(255, 255, 255, 0.24);
+  color: var(--color-white);
 }
 
 .site-switcher__option:hover {
@@ -96,6 +156,16 @@
   }
 
   .site-switcher__option {
-    padding: 6px 14px;
+    padding: 7px 10px;
+  }
+
+  .site-switcher__badge {
+    padding: 1px 6px;
+  }
+
+  /* Keeps the bar compact at phone widths — the badge alone still flags
+     Nodal as unfinished without needing the full descriptor line. */
+  .site-switcher__option-sub {
+    display: none;
   }
 }

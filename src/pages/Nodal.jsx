@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useReveal } from '../hooks/useReveal';
 import { MARQUEE_IMAGES } from '../data/siteData';
 import '../styles/Nodal.css';
@@ -69,7 +70,11 @@ function initials(name) {
   return picked.map((w) => w[0]).join('').toUpperCase().slice(0, 2);
 }
 
-export default function Nodal() {
+// Parked, not deleted: the full national-network page below (NodalFull) is
+// intact and unused while the site shows an "under construction" notice
+// instead. To restore it, change the default export at the bottom of this
+// file back to NodalFull.
+function NodalFull() {
   const [missionRef, missionVis] = useReveal();
   const [networkRef, networkVis] = useReveal();
   const [dirRef, dirVis] = useReveal();
@@ -488,5 +493,24 @@ export default function Nodal() {
         </div>
       </section>
     </>
+  );
+}
+
+export default function Nodal() {
+  return (
+    <div className="page-header" style={{ textAlign: 'center' }}>
+      <div className="page-header__accent" />
+      <p className="section-label" style={{ color: 'var(--color-terracotta-light)', justifyContent: 'center' }}>
+        DIC Nodal
+      </p>
+      <h1 style={{ margin: '0 auto', maxWidth: '18ch' }}>Under construction.</h1>
+      <p style={{ margin: '16px auto 0' }}>
+        We&rsquo;re rebuilding the national network page. Check back soon — meanwhile, explore{' '}
+        <Link to="/" style={{ color: 'var(--color-terracotta-light)', textDecoration: 'underline' }}>
+          DIC · IITH
+        </Link>
+        .
+      </p>
+    </div>
   );
 }
