@@ -23,6 +23,8 @@ const Education = lazy(() => import('./pages/Education'));
 const Contact = lazy(() => import('./pages/Contact'));
 const Nodal = lazy(() => import('./pages/Nodal'));
 const AllIndiaDicMeet26 = lazy(() => import('./pages/AllIndiaDicMeet26'));
+// Demo only — a worked example of the proposed project-detail template.
+const ProjectDemo = lazy(() => import('./pages/ProjectDemo'));
 
 const DEFAULT_TITLE = 'DIC · IITH — Design Innovation Centre, IIT Hyderabad';
 
@@ -91,6 +93,7 @@ export default function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/nodal" element={<Nodal />} />
             <Route path="/all-india-dic-meet-26" element={<AllIndiaDicMeet26 />} />
+            <Route path="/projects/demo" element={<ProjectDemo />} />
           </Routes>
         </Suspense>
       </main>
