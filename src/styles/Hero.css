@@ -20,10 +20,13 @@
 .hero__inner {
   position: relative;
   display: grid;
-  grid-template-columns: 0.88fr 1.22fr;
+  /* The text column now carries a slight edge over the video — the
+     headline and subtitle are the primary message, the video supports
+     it, so it shouldn't out-weigh them in sheer width. */
+  grid-template-columns: 1.05fr 0.95fr;
   align-items: center;
   gap: clamp(28px, 4vw, 56px);
-  padding: clamp(32px, 5.5vh, 64px) var(--margin-x) clamp(28px, 4vh, 48px);
+  padding: clamp(32px, 5.5vh, 64px) var(--margin-x) clamp(40px, 6vh, 64px);
   min-height: calc(100vh - 160px);
 }
 
@@ -32,9 +35,10 @@
 }
 
 .hero__title {
-  font-size: clamp(2.4rem, 4.8vw, 4rem);
+  font-size: clamp(1.9rem, 4.2vw, 4rem);
   letter-spacing: -0.01em;
   margin-bottom: 14px;
+  white-space: nowrap;
 }
 
 .hero__affiliation {
@@ -136,6 +140,21 @@
   cursor: pointer;
 }
 
+/* The shield is invisible, so it stops clicks from reaching YouTube's own
+   title-card overlay but not the overlay's own text — which restates the
+   page's own headline in a second, competing style right next to it. This
+   scrim mutes that without blocking the shield underneath. */
+.hero__video-scrim {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 55%;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(6, 5, 4, 0.92) 0%, rgba(6, 5, 4, 0.6) 45%, transparent 100%);
+}
+
 /* Custom video controls */
 .hero__controls {
   position: absolute;
@@ -205,9 +224,9 @@
     padding-top: clamp(48px, 8vh, 72px);
   }
 
-  .hero__video {
-    order: -1;
-  }
+  /* Video used to lead here (order: -1), putting YouTube's own title card
+     — restating the page's own headline in a different style — above the
+     real H1. Text now leads on every breakpoint, video follows as support. */
 }
 
 @media (max-width: 768px) {

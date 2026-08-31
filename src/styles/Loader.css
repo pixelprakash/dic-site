@@ -1,0 +1,59 @@
+/* Page-transition loader — the DIC wordmark in its three brand colors,
+   with each letter bouncing in sequence (D → I → C) rather than a generic
+   spinner, so even the loading state carries the brand instead of being
+   throwaway UI. */
+.dic-loader {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dic-loader__mark {
+  display: flex;
+  gap: 2px;
+}
+
+.dic-loader__letter {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 3rem;
+  line-height: 1;
+  animation: dicLoaderBounce 1.2s var(--ease-smooth) infinite;
+  animation-delay: var(--dic-loader-delay, 0s);
+}
+
+.dic-loader__letter:nth-child(1) {
+  color: var(--color-dic-red);
+}
+
+.dic-loader__letter:nth-child(2) {
+  color: var(--color-dic-orange);
+}
+
+.dic-loader__letter:nth-child(3) {
+  color: var(--color-dic-blue);
+}
+
+@keyframes dicLoaderBounce {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.45;
+  }
+  30% {
+    transform: translateY(-16px);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dic-loader__letter {
+    animation: dicLoaderPulse 1.6s var(--ease-smooth) infinite;
+  }
+
+  @keyframes dicLoaderPulse {
+    0%, 100% { opacity: 0.45; }
+    50% { opacity: 1; }
+  }
+}

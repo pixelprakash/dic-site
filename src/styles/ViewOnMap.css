@@ -1,0 +1,149 @@
+/* Full width of its container, left-aligning its own pill/card content
+   to match the left-aligned text it sits alongside. */
+.view-on-map {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+/* Matches the footer's own social-icon pill treatment (translucent white
+   border, fills brand red on hover) so this reads as native to the
+   footer rather than a pasted-in widget. */
+.view-on-map__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 46px;
+  padding: 0 20px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.85);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  transition: background 0.3s var(--ease-smooth), border-color 0.3s var(--ease-smooth), color 0.3s var(--ease-smooth), transform 0.2s var(--ease-out);
+}
+
+.view-on-map__pill:hover {
+  background: var(--color-dic-red);
+  border-color: var(--color-dic-red);
+  color: var(--color-white);
+  transform: translateY(-2px);
+}
+
+.view-on-map__card {
+  position: relative;
+  /* Caps at 340px but never exceeds its container — so it always exactly
+     fills whatever fixed-width slot it's placed in (e.g. the footer's
+     map column) without needing the same pixel value duplicated there. */
+  width: min(340px, 100%);
+  aspect-ratio: 1 / 1;
+  border-radius: 24px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  animation: viewOnMapExpand 0.4s var(--ease-out) both;
+}
+
+@keyframes viewOnMapExpand {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.view-on-map__iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  opacity: 0;
+  /* Approximates a dark-mode map tint so the embed sits with the footer's
+     dark teal background instead of showing a jarring white rectangle. */
+  filter: invert(92%) hue-rotate(180deg) brightness(0.95) contrast(0.9);
+  transition: opacity 0.5s var(--ease-smooth);
+}
+
+.view-on-map__iframe.is-loaded {
+  opacity: 1;
+}
+
+.view-on-map__loading {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.view-on-map__spinner {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-top-color: var(--color-dic-red);
+  animation: viewOnMapSpin 0.8s linear infinite;
+}
+
+@keyframes viewOnMapSpin {
+  to { transform: rotate(360deg); }
+}
+
+.view-on-map__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(20, 18, 15, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--color-white);
+  transition: background 0.2s var(--ease-smooth), transform 0.2s var(--ease-out);
+}
+
+.view-on-map__close:hover {
+  background: var(--color-dic-red);
+  transform: scale(1.06);
+}
+
+.view-on-map__label {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: calc(100% - 24px);
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(20, 18, 15, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: var(--color-white);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .view-on-map__card {
+    animation: none;
+  }
+
+  .view-on-map__spinner {
+    animation-duration: 1.6s;
+  }
+}

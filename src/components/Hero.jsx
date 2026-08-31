@@ -101,11 +101,7 @@ export default function Hero() {
     <section className="hero">
       <div className="hero__inner">
         <div className="hero__copy">
-          <h1 className="hero__title">
-            Design Innovation
-            <br />
-            Centre
-          </h1>
+          <h1 className="hero__title">Design Innovation Centre</h1>
           <p className="hero__affiliation">
             <a href="https://design.iith.ac.in" target="_blank" rel="noopener noreferrer">
               Design Department
@@ -135,6 +131,7 @@ export default function Hero() {
         <div className="hero__video" ref={videoWrapRef}>
           <div className="hero__video-frame">
             <div ref={playerTargetRef} />
+            <div className="hero__video-scrim" aria-hidden="true" />
             <button
               type="button"
               className="hero__video-shield"

@@ -242,6 +242,14 @@ export const NAV_LINKS = [
       },
     },
   },
+  {
+    label: "DIC Nodal",
+    path: "/nodal",
+  },
+  {
+    label: "All India DIC Meet 26",
+    path: "/all-india-dic-meet-26",
+  },
 ];
 
 export const CONTACT_LINK = { label: "Contact", path: "/contact" };

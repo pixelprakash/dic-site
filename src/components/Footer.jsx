@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { REQUEST_TYPES } from '../data/siteData';
+import ViewOnMap from './ViewOnMap';
 // Playful fish-tank footer treatment — parked for now while the site keeps a
 // more serious tone. Not deleted: flip this back on by uncommenting the
 // import and the <AquariumBand /> usage below.
@@ -43,17 +44,6 @@ const ICONS = {
 
 const CONTACT_GROUPS = [
   { heading: 'General enquiries', lines: ['+91 40 2301 6000', 'dic@des.iith.ac.in'] },
-  { heading: 'Media & press', lines: ['press@dic.iith.ac.in'] },
-  { heading: 'Careers & fellowships', lines: ['careers@dic.iith.ac.in'] },
-];
-
-const PAGES = [
-  { label: 'Home', path: '/' },
-  { label: 'People', path: '/people' },
-  { label: 'Research', path: '/research' },
-  { label: 'Projects', path: '/projects' },
-  { label: 'Education', path: '/education' },
-  { label: 'Contact', path: '/contact' },
 ];
 
 const initialForm = { type: '', name: '', email: '', message: '', consent: false };
@@ -98,25 +88,20 @@ export default function Footer() {
                 </a>
               ))}
             </div>
-          </div>
 
-          <div className="footer__columns">
-            <div className="footer__col">
-              {CONTACT_GROUPS.map((group) => (
-                <div className="footer__contact-group" key={group.heading}>
-                  <h4>{group.heading}</h4>
-                  {group.lines.map((line) => (
-                    <span key={line}>{line}</span>
-                  ))}
-                </div>
-              ))}
-            </div>
-            <div className="footer__col">
-              <h4>Pages</h4>
-              {PAGES.map((p) => (
-                <Link key={p.path} to={p.path}>{p.label}</Link>
-              ))}
-            </div>
+            {CONTACT_GROUPS.map((group) => (
+              <div className="footer__contact-group" key={group.heading}>
+                <h4>{group.heading}</h4>
+                {group.lines.map((line) => (
+                  <span key={line}>{line}</span>
+                ))}
+              </div>
+            ))}
+            <ViewOnMap
+              locationName="Design Innovation Centre, IIT Hyderabad"
+              address="IIT Hyderabad, Kandi, Sangareddy, Telangana 502284"
+              className="footer__map"
+            />
           </div>
         </div>
 

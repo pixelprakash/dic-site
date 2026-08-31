@@ -123,11 +123,30 @@ export default function PersonProfile() {
     );
   }
 
-  const { name, role, joinedYear, fullBio, bio, tags = [], interests = [], photo, email, website, linkedin, scholar } = member;
+  const {
+    name,
+    role,
+    joinedYear,
+    fullBio,
+    bio,
+    tags = [],
+    interests = [],
+    researchAreas = [],
+    education = [],
+    experience = [],
+    achievements = [],
+    publications = [],
+    photo,
+    email,
+    website,
+    linkedin,
+    scholar,
+  } = member;
   const showPhoto = Boolean(photo) && !imgError;
   const bioParagraphs = (fullBio ? [].concat(fullBio) : [bio]).filter(Boolean);
-  const chips = interests.length > 0 ? interests : tags;
+  const researchChips = researchAreas.length > 0 ? researchAreas : interests.length > 0 ? interests : tags;
   const category = getMemberCategory(slug);
+  const hasProfiles = Boolean(linkedin || scholar || website || email);
 
   return (
     <div className="profile">
@@ -148,41 +167,113 @@ export default function PersonProfile() {
             <p className="profile__bio" key={i}>{p}</p>
           ))}
 
-          {chips.length > 0 && (
-            <div className="profile__tags">
-              {chips.map((t) => (
-                <span className="profile__tag" key={t}>{t}</span>
-              ))}
-            </div>
+          {researchChips.length > 0 && (
+            <section className="profile__section">
+              <h2 className="profile__section-title">Research Areas</h2>
+              <div className="profile__tags">
+                {researchChips.map((t) => (
+                  <span className="profile__tag" key={t}>{t}</span>
+                ))}
+              </div>
+            </section>
           )}
 
-          {(linkedin || scholar || website || email) && (
-            <div className="profile__socials">
-              {linkedin && (
-                <a className="profile__social" href={linkedin} target="_blank" rel="noopener noreferrer">
-                  <LinkedInIcon />
-                  LinkedIn
-                </a>
-              )}
-              {scholar && (
-                <a className="profile__social" href={scholar} target="_blank" rel="noopener noreferrer">
-                  <ScholarIcon />
-                  Google Scholar
-                </a>
-              )}
-              {website && (
-                <a className="profile__social" href={website} target="_blank" rel="noopener noreferrer">
-                  <WebsiteIcon />
-                  Website
-                </a>
-              )}
-              {email && (
-                <a className="profile__social" href={`mailto:${email}`}>
-                  <MailIcon />
-                  {email}
-                </a>
-              )}
-            </div>
+          {education.length > 0 && (
+            <section className="profile__section">
+              <h2 className="profile__section-title">Education</h2>
+              <ul className="profile__timeline">
+                {education.map((e, i) => (
+                  <li className="profile__timeline-item" key={i}>
+                    <span className="profile__timeline-period">{e.year}</span>
+                    <div>
+                      <div className="profile__timeline-title">{e.degree}</div>
+                      {e.institution && <div className="profile__timeline-sub">{e.institution}</div>}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {experience.length > 0 && (
+            <section className="profile__section">
+              <h2 className="profile__section-title">Experience</h2>
+              <ul className="profile__timeline">
+                {experience.map((e, i) => (
+                  <li className="profile__timeline-item" key={i}>
+                    <span className="profile__timeline-period">{e.duration}</span>
+                    <div>
+                      <div className="profile__timeline-title">{e.role}</div>
+                      {e.org && <div className="profile__timeline-sub">{e.org}</div>}
+                      {e.desc && <p className="profile__timeline-desc">{e.desc}</p>}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {achievements.length > 0 && (
+            <section className="profile__section">
+              <h2 className="profile__section-title">Achievements</h2>
+              <ul className="profile__list">
+                {achievements.map((a, i) => (
+                  <li key={i}>{a}</li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {publications.length > 0 && (
+            <section className="profile__section">
+              <h2 className="profile__section-title">Publications</h2>
+              <ul className="profile__list profile__list--pubs">
+                {publications.map((p, i) => (
+                  <li key={i}>
+                    <span className="profile__pub-title">{p.title}</span>
+                    {p.venue && <span className="profile__pub-venue">, {p.venue}</span>}
+                    {p.year && <span className="profile__pub-year"> ({p.year})</span>}
+                    {p.link && (
+                      <a className="profile__pub-link" href={p.link} target="_blank" rel="noopener noreferrer">
+                        View
+                      </a>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {hasProfiles && (
+            <section className="profile__section">
+              <h2 className="profile__section-title">Profiles</h2>
+              <div className="profile__socials">
+                {linkedin && (
+                  <a className="profile__social" href={linkedin} target="_blank" rel="noopener noreferrer">
+                    <LinkedInIcon />
+                    LinkedIn
+                  </a>
+                )}
+                {scholar && (
+                  <a className="profile__social" href={scholar} target="_blank" rel="noopener noreferrer">
+                    <ScholarIcon />
+                    Google Scholar
+                  </a>
+                )}
+                {website && (
+                  <a className="profile__social" href={website} target="_blank" rel="noopener noreferrer">
+                    <WebsiteIcon />
+                    Website
+                  </a>
+                )}
+                {email && (
+                  <a className="profile__social" href={`mailto:${email}`}>
+                    <MailIcon />
+                    {email}
+                  </a>
+                )}
+              </div>
+            </section>
           )}
 
           <button type="button" className="profile__share" onClick={handleShare}>

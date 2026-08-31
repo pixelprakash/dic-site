@@ -19,7 +19,8 @@
 .footer__inner input,
 .footer__inner select,
 .footer__inner textarea,
-.footer__inner label {
+.footer__inner label,
+.footer__inner iframe {
   pointer-events: auto;
 }
 
@@ -29,6 +30,15 @@
   grid-template-columns: 1.3fr 1fr;
   gap: clamp(48px, 6vw, 96px);
   padding-bottom: clamp(56px, 7vw, 88px);
+}
+
+/* A tighter gap than the 28px above the contact-group — this and the
+   contact details it sits under belong to the same "how to reach us"
+   grouping, so the two stay visually closer to each other than either
+   does to the socials row above. */
+.footer__map {
+  align-self: flex-start;
+  margin-top: 18px;
 }
 
 .footer__left {
@@ -77,44 +87,16 @@
   transform: translateY(-2px);
 }
 
-.footer__columns {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: 32px;
-}
 
-.footer__col {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.footer__col > h4 {
-  font-family: var(--font-body);
-  font-style: normal;
-  font-weight: 500;
-  font-size: var(--text-xs);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.4);
-}
-
-.footer__col > a {
-  font-size: var(--text-sm);
-  color: rgba(255, 255, 255, 0.72);
-  transition: color 0.2s, transform 0.2s var(--ease-out);
-  padding: 2px 0;
-}
-
-.footer__col > a:hover {
-  color: var(--color-white);
-  transform: translateX(2px);
-}
-
+/* Pages was dropped (the sticky navbar already covers that navigation),
+   and General enquiries + the map moved up into .footer__brand itself —
+   right after the socials row — instead of a separate block below, so
+   the footer doesn't carry that extra section height. */
 .footer__contact-group {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  margin-top: 28px;
 }
 
 .footer__contact-group h4 {

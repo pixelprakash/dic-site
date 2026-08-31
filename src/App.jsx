@@ -2,11 +2,16 @@ import { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import SiteSwitcher from './components/SiteSwitcher';
+// Site switcher (DIC Nodal / DIC · IITH toggle bar) — parked for now, it
+// read as an odd extra bar above the navbar. Not deleted: uncomment this
+// import and the <SiteSwitcher /> below to bring it back. DIC Nodal is
+// still reachable — it's now a regular navbar item instead.
+// import SiteSwitcher from './components/SiteSwitcher';
 import { NAV_LINKS, CONTACT_LINK } from './data/siteData';
 import { getMemberBySlug } from './data/peopleData';
 import './styles/global.css';
 import './styles/sections.css';
+import './styles/Loader.css';
 
 /* Code-split pages for fast initial load */
 const Home = lazy(() => import('./pages/Home'));
@@ -17,6 +22,7 @@ const Projects = lazy(() => import('./pages/Projects'));
 const Education = lazy(() => import('./pages/Education'));
 const Contact = lazy(() => import('./pages/Contact'));
 const Nodal = lazy(() => import('./pages/Nodal'));
+const AllIndiaDicMeet26 = lazy(() => import('./pages/AllIndiaDicMeet26'));
 
 const DEFAULT_TITLE = 'DIC · IITH — Design Innovation Centre, IIT Hyderabad';
 
@@ -24,9 +30,11 @@ const DEFAULT_TITLE = 'DIC · IITH — Design Innovation Centre, IIT Hyderabad';
 // Publications, etc. — rather than a separately-maintained name, so the
 // two stay in sync automatically if the nav copy ever changes.
 const PAGE_TITLES = {
-  '/nodal': 'DIC Nodal — India’s National Design Innovation Network',
   [CONTACT_LINK.path]: `${CONTACT_LINK.label} — DIC · IITH`,
   ...Object.fromEntries(NAV_LINKS.map((link) => [link.path, `${link.label} — DIC · IITH`])),
+  // Overrides the generic templated title the spread above gives '/nodal' —
+  // this one needs to come last to win.
+  '/nodal': 'DIC Nodal — India’s National Design Innovation Network',
 };
 
 const PEOPLE_PREFIX = '/people/';
@@ -50,17 +58,12 @@ function DocumentTitle() {
 
 function Loader() {
   return (
-    <div style={{
-      minHeight: '60vh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      fontFamily: 'var(--font-heading)',
-      fontStyle: 'italic',
-      fontSize: '1.2rem',
-      color: 'var(--color-stone)',
-    }}>
-      Loading…
+    <div className="dic-loader" role="status" aria-label="Loading">
+      <div className="dic-loader__mark" aria-hidden="true">
+        <span className="dic-loader__letter" style={{ '--dic-loader-delay': '0s' }}>D</span>
+        <span className="dic-loader__letter" style={{ '--dic-loader-delay': '0.15s' }}>I</span>
+        <span className="dic-loader__letter" style={{ '--dic-loader-delay': '0.3s' }}>C</span>
+      </div>
     </div>
   );
 }
@@ -72,7 +75,7 @@ export default function App() {
       <a href="#main-content" className="skip-link">
         Skip to content
       </a>
-      <SiteSwitcher />
+      {/* <SiteSwitcher /> */}
       <Navbar />
       <main id="main-content">
         <Suspense fallback={<Loader />}>
@@ -87,6 +90,7 @@ export default function App() {
             <Route path="/education" element={<Education />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/nodal" element={<Nodal />} />
+            <Route path="/all-india-dic-meet-26" element={<AllIndiaDicMeet26 />} />
           </Routes>
         </Suspense>
       </main>

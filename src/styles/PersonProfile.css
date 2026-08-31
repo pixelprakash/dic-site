@@ -118,11 +118,132 @@
   margin-bottom: 28px;
 }
 
+/* CV-style section: a small uppercase label + rule above each block, so
+   Research Areas / Education / Experience / Achievements / Publications /
+   Profiles read as a scannable list of headed sections rather than one
+   long undifferentiated column. Sections render only when their data
+   exists, so a sparse profile doesn't show empty headings. */
+.profile__section {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(26, 23, 20, 0.1);
+}
+
+.profile__section-title {
+  font-family: var(--font-body);
+  font-style: normal;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-charcoal);
+  margin-bottom: 16px;
+}
+
 .profile__tags {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-bottom: 32px;
+}
+
+.profile__timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.profile__timeline-item {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 16px;
+}
+
+.profile__timeline-period {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-stone);
+  white-space: nowrap;
+}
+
+.profile__timeline-title {
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--color-charcoal);
+}
+
+.profile__timeline-sub {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-stone);
+  margin-top: 2px;
+}
+
+.profile__timeline-desc {
+  font-size: var(--text-sm);
+  color: var(--color-stone);
+  margin-top: 8px;
+  line-height: 1.6;
+  max-width: none;
+}
+
+.profile__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.profile__list li {
+  position: relative;
+  padding-left: 18px;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-charcoal);
+  line-height: 1.6;
+}
+
+.profile__list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-dic-red);
+}
+
+.profile__list--pubs li {
+  padding-left: 0;
+}
+
+.profile__list--pubs li::before {
+  display: none;
+}
+
+.profile__pub-title {
+  font-weight: 600;
+  color: var(--color-charcoal);
+}
+
+.profile__pub-venue,
+.profile__pub-year {
+  color: var(--color-stone);
+}
+
+.profile__pub-link {
+  margin-left: 8px;
+  font-weight: 600;
+  color: var(--color-dic-red);
+  text-decoration: underline;
+}
+
+@media (max-width: 560px) {
+  .profile__timeline-item {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
 }
 
 .profile__tag {

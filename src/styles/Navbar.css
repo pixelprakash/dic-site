@@ -1,27 +1,30 @@
+/* ─── EXPERIMENTAL: Crezco-style floating pill navbar ───
+   Inset from the viewport edges with rounded ends, sitting above the page
+   background instead of flush against it. Easy to revert — see the
+   backed-up originals in scratchpad if this doesn't land well. */
 .navbar {
   position: sticky;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 16px;
   z-index: 100;
-  padding: 0 var(--margin-x);
+  margin: 0 clamp(16px, 3vw, var(--margin-x)) 0;
+  padding: 0 28px;
   height: 68px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
   background: var(--color-white);
-  border-bottom: 1px solid rgba(26, 23, 20, 0.08);
+  border-radius: 999px;
+  box-shadow: 0 4px 24px rgba(26, 23, 20, 0.08);
   transition: box-shadow 0.4s var(--ease-smooth);
 }
 
 .navbar.mega-open {
-  box-shadow: none;
-  border-bottom-color: transparent;
+  box-shadow: 0 4px 24px rgba(26, 23, 20, 0.08);
 }
 
 .navbar.scrolled {
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
 }
 
 .navbar__logo {
@@ -38,10 +41,20 @@
 
 .navbar__links {
   display: flex;
-  gap: 40px;
+  gap: clamp(12px, 1.6vw, 22px);
   align-items: center;
+  justify-content: center;
   flex: 1;
-  margin-left: 56px;
+  margin-left: clamp(20px, 4vw, 56px);
+  min-width: 0;
+}
+
+/* Dot-separated items, Crezco-style, instead of gap-only spacing. */
+.navbar__item:not(:last-child)::after {
+  content: '·';
+  margin-left: clamp(12px, 1.6vw, 22px);
+  color: var(--color-warm-gray);
+  font-weight: 700;
 }
 
 .navbar__item {
@@ -279,24 +292,29 @@
   }
 }
 
-/* Contact — rectangular CTA button */
+/* Contact — pill CTA (Crezco-style "Let's Build" treatment) */
 .navbar__contact {
   flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  height: 44px;
+  height: 42px;
   padding: 0 22px;
-  border: 1px solid rgba(26, 23, 20, 0.18);
-  border-radius: 4px;
+  border: 1px solid var(--color-dic-red);
+  border-radius: 999px;
+  background: var(--color-dic-red);
   font-family: var(--font-body);
   font-size: var(--text-sm);
   font-weight: 600;
   letter-spacing: -0.05em;
-  color: var(--color-ink);
+  color: var(--color-white);
   white-space: nowrap;
-  transition: background 0.3s var(--ease-smooth), color 0.3s var(--ease-smooth), border-color 0.3s var(--ease-smooth);
+  transition: background 0.3s var(--ease-smooth), color 0.3s var(--ease-smooth), border-color 0.3s var(--ease-smooth), transform 0.2s var(--ease-out);
+}
+
+.navbar__contact:hover {
+  transform: translateY(-1px);
 }
 
 .navbar__contact svg {
@@ -457,8 +475,12 @@
 
 @media (max-width: 1024px) {
   .navbar__links {
-    gap: 28px;
-    margin-left: 32px;
+    gap: 16px;
+    margin-left: 20px;
+  }
+
+  .navbar__link {
+    font-size: var(--text-sm);
   }
 }
 
