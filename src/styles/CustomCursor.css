@@ -1,0 +1,63 @@
+/* Native cursor only hidden once we know a custom one is actually mounted
+   (.has-custom-cursor, set by CustomCursor.jsx) — never blindly, so a
+   touch device or reduced-motion visitor always keeps a real cursor. */
+.has-custom-cursor,
+.has-custom-cursor * {
+  cursor: none !important;
+}
+
+/* Position-only wrapper — JS writes a plain translate3d() here every
+   frame (the dot on mousemove directly, the ring via a rAF lerp toward
+   the pointer — see CustomCursor.jsx). No CSS transition on `transform`
+   here: this environment's engine gets stuck at the identity matrix when
+   a transform transition and a per-frame JS-driven transform write both
+   target the same property, so the ring's lag is done in JS instead. */
+.custom-cursor__pos {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  pointer-events: none;
+  transition: opacity 0.2s var(--ease-smooth);
+}
+
+.custom-cursor__pos.is-hidden {
+  opacity: 0;
+}
+
+/* Visual elements — statically centered on their wrapper's anchor point
+   via negative margins (both are fixed pixel sizes, so this needs no
+   percentage transform trick). Only `scale` animates here. */
+.custom-cursor__dot,
+.custom-cursor__ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  transition: transform 0.2s var(--ease-out), background 0.2s var(--ease-smooth), border-color 0.2s var(--ease-smooth);
+}
+
+.custom-cursor__dot {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  background: var(--color-dic-red);
+}
+
+.custom-cursor__ring {
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  border: 1.5px solid rgba(240, 48, 27, 0.5);
+  background: transparent;
+}
+
+.custom-cursor__dot.is-hovering {
+  transform: scale(0);
+}
+
+.custom-cursor__ring.is-hovering {
+  transform: scale(1.65);
+  background: rgba(240, 48, 27, 0.08);
+  border-color: var(--color-dic-red);
+}

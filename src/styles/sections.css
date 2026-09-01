@@ -485,6 +485,69 @@
   box-shadow: 0 8px 24px rgba(0,0,0,0.06);
 }
 
+/* ─── Lab & Facilities (Research page) ─── */
+.lab-facilities {
+  padding: var(--section-gap) var(--margin-x);
+  background: var(--color-sand);
+}
+
+.lab-facilities__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  margin-top: 40px;
+}
+
+.lab-facilities__intro {
+  margin-bottom: 28px;
+  font-size: var(--text-md);
+}
+
+.lab-facilities__list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.lab-facility {
+  padding: 20px 24px;
+  background: var(--color-white);
+  border-radius: var(--border-radius-sm);
+  border-left: 3px solid var(--color-terracotta);
+}
+
+.lab-facility h4 {
+  margin-bottom: 6px;
+  font-size: var(--text-md);
+}
+
+.lab-facility p {
+  font-size: var(--text-sm);
+  margin: 0;
+}
+
+.lab-facilities__col h4 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-terracotta);
+  margin-bottom: 8px;
+}
+
+.lab-facilities__col p {
+  font-size: var(--text-sm);
+  margin-bottom: 24px;
+}
+
+@media (max-width: 900px) {
+  .lab-facilities__grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
 /* ─── Contact page ─── */
 .contact-content {
   padding: var(--section-gap) var(--margin-x);

@@ -1,5 +1,5 @@
 import { useReveal } from '../hooks/useReveal';
-import { RESEARCH_AREAS, PATENTS } from '../data/siteData';
+import { RESEARCH_AREAS, PATENTS, DIC_LAB_FACILITIES } from '../data/siteData';
 
 function ResearchItem({ item, index }) {
   const [ref, vis] = useReveal();
@@ -23,6 +23,7 @@ function ResearchItem({ item, index }) {
 }
 
 export default function Research() {
+  const [labRef, labVis] = useReveal();
   const [patRef, patVis] = useReveal();
 
   return (
@@ -43,6 +44,73 @@ export default function Research() {
         ))}
       </section>
 
+      {/* Lab & Facilities — from the Fifth All India DIC Meet 2025 (IIT
+          Delhi) "Facilities" exhibition poster, transcribed verbatim. */}
+      <section className={`lab-facilities reveal ${labVis ? 'visible' : ''}`} ref={labRef}>
+        <p className="section-label">Design Innovation Centre (DIC) — Nodal Centre Lab, IIT Hyderabad</p>
+        <h2 className="section-title">One of India&rsquo;s most advanced design and innovation facilities.</h2>
+        <div className="lab-facilities__grid">
+          <div>
+            <p className="lab-facilities__intro">
+              The Design Innovation Centre (DIC) Lab at IIT Hyderabad, designated as the Nodal
+              Centre for the National DIC Network, is one of India&rsquo;s most advanced design and
+              innovation facilities. Spanning over 3,000+ square feet, the lab embodies a perfect
+              blend of design thinking, technological excellence, and interdisciplinary research,
+              fostering innovation across domains such as digital preservation, mixed reality,
+              product design, and rapid prototyping.
+            </p>
+            <p className="lab-facilities__intro" style={{ fontStyle: 'italic' }}>
+              The lab is equipped with cutting-edge tools and technologies that support ideation,
+              experimentation, and fabrication under one roof.
+            </p>
+            <div className="lab-facilities__list">
+              {DIC_LAB_FACILITIES.map((f) => (
+                <div className="lab-facility" key={f.name}>
+                  <h4>{f.name}</h4>
+                  <p>{f.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="lab-facilities__col">
+            <h4>Advanced Fabrication Facilities</h4>
+            <p>
+              Including large-format commercial 3D printers, CNC routers, vacuum forming setups,
+              and laser-cutting machines, allowing end-to-end manufacturing within the lab.
+            </p>
+
+            <h4>In-House Production and Expertise</h4>
+            <p>
+              All DIC projects ranging from prototypes to full-scale exhibits are manufactured
+              in-house under the supervision of expert consultants, designers, and engineers. This
+              ensures precision, quality control, and seamless integration between design and
+              production stages. The lab&rsquo;s ecosystem promotes cross-disciplinary collaboration,
+              bringing together design, engineering, and technology under a unified workflow.
+            </p>
+
+            <h4>Academic and Research Integration</h4>
+            <p>
+              Beyond fabrication, the DIC Lab also serves as a learning and research environment
+              for students and researchers. It hosts specialized DIC courses, workshops, and
+              design innovation programs, enabling hands-on learning in areas like digital
+              fabrication, immersive design, and design thinking. The space encourages
+              experimentation and fosters an entrepreneurial mindset among students and
+              innovators.
+            </p>
+
+            <h4>India&rsquo;s Finest Design Innovation Facility</h4>
+            <p>
+              The DIC IIT Hyderabad Nodal Centre Lab stands as one of India&rsquo;s finest design
+              laboratories, bridging creativity, technology, and innovation. It not only supports
+              national-level projects and academic collaborations but also sets a benchmark for
+              how design infrastructure can catalyze a new generation of problem solvers and
+              creative thinkers for the nation.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Patents */}
       <section
         className={`courses reveal ${patVis ? 'visible' : ''}`}
@@ -54,6 +122,11 @@ export default function Research() {
           {PATENTS.map((p) => (
             <div className="course-card" key={p.name}>
               <strong style={{ display: 'block', marginBottom: 4, fontSize: 'var(--text-sm)' }}>{p.name}</strong>
+              {p.desc && (
+                <span style={{ display: 'block', fontSize: 'var(--text-xs)', color: 'var(--color-stone)', marginBottom: 4 }}>
+                  {p.desc}
+                </span>
+              )}
               <span style={{ fontSize: 'var(--text-xs)', color: 'var(--color-stone)' }}>
                 {p.inventor}{p.type ? ` · ${p.type}` : ''}
               </span>

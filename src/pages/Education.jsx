@@ -1,10 +1,10 @@
 import { useReveal } from '../hooks/useReveal';
-import { COURSES_FOUNDATION, COURSES_CORE, COURSES_ADVANCED } from '../data/siteData';
+import { DIC_COURSES, DIC_IMPACT_STATS } from '../data/siteData';
 
 export default function Education() {
-  const [foundRef, foundVis] = useReveal();
-  const [coreRef, coreVis] = useReveal();
-  const [advRef, advVis] = useReveal();
+  const [aboutRef, aboutVis] = useReveal();
+  const [catalogueRef, catalogueVis] = useReveal();
+  const [statsRef, statsVis] = useReveal();
   const [roadRef, roadVis] = useReveal();
 
   return (
@@ -14,57 +14,104 @@ export default function Education() {
         <p className="section-label" style={{ color: 'var(--color-terracotta-light)' }}>Education</p>
         <h1>Learning through making</h1>
         <p>
-          150+ students from various departments enroll every year.
-          228 workshops conducted across design thinking and creative arts.
+          4,688 students enrolled in DIC courses. 214 workshops conducted across
+          design thinking and creative arts.
         </p>
       </div>
 
+      {/* About DIC courses — from the Academic exhibition poster */}
+      <section className={`about reveal ${aboutVis ? 'visible' : ''}`} ref={aboutRef}>
+        <div style={{ maxWidth: '80ch' }}>
+          <p className="section-label">Design Innovation Centre (DIC) Courses</p>
+          <h2 className="section-title">A diverse, interdisciplinary range of design courses.</h2>
+          <p style={{ marginBottom: 20, fontSize: 'var(--text-md)' }}>
+            The Design Innovation Centre (DIC) offers a diverse and interdisciplinary range of
+            design courses that foster creativity, innovation, and design thinking among students
+            from multiple disciplines. These courses are designed to merge design and technology,
+            nurturing future-ready professionals capable of solving real-world challenges through
+            creativity, experimentation, and collaboration.
+          </p>
+          <p style={{ marginBottom: 20, fontSize: 'var(--text-md)' }}>
+            DIC courses encompass both broad foundational areas and advanced specializations,
+            including Graphic Design, Illustration, Interior Design, Product Design, Animation,
+            Furniture Design, Aesthetic Design, Game Design, Theatre Design, Virtual Reality (VR),
+            Mixed Reality (MR), and Digital Preservation. Each course is carefully curated to align
+            with emerging trends in Design Tech collaboration, emphasizing the integration of
+            design process learning, rapid prototyping, and experiential pedagogy. The curriculum
+            combines 3D materials and fabrication technologies, computer-aided design and
+            manufacturing, digital image production and manipulation, and filmmaking with the
+            fundamental principles of typography and graphic layout. Students are trained in both
+            analog and digital tools developing proficiency in design theory, sketching,
+            visualization, and real-time problem-solving through hands-on projects.
+          </p>
+          <p style={{ marginBottom: 20, fontSize: 'var(--text-md)' }}>
+            DIC courses aim to bridge academic learning with industry applications through
+            interdisciplinary research, innovation labs, and experiential modules. Each program
+            encourages students to explore sustainability, ergonomics, universal design, and
+            user-centric approaches, while fostering entrepreneurship and innovation culture across
+            domains.
+          </p>
+          <p style={{ fontSize: 'var(--text-md)' }}>
+            In addition, DIC conducts Creative Art and Design Workshops that attract more than 150
+            students from diverse departments every year. These two-day workshops introduce
+            participants to focused design areas such as Elements of Design, Film Appreciation,
+            Digital Fabrication, UI/UX, Creative Coding, and Typography, promoting creativity and
+            collaborative learning.
+          </p>
+        </div>
+      </section>
+
+      {/* Course catalogue */}
       <section className="courses">
         <div
-          className={`courses__group reveal ${foundVis ? 'visible' : ''}`}
-          ref={foundRef}
+          className={`courses__group reveal ${catalogueVis ? 'visible' : ''}`}
+          ref={catalogueRef}
         >
-          <p className="section-label">Semester 1–2</p>
-          <h3>Foundation courses</h3>
+          <p className="section-label">Course Catalogue</p>
+          <h3>Some of the DIC courses</h3>
           <div className="courses__grid">
-            {COURSES_FOUNDATION.map((c) => (
-              <div className="course-card" key={c}>{c}</div>
-            ))}
-          </div>
-        </div>
-
-        <div
-          className={`courses__group reveal ${coreVis ? 'visible' : ''}`}
-          ref={coreRef}
-        >
-          <p className="section-label">Semester 3–4</p>
-          <h3>Core design courses</h3>
-          <div className="courses__grid">
-            {COURSES_CORE.map((c) => (
-              <div className="course-card" key={c}>{c}</div>
-            ))}
-          </div>
-        </div>
-
-        <div
-          className={`courses__group reveal ${advVis ? 'visible' : ''}`}
-          ref={advRef}
-        >
-          <p className="section-label">Semester 5+</p>
-          <h3>Advanced &amp; electives</h3>
-          <div className="courses__grid">
-            {COURSES_ADVANCED.map((c) => (
+            {DIC_COURSES.map((c) => (
               <div className="course-card" key={c}>{c}</div>
             ))}
           </div>
         </div>
       </section>
 
+      {/* Impact & Achievements */}
+      <section
+        className={`stats reveal ${statsVis ? 'visible' : ''}`}
+        ref={statsRef}
+        style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))' }}
+      >
+        {DIC_IMPACT_STATS.map((s) => (
+          <div className="stat" key={s.label}>
+            <div className="stat__number">{s.number}</div>
+            <div className="stat__label">{s.label}</div>
+          </div>
+        ))}
+      </section>
+
+      <p
+        style={{
+          maxWidth: '70ch',
+          margin: '0 auto',
+          padding: '48px var(--margin-x) 0',
+          textAlign: 'center',
+          fontStyle: 'italic',
+          color: 'var(--color-stone)',
+        }}
+      >
+        The Design Innovation Centre at IIT Hyderabad continues to lead by example bridging the
+        gap between design, innovation, and technology. Through its cutting-edge courses and labs,
+        DIC cultivates a new generation of designers and innovators equipped to address future
+        challenges in emerging domains such as Digital Heritage, VR/MR, and Sustainable Product
+        Design.
+      </p>
+
       {/* Roadmap */}
       <section
         className={`courses reveal ${roadVis ? 'visible' : ''}`}
         ref={roadRef}
-        style={{ paddingTop: 0 }}
       >
         <p className="section-label">Future Programs</p>
         <h2 className="section-title">Roadmap</h2>

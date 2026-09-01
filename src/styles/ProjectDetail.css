@@ -2,6 +2,35 @@
   padding-top: 140px;
 }
 
+/* Project titles are full sentences, not short page names like "Work that
+   matters" — the global h1 scale (up to 7rem) is tuned for the latter and
+   makes a long title balloon to fill the screen, crowding out everything
+   else in the header. A smaller, capped size keeps it commanding without
+   drowning the subtitle and status pill beneath it. */
+.project-detail__header h1 {
+  font-size: clamp(1.9rem, 3.6vw, 3rem);
+  max-width: 22ch;
+  line-height: 1.2;
+}
+
+.project-detail__header p.project-detail__subtitle {
+  font-family: var(--font-body);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.65);
+  margin-top: 4px;
+}
+
+.project-detail__hero-image {
+  aspect-ratio: 21 / 9;
+  overflow: hidden;
+}
+
+.project-detail__hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .project-detail__breadcrumb {
   display: flex;
   flex-wrap: wrap;
@@ -72,19 +101,56 @@
 
 .project-detail__pair {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: clamp(32px, 5vw, 64px);
 }
 
+.project-detail__pair h3,
 .project-detail__card h3 {
   font-size: clamp(1.3rem, 2.4vw, 1.7rem);
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 .project-detail__card p {
   font-size: var(--text-sm);
   line-height: 1.7;
   max-width: 48ch;
+}
+
+.project-detail__card-p {
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  max-width: 56ch;
+  margin-bottom: 12px;
+}
+
+.project-detail__list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.project-detail__list li {
+  position: relative;
+  padding-left: 20px;
+  font-size: var(--text-sm);
+  line-height: 1.65;
+  color: var(--color-charcoal);
+  max-width: 56ch;
+}
+
+.project-detail__list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-dic-red);
 }
 
 /* ─── Outcomes strip ─── */

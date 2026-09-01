@@ -1,9 +1,13 @@
 import YouTubeEmbed from '../components/YouTubeEmbed';
-import { VIDEOS, MARQUEE_IMAGES } from '../data/siteData';
+import ProjectCard from '../components/ProjectCard';
+import { VIDEOS, MARQUEE_IMAGES, DIC_SELECTED_WORKS } from '../data/siteData';
+import { PROJECTS } from '../data/projectsData';
 import { useReveal } from '../hooks/useReveal';
 
 export default function Projects() {
   const [vidRef, vidVis] = useReveal();
+  const [listRef, listVis] = useReveal();
+  const [worksRef, worksVis] = useReveal();
 
   return (
     <>
@@ -16,6 +20,26 @@ export default function Projects() {
           mobility, education, and sustainable design.
         </p>
       </div>
+
+      <section className={`project-list reveal ${listVis ? 'visible' : ''}`} ref={listRef}>
+        {PROJECTS.map((project) => (
+          <ProjectCard key={project.slug} project={project} />
+        ))}
+      </section>
+
+      {/* Selected works — from the Fifth All India DIC Meet 2025 (IIT
+          Delhi) "Innovation" exhibition poster. Titles only, no further
+          detail was given for these, so they're listed rather than built
+          out as full project pages. */}
+      <section className={`selected-works reveal ${worksVis ? 'visible' : ''}`} ref={worksRef}>
+        <p className="section-label">From the DIC Archive</p>
+        <h2 className="section-title">Selected works</h2>
+        <ul className="selected-works__list">
+          {DIC_SELECTED_WORKS.map((w, i) => (
+            <li key={i}>{w}</li>
+          ))}
+        </ul>
+      </section>
 
       <section
         className={`projects reveal ${vidVis ? 'visible' : ''}`}

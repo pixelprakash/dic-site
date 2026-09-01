@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import CustomCursor from './components/CustomCursor';
 // Site switcher (DIC Nodal / DIC · IITH toggle bar) — parked for now, it
 // read as an odd extra bar above the navbar. Not deleted: uncomment this
 // import and the <SiteSwitcher /> below to bring it back. DIC Nodal is
@@ -23,8 +24,7 @@ const Education = lazy(() => import('./pages/Education'));
 const Contact = lazy(() => import('./pages/Contact'));
 const Nodal = lazy(() => import('./pages/Nodal'));
 const AllIndiaDicMeet26 = lazy(() => import('./pages/AllIndiaDicMeet26'));
-// Demo only — a worked example of the proposed project-detail template.
-const ProjectDemo = lazy(() => import('./pages/ProjectDemo'));
+const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
 
 const DEFAULT_TITLE = 'DIC · IITH — Design Innovation Centre, IIT Hyderabad';
 
@@ -78,6 +78,7 @@ export default function App() {
         Skip to content
       </a>
       {/* <SiteSwitcher /> */}
+      <CustomCursor />
       <Navbar />
       <main id="main-content">
         <Suspense fallback={<Loader />}>
@@ -89,11 +90,11 @@ export default function App() {
             <Route path="/about" element={<Navigate to="/people" replace />} />
             <Route path="/research" element={<Research />} />
             <Route path="/projects" element={<Projects />} />
+            <Route path="/projects/:slug" element={<ProjectDetail />} />
             <Route path="/education" element={<Education />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/nodal" element={<Nodal />} />
             <Route path="/all-india-dic-meet-26" element={<AllIndiaDicMeet26 />} />
-            <Route path="/projects/demo" element={<ProjectDemo />} />
           </Routes>
         </Suspense>
       </main>

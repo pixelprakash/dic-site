@@ -70,52 +70,136 @@ export const RESEARCH_AREAS = [
   },
 ];
 
-export const COURSES_FOUNDATION = [
-  "Elements of Design",
-  "Principles of Design",
+/* ─── DIC courses — from the Fifth All India DIC Meet 2025 (IIT Delhi)
+   "Academic" exhibition poster, transcribed verbatim. Replaces the earlier
+   semester-grouped placeholder list with the real course catalogue. ─── */
+export const DIC_COURSES = [
+  "Elements & Principles of Design",
   "Evolution of Design",
-  "Design Culture & Society",
+  "Design Culture and Society",
   "Film Appreciation",
-  "Fabrication",
+  "Fabrication and Prototyping",
   "English Communication",
-  "Life Sciences",
-  "Illustrations & Drawing",
-  "Basic Typography",
-];
-
-export const COURSES_CORE = [
+  "Life Sciences for Designers",
   "Basic Product Design",
-  "Basic Animation",
-  "UI & UX",
-  "Creative Coding",
-  "Basic Interaction Design",
-  "Basic Graphic Design",
-  "Digital Fabrication",
-  "Storyboarding",
-];
-
-export const COURSES_ADVANCED = [
+  "Basic Animation and Storyboarding",
+  "UI/UX and Creative Coding",
+  "Basic Graphic Design and Typography",
+  "Digital Fabrication and Prototyping",
   "Introduction to Ergonomics",
   "Programming for Designers",
-  "Design for Sustainability",
-  "Universal Design",
-  "Data & Information Visualization",
-  "Sound Design",
-  "Product Semantics",
-  "Lifecycle Analysis",
+  "Design for Sustainability and Universal Design",
+  "Data and Information Visualization",
+  "Design Creativity and Innovation",
+  "Product Semantics & Lifecycle Analysis",
+  "Design for Mixed Reality and Virtual Environments",
+  "Digital Preservation and 3D Documentation",
   "Automobile Design Explorations",
+  "Product Design",
+  "Mixed Reality and Interventions",
 ];
 
+// "Impact and Achievements" — same poster.
+export const DIC_IMPACT_STATS = [
+  { number: "4,688", label: "Students Enrolled in DIC Courses" },
+  { number: "9", label: "Design Patents Filed" },
+  { number: "889", label: "Innovative Products Delivered / Improved / Initiated" },
+  { number: "214", label: "Workshops Held" },
+  { number: "25", label: "Start-ups Funded / Initiated / Supported" },
+  { number: "192", label: "Technology Transfers" },
+];
+
+/* ─── DIC Lab & Facilities — from the same exhibition's "Facilities"
+   poster, transcribed verbatim. ─── */
+export const DIC_LAB_FACILITIES = [
+  {
+    name: "VR Cave",
+    desc: "An immersive visualization environment for interactive virtual and mixed-reality experiences.",
+  },
+  {
+    name: "1:1 Prototyping Lab",
+    desc: "A full-scale product prototyping space enabling real-world testing and design validation.",
+  },
+  {
+    name: "Large-Format Print Lab",
+    desc: "High-precision printers supporting industrial-grade visual communication and exhibition design.",
+  },
+  {
+    name: "Mixed Reality Research Lab",
+    desc: "A collaborative setup integrating augmented, virtual, and extended reality for research and application in design and learning.",
+  },
+  {
+    name: "Digital Preservation Lab",
+    desc: "A dedicated unit for cultural heritage digitization, 3D scanning, and photogrammetry, instrumental in preserving India’s tangible and intangible heritage.",
+  },
+];
+
+// "Patents of DIC" — from the Fifth All India DIC Meet 2025 (IIT Delhi)
+// "Innovation" exhibition poster, transcribed verbatim.
 export const PATENTS = [
   { name: "UVC Air Purifier", inventor: "Priyabrata Rautray", id: "375166-001" },
   { name: "Herbal Decoction Maker", inventor: "Upasana Bhandari", id: "385595-001" },
-  { name: "Electric Truck Carrier", inventor: "Vivekananda Chary" },
+  {
+    name: "Electric Truck Carrier",
+    desc: "A concept of eco-friendly transportation for heavy and commercial vehicles.",
+    inventor: "Vivekananda Chary",
+  },
   { name: "Gatti Maker", inventor: "Vivekananda Chary" },
-  { name: "Models for NCERT Books", inventor: "Upasana Bhandari" },
+  { name: "Models for NCERT Books", desc: "Using color coding.", inventor: "Upasana Bhandari" },
   { name: "Urban Air Mobility Aircraft", inventor: "Ketan Chaturmutha", type: "Design Patent" },
-  { name: "Autonomous UAM Aircraft", inventor: "Ketan Chaturmutha", type: "Design Patent" },
+  { name: "Autonomous Urban Air Mobility Aircraft", inventor: "Ketan Chaturmutha", type: "Design Patent" },
   { name: "Autonomous Advanced Air Mobility", inventor: "Ketan Chaturmutha", type: "Design Patent" },
-  { name: "Autonomous UAM for Intra-city", inventor: "Ketan Chaturmutha", type: "Design Patent" },
+  { name: "Autonomous Urban Air Mobility for Intra-city Travel of Passengers", inventor: "Ketan Chaturmutha", type: "Design Patent" },
+];
+
+// "DIC IITH Projects" — the running list of additional works from the same
+// Innovation poster. Titles only (no descriptions were given on the
+// poster), transcribed verbatim aside from obvious typo fixes ("Wast" →
+// "Waste", "Airiport" → "Airport") and joining one item split across two
+// bullet lines on the poster ("Design and Development of" / "Autonomous
+// Passenger Drone").
+export const DIC_SELECTED_WORKS = [
+  "Hayat Baskshi 360 Degree Animation",
+  "Digitization Indian Heritage Monuments In Virtual & Augmented Reality",
+  "Design Education",
+  "Perumthachan’s Pond a VR Experience",
+  "VR of Qutub Shahi Tombs at RGIA Airport",
+  "Bio-Brick Development of Sustainable & Cost Effective Building Material",
+  "Chairish",
+  "3D Digital Interaction-Experience Design",
+  "Sugarchitecture",
+  "Projection Mapping",
+  "Data Visualization",
+  "Photography",
+  "Word and Image",
+  "Ek Cup Chaha - An Animated Short Film",
+  "Eidolon - Mirrored Souls",
+  "IIT Hyderabad App Prototype - UX Methodology",
+  "Animation",
+  "Digital/Concept Art",
+  "Ek Raat - An Animated Short Film",
+  "Where Are You From? - A Photo Series on Diaspora",
+  "Moving Images: Shuchi - Animated Short Film",
+  "Charminar Map Design",
+  "A Photo Series on Indian Women",
+  "Sensory Map",
+  "Recreating the Vendor’s Cart",
+  "Lighting Solutions for Market in Charminar",
+  "Barrier Free Urinal",
+  "Rotating Frame",
+  "Dust Bin for Dry or Plastic Waste",
+  "Public Toilet",
+  "Waste Management through Smart Bins (Final Project)",
+  "Deployable Barricade for Traffic Police",
+  "Urban Space Design: Charminar",
+  "Dry Waste Dustbin for Shopkeepers",
+  "Adding Harmonious Elements around Charminar",
+  "Design and Development of Autonomous Passenger Drone",
+  "Enabling Smart Cities",
+  "Enabling ‘Start-Up India’",
+  "Project - Eye See",
+  "User Experience of National Park - Sanjay Gandhi National Park",
+  "Paan Spitoon",
 ];
 
 export const PARTNERS = [
@@ -179,33 +263,6 @@ export const NAV_LINKS = [
   {
     label: "Projects",
     path: "/projects",
-    menu: {
-      columns: [
-        {
-          heading: "Lorem Ipsum",
-          items: [
-            { label: "Sed ut perspiciatis", desc: "Unde omnis iste natus error sit.", path: "/projects" },
-            { label: "Voluptatem accusantium", desc: "Doloremque laudantium totam rem.", path: "/projects" },
-            { label: "Aperiam eaque ipsa", desc: "Quae ab illo inventore veritatis.", path: "/projects" },
-          ],
-        },
-        {
-          heading: "Dolor Sit Amet",
-          items: [
-            { label: "Quasi architecto beatae", desc: "Vitae dicta sunt explicabo nemo.", path: "/projects" },
-            { label: "Enim ipsam voluptatem", desc: "Quia voluptas sit aspernatur aut.", path: "/projects" },
-            { label: "Odit aut fugit sed", desc: "Quia consequuntur magni dolores.", path: "/projects" },
-          ],
-        },
-      ],
-      featured: {
-        image: "/images/image39.jpg",
-        label: "Lorem Ipsum Dolor",
-        desc: "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet.",
-        path: "/projects",
-        cta: "Learn more",
-      },
-    },
   },
   {
     label: "People",
