@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../styles/ViewOnMap.css';
 
-/* A compact "View on map" pill that expands in place into an embedded
-   Google Map — collapsed by default so it costs nothing until someone
-   actually wants directions, unlike a permanently-embedded iframe. */
+/* Split into a trigger (the pill) and a panel (the expanded card) that
+   share state via useViewOnMap, instead of one component that swaps
+   itself in place — the trigger needs to sit next to the logo, aligned
+   with the "View project" pill on the card above it, while the expanded
+   map needs to live in its own dedicated column so growing it never
+   overlaps the description/contact text beside it. One component
+   couldn't do both at once; two that share state can. */
 
 function MapPinIcon() {
   return (
@@ -22,11 +26,7 @@ function CloseIcon() {
   );
 }
 
-export default function ViewOnMap({
-  locationName = 'Design Innovation Centre',
-  address = 'IIT Hyderabad, Kandi, Sangareddy, Telangana 502284',
-  className = '',
-}) {
+export function useViewOnMap(address) {
   const [isOpen, setIsOpen] = useState(false);
   const [mapLoaded, setMapLoaded] = useState(false);
 
@@ -35,38 +35,56 @@ export default function ViewOnMap({
     if (isOpen) setMapLoaded(false);
   };
 
+  // Escape closes it the same way it would a dialog, even though this
+  // expands in place rather than opening as one.
+  useEffect(() => {
+    if (!isOpen) return undefined;
+    const onKey = (e) => {
+      if (e.key === 'Escape') toggle();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen]);
+
   const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(address)}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
 
+  return { isOpen, toggle, mapLoaded, setMapLoaded, mapSrc };
+}
+
+export function ViewOnMapTrigger({ isOpen, onClick, className = '' }) {
   return (
-    <div className={`view-on-map ${isOpen ? 'is-open' : ''} ${className}`}>
-      {!isOpen ? (
-        <button type="button" className="view-on-map__pill" onClick={toggle}>
-          <MapPinIcon />
-          <span>View on map</span>
-        </button>
-      ) : (
-        <div className="view-on-map__card">
-          {!mapLoaded && (
-            <div className="view-on-map__loading">
-              <span className="view-on-map__spinner" aria-hidden="true" />
-            </div>
-          )}
-          <iframe
-            title={`Map — ${locationName}`}
-            src={mapSrc}
-            className={`view-on-map__iframe ${mapLoaded ? 'is-loaded' : ''}`}
-            loading="lazy"
-            onLoad={() => setMapLoaded(true)}
-          />
-          <button type="button" className="view-on-map__close" onClick={toggle} aria-label="Close map">
-            <CloseIcon />
-          </button>
-          <div className="view-on-map__label">
-            <MapPinIcon />
-            <span>{locationName}</span>
-          </div>
+    <button type="button" className={`view-on-map__pill ${className}`} onClick={onClick} aria-expanded={isOpen}>
+      <MapPinIcon />
+      <span>{isOpen ? 'Hide map' : 'View on map'}</span>
+    </button>
+  );
+}
+
+export function ViewOnMapPanel({ isOpen, mapLoaded, setMapLoaded, mapSrc, locationName, onClose, className = '' }) {
+  if (!isOpen) return null;
+
+  return (
+    <div className={`view-on-map__card ${className}`}>
+      {!mapLoaded && (
+        <div className="view-on-map__loading">
+          <span className="view-on-map__spinner" aria-hidden="true" />
         </div>
       )}
+      <iframe
+        title={`Map — ${locationName}`}
+        src={mapSrc}
+        className={`view-on-map__iframe ${mapLoaded ? 'is-loaded' : ''}`}
+        loading="lazy"
+        onLoad={() => setMapLoaded(true)}
+      />
+      <button type="button" className="view-on-map__close" onClick={onClose} aria-label="Close map">
+        <CloseIcon />
+      </button>
+      <div className="view-on-map__label">
+        <MapPinIcon />
+        <span>{locationName}</span>
+      </div>
     </div>
   );
 }

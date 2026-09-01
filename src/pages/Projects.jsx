@@ -31,8 +31,7 @@ export default function Projects() {
           detail was given for these, so they're listed rather than built
           out as full project pages. */}
       <section className={`selected-works reveal ${worksVis ? 'visible' : ''}`} ref={worksRef}>
-        <p className="section-label">From the DIC Archive</p>
-        <h2 className="section-title">Selected works</h2>
+        <h2 className="section-title">Selected works from the DIC Archive</h2>
         <ul className="selected-works__list">
           {DIC_SELECTED_WORKS.map((w, i) => (
             <li key={i}>{w}</li>
@@ -44,8 +43,7 @@ export default function Projects() {
         className={`projects reveal ${vidVis ? 'visible' : ''}`}
         ref={vidRef}
       >
-        <p className="section-label">Project Films</p>
-        <h2 className="section-title">Watch our work</h2>
+        <h2 className="section-title">Project Films</h2>
         <div className="video-grid">
           {VIDEOS.map((v) => (
             <YouTubeEmbed key={v.id} videoId={v.id} title={v.title} />

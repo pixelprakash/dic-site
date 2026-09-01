@@ -19,14 +19,24 @@
 
   /* Type scale — use these instead of one-off rem values. Named by role,
      not just size, so components stay consistent as the site grows.
-       2xs  fine print / tags           — rarely used, never smaller than this
-       xs   captions, meta, micro-labels
-       sm   secondary body, nav links, form labels
-       base default body copy
-       md   emphasized / lead body text
-       lg   card & list titles
+     Full usage rules and rationale: see DESIGN_SYSTEM.md at the repo root.
+       2xs  micro metadata only (patent IDs, tiny uppercase tags) — never
+            for anything a visitor is meant to read continuously
+       xs   short labels & chips: breadcrumbs, form field labels, badges,
+            uppercase eyebrows — not for sentences or list content
+       sm   secondary/supporting text that's still real content: tag
+            chips, dense publication-list lines, timeline metadata
+       base the page-wide default (applied to <body>; anything with no
+            explicit font-size inherits this) — the readability floor
+       md   the deliberate floor for body copy you're styling explicitly:
+            paragraphs, list items, descriptions, timeline entries.
+            Never drop real running text below this — sm/xs read as too
+            small once there's more than a short label's worth of text.
+       lg   lead paragraphs/bios, card & list titles, prominent buttons
        xl   small subheadings
-       2xl  standalone headings (e.g. footer form title) */
+       2xl  standalone headings (e.g. footer form title)
+     h1–h6 and page/section titles mostly use their own clamp()s in
+     global.css / per-component CSS rather than this scale directly. */
   --text-2xs: 0.8125rem;
   --text-xs: 0.875rem;
   --text-sm: 0.9375rem;
@@ -43,7 +53,7 @@
   --lh-relaxed: 1.75;
 
   /* Colors — warm, earthy, academic */
-  --color-cream: #FAF4EC;
+  --color-cream: #FFF9F3;
   --color-sand: #F0E6D6;
   --color-warm-gray: #C4B8A8;
   /* --color-stone and --color-terracotta were darkened from their

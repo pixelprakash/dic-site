@@ -26,6 +26,7 @@ const Nodal = lazy(() => import('./pages/Nodal'));
 const AllIndiaDicMeet26 = lazy(() => import('./pages/AllIndiaDicMeet26'));
 const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
 const ResearchDetail = lazy(() => import('./pages/ResearchDetail'));
+const NewsDetail = lazy(() => import('./pages/NewsDetail'));
 
 const DEFAULT_TITLE = 'DIC · IITH — Design Innovation Centre, IIT Hyderabad';
 
@@ -62,10 +63,9 @@ function DocumentTitle() {
 function Loader() {
   return (
     <div className="dic-loader" role="status" aria-label="Loading">
-      <div className="dic-loader__mark" aria-hidden="true">
-        <span className="dic-loader__letter" style={{ '--dic-loader-delay': '0s' }}>D</span>
-        <span className="dic-loader__letter" style={{ '--dic-loader-delay': '0.15s' }}>I</span>
-        <span className="dic-loader__letter" style={{ '--dic-loader-delay': '0.3s' }}>C</span>
+      <img src="/images/diclogo.webp" alt="" aria-hidden="true" className="dic-loader__logo" />
+      <div className="dic-loader__track" aria-hidden="true">
+        <span className="dic-loader__bar" />
       </div>
     </div>
   );
@@ -95,6 +95,7 @@ export default function App() {
             <Route path="/projects/:slug" element={<ProjectDetail />} />
             <Route path="/education" element={<Education />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/news/:id" element={<NewsDetail />} />
             <Route path="/nodal" element={<Nodal />} />
             <Route path="/all-india-dic-meet-26" element={<AllIndiaDicMeet26 />} />
           </Routes>

@@ -29,27 +29,28 @@ export default function ResearchDetail() {
 
   return (
     <div className="project-detail">
-      <div className="page-header project-detail__header">
+      <div className={`page-header project-detail__header ${image ? 'project-detail__header--media' : ''}`}>
         <div className="page-header__accent" />
-        <ol className="project-detail__breadcrumb">
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/research">Research</Link></li>
-          <li aria-current="page">{title}</li>
-        </ol>
-        <h1>{title}</h1>
-        {tagline && <p className="project-detail__subtitle">{tagline}</p>}
-        {venue && <p className="project-detail__subtitle">{venue}</p>}
-      </div>
-
-      {image && (
-        <div className="project-detail__hero-image">
-          <img src={image} alt="" loading="lazy" />
+        <div className="project-detail__header-content">
+          <ol className="project-detail__breadcrumb">
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/research">Research</Link></li>
+            <li aria-current="page">{title}</li>
+          </ol>
+          <h1>{title}</h1>
+          {tagline && <p className="project-detail__subtitle">{tagline}</p>}
+          {venue && <p className="project-detail__subtitle">{venue}</p>}
         </div>
-      )}
+
+        {image && (
+          <div className="project-detail__header-media">
+            <img src={image} alt="" loading="lazy" />
+          </div>
+        )}
+      </div>
 
       {sections.map((s, i) => (
         <section className="project-detail__section" key={i}>
-          {i === 0 && <p className="section-label">Overview</p>}
           <h2 className="section-title">{s.title}</h2>
           {(s.paragraphs || []).map((p, j) => (
             <p className="project-detail__body" key={j}>{p}</p>
@@ -100,7 +101,7 @@ export default function ResearchDetail() {
         <section className="project-detail__section project-detail__pair">
           {(pi || researchers.length > 0) && (
             <div>
-              <p className="section-label">Team</p>
+              <h3>Team</h3>
               <div className="project-detail__team">
                 {pi && (
                   <Link className="project-detail__team-card" to={`/people/${pi.slug}`}>
@@ -125,7 +126,7 @@ export default function ResearchDetail() {
 
           {tags.length > 0 && (
             <div>
-              <p className="section-label">Keywords</p>
+              <h3>Keywords</h3>
               <div className="project-detail__tags">
                 {tags.map((t) => <span key={t}>{t}</span>)}
               </div>

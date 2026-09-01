@@ -1,69 +1,67 @@
 .hero {
   position: relative;
   width: 100%;
-  background: var(--color-cream);
   overflow: hidden;
 }
 
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -20%;
-  right: -12%;
-  width: 620px;
-  height: 620px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(240, 48, 27, 0.08) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.hero__inner {
-  position: relative;
+/* Two full-bleed colour panels instead of a light page background behind
+   copy — DIC's own intro (navy) beside a compact announcements feed
+   (orange), following the wireframe. Both fill their column edge to
+   edge, so the colour block itself is the section, not a card floating
+   on a cream page. */
+.hero__row {
   display: grid;
-  /* The text column now carries a slight edge over the video — the
-     headline and subtitle are the primary message, the video supports
-     it, so it shouldn't out-weigh them in sheer width. */
-  grid-template-columns: 1.05fr 0.95fr;
-  align-items: center;
-  gap: clamp(28px, 4vw, 56px);
-  padding: clamp(32px, 5.5vh, 64px) var(--margin-x) clamp(40px, 6vh, 64px);
-  min-height: calc(100vh - 160px);
+  grid-template-columns: 1.7fr 1fr;
+  align-items: stretch;
+  /* Was calc(100vh - 160px) — tall enough on its own to push the video
+     clip below the fold on most screens. A content-driven height keeps
+     the whole hero + video composition visible sooner. */
+  min-height: 0;
 }
 
-.hero__copy {
+.hero__info {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0;
+  background: var(--color-navy);
+  color: var(--color-white);
+  padding: clamp(28px, 4vw, 48px) var(--margin-x);
   animation: heroFadeUp 0.9s var(--ease-out) both;
 }
 
 .hero__title {
-  font-size: clamp(1.9rem, 4.2vw, 4rem);
+  color: var(--color-white);
+  font-size: clamp(1.9rem, 3.6vw, 3.6rem);
   letter-spacing: -0.01em;
   margin-bottom: 14px;
-  white-space: nowrap;
 }
 
 .hero__affiliation {
   font-family: var(--font-body);
   font-size: var(--text-md);
   font-weight: 500;
-  color: var(--color-stone);
+  color: rgba(255, 255, 255, 0.65);
   margin-bottom: 20px;
 }
 
 .hero__affiliation a {
-  color: var(--color-charcoal);
+  color: var(--color-white);
   text-decoration: underline;
-  text-decoration-color: rgba(26, 23, 20, 0.25);
+  text-decoration-color: rgba(255, 255, 255, 0.35);
   text-underline-offset: 3px;
   transition: color 0.2s var(--ease-smooth), text-decoration-color 0.2s var(--ease-smooth);
 }
 
 .hero__affiliation a:hover {
-  color: var(--color-dic-red);
-  text-decoration-color: var(--color-dic-red);
+  color: var(--color-terracotta-light);
+  text-decoration-color: var(--color-terracotta-light);
 }
 
 .hero__subtitle {
-  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  color: rgba(255, 255, 255, 0.75);
   max-width: 46ch;
   margin-bottom: 28px;
 }
@@ -80,7 +78,7 @@
   font-family: var(--font-body);
   font-size: var(--text-sm);
   font-weight: 600;
-  color: var(--color-ink);
+  color: var(--color-white);
   padding-bottom: 4px;
 }
 
@@ -98,33 +96,135 @@
 }
 
 .hero__cta-secondary:hover {
-  color: var(--color-dic-red);
+  color: var(--color-terracotta-light);
 }
 
 .hero__cta-secondary:hover::after {
   transform: scaleX(1);
+  background: var(--color-terracotta-light);
 }
 
-.hero__video {
-  animation: heroFadeUp 0.9s var(--ease-out) 0.15s both;
+/* ─── Announcements panel ─── */
+/* Ink (dark) text on the orange fill, not white — measured at 6.19:1
+   against var(--color-dic-orange), where white only clears 2.88:1 (well
+   under the 4.5:1 AA minimum for text this size). That's also true of
+   the "Research Domains" band further down this same page, which uses
+   this exact orange-with-white-text pairing already — worth a fix on
+   its own, flagged separately rather than changed here as a side effect. */
+.hero__announcements {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-cream);
+  color: var(--color-ink);
+  padding: clamp(24px, 3vw, 40px) clamp(24px, 3vw, 36px);
+  animation: heroFadeUp 0.9s var(--ease-out) 0.1s both;
 }
 
-.hero__video-frame {
+.hero__announcements-title {
+  color: var(--color-ink);
+  font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+  margin-bottom: 24px;
+}
+
+.hero__announcements-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  list-style: none;
+  margin: 0 0 28px;
+  padding: 0;
+  flex: 1;
+}
+
+.hero__announcements-list li {
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(26, 23, 20, 0.16);
+}
+
+.hero__announcements-list li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.hero__announcements-date {
+  display: block;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: rgba(26, 23, 20, 0.65);
+  margin-bottom: 6px;
+}
+
+.hero__announcements-list p {
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--color-ink);
+  max-width: none;
+}
+
+.hero__announcements-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 8px;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: rgba(26, 23, 20, 0.6);
+  transition: color 0.2s var(--ease-smooth);
+}
+
+.hero__announcements-more:hover,
+.hero__announcements-more:focus-visible {
+  color: var(--color-ink);
+}
+
+.hero__announcements-more svg {
+  transition: transform 0.25s var(--ease-out);
+}
+
+/* ─── Video clips band ─── */
+/* No padding of its own — the video fills the section directly, so the
+   section's own height is just whatever height the video's 16:9 aspect
+   ratio needs at the current width, not that plus extra breathing room
+   around a framed box. */
+.hero-clips {
+  position: relative;
+  background: var(--color-cream);
+  color: var(--color-ink);
+}
+
+.hero-clips__frame {
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
-  border-radius: var(--border-radius);
   overflow: hidden;
   background: var(--color-charcoal);
-  box-shadow: 0 30px 80px rgba(26, 23, 20, 0.28);
-  border: 6px solid var(--color-white);
 }
 
-.hero__video-frame iframe {
+.hero-clips__frame iframe {
   position: absolute;
-  inset: 0;
+  /* The source clip is a wider cinematic ratio than YouTube's 16:9
+     canvas, so the player pads it with its own baked-in black letterbox
+     bars regardless of this container's shape — sizing/positioning the
+     iframe alone can't remove bars that are part of the rendered video
+     itself. Scaling the iframe up and centering it pushes those bars
+     outside the frame, where overflow: hidden on .hero-clips__frame
+     crops them off; 1.35 is a reasonable middle-ground guess for a
+     ~2.35:1 source, not measured against this exact clip — nudge it up
+     or down if a sliver of bar is still visible, or if too much of the
+     picture is now being cropped. */
+  top: 50%;
+  left: 50%;
   width: 100%;
   height: 100%;
+  transform: translate(-50%, -50%) scale(1.35);
   border: none;
   pointer-events: none;
 }
@@ -207,34 +307,25 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero__copy,
-  .hero__video {
-    animation: none;
-  }
-
-  .hero__scroll-cue span {
+  .hero__info,
+  .hero__announcements {
     animation: none;
   }
 }
 
 @media (max-width: 1024px) {
-  .hero__inner {
+  .hero__row {
     grid-template-columns: 1fr;
     min-height: auto;
-    padding-top: clamp(48px, 8vh, 72px);
   }
 
-  /* Video used to lead here (order: -1), putting YouTube's own title card
-     — restating the page's own headline in a different style — above the
-     real H1. Text now leads on every breakpoint, video follows as support. */
+  .hero__info {
+    padding-top: clamp(48px, 8vh, 72px);
+  }
 }
 
 @media (max-width: 768px) {
-  .hero__inner {
-    padding-bottom: 56px;
-  }
-
-  .hero__video-frame {
+  .hero-clips__frame {
     border-width: 4px;
   }
 

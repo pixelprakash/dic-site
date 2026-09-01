@@ -21,8 +21,7 @@ export default function Education() {
       {/* About DIC courses — from the Academic exhibition poster */}
       <section className={`about reveal ${aboutVis ? 'visible' : ''}`} ref={aboutRef}>
         <div style={{ maxWidth: '80ch' }}>
-          <p className="section-label">Design Innovation Centre (DIC) Courses</p>
-          <h2 className="section-title">A diverse, interdisciplinary range of design courses.</h2>
+          <h2 className="section-title">Design Innovation Centre (DIC) Courses</h2>
           <p style={{ marginBottom: 20, fontSize: 'var(--text-md)' }}>
             The Design Innovation Centre (DIC) offers a diverse and interdisciplinary range of
             design courses that foster creativity, innovation, and design thinking among students
@@ -66,8 +65,7 @@ export default function Education() {
           className={`courses__group reveal ${catalogueVis ? 'visible' : ''}`}
           ref={catalogueRef}
         >
-          <p className="section-label">Course Catalogue</p>
-          <h3>Some of the DIC courses</h3>
+          <h3>Course Catalogue</h3>
           <div className="courses__grid">
             {DIC_COURSES.map((c) => (
               <div className="course-card" key={c}>{c}</div>
@@ -112,9 +110,8 @@ export default function Education() {
         className={`courses reveal ${roadVis ? 'visible' : ''}`}
         ref={roadRef}
       >
-        <p className="section-label">Future Programs</p>
-        <h2 className="section-title">Roadmap</h2>
-        <div className="courses__grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))' }}>
+        <h2 className="section-title">Future Programs</h2>
+        <ol className="roadmap-list">
           {[
             'Design Certification Program (1 Year)',
             'Design Curriculum in Schools',
@@ -124,12 +121,13 @@ export default function Education() {
             'Design Intervention in Healthcare',
             'Design Intervention in Traditional Toy Industry',
             'Design Consultancy Agency',
-          ].map((item) => (
-            <div className="course-card" key={item} style={{ borderLeft: '3px solid var(--color-terracotta)' }}>
-              {item}
-            </div>
+          ].map((item, i) => (
+            <li className="roadmap-item" key={item}>
+              <span className="roadmap-item__index">{String(i + 1).padStart(2, '0')}</span>
+              <span className="roadmap-item__text">{item}</span>
+            </li>
           ))}
-        </div>
+        </ol>
       </section>
     </>
   );

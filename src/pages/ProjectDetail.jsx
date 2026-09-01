@@ -25,32 +25,33 @@ export default function ProjectDetail() {
 
   return (
     <div className="project-detail">
-      <div className="page-header project-detail__header">
+      <div className={`page-header project-detail__header ${image ? 'project-detail__header--media' : ''}`}>
         <div className="page-header__accent" />
-        <ol className="project-detail__breadcrumb">
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/projects">Projects</Link></li>
-          <li aria-current="page">{title}</li>
-        </ol>
-        {status && (
-          <div className="project-detail__meta-row">
-            <span className="project-detail__status">{status}</span>
+        <div className="project-detail__header-content">
+          <ol className="project-detail__breadcrumb">
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/projects">Projects</Link></li>
+            <li aria-current="page">{title}</li>
+          </ol>
+          {status && (
+            <div className="project-detail__meta-row">
+              <span className="project-detail__status">{status}</span>
+            </div>
+          )}
+          <h1>{title}</h1>
+          {subtitle && <p className="project-detail__subtitle">{subtitle}</p>}
+          {subtitle2 && <p className="project-detail__subtitle">{subtitle2}</p>}
+        </div>
+
+        {image && (
+          <div className="project-detail__header-media">
+            <img src={image} alt="" loading="lazy" />
           </div>
         )}
-        <h1>{title}</h1>
-        {subtitle && <p className="project-detail__subtitle">{subtitle}</p>}
-        {subtitle2 && <p className="project-detail__subtitle">{subtitle2}</p>}
       </div>
 
-      {image && (
-        <div className="project-detail__hero-image">
-          <img src={image} alt="" loading="lazy" />
-        </div>
-      )}
-
       <section className="project-detail__section">
-        <p className="section-label">Overview</p>
-        <h2 className="section-title">About this project</h2>
+        <h2 className="section-title">Overview</h2>
         {description.map((p, i) => (
           <p className="project-detail__body" key={i}>{p}</p>
         ))}
@@ -79,8 +80,7 @@ export default function ProjectDetail() {
 
       {gallery.length > 0 && (
         <section className="project-detail__section">
-          <p className="section-label">Gallery</p>
-          <h2 className="section-title">In the field</h2>
+          <h2 className="section-title">Gallery</h2>
           <div className="project-detail__gallery">
             {gallery.map((src) => (
               <img key={src} src={src} alt="" loading="lazy" />
@@ -92,7 +92,7 @@ export default function ProjectDetail() {
       <section className="project-detail__section project-detail__pair">
         {pi && (
           <div>
-            <p className="section-label">Team</p>
+            <h3>Team</h3>
             <div className="project-detail__team">
               <Link className="project-detail__team-card" to={`/people/${pi.slug}`}>
                 <span className="project-detail__team-name">{pi.name}</span>
@@ -104,7 +104,7 @@ export default function ProjectDetail() {
 
         {tags.length > 0 && (
           <div>
-            <p className="section-label">Tags</p>
+            <h3>Tags</h3>
             <div className="project-detail__tags">
               {tags.map((t) => <span key={t}>{t}</span>)}
             </div>

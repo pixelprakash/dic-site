@@ -17,10 +17,7 @@ export const PROJECTS = [
     domain: 'Cultural Heritage',
     status: 'Ongoing',
     pi: { name: 'Prof. Deepak John Mathew', slug: 'deepak-john-mathew' },
-    // Expected: public/images/projects/telangana-heritage.jpg
-    // (crop from the museum/walkthrough photo grid on the Hub poster —
-    // skip the DIC/MoE/partner logos, just the documentation photos)
-    image: '',
+    image: '/images/projects/telangana-heritage.webp',
     description: [
       'Our project focuses on digitally documenting and preserving the tangible and intangible heritage of Telangana spanning landmarks like the Ramappa Temple and Warangal Fort, along with the diverse crafts, rituals, and traditions of its communities, including the Gond tribe of Adilabad.',
       'By employing cutting-edge technologies such as Virtual Reality (VR), Augmented Reality (AR), Artificial Intelligence (AI), and advanced material studies, this initiative aims to create a comprehensive digital repository that merges design, technology, and cultural memory.',
@@ -44,9 +41,7 @@ export const PROJECTS = [
     domain: 'Cultural Heritage',
     status: 'Ongoing',
     pi: { name: 'Prof. Deepak John Mathew', slug: 'deepak-john-mathew' },
-    // Expected: public/images/projects/temple-heritage.jpg
-    // (crop from the 3D-scanned temple render on the Hub poster)
-    image: '',
+    image: '/images/projects/temple-heritage.webp',
     description: [
       'Telangana is home to several magnificent built monuments that reflect the region’s rich cultural heritage. The essential features of the Kakatiya dynasty reflect the built heritage of the Warangal region. Warangal is the cultural capital of the Telangana state; in terms of historical importance and its unique architectural style, it has become a state heritage site.',
       'The project seeks to address these challenges by exploring the use of technology towards the digital preservation of the tangible aspects of the built heritage of southern India. The project also seeks to revive ancient culture and heritage by developing a comprehensive digital heritage repository through systematic documentation and using advanced technologies such as 3D documentation and AR and VR creations of the built heritage of Telangana, India.',
@@ -69,9 +64,7 @@ export const PROJECTS = [
     domain: 'VR/AR Education',
     status: 'Ongoing',
     pi: { name: 'Prof. Deepak John Mathew', slug: 'deepak-john-mathew' },
-    // Expected: public/images/projects/vr-learning-models.jpg
-    // (crop from the classroom VR-headset photos on the second poster)
-    image: '',
+    image: '/images/projects/ai-ar-vr-learning-models.webp',
     description: [
       'The Design Innovation Centre (DIC) project titled “Integrating AI, AR, and VR in Learning Models and Their Impact” aims to study the feasibility and effectiveness of immersive technologies in transforming school education in Telangana, India. The project focuses on evaluating how Virtual Reality (VR), Augmented Reality (AR), and Artificial Intelligence (AI) can create interactive, experiential, and technology-enabled classrooms in government schools.',
       'The study assesses the readiness of schools and teachers for adopting immersive technology, explores methods to integrate these tools into existing curricula, and analyzes their effect on student engagement, comprehension, and retention. Conducted through surveys, interviews, and classroom observations, the project is designed for scalability and may later be expanded to other states across India. The goal is to develop and implement a robust and adaptable framework for AR/VR-based education that enhances conceptual clarity, strengthens academic fundamentals, and improves students’ curiosity-driven learning.',

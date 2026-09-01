@@ -1,5 +1,11 @@
 import Hero from '../components/Hero';
-import NewsHighlights from '../components/NewsHighlights';
+// NewsHighlights (the "Latest News and Highlights" carousel) — parked.
+// Its role is now covered by Hero's own "Announcements & Notifications"
+// panel, per the new wireframe layout, so keeping both would duplicate
+// the same news items twice on one page. Not deleted: uncomment this
+// import and the <NewsHighlights /> usage below to bring the full
+// carousel back if the two are ever meant to coexist.
+// import NewsHighlights from '../components/NewsHighlights';
 import StoryFlow, { StorySection } from '../components/StoryFlow';
 import ImageStack from '../components/ImageStack';
 import Collaborators from '../components/Collaborators';
@@ -14,7 +20,7 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <NewsHighlights />
+      {/* <NewsHighlights /> — parked, see import comment above */}
 
       <StoryFlow aria-label="DIC story">
         {/* 01 — About + Collaborators */}

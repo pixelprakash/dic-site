@@ -1,7 +1,10 @@
 .member-card {
   display: flex;
   flex-direction: column;
-  border-radius: 0;
+  /* Matches .profile__photo's treatment on the full profile page —
+     was square (radius: 0) here, an inconsistency now that the profile
+     page's own photo is rounded. */
+  border-radius: var(--border-radius);
   overflow: hidden;
   background: var(--color-navy);
   border: 1px solid rgba(26, 23, 20, 0.12);
@@ -132,7 +135,7 @@
 
 .member-card__bio {
   font-family: var(--font-body);
-  font-size: var(--text-xs);
+  font-size: var(--text-md);
   line-height: 1.55;
   color: rgba(255, 255, 255, 0.7);
   max-width: none;

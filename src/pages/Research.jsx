@@ -54,7 +54,6 @@ export default function Research() {
           at DIC exhibitions and conferences, transcribed verbatim from
           their own posters. Each links through to a full detail page. */}
       <section className={`research-projects reveal ${rpVis ? 'visible' : ''}`} ref={rpRef}>
-        <p className="section-label">DIC Nodal Centre Research</p>
         <h2 className="section-title">Research projects &amp; publications</h2>
         {RESEARCH_PROJECTS.map((r) => (
           <ProjectCard key={r.slug} project={r} basePath="/research" ctaLabel="View Research" />
@@ -64,8 +63,7 @@ export default function Research() {
       {/* Lab & Facilities — from the Fifth All India DIC Meet 2025 (IIT
           Delhi) "Facilities" exhibition poster, transcribed verbatim. */}
       <section className={`lab-facilities reveal ${labVis ? 'visible' : ''}`} ref={labRef}>
-        <p className="section-label">Design Innovation Centre (DIC) — Nodal Centre Lab, IIT Hyderabad</p>
-        <h2 className="section-title">One of India&rsquo;s most advanced design and innovation facilities.</h2>
+        <h2 className="section-title">Design Innovation Centre (DIC) — Nodal Centre Lab, IIT Hyderabad</h2>
         <div className="lab-facilities__grid">
           <div>
             <p className="lab-facilities__intro">
@@ -133,7 +131,6 @@ export default function Research() {
         className={`courses reveal ${patVis ? 'visible' : ''}`}
         ref={patRef}
       >
-        <p className="section-label">Intellectual Property</p>
         <h2 className="section-title">Patents</h2>
         <div className="courses__grid">
           {PATENTS.map((p) => (

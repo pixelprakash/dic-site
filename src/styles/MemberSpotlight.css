@@ -1,12 +1,17 @@
-/* Same card chrome as .member-card (navy, sharp corners, thin border,
-   hover lift) — just laid out as a row instead of a column since these
-   single-member sections read better as one wide bar. */
+/* Same card chrome as .member-card (navy fill, thin border, hover lift) —
+   just laid out as a row instead of a column since these single-member
+   sections (Principal Investigator, Design Manager) read better as one
+   wide bar than a lonely card in a grid. Border colour matches
+   .member-card and .profile__photo exactly (rgba(26,23,20,0.12)) so
+   every card-like container on the People/Profile pages shares the same
+   stroke, and rounded corners match both too. */
 .member-spotlight {
   display: flex;
   align-items: stretch;
   overflow: hidden;
   background: var(--color-navy);
   border: 1px solid rgba(26, 23, 20, 0.12);
+  border-radius: var(--border-radius);
   transition: transform 0.25s var(--ease-out);
 }
 

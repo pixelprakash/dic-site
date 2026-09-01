@@ -1,59 +1,74 @@
-/* Page-transition loader — the DIC wordmark in its three brand colors,
-   with each letter bouncing in sequence (D → I → C) rather than a generic
-   spinner, so even the loading state carries the brand instead of being
-   throwaway UI. */
+/* Page-transition loader — the real DIC wordmark (not a text reproduction
+   of it) with a gentle "breathing" pulse, paired with a slim indeterminate
+   bar that sweeps through the three DIC brand colors (red → orange →
+   blue). The bar reads as the loading signal — it's the thing whose
+   whole job is to move — while the logo itself does the branding, so the
+   two don't compete for attention the way animating both at once would. */
 .dic-loader {
   min-height: 60vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 28px;
 }
 
-.dic-loader__mark {
-  display: flex;
-  gap: 2px;
+.dic-loader__logo {
+  height: 52px;
+  width: auto;
+  animation: dicLoaderBreathe 1.8s var(--ease-smooth) infinite;
 }
 
-.dic-loader__letter {
-  display: inline-block;
-  font-family: var(--font-heading);
-  font-style: normal;
-  font-size: 3rem;
-  line-height: 1;
-  animation: dicLoaderBounce 1.2s var(--ease-smooth) infinite;
-  animation-delay: var(--dic-loader-delay, 0s);
-}
-
-.dic-loader__letter:nth-child(1) {
-  color: var(--color-dic-red);
-}
-
-.dic-loader__letter:nth-child(2) {
-  color: var(--color-dic-orange);
-}
-
-.dic-loader__letter:nth-child(3) {
-  color: var(--color-dic-blue);
-}
-
-@keyframes dicLoaderBounce {
-  0%, 60%, 100% {
-    transform: translateY(0);
-    opacity: 0.45;
+@keyframes dicLoaderBreathe {
+  0%, 100% {
+    transform: scale(0.94);
+    opacity: 0.7;
   }
-  30% {
-    transform: translateY(-16px);
+  50% {
+    transform: scale(1);
     opacity: 1;
   }
 }
 
+.dic-loader__track {
+  position: relative;
+  width: 128px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--color-sand);
+  overflow: hidden;
+}
+
+.dic-loader__bar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -40%;
+  width: 40%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--color-dic-red), var(--color-dic-orange), var(--color-dic-blue));
+  animation: dicLoaderSweep 1.3s var(--ease-smooth) infinite;
+}
+
+@keyframes dicLoaderSweep {
+  0% { left: -40%; }
+  100% { left: 100%; }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .dic-loader__letter {
-    animation: dicLoaderPulse 1.6s var(--ease-smooth) infinite;
+  .dic-loader__logo {
+    animation: dicLoaderFade 2s ease-in-out infinite;
   }
 
-  @keyframes dicLoaderPulse {
-    0%, 100% { opacity: 0.45; }
+  .dic-loader__bar {
+    left: 0;
+    width: 100%;
+    opacity: 0.7;
+    animation: none;
+  }
+
+  @keyframes dicLoaderFade {
+    0%, 100% { opacity: 0.7; }
     50% { opacity: 1; }
   }
 }

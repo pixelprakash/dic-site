@@ -1,9 +1,18 @@
-/* Full width of its container, left-aligning its own pill/card content
-   to match the left-aligned text it sits alongside. */
+/* Fills its container (.footer__brand-map — its own dedicated grid
+   column, full height of the card) — collapsed, the pill sits at the
+   top of that space; expanded, the card grows to fill the whole column
+   instead of just a fixed square, since the column exists for exactly
+   this and nothing else shares it. */
 .view-on-map {
   display: flex;
   width: 100%;
+  height: 100%;
+  align-items: flex-start;
   justify-content: flex-start;
+}
+
+.view-on-map.is-open {
+  align-items: stretch;
 }
 
 /* Matches the footer's own social-icon pill treatment (translucent white
@@ -32,20 +41,21 @@
   transform: translateY(-2px);
 }
 
+/* Expands to fill its own dedicated column (.footer__brand-map) — that
+   column exists solely for this, at its full height, so growing here
+   never reaches into the logo/description/contact column beside it,
+   at any viewport width. */
 .view-on-map__card {
   position: relative;
-  /* Capped against the viewport, not the parent's width — a parent with
-     an intentionally auto/shrink-to-fit width (e.g. sitting next to a
-     logo in a flex row) has no definite width of its own, so a plain
-     "100%" here resolves to ~0 and the whole card collapses to nothing
-     the moment it expands. */
-  width: min(340px, calc(100vw - 48px));
-  aspect-ratio: 1 / 1;
-  border-radius: 24px;
+  width: 100%;
+  height: 100%;
+  min-height: 220px;
+  border-radius: var(--border-radius);
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--color-teal-dark);
   border: 1px solid rgba(255, 255, 255, 0.14);
-  animation: viewOnMapExpand 0.4s var(--ease-out) both;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+  animation: viewOnMapExpand 0.35s var(--ease-out) both;
 }
 
 @keyframes viewOnMapExpand {

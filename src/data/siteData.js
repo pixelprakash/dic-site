@@ -232,33 +232,37 @@ export const NAV_LINKS = [
   {
     label: "Research",
     path: "/research",
-    menu: {
-      columns: [
-        {
-          heading: "Lorem Ipsum",
-          items: [
-            { label: "Excepteur sint occaecat", desc: "Cupidatat non proident sunt in culpa.", path: "/research" },
-            { label: "Qui officia deserunt", desc: "Mollit anim id est laborum lorem.", path: "/research" },
-            { label: "Ipsum dolor sit amet", desc: "Consectetur adipiscing elit sed do.", path: "/research" },
-          ],
-        },
-        {
-          heading: "Dolor Sit Amet",
-          items: [
-            { label: "Eiusmod tempor incididunt", desc: "Ut labore et dolore magna aliqua.", path: "/research" },
-            { label: "Ut enim ad minim veniam", desc: "Quis nostrud exercitation ullamco.", path: "/research" },
-            { label: "Laboris nisi ut aliquip", desc: "Ex ea commodo consequat duis aute.", path: "/research" },
-          ],
-        },
-      ],
-      featured: {
-        image: "/images/image85.jpg",
-        label: "Lorem Ipsum Dolor",
-        desc: "Ut enim ad minim veniam quis nostrud exercitation ullamco laboris.",
-        path: "/research",
-        cta: "Learn more",
-      },
-    },
+    // Mega-menu parked — was still the unfinished Lorem Ipsum placeholder
+    // scaffold, never filled in with real Research sub-sections. Kept
+    // here rather than deleted so it's ready to fill in and re-enable
+    // later (see NavLinkItem/Navbar.jsx for where `link.menu` is read).
+    // menu: {
+    //   columns: [
+    //     {
+    //       heading: "Lorem Ipsum",
+    //       items: [
+    //         { label: "Excepteur sint occaecat", desc: "Cupidatat non proident sunt in culpa.", path: "/research" },
+    //         { label: "Qui officia deserunt", desc: "Mollit anim id est laborum lorem.", path: "/research" },
+    //         { label: "Ipsum dolor sit amet", desc: "Consectetur adipiscing elit sed do.", path: "/research" },
+    //       ],
+    //     },
+    //     {
+    //       heading: "Dolor Sit Amet",
+    //       items: [
+    //         { label: "Eiusmod tempor incididunt", desc: "Ut labore et dolore magna aliqua.", path: "/research" },
+    //         { label: "Ut enim ad minim veniam", desc: "Quis nostrud exercitation ullamco.", path: "/research" },
+    //         { label: "Laboris nisi ut aliquip", desc: "Ex ea commodo consequat duis aute.", path: "/research" },
+    //       ],
+    //     },
+    //   ],
+    //   featured: {
+    //     image: "/images/image85.jpg",
+    //     label: "Lorem Ipsum Dolor",
+    //     desc: "Ut enim ad minim veniam quis nostrud exercitation ullamco laboris.",
+    //     path: "/research",
+    //     cta: "Learn more",
+    //   },
+    // },
   },
   {
     label: "Projects",
@@ -269,35 +273,38 @@ export const NAV_LINKS = [
     path: "/people",
   },
   {
-    label: "Publications",
+    label: "Education",
     path: "/education",
-    menu: {
-      columns: [
-        {
-          heading: "Lorem Ipsum",
-          items: [
-            { label: "Nemo enim ipsam", desc: "Voluptatem quia voluptas sit aspernatur.", path: "/education" },
-            { label: "Aut odit aut fugit", desc: "Sed quia consequuntur magni dolores.", path: "/education" },
-            { label: "Eos qui ratione", desc: "Voluptatem sequi nesciunt neque porro.", path: "/education" },
-          ],
-        },
-        {
-          heading: "Dolor Sit Amet",
-          items: [
-            { label: "Quisquam est qui dolorem", desc: "Ipsum quia dolor sit amet consectetur.", path: "/education" },
-            { label: "Adipisci velit sed quia", desc: "Non numquam eius modi tempora.", path: "/education" },
-            { label: "Incidunt ut labore", desc: "Et dolore magnam aliquam quaerat.", path: "/education" },
-          ],
-        },
-      ],
-      featured: {
-        image: "/images/image56.jpg",
-        label: "Lorem Ipsum Dolor",
-        desc: "At vero eos et accusamus et iusto odio dignissimos ducimus.",
-        path: "/education",
-        cta: "Learn more",
-      },
-    },
+    // Mega-menu parked — same unfinished Lorem Ipsum placeholder as
+    // Research's, above. Kept, not deleted; fill in and uncomment when
+    // there's real content for it.
+    // menu: {
+    //   columns: [
+    //     {
+    //       heading: "Lorem Ipsum",
+    //       items: [
+    //         { label: "Nemo enim ipsam", desc: "Voluptatem quia voluptas sit aspernatur.", path: "/education" },
+    //         { label: "Aut odit aut fugit", desc: "Sed quia consequuntur magni dolores.", path: "/education" },
+    //         { label: "Eos qui ratione", desc: "Voluptatem sequi nesciunt neque porro.", path: "/education" },
+    //       ],
+    //     },
+    //     {
+    //       heading: "Dolor Sit Amet",
+    //       items: [
+    //         { label: "Quisquam est qui dolorem", desc: "Ipsum quia dolor sit amet consectetur.", path: "/education" },
+    //         { label: "Adipisci velit sed quia", desc: "Non numquam eius modi tempora.", path: "/education" },
+    //         { label: "Incidunt ut labore", desc: "Et dolore magnam aliquam quaerat.", path: "/education" },
+    //       ],
+    //     },
+    //   ],
+    //   featured: {
+    //     image: "/images/image56.jpg",
+    //     label: "Lorem Ipsum Dolor",
+    //     desc: "At vero eos et accusamus et iusto odio dignissimos ducimus.",
+    //     path: "/education",
+    //     cta: "Learn more",
+    //   },
+    // },
   },
   {
     label: "DIC Nodal",
@@ -345,6 +352,10 @@ export const NEWS = [
     tag: "VR/AR Education",
   },
 ];
+
+export function getNewsById(id) {
+  return NEWS.find((n) => n.id === id);
+}
 
 export const COLLABORATORS = [
   { name: "MeitY", logo: "/images/collablogos/1.meity.webp" },
