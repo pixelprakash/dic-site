@@ -530,65 +530,178 @@
 }
 
 /* ─── Lab & Facilities (Research page) ─── */
+/* Rebuilt as one full-width column instead of two side-by-side vertical
+   lists — the equipment list and the capabilities copy were both divided
+   lists stacked next to each other, which read as the same component
+   duplicated rather than a considered layout. Intro copy now gets its own
+   full-width measure, "Equipment & Spaces" is a wrapping spec grid (each
+   entry is just a name + one line, so a grid cell reads better than a
+   list row), and "Capabilities" is a whitespace-led feature grid with a
+   large index numeral standing in for a divider — no borders, no boxes,
+   no repeated label pattern. */
 .lab-facilities {
   padding: var(--section-gap) var(--margin-x);
   background: var(--color-sand);
 }
 
-.lab-facilities__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
-  margin-top: 40px;
-}
-
 .lab-facilities__intro {
-  margin-bottom: 28px;
+  max-width: 68ch;
+  margin: 32px 0 64px;
+}
+
+.lab-facilities__intro p {
   font-size: var(--text-md);
+  margin-bottom: 20px;
 }
 
-/* A plain divided list rather than a stack of white boxes each with a
-   coloured accent stripe — that card-plus-stripe combination is the same
-   generic template look fixed on the Education page's "Future Programs"
-   list; this section had the identical pattern. Facilities aren't a
-   sequence the way a roadmap is, so no numbering here — just a heading,
-   a description, and a rule between entries. */
-.lab-facilities__list {
-  display: flex;
-  flex-direction: column;
-  border-top: 1px solid rgba(26, 23, 20, 0.12);
+.lab-facilities__intro p:last-child {
+  margin-bottom: 0;
 }
 
-.lab-facility {
-  padding: 20px 0;
-  border-bottom: 1px solid rgba(26, 23, 20, 0.12);
+.lab-facilities__group-title {
+  font-size: var(--text-xl);
+  margin-bottom: 32px;
 }
 
-.lab-facility h4 {
-  margin-bottom: 6px;
+.lab-facilities__group-title + .lab-equipment,
+.lab-facilities__group-title + .lab-capabilities {
+  margin-bottom: 64px;
+}
+
+.lab-equipment {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 36px 40px;
+}
+
+.lab-equipment__item {
+  padding-top: 18px;
+  border-top: 1px solid rgba(26, 23, 20, 0.18);
+}
+
+.lab-equipment__item h4 {
   font-size: var(--text-lg);
+  margin-bottom: 6px;
 }
 
-.lab-facility p {
+.lab-equipment__item p {
   font-size: var(--text-md);
   color: var(--color-stone);
   margin: 0;
 }
 
-.lab-facilities__col h4 {
-  font-family: var(--font-body);
+.lab-capabilities {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px 64px;
+}
+
+.lab-capabilities__item {
+  max-width: 52ch;
+}
+
+.lab-capabilities__index {
+  display: block;
+  font-family: var(--font-heading);
   font-weight: 600;
-  font-size: var(--text-sm);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  line-height: 1;
   color: var(--color-terracotta);
+  margin-bottom: 10px;
+}
+
+.lab-capabilities__item h4 {
+  font-size: var(--text-lg);
   margin-bottom: 8px;
 }
 
-.lab-facilities__col p {
+.lab-capabilities__item p {
   font-size: var(--text-md);
   color: var(--color-stone);
-  margin-bottom: 24px;
+  margin: 0;
+}
+
+@media (max-width: 700px) {
+  .lab-capabilities {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─── Patents (Research page) ─── */
+.patents {
+  padding: var(--section-gap) var(--margin-x);
+}
+
+.patents-list {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin: 32px 0 0;
+  padding: 0;
+  border-top: 1px solid rgba(26, 23, 20, 0.12);
+}
+
+.patents-item {
+  display: grid;
+  grid-template-columns: 2.5ch 1fr auto;
+  align-items: baseline;
+  gap: 28px;
+  padding: 24px 0;
+  border-bottom: 1px solid rgba(26, 23, 20, 0.12);
+}
+
+.patents-item__index {
+  font-family: var(--font-heading);
+  font-style: normal;
+  font-weight: 600;
+  font-size: var(--text-xl);
+  color: var(--color-terracotta);
+}
+
+.patents-item__body h3 {
+  font-size: var(--text-lg);
+  margin-bottom: 4px;
+}
+
+.patents-item__body p {
+  font-size: var(--text-md);
+  color: var(--color-stone);
+  margin: 0;
+}
+
+.patents-item__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.patents-item__inventor {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-charcoal);
+}
+
+.patents-item__type,
+.patents-item__id {
+  font-size: var(--text-xs);
+  color: var(--color-stone);
+}
+
+@media (max-width: 700px) {
+  .patents-item {
+    grid-template-columns: 2.5ch 1fr;
+  }
+
+  .patents-item__meta {
+    grid-column: 2;
+    align-items: flex-start;
+    text-align: left;
+    white-space: normal;
+    margin-top: 6px;
+  }
 }
 
 @media (max-width: 900px) {
