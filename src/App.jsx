@@ -2,7 +2,9 @@ import { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import CustomCursor from './components/CustomCursor';
+// Custom cursor — parked for now. Not deleted: uncomment this import and
+// the <CustomCursor /> below to bring it back.
+// import CustomCursor from './components/CustomCursor';
 // Site switcher (DIC Nodal / DIC · IITH toggle bar) — parked for now, it
 // read as an odd extra bar above the navbar. Not deleted: uncomment this
 // import and the <SiteSwitcher /> below to bring it back. DIC Nodal is
@@ -79,7 +81,7 @@ export default function App() {
         Skip to content
       </a>
       {/* <SiteSwitcher /> */}
-      <CustomCursor />
+      {/* <CustomCursor /> */}
       <Navbar />
       <main id="main-content">
         <Suspense fallback={<Loader />}>

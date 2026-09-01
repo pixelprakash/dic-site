@@ -318,38 +318,41 @@ export const NAV_LINKS = [
 
 export const CONTACT_LINK = { label: "Contact", path: "/contact" };
 
+// Placeholder copy — swap each title/excerpt for a real announcement
+// before launch. Kept as plain Lorem Ipsum rather than invented "sample"
+// news so nothing here reads as a real, factual claim in the meantime.
 export const NEWS = [
   {
     id: "n1",
-    title: "Ramappa Temple digitisation wins national recognition",
-    excerpt: "DIC's photogrammetry and VR reconstruction of the UNESCO World Heritage site was showcased at a national digital heritage summit.",
+    title: "Lorem ipsum dolor sit amet consectetur",
+    excerpt: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     date: "2026-06-24",
     image: "/images/image52.jpg",
-    tag: "Cultural Heritage",
+    tag: "Placeholder",
   },
   {
     id: "n2",
-    title: "Vantara delegation visits DIC to review wildlife conservation tech",
-    excerpt: "A visiting team explored ongoing collaborations on sensor-driven habitat monitoring and interactive conservation storytelling.",
+    title: "Ut enim ad minim veniam quis nostrud",
+    excerpt: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     date: "2026-06-18",
     image: "/images/image85.jpg",
-    tag: "Sustainability",
+    tag: "Placeholder",
   },
   {
     id: "n3",
-    title: "eVTOL cabin prototype completes second round of user trials",
-    excerpt: "103 participants took part in VR-based perception and safety studies for DIC's autonomous air mobility programme.",
+    title: "Duis aute irure dolor in reprehenderit",
+    excerpt: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
     date: "2026-06-02",
     image: "/images/image84.jpg",
-    tag: "Air Mobility",
+    tag: "Placeholder",
   },
   {
     id: "n4",
-    title: "DIC's virtual chemistry lab adopted by three government schools",
-    excerpt: "The VR-based STEM learning tool built with the Department of Design is now part of the practical curriculum at pilot schools in Telangana.",
+    title: "Excepteur sint occaecat cupidatat non proident",
+    excerpt: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     date: "2026-03-07",
     image: "/images/image40.png",
-    tag: "VR/AR Education",
+    tag: "Placeholder",
   },
 ];
 
