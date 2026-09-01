@@ -547,26 +547,31 @@
   font-size: var(--text-md);
 }
 
+/* A plain divided list rather than a stack of white boxes each with a
+   coloured accent stripe — that card-plus-stripe combination is the same
+   generic template look fixed on the Education page's "Future Programs"
+   list; this section had the identical pattern. Facilities aren't a
+   sequence the way a roadmap is, so no numbering here — just a heading,
+   a description, and a rule between entries. */
 .lab-facilities__list {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  border-top: 1px solid rgba(26, 23, 20, 0.12);
 }
 
 .lab-facility {
-  padding: 20px 24px;
-  background: var(--color-white);
-  border-radius: var(--border-radius-sm);
-  border-left: 3px solid var(--color-terracotta);
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(26, 23, 20, 0.12);
 }
 
 .lab-facility h4 {
   margin-bottom: 6px;
-  font-size: var(--text-md);
+  font-size: var(--text-lg);
 }
 
 .lab-facility p {
-  font-size: var(--text-sm);
+  font-size: var(--text-md);
+  color: var(--color-stone);
   margin: 0;
 }
 
@@ -581,7 +586,8 @@
 }
 
 .lab-facilities__col p {
-  font-size: var(--text-sm);
+  font-size: var(--text-md);
+  color: var(--color-stone);
   margin-bottom: 24px;
 }
 
