@@ -38,7 +38,7 @@ export const MEMBERS = {
       name: 'Prof. Deepak John Mathew',
       role: 'Principal Investigator',
       bio: 'Professor of Design, IIT Hyderabad — Principal Investigator & Nodal Coordinator, Design Innovation Centre, Ministry of Education, Govt. of India.',
-      fullBio: 'Dr. Mathew leads the Design Innovation Centre as its Principal Investigator and is a Professor in the Department of Design at IIT Hyderabad, where he served as the founding Head of Department from 2014 to 2022. His work spans digital heritage preservation, immersive technologies (AR/VR), autonomous and urban air mobility, photography and design education — bridging design and technology to address real-world challenges. Formerly Head of Photography Design at NID, he was instrumental in building design education at IIT Hyderabad.',
+      fullBio: 'Prof. Deepak leads the Design Innovation Centre as its Principal Investigator and is a Professor in the Department of Design at IIT Hyderabad, where he served as the founding Head of Department from 2014 to 2022. His work spans digital heritage preservation, immersive technologies (AR/VR), autonomous and urban air mobility, photography and design education — bridging design and technology to address real-world challenges. Formerly Head of Photography Design at NID, he was instrumental in building design education at IIT Hyderabad.',
       tags: ['Digital Heritage', 'AR/VR', 'Air Mobility', 'Design Education'],
       researchAreas: [
         'Digital Heritage Preservation',

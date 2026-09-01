@@ -169,7 +169,11 @@
 
 .profile__timeline-item {
   display: grid;
-  grid-template-columns: 120px 1fr;
+  /* Fixed to fit the longest realistic date range ("2014 – Oct 2022") —
+     120px let that string overflow its column and creep into the role
+     column, so shorter date ranges (e.g. "2022 – present") lined up
+     differently from longer ones instead of sharing one clean edge. */
+  grid-template-columns: 148px 1fr;
   gap: 16px;
 }
 
@@ -179,6 +183,8 @@
   font-weight: 600;
   color: var(--color-stone);
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .profile__timeline-title {
