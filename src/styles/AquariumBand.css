@@ -15,6 +15,46 @@
   pointer-events: none;
 }
 
+/* A scalloped highlight drifting sideways along the very top edge — reads
+   as the water's own surface line rather than a flat cutoff. */
+.aquarium__surface {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 22px;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.55;
+  background-image:
+    radial-gradient(ellipse 70px 16px at 35px 2px, rgba(255, 255, 255, 0.32), transparent 70%),
+    radial-gradient(ellipse 70px 16px at 105px 9px, rgba(255, 255, 255, 0.2), transparent 70%);
+  background-repeat: repeat-x;
+  background-size: 140px 22px;
+  animation: surfaceDrift 7s linear infinite;
+}
+
+@keyframes surfaceDrift {
+  from { background-position-x: 0; }
+  to { background-position-x: -140px; }
+}
+
+/* A slow, soft drift of light through the water column — distinct from
+   the more directional .aquarium__rays, this is diffuse and ambient. */
+.aquarium__shimmer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(255, 255, 255, 0.09), transparent 65%);
+  animation: shimmerDrift 9s ease-in-out infinite;
+}
+
+@keyframes shimmerDrift {
+  0%, 100% { transform: translateX(-6%) scale(1); }
+  50% { transform: translateX(6%) scale(1.06); }
+}
+
 /* soft drifting caustic light rays for underwater atmosphere */
 .aquarium__rays {
   position: absolute;
@@ -81,8 +121,17 @@
 
 .aquarium__fish .fish__svg {
   display: block;
-  transform: scale(var(--fish-scale, 1));
   filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.28));
+  /* A slow whole-body rock, layered under the faster tail/fin wag below —
+     real fish flex their spine as they swim, not just the tail. */
+  animation: fishBodyUndulate calc(var(--wag-duration, 0.5s) * 2.4) ease-in-out infinite;
+  animation-delay: var(--wag-delay, 0s);
+  transform-origin: 76% 55%;
+}
+
+@keyframes fishBodyUndulate {
+  0%, 100% { transform: scale(var(--fish-scale, 1)) skewY(-1.6deg); }
+  50% { transform: scale(var(--fish-scale, 1)) skewY(1.6deg); }
 }
 
 .aquarium__fish .fish__tail {
@@ -158,12 +207,19 @@
   100% { transform: translateY(46px); opacity: 0; }
 }
 
+/* The "View this project" CTA moved into the footer's own bento grid as
+   a permanent card (Footer.jsx / .footer__project-card) — no longer a
+   hover overlay on the tank, so there's nothing left to style here. */
+
 @media (prefers-reduced-motion: reduce) {
   .aquarium__fish .fish__tail,
   .aquarium__fish .fish__pectoral,
   .aquarium__fish .fish__dorsal,
+  .aquarium__fish .fish__svg,
   .aquarium__bubble,
   .aquarium__ray,
+  .aquarium__surface,
+  .aquarium__shimmer,
   .aquarium__food {
     animation: none;
   }

@@ -15,14 +15,13 @@ export default function ProjectDetail() {
           <li><Link to="/projects">Projects</Link></li>
           <li aria-current="page">Not found</li>
         </ol>
-        <p className="section-label" style={{ justifyContent: 'center' }}>Projects</p>
         <h1>Project not found</h1>
         <p style={{ margin: '0 auto' }}>This project doesn&rsquo;t have a page yet, or the link is out of date.</p>
       </div>
     );
   }
 
-  const { title, subtitle, subtitle2, tagline, description = [], objectives = [], outcomes = [], gallery = [], domain, status, pi, tags = [], image } = project;
+  const { title, subtitle, subtitle2, tagline, description = [], objectives = [], outcomes = [], gallery = [], status, pi, tags = [], image } = project;
 
   return (
     <div className="project-detail">
@@ -33,12 +32,11 @@ export default function ProjectDetail() {
           <li><Link to="/projects">Projects</Link></li>
           <li aria-current="page">{title}</li>
         </ol>
-        <div className="project-detail__meta-row">
-          <p className="section-label" style={{ color: 'var(--color-terracotta-light)', marginBottom: 0 }}>
-            {domain}
-          </p>
-          {status && <span className="project-detail__status">{status}</span>}
-        </div>
+        {status && (
+          <div className="project-detail__meta-row">
+            <span className="project-detail__status">{status}</span>
+          </div>
+        )}
         <h1>{title}</h1>
         {subtitle && <p className="project-detail__subtitle">{subtitle}</p>}
         {subtitle2 && <p className="project-detail__subtitle">{subtitle2}</p>}

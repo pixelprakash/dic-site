@@ -3,7 +3,6 @@ export default function Contact() {
     <>
       <div className="page-header">
         <div className="page-header__accent" />
-        <p className="section-label" style={{ color: 'var(--color-terracotta-light)' }}>Connect</p>
         <h1>Get in touch</h1>
         <p>
           Interested in collaboration, research partnerships, or learning more

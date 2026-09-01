@@ -447,6 +447,11 @@
   }
 }
 
+/* ─── Research projects & publications (Research page) ─── */
+.research-projects {
+  padding: var(--section-gap) var(--margin-x) 0;
+}
+
 /* ─── Courses grid ─── */
 .courses {
   padding: var(--section-gap) var(--margin-x);

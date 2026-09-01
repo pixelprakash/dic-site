@@ -13,10 +13,9 @@ export default function Projects() {
     <>
       <div className="page-header">
         <div className="page-header__accent" />
-        <p className="section-label" style={{ color: 'var(--color-terracotta-light)' }}>Projects</p>
-        <h1>Work that matters</h1>
+        <h1>Projects</h1>
         <p>
-          921 innovative products delivered, improved, or initiated across heritage,
+          921 products delivered, improved, or initiated across heritage,
           mobility, education, and sustainable design.
         </p>
       </div>

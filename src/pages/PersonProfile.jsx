@@ -113,7 +113,6 @@ export default function PersonProfile() {
           <li><Link to="/people">People</Link></li>
           <li aria-current="page">Profile not found</li>
         </ol>
-        <p className="section-label">Members of DIC</p>
         <h1>Profile not found</h1>
         <p>This member doesn&rsquo;t have a page yet, or the link is out of date.</p>
         <Link className="pill-cta" to="/people">

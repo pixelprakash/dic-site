@@ -46,10 +46,17 @@
   --color-cream: #FAF4EC;
   --color-sand: #F0E6D6;
   --color-warm-gray: #C4B8A8;
-  --color-stone: #8C7E6E;
+  /* --color-stone and --color-terracotta were darkened from their
+     original values (#8C7E6E, #C4704B) — both failed WCAG AA's 4.5:1 text
+     contrast against the site's light backgrounds (~3.6:1 and ~3.4:1
+     respectively). These read the same "warm, earthy" character at a
+     glance but actually pass. --color-terracotta-light is untouched — it
+     was already correctly reserved for dark backgrounds, where the
+     original lighter value already clears AA. */
+  --color-stone: #6B5D4C;
   --color-charcoal: #2A2520;
   --color-ink: #1A1714;
-  --color-terracotta: #C4704B;
+  --color-terracotta: #954E30;
   --color-terracotta-light: #D4906B;
   --color-sage: #7A9178;
   --color-teal-dark: #1B4B5A;

@@ -95,7 +95,7 @@
 
 .project-detail__body {
   max-width: 70ch;
-  font-size: var(--text-md);
+  font-size: var(--text-lg);
   line-height: 1.75;
 }
 
@@ -112,16 +112,16 @@
 }
 
 .project-detail__card p {
-  font-size: var(--text-sm);
+  font-size: var(--text-md);
   line-height: 1.7;
   max-width: 48ch;
 }
 
 .project-detail__card-p {
-  font-size: var(--text-sm);
-  line-height: 1.7;
-  max-width: 56ch;
-  margin-bottom: 12px;
+  font-size: var(--text-md);
+  line-height: 1.75;
+  max-width: 60ch;
+  margin-bottom: 14px;
 }
 
 .project-detail__list {
@@ -135,11 +135,11 @@
 
 .project-detail__list li {
   position: relative;
-  padding-left: 20px;
-  font-size: var(--text-sm);
-  line-height: 1.65;
+  padding-left: 22px;
+  font-size: var(--text-md);
+  line-height: 1.7;
   color: var(--color-charcoal);
-  max-width: 56ch;
+  max-width: 60ch;
 }
 
 .project-detail__list li::before {
@@ -178,7 +178,7 @@
 
 .project-detail__stat span {
   font-family: var(--font-body);
-  font-size: var(--text-sm);
+  font-size: var(--text-md);
   color: var(--color-charcoal);
   line-height: 1.5;
 }
@@ -222,12 +222,12 @@
 .project-detail__team-name {
   font-family: var(--font-body);
   font-weight: 600;
-  font-size: var(--text-md);
+  font-size: var(--text-lg);
   color: var(--color-charcoal);
 }
 
 .project-detail__team-role {
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
   color: var(--color-stone);
 }
 
@@ -240,7 +240,7 @@
 
 .project-detail__tags span {
   font-family: var(--font-body);
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
   font-weight: 500;
   padding: 8px 16px;
   border-radius: 999px;
@@ -267,13 +267,13 @@
   padding: 14px 0;
   border-bottom: 1px solid rgba(26, 23, 20, 0.08);
   font-family: var(--font-body);
-  font-size: var(--text-sm);
+  font-size: var(--text-md);
   color: var(--color-charcoal);
 }
 
 .project-detail__patents li small {
   flex-shrink: 0;
-  font-size: var(--text-2xs);
+  font-size: var(--text-xs);
   color: var(--color-stone);
   text-transform: uppercase;
   letter-spacing: 0.06em;

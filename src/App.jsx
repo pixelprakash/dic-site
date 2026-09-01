@@ -25,6 +25,7 @@ const Contact = lazy(() => import('./pages/Contact'));
 const Nodal = lazy(() => import('./pages/Nodal'));
 const AllIndiaDicMeet26 = lazy(() => import('./pages/AllIndiaDicMeet26'));
 const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
+const ResearchDetail = lazy(() => import('./pages/ResearchDetail'));
 
 const DEFAULT_TITLE = 'DIC · IITH — Design Innovation Centre, IIT Hyderabad';
 
@@ -89,6 +90,7 @@ export default function App() {
             {/* Old path, kept working in case it's bookmarked or linked anywhere */}
             <Route path="/about" element={<Navigate to="/people" replace />} />
             <Route path="/research" element={<Research />} />
+            <Route path="/research/:slug" element={<ResearchDetail />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/projects/:slug" element={<ProjectDetail />} />
             <Route path="/education" element={<Education />} />

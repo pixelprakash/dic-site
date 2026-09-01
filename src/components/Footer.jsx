@@ -2,10 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { REQUEST_TYPES } from '../data/siteData';
 import ViewOnMap from './ViewOnMap';
-// Playful fish-tank footer treatment — parked for now while the site keeps a
-// more serious tone. Not deleted: flip this back on by uncommenting the
-// import and the <AquariumBand /> usage below.
-// import AquariumBand from './AquariumBand';
+import AquariumBand from './AquariumBand';
 import '../styles/Footer.css';
 
 const SOCIALS = [
@@ -71,12 +68,39 @@ export default function Footer() {
 
   return (
     <footer className="footer">
-      {/* <AquariumBand /> — parked for now, see import note above */}
+      <AquariumBand />
       <div className="footer__inner">
       <div className="footer__top">
         <div className="footer__left">
+          {/* Bento layout: this card + the brand card below it stack to
+              match the full height of the form card on the right — always
+              visible now rather than a hover-only overlay on the tank. */}
+          <Link to="/projects/urban-aquaponics-no-soil-farming" className="footer__project-card">
+            <div className="footer__project-body">
+              <p className="footer__project-eyebrow">Did you know?</p>
+              <p className="footer__project-title">DIC grows food without soil, using fish like these</p>
+            </div>
+            <span className="footer__project-link">
+              View project
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </span>
+          </Link>
+
           <div className="footer__brand">
-            <img src="/images/diclogo.webp" alt="DIC — Design Innovation Centre, IIT Hyderabad" className="footer__logo" />
+            {/* Logo + "View on map" share a top row, mirroring the project
+                card above (label on the left, CTA on the right) — the two
+                cards' CTAs now line up at the same position instead of
+                one sitting at the top and the other buried at the bottom. */}
+            <div className="footer__brand-top">
+              <img src="/images/diclogo.webp" alt="DIC — Design Innovation Centre, IIT Hyderabad" className="footer__logo" />
+              <ViewOnMap
+                locationName="Design Innovation Centre, IIT Hyderabad"
+                address="IIT Hyderabad, Kandi, Sangareddy, Telangana 502284"
+                className="footer__map"
+              />
+            </div>
             <p>
               Nodal Centre at IIT Hyderabad. Interdisciplinary design research bridging
               heritage, technology, and social impact.
@@ -97,11 +121,6 @@ export default function Footer() {
                 ))}
               </div>
             ))}
-            <ViewOnMap
-              locationName="Design Innovation Centre, IIT Hyderabad"
-              address="IIT Hyderabad, Kandi, Sangareddy, Telangana 502284"
-              className="footer__map"
-            />
           </div>
         </div>
 

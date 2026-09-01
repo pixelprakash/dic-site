@@ -24,7 +24,9 @@
 
 .profile__breadcrumb li:not(:last-child)::after {
   content: '/';
-  color: var(--color-warm-gray);
+  /* Was --color-warm-gray, at ~1.8:1 against the page — too faint to read
+     as an intentional separator rather than a rendering glitch. */
+  color: var(--color-stone);
 }
 
 .profile__breadcrumb a {
@@ -68,8 +70,11 @@
   bottom: 16px;
   z-index: 2;
   padding: 7px 14px;
-  border-radius: 999px;
-  background: rgba(16, 27, 66, 0.6);
+  border-radius: var(--border-radius-sm);
+  /* Higher opacity than a typical translucent overlay — this sits over a
+     different photo per person, and a lighter tint risked dropping below
+     AA contrast depending on what's underneath it. */
+  background: rgba(12, 20, 32, 0.82);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   color: var(--color-white);
@@ -181,26 +186,26 @@
 }
 
 .profile__timeline-desc {
-  font-size: var(--text-sm);
+  font-size: var(--text-md);
   color: var(--color-stone);
   margin-top: 8px;
-  line-height: 1.6;
+  line-height: 1.65;
   max-width: none;
 }
 
 .profile__list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
 .profile__list li {
   position: relative;
   padding-left: 18px;
   font-family: var(--font-body);
-  font-size: var(--text-sm);
+  font-size: var(--text-md);
   color: var(--color-charcoal);
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
 .profile__list li::before {
@@ -215,6 +220,9 @@
 }
 
 .profile__list--pubs li {
+  /* Publication lists read denser in real CVs than prose achievements —
+     kept at the smaller size rather than following the bump above. */
+  font-size: var(--text-sm);
   padding-left: 0;
 }
 
@@ -235,7 +243,9 @@
 .profile__pub-link {
   margin-left: 8px;
   font-weight: 600;
-  color: var(--color-dic-red);
+  /* Not dic-red here — at this text's actual size/weight it measures
+     under the 4.5:1 AA minimum. Navy clears it comfortably. */
+  color: var(--color-navy);
   text-decoration: underline;
 }
 
@@ -251,7 +261,7 @@
   font-size: var(--text-xs);
   font-weight: 500;
   padding: 8px 16px;
-  border-radius: 999px;
+  border-radius: var(--border-radius-sm);
   border: 1px solid var(--color-warm-gray);
   background: var(--color-sand);
   color: var(--color-charcoal);
@@ -268,7 +278,7 @@
   align-items: center;
   gap: 8px;
   padding: 12px 22px;
-  border-radius: 999px;
+  border-radius: var(--border-radius-sm);
   background: var(--color-navy);
   color: var(--color-white);
   font-family: var(--font-body);
@@ -289,7 +299,7 @@
   gap: 10px;
   margin-top: 24px;
   padding: 13px 28px;
-  border-radius: 999px;
+  border-radius: var(--border-radius-sm);
   border: 1.5px solid var(--color-navy);
   background: transparent;
   color: var(--color-navy);

@@ -1,5 +1,7 @@
 import { useReveal } from '../hooks/useReveal';
 import { RESEARCH_AREAS, PATENTS, DIC_LAB_FACILITIES } from '../data/siteData';
+import { RESEARCH_PROJECTS } from '../data/researchProjectsData';
+import ProjectCard from '../components/ProjectCard';
 
 function ResearchItem({ item, index }) {
   const [ref, vis] = useReveal();
@@ -23,6 +25,7 @@ function ResearchItem({ item, index }) {
 }
 
 export default function Research() {
+  const [rpRef, rpVis] = useReveal();
   const [labRef, labVis] = useReveal();
   const [patRef, patVis] = useReveal();
 
@@ -30,17 +33,31 @@ export default function Research() {
     <>
       <div className="page-header">
         <div className="page-header__accent" />
-        <p className="section-label" style={{ color: 'var(--color-terracotta-light)' }}>Research</p>
-        <h1>Exploring through design</h1>
+        <h1>Research</h1>
         <p>
-          From digital heritage preservation to autonomous air mobility —
-          our research spans the full spectrum of design innovation.
+          Ongoing research projects, publications, and lab facilities at the
+          Design Innovation Centre, IIT Hyderabad.
         </p>
       </div>
 
-      <section className="research-list">
+      {/* Research domains (Digital Preservation of Indian Heritage, Gond
+          Tribal Heritage, etc.) — parked for now. Not deleted: the
+          RESEARCH_AREAS data and ResearchItem component above are still
+          intact, so uncommenting this section brings it straight back. */}
+      {/* <section className="research-list">
         {RESEARCH_AREAS.map((item, i) => (
           <ResearchItem key={item.title} item={item} index={i} />
+        ))}
+      </section> */}
+
+      {/* Research projects — individual research studies/posters presented
+          at DIC exhibitions and conferences, transcribed verbatim from
+          their own posters. Each links through to a full detail page. */}
+      <section className={`research-projects reveal ${rpVis ? 'visible' : ''}`} ref={rpRef}>
+        <p className="section-label">DIC Nodal Centre Research</p>
+        <h2 className="section-title">Research projects &amp; publications</h2>
+        {RESEARCH_PROJECTS.map((r) => (
+          <ProjectCard key={r.slug} project={r} basePath="/research" ctaLabel="View Research" />
         ))}
       </section>
 

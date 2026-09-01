@@ -11,8 +11,7 @@ export default function Education() {
     <>
       <div className="page-header">
         <div className="page-header__accent" />
-        <p className="section-label" style={{ color: 'var(--color-terracotta-light)' }}>Education</p>
-        <h1>Learning through making</h1>
+        <h1>Education</h1>
         <p>
           4,688 students enrolled in DIC courses. 214 workshops conducted across
           design thinking and creative arts.

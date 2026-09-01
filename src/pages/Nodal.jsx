@@ -500,12 +500,9 @@ export default function Nodal() {
   return (
     <div className="page-header" style={{ textAlign: 'center' }}>
       <div className="page-header__accent" />
-      <p className="section-label" style={{ color: 'var(--color-terracotta-light)', justifyContent: 'center' }}>
-        DIC Nodal
-      </p>
-      <h1 style={{ margin: '0 auto', maxWidth: '18ch' }}>Under construction.</h1>
+      <h1 style={{ margin: '0 auto', maxWidth: '18ch' }}>Under construction</h1>
       <p style={{ margin: '16px auto 0' }}>
-        We&rsquo;re rebuilding the national network page. Check back soon — meanwhile, explore{' '}
+        This page is being rebuilt. In the meantime, see{' '}
         <Link to="/" style={{ color: 'var(--color-terracotta-light)', textDecoration: 'underline' }}>
           DIC · IITH
         </Link>

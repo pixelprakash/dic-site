@@ -34,10 +34,12 @@
 
 .view-on-map__card {
   position: relative;
-  /* Caps at 340px but never exceeds its container — so it always exactly
-     fills whatever fixed-width slot it's placed in (e.g. the footer's
-     map column) without needing the same pixel value duplicated there. */
-  width: min(340px, 100%);
+  /* Capped against the viewport, not the parent's width — a parent with
+     an intentionally auto/shrink-to-fit width (e.g. sitting next to a
+     logo in a flex row) has no definite width of its own, so a plain
+     "100%" here resolves to ~0 and the whole card collapses to nothing
+     the moment it expands. */
+  width: min(340px, calc(100vw - 48px));
   aspect-ratio: 1 / 1;
   border-radius: 24px;
   overflow: hidden;
