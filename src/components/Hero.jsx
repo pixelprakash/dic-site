@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
-import DomainMarquee from './DomainMarquee'
+// Scrolling domain ticker — parked for now. Not deleted: uncomment this
+// import and the <DomainMarquee /> usage below to bring it back.
+// import DomainMarquee from './DomainMarquee'
 import '../styles/Hero.css'
 
 const VIDEO_ID = 'JVgO6pTn4jA'
@@ -200,7 +202,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <DomainMarquee />
+      {/* <DomainMarquee /> — parked for now, see import note above */}
     </section>
   )
 }

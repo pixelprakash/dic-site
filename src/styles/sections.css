@@ -44,7 +44,7 @@
 
 .stat__number {
   font-family: var(--font-heading);
-  font-style: italic;
+  font-style: normal;
   font-size: clamp(2.2rem, 4vw, 3.5rem);
   color: var(--color-terracotta-light);
   line-height: 1;

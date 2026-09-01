@@ -1,5 +1,11 @@
 /* ─── DIC Design System ─── */
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap');
+/* Heading font — adopted after trialing Melodrama, Erode, Boska and Prata
+   (Rajdhani/Rozha One/Eczar/IBM Plex Serif/Martel before that) against the
+   Sarvam-style brief. Erode won: from Fontshare, a free-license platform
+   built to rival paid type foundries, refined enough to hold up at both
+   display and body-adjacent sizes rather than just one hero moment. */
+@import url('https://api.fontshare.com/v2/css?f[]=erode@400,500,600,700,400i,500i,600i,700i&display=swap');
 
 :root {
   /* Base size — a modest bump over the browser default (16px → 17px) so
@@ -8,7 +14,7 @@
   font-size: 106.25%;
 
   /* Typography */
-  --font-heading: 'DM Serif Display', serif;
+  --font-heading: 'Erode', serif;
   --font-body: 'DM Sans', sans-serif;
 
   /* Type scale — use these instead of one-off rem values. Named by role,

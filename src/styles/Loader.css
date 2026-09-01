@@ -17,7 +17,7 @@
 .dic-loader__letter {
   display: inline-block;
   font-family: var(--font-heading);
-  font-style: italic;
+  font-style: normal;
   font-size: 3rem;
   line-height: 1;
   animation: dicLoaderBounce 1.2s var(--ease-smooth) infinite;

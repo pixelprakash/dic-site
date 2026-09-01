@@ -61,7 +61,7 @@
 .nodal-seal b {
   display: block;
   font-family: var(--font-heading);
-  font-style: italic;
+  font-style: normal;
   font-size: clamp(1.8rem, 3vw, 2.6rem);
   color: var(--color-terracotta-light);
   line-height: 1;
@@ -166,7 +166,7 @@
 
 .nodal-pillar-row b {
   font-family: var(--font-heading);
-  font-style: italic;
+  font-style: normal;
   font-size: var(--text-lg);
   font-weight: 400;
   color: var(--color-teal-dark);
@@ -256,7 +256,7 @@
 
 .nodal-hs-card__no {
   font-family: var(--font-heading);
-  font-style: italic;
+  font-style: normal;
   font-size: 1.7rem;
   color: rgba(255, 255, 255, 0.55);
 }
@@ -536,7 +536,7 @@
 
 .nodal-register__name {
   font-family: var(--font-heading);
-  font-style: italic;
+  font-style: normal;
   font-size: var(--text-lg);
   color: var(--color-ink);
   line-height: 1.25;
@@ -692,7 +692,7 @@
 
 .nodal-evt__datebox b {
   font-family: var(--font-heading);
-  font-style: italic;
+  font-style: normal;
   font-size: 1.5rem;
   line-height: 1;
 }
@@ -821,7 +821,7 @@
   place-items: center;
   color: var(--color-terracotta-light);
   font-family: var(--font-heading);
-  font-style: italic;
+  font-style: normal;
   font-size: 3.4rem;
   box-shadow: 0 18px 40px -20px rgba(26, 23, 20, 0.4);
 }

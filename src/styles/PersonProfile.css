@@ -88,7 +88,7 @@
   background: linear-gradient(150deg, var(--color-navy), var(--color-teal-dark));
   color: rgba(255, 255, 255, 0.85);
   font-family: var(--font-heading);
-  font-style: italic;
+  font-style: normal;
   font-size: 4rem;
 }
 

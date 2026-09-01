@@ -130,8 +130,8 @@
   right: 0;
   z-index: 101;
   background: var(--color-white);
-  border-top: 3px solid var(--color-dic-red);
-  box-shadow: 0 32px 64px rgba(240, 48, 27, 0.2);
+  border-top: 1px solid rgba(26, 23, 20, 0.1);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.12);
   visibility: hidden;
   opacity: 0;
   transform: translateY(-12px);
@@ -395,7 +395,7 @@
 .navbar__mobile-menu .navbar__link {
   font-size: 1.5rem;
   font-family: var(--font-heading);
-  font-style: italic;
+  font-style: normal;
   font-weight: 400;
   letter-spacing: -0.02em;
 }

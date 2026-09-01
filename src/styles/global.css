@@ -24,10 +24,15 @@ body {
   overflow-x: hidden;
 }
 
+/* Erode has no italic slant doing the work of separating headings from
+   body text anymore (that job used to fall to DM Serif Display's italic).
+   A confident 600 weight — versus DM Sans's 400/500 body weights — is what
+   carries that contrast now, without going so heavy (700+) that long
+   headings get harder to read. */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
-  font-weight: 400;
-  font-style: italic;
+  font-weight: 600;
+  font-style: normal;
   line-height: 1.15;
   color: var(--color-ink);
 }
