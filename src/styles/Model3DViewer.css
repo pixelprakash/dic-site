@@ -1,0 +1,104 @@
+.model-viewer {
+  margin-top: 8px;
+}
+
+.model-viewer--fill {
+  margin-top: 0;
+  height: 100%;
+  position: relative;
+}
+
+.model-viewer__stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  background: var(--color-ink);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
+.model-viewer--fill .model-viewer__stage {
+  aspect-ratio: auto;
+  height: 100%;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.model-viewer__stage canvas {
+  display: block;
+  cursor: grab;
+}
+
+.model-viewer__stage canvas:active {
+  cursor: grabbing;
+}
+
+.model-viewer__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-ink);
+}
+
+.model-viewer__status {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.model-viewer__progress {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: min(220px, 70%);
+}
+
+.model-viewer__progress-track {
+  width: 100%;
+  height: 3px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.16);
+  overflow: hidden;
+}
+
+.model-viewer__progress-fill {
+  height: 100%;
+  border-radius: 100px;
+  background: var(--color-terracotta-light);
+  transition: width 0.2s var(--ease-smooth);
+}
+
+.model-viewer__hint {
+  margin: 12px 0 0;
+  font-size: var(--text-xs);
+  color: var(--color-stone);
+  text-align: center;
+  max-width: none;
+}
+
+/* In the fullscreen modal there's no room below the stage for a caption
+   line, so it becomes a small floating pill over the bottom of the
+   viewport instead. */
+.model-viewer--fill .model-viewer__hint {
+  position: absolute;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 9px 20px;
+  width: max-content;
+  max-width: calc(100% - 32px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-radius: 100px;
+  background: rgba(20, 18, 15, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: rgba(255, 255, 255, 0.85);
+  z-index: 2;
+}

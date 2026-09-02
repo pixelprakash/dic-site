@@ -42,6 +42,13 @@ export const PROJECTS = [
     status: 'Ongoing',
     pi: { name: 'Prof. Deepak John Mathew', slug: 'deepak-john-mathew' },
     image: '/images/projects/temple-heritage.webp',
+    // This export has the texture atlas embedded directly in the FBX
+    // (23.9MB vs. the untextured 3.6MB export) — FBXLoader extracts and
+    // wires up embedded media on its own, which is why this one doesn't
+    // need a separate `modelTexture` manually mapped onto the material
+    // the way the untextured export did.
+    model: '/models/kateshwara-temple-textured.fbx',
+    modelLabel: 'Kateshwara Temple — 3D digital twin',
     description: [
       'Telangana is home to several magnificent built monuments that reflect the region’s rich cultural heritage. The essential features of the Kakatiya dynasty reflect the built heritage of the Warangal region. Warangal is the cultural capital of the Telangana state; in terms of historical importance and its unique architectural style, it has become a state heritage site.',
       'The project seeks to address these challenges by exploring the use of technology towards the digital preservation of the tangible aspects of the built heritage of southern India. The project also seeks to revive ancient culture and heritage by developing a comprehensive digital heritage repository through systematic documentation and using advanced technologies such as 3D documentation and AR and VR creations of the built heritage of Telangana, India.',

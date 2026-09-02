@@ -27,6 +27,94 @@
   object-fit: cover;
 }
 
+/* The 3D-model trigger takes over the same header-image slot instead of
+   living in its own separate section further down the page — the photo
+   (if there is one) still shows as the backdrop, with a scrim + a "View
+   3D Model" pill inviting the click that opens the fullscreen viewer. */
+.project-detail__header-media--model {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: var(--color-charcoal);
+  cursor: pointer;
+  text-align: left;
+}
+
+.project-detail__header-media--model::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(6, 5, 4, 0.1) 0%, rgba(6, 5, 4, 0.5) 100%);
+  transition: background 0.3s var(--ease-out);
+}
+
+.project-detail__header-media--model:hover::after {
+  background: linear-gradient(180deg, rgba(6, 5, 4, 0.05) 0%, rgba(6, 5, 4, 0.4) 100%);
+}
+
+.project-detail__model-cta {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-radius: 100px;
+  background: rgba(20, 18, 15, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--color-white);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  transition: background 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+}
+
+.project-detail__header-media--model:hover .project-detail__model-cta {
+  background: var(--color-dic-red);
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+/* Once loaded, the model renders live right in this same header slot —
+   no bundler/network cost was paid until the click above, this is just
+   where the result appears. The expand button is a secondary, separate
+   opt-in into the fullscreen modal, not the only way to view it. */
+.project-detail__header-media--live {
+  background: var(--color-ink);
+}
+
+.project-detail__model-expand {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(20, 18, 15, 0.55);
+  color: var(--color-white);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: background 0.25s var(--ease-out), transform 0.2s var(--ease-out);
+}
+
+.project-detail__model-expand:hover,
+.project-detail__model-expand:focus-visible {
+  background: var(--color-dic-red);
+  transform: scale(1.06);
+}
+
 /* Project titles are full sentences, not short page names like "Work that
    matters" — the global h1 scale (up to 7rem) is tuned for the latter and
    makes a long title balloon to fill the screen, crowding out everything

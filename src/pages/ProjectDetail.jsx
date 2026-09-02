@@ -1,10 +1,20 @@
+import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { getProjectBySlug } from '../data/projectsData';
+import Model3DViewer from '../components/Model3DViewer';
+import Model3DModal from '../components/Model3DModal';
 import '../styles/ProjectDetail.css';
 
 export default function ProjectDetail() {
   const { slug } = useParams();
   const project = getProjectBySlug(slug);
+  // Three-step reveal, all gated behind the visitor's own click so the
+  // 23MB model never touches page-load performance: photo + "View 3D
+  // Model" pill -> click loads it inline, right in the same header slot
+  // -> a small expand button on the inline view is the (separate, opt-in)
+  // path to the fullscreen modal.
+  const [modelLoaded, setModelLoaded] = useState(false);
+  const [modelOpen, setModelOpen] = useState(false);
 
   if (!project) {
     return (
@@ -21,11 +31,12 @@ export default function ProjectDetail() {
     );
   }
 
-  const { title, subtitle, subtitle2, tagline, description = [], objectives = [], outcomes = [], gallery = [], status, pi, tags = [], image } = project;
+  const { title, subtitle, subtitle2, tagline, description = [], objectives = [], outcomes = [], gallery = [], status, pi, tags = [], image, model, modelTexture, modelLabel } = project;
+  const hasMedia = Boolean(image || model);
 
   return (
     <div className="project-detail">
-      <div className={`page-header project-detail__header ${image ? 'project-detail__header--media' : ''}`}>
+      <div className={`page-header project-detail__header ${hasMedia ? 'project-detail__header--media' : ''}`}>
         <div className="page-header__accent" />
         <div className="project-detail__header-content">
           <ol className="project-detail__breadcrumb">
@@ -43,11 +54,42 @@ export default function ProjectDetail() {
           {subtitle2 && <p className="project-detail__subtitle">{subtitle2}</p>}
         </div>
 
-        {image && (
+        {model && modelLoaded ? (
+          <div className="project-detail__header-media project-detail__header-media--live">
+            <Model3DViewer src={model} texture={modelTexture} label={modelLabel} fill />
+            <button
+              type="button"
+              className="project-detail__model-expand"
+              onClick={() => setModelOpen(true)}
+              aria-label="View 3D model fullscreen"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3" />
+              </svg>
+            </button>
+          </div>
+        ) : model ? (
+          <button
+            type="button"
+            className="project-detail__header-media project-detail__header-media--model"
+            onClick={() => setModelLoaded(true)}
+            aria-label={`View interactive 3D model — ${modelLabel || title}`}
+          >
+            {image && <img src={image} alt="" loading="lazy" />}
+            <span className="project-detail__model-cta">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 16.5V7.5a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 7.5v9a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4a2 2 0 0 0 1-1.73Z" />
+                <path d="M3.27 6.96 12 12.01l8.73-5.05" />
+                <path d="M12 22.08V12" />
+              </svg>
+              View 3D Model
+            </span>
+          </button>
+        ) : image ? (
           <div className="project-detail__header-media">
             <img src={image} alt="" loading="lazy" />
           </div>
-        )}
+        ) : null}
       </div>
 
       <section className="project-detail__section">
@@ -121,6 +163,16 @@ export default function ProjectDetail() {
           </svg>
         </Link>
       </section>
+
+      {model && (
+        <Model3DModal
+          isOpen={modelOpen}
+          onClose={() => setModelOpen(false)}
+          src={model}
+          texture={modelTexture}
+          label={modelLabel}
+        />
+      )}
     </div>
   );
 }
