@@ -107,13 +107,24 @@ export const PROJECTS = [
     // No PI/faculty name was given for this one — built by first-year
     // BTech/BDes students — so the Team section stays empty rather than
     // guessing who's supervising it.
-    image: '',
+    image: '/images/projects/aquaproject/aquaponics-1.webp',
     description: [
       'With agricultural land increasingly scarce in India’s growing cities, the Design Innovation Centre’s Urban Aquaponics project is reimagining how and where food can be grown. The system creates a closed recycling loop: edible fish are raised in ponds, their nutrient-rich waste feeds vertically arranged crops, and the water is continuously refreshed to sustain both fish and plants without any external fertiliser.',
       'What began as a first-stage prototype, built through collaboration among first-year BTech and BDes students at the Centre, has since evolved into a broader research effort that tests the system at three distinct scales: compact units designed for apartment living, mid-scale rooftop installations, and community park-scale systems currently in development. Each version addresses a different layer of urban India’s food security challenge, from individual households to entire neighbourhoods.',
       'The high-nitrogen, continuously circulating water from the fish ecosystem enables plants to grow noticeably faster than in conventional soil-based systems, while eliminating the need for chemical inputs. It’s a project that started as a student-led experiment and has grown into a genuine model for how cities without spare land can still grow their own food, cleanly, efficiently, and sustainably.',
     ],
     tags: ['Aquaponics', 'Urban Farming', 'Sustainability', 'Food Security', 'Student-Led'],
+    // Ordered as a rough story: the team and system overview, the build
+    // process, the sensor/monitoring electronics, then a closing detail
+    // shot of the pond itself.
+    gallery: [
+      '/images/projects/aquaproject/aquaponics-1.webp',
+      '/images/projects/aquaproject/aquaponics-2.webp',
+      '/images/projects/aquaproject/aquaponics-5.webp',
+      '/images/projects/aquaproject/aquaponics-4.webp',
+      '/images/projects/aquaproject/aquaponics-3.webp',
+      '/images/projects/aquaproject/aquaponics-6.webp',
+    ],
   },
 ];
 

@@ -242,13 +242,13 @@ export const MEMBERS = {
         'Consumer Behaviour',
       ],
       education: [
-        { year: 'July 2025 – present', degree: 'Doctor of Philosophy (PhD) in Design', institution: 'Indian Institute of Technology Hyderabad' },
+        { year: 'Jul 2025 – present', degree: 'Doctor of Philosophy (PhD) in Design', institution: 'Indian Institute of Technology Hyderabad' },
         { year: '2020 – 2022', degree: 'Master’s in Fashion Management', institution: 'National Institute of Fashion Technology (NIFT)' },
         { year: '2017 – 2020', degree: 'B.Sc. (Hons.) in Textile and Apparel Designing — Gold Medalist', institution: 'SNDT Women’s University, Mumbai' },
       ],
       experience: [
-        { role: 'Visiting Faculty — Textile and Apparel Design', org: 'The Maharaja Sayajirao University of Baroda, Vadodara', duration: 'January 2025 – April 2025', desc: 'Taught Fashion Marketing and Merchandising, and engaged with students in fashion and textile design education. Also served as Honorary Faculty, Fashion Design Department.' },
-        { role: 'Faculty — Textile and Apparel Design', org: 'Institute for Excellence in Higher Education (IEHE), Bhopal', duration: 'July 2023 – December 2024', desc: 'Taught undergraduate courses including sewing techniques, garment construction, CAD, product design and development, fashion illustration, fashion retailing, and visual merchandising. Supervised and mentored students on academic projects, contributed to curriculum development and departmental events, and participated in conferences and faculty development activities.' },
+        { role: 'Visiting Faculty — Textile and Apparel Design', org: 'The Maharaja Sayajirao University of Baroda, Vadodara', duration: 'Jan 2025 – Apr 2025', desc: 'Taught Fashion Marketing and Merchandising, and engaged with students in fashion and textile design education. Also served as Honorary Faculty, Fashion Design Department.' },
+        { role: 'Faculty — Textile and Apparel Design', org: 'Institute for Excellence in Higher Education (IEHE), Bhopal', duration: 'Jul 2023 – Dec 2024', desc: 'Taught undergraduate courses including sewing techniques, garment construction, CAD, product design and development, fashion illustration, fashion retailing, and visual merchandising. Supervised and mentored students on academic projects, contributed to curriculum development and departmental events, and participated in conferences and faculty development activities.' },
       ],
       achievements: [
         'UGC NET JRF Qualified — December 2022 cycle, Home Science, specialization in Textiles',
@@ -323,12 +323,12 @@ export const MEMBERS = {
       role: 'PhD Student',
       joinedYear: '2022',
       bio: 'PhD scholar, Department of Design, IIT Hyderabad — researching immersive technologies (AR/VR) in design education.',
-      // Transcribed from her CV — practised and taught design for two
+      // Transcribed from his CV — practised and taught design for two
       // decades (furniture, retail, and industrial design; visiting and
       // full-time faculty roles) before joining IIT Hyderabad in 2022.
       fullBio: [
-        'Usha Kiran Mangalgiri is a PhD scholar in the Department of Design at IIT Hyderabad, supervised by Prof. Deepak John Mathew. Her doctoral research focuses on immersive technologies (AR/VR) in design education and curriculum design for middle-school children.',
-        'Before joining IIT Hyderabad, she spent over two decades across design practice and academia — as Managing Director and Principal Designer at UK Designs, Chennai (2010–2021), Associate Professor at Dr. M.G.R. Educational and Research Institute, Chennai (2018–2021), and visiting or expert faculty at the National Institute of Design, Kurukshetra, CEPT Ahmedabad, and the School of Planning and Architecture, Vijayawada. Her earlier industry work spans furniture, retail, and industrial design for clients including Samsung, H&R Johnson, Jaquar, and Rane Brake Linings.',
+        'Usha Kiran Mangalgiri is a PhD scholar in the Department of Design at IIT Hyderabad, supervised by Prof. Deepak John Mathew. His doctoral research focuses on immersive technologies (AR/VR) in design education and curriculum design for middle-school children.',
+        'Before joining IIT Hyderabad, he spent over two decades across design practice and academia — as Managing Director and Principal Designer at UK Designs, Chennai (2010–2021), Associate Professor at Dr. M.G.R. Educational and Research Institute, Chennai (2018–2021), and visiting or expert faculty at the National Institute of Design, Kurukshetra, CEPT Ahmedabad, and the School of Planning and Architecture, Vijayawada. His earlier industry work spans furniture, retail, and industrial design for clients including Samsung, H&R Johnson, Jaquar, and Rane Brake Linings.',
       ],
       tags: ['Design Education', 'AR/VR', 'Immersive Learning'],
       researchAreas: [
@@ -371,7 +371,7 @@ export const MEMBERS = {
         { title: 'Transforming Education Through Virtual Reality in Indian Government Schools', venue: 'JOLII-GINTL Global Conference 2023 — Education for the Future, University of Helsinki, Finland (with Prof. Deepak John Mathew)', year: 2023 },
         { title: '"Doors designed by Ar. M. Usha Kiran" — DoorZnDoorZ Book, Vol. 1', venue: 'IMRF Publishing House', year: 2022 },
       ],
-      photo: '',
+      photo: '/images/people/ushakiran.webp',
       email: 'md22resch01002@iith.ac.in',
       website: 'https://orcid.org/0009-0000-0502-5336',
       linkedin: 'https://www.linkedin.com/in/usha-kiran-mangalgiri-912575267/',
@@ -469,7 +469,7 @@ export const MEMBERS = {
         'Top-1-ranked learner (activity & performance), Unicorn Designer Hub',
         'Volunteer, UX India conference (2023, 2024 & 2025) — India’s largest UX design conference',
       ],
-      photo: '',
+      photo: '/images/people/suryaprakash.webp',
       email: 'hello@uxsurya.com',
       website: '',
       linkedin: 'https://www.linkedin.com/in/suryaprakashmusunuri/',

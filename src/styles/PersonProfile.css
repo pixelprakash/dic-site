@@ -182,9 +182,13 @@
   font-size: var(--text-sm);
   font-weight: 600;
   color: var(--color-stone);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  /* Data now uses short month forms ("Jan 2025", not "January 2025") so
+     this fits the 148px column on one line in every real case — but
+     wrapping instead of truncating means a future date string that's
+     still too long spills onto a second line instead of silently losing
+     text behind an ellipsis. */
+  white-space: normal;
+  overflow-wrap: break-word;
 }
 
 .profile__timeline-title {
