@@ -1,6 +1,14 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { MEMBER_CATEGORIES, MEMBERS } from '../data/peopleData';
+
+// A category's members render as one flat grid by default. If any member
+// carries a `track`, the category instead splits into these labeled
+// subgroups (in this fixed order) — used for "Phd Students" so Regular
+// and External PhD scholars read as two clearly separate groups within
+// the one section, rather than a single undifferentiated list.
+const TRACK_LABELS = { regular: 'Regular PhD', external: 'External PhD' };
+const TRACK_ORDER = ['regular', 'external'];
 import MemberCard from '../components/MemberCard';
 import MemberSpotlight from '../components/MemberSpotlight';
 import '../styles/People.css';
@@ -140,11 +148,24 @@ export default function People() {
               {members.length === 1 ? (
                 <MemberSpotlight member={members[0]} />
               ) : members.length > 0 ? (
-                <div className={`people-grid reveal-stagger ${revealed ? 'visible' : ''}`}>
-                  {members.map((m) => (
-                    <MemberCard key={m.id} member={m} />
-                  ))}
-                </div>
+                new Set(members.map((m) => m.track || 'regular')).size > 1 ? (
+                  TRACK_ORDER.filter((t) => members.some((m) => (m.track || 'regular') === t)).map((t) => (
+                    <div className="people-subgroup" key={t}>
+                      <h3 className="people-subgroup__title">{TRACK_LABELS[t] || t}</h3>
+                      <div className={`people-grid reveal-stagger ${revealed ? 'visible' : ''}`}>
+                        {members.filter((m) => (m.track || 'regular') === t).map((m) => (
+                          <MemberCard key={m.id} member={m} />
+                        ))}
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className={`people-grid reveal-stagger ${revealed ? 'visible' : ''}`}>
+                    {members.map((m) => (
+                      <MemberCard key={m.id} member={m} />
+                    ))}
+                  </div>
+                )
               ) : (
                 <p className="people-empty">No {c.label.toLowerCase()} listed yet.</p>
               )}

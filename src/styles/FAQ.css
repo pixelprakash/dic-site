@@ -64,6 +64,14 @@
   transform: rotate(180deg);
 }
 
+/* max-height was 320px — the longest answer here is already 331px
+   (measured via scrollHeight), so it was being silently clipped, worse
+   on mobile where the narrower column wraps every answer to more lines
+   than it takes on desktop. (A grid-template-rows 0fr/1fr animation was
+   tried as a ceiling-free alternative, but CSS Grid's intrinsic sizing
+   measured the wrapped paragraph's height incorrectly and collapsed it
+   to ~one line — reverted.) 640px comfortably covers every answer at
+   any viewport width without that regression. */
 .faq__answer {
   max-height: 0;
   overflow: hidden;
@@ -71,7 +79,7 @@
 }
 
 .faq__answer.open {
-  max-height: 320px;
+  max-height: 640px;
 }
 
 .faq__answer p {

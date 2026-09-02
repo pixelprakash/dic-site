@@ -39,7 +39,7 @@ function PersonIcon() {
   );
 }
 
-/* Single-member categories (Principal Investigator, Design Manager) read
+/* Single-member categories (Principal Investigator, Design Head) read
    better as one wide bar than a lonely card in a grid. Reuses MemberCard's
    exact pieces (photo/joined badge/social buttons/name/role/bio/tags/link)
    so it's visually identical in every detail except the layout direction. */

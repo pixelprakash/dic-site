@@ -101,6 +101,25 @@
   margin-bottom: 20px;
 }
 
+.people-subgroup {
+  margin-bottom: 40px;
+}
+
+.people-subgroup:last-child {
+  margin-bottom: 0;
+}
+
+.people-subgroup__title {
+  font-family: var(--font-body);
+  font-style: normal;
+  font-weight: 600;
+  font-size: var(--text-lg);
+  color: var(--color-stone);
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(26, 23, 20, 0.12);
+}
+
 .people-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
