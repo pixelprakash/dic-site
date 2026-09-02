@@ -121,7 +121,7 @@ export default function ProjectCard({ project, basePath = '/projects', ctaLabel 
       </Link>
       <div className="project-card__content">
         <p className="section-label">{domain}</p>
-        <h3>{title}</h3>
+        <h3><Link to={`${basePath}/${slug}`} className="project-card__title-link">{title}</Link></h3>
         <p>{tagline || abstract}</p>
         {tags.length > 0 && (
           <div className="project-card__tags">

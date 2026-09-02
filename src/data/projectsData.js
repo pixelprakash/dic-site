@@ -9,31 +9,6 @@
 
 export const PROJECTS = [
   {
-    slug: 'telangana-cultural-heritage',
-    title: 'Tangible and Intangible Cultural Heritage of Telangana: Visual Documentation and Design Intervention',
-    subtitle: 'Preserving the Past, Sustaining the Future with Mixed Reality (VR/AR), AI, and Design Interventions',
-    subtitle2: 'Virtual Walkthroughs of Legacy: Gond Tribe’s Cultural Heritage',
-    tagline: 'Preserving the past, sustaining the future with mixed reality (VR/AR), AI, and design interventions.',
-    domain: 'Cultural Heritage',
-    status: 'Ongoing',
-    pi: { name: 'Prof. Deepak John Mathew', slug: 'deepak-john-mathew' },
-    image: '/images/projects/telangana-heritage.webp',
-    description: [
-      'Our project focuses on digitally documenting and preserving the tangible and intangible heritage of Telangana spanning landmarks like the Ramappa Temple and Warangal Fort, along with the diverse crafts, rituals, and traditions of its communities, including the Gond tribe of Adilabad.',
-      'By employing cutting-edge technologies such as Virtual Reality (VR), Augmented Reality (AR), Artificial Intelligence (AI), and advanced material studies, this initiative aims to create a comprehensive digital repository that merges design, technology, and cultural memory.',
-    ],
-    objectives: [
-      'Heritage Documentation: Digitally capture and reconstruct Telangana’s architectural, artistic, and cultural legacy.',
-      'Design & Material Innovation: Apply modern design thinking and research to revitalize traditional crafts while maintaining authenticity.',
-      'AI-Driven Insights: Use AI for data processing, analysis, and preservation strategy optimization.',
-      'Immersive XR Experiences: Develop 1:1 virtual walkthroughs and interactive museum spaces to engage global audiences.',
-    ],
-    outcomes: [
-      'The project will result in a dynamic digital archive and Virtual Museum Walkthroughs showcasing Telangana’s tangible and intangible heritage through VR and AR. It also empowers indigenous communities by transforming heritage documentation into livelihood opportunities. By bridging tradition with innovation, the initiative establishes a replicable model for sustainable cultural preservation ensuring that the art, architecture, and stories of Telangana continue to inspire generations to come.',
-    ],
-    tags: ['VR', 'AR', 'AI', 'Digital Heritage', 'Gond Tribe', 'Ramappa Temple', 'Warangal Fort'],
-  },
-  {
     slug: 'temple-heritage-digital-preservation',
     title: 'Virtual Recreation & Digital Preservation of Cultural Heritage Temple Sites of Southern States of India',
     subtitle: 'Digital Preservation through 3D Printing and Virtual Reality for the Temple Architecture of Telangana',
@@ -63,6 +38,31 @@ export const PROJECTS = [
       'Representation through methods of design innovation and technological advancement.',
     ],
     tags: ['3D Printing', 'VR', 'AR', 'Photogrammetry', 'Kakatiya Dynasty', 'Digital Heritage'],
+  },
+  {
+    slug: 'telangana-cultural-heritage',
+    title: 'Tangible and Intangible Cultural Heritage of Telangana: Visual Documentation and Design Intervention',
+    subtitle: 'Preserving the Past, Sustaining the Future with Mixed Reality (VR/AR), AI, and Design Interventions',
+    subtitle2: 'Virtual Walkthroughs of Legacy: Gond Tribe’s Cultural Heritage',
+    tagline: 'Preserving the past, sustaining the future with mixed reality (VR/AR), AI, and design interventions.',
+    domain: 'Cultural Heritage',
+    status: 'Ongoing',
+    pi: { name: 'Prof. Deepak John Mathew', slug: 'deepak-john-mathew' },
+    image: '/images/projects/telangana-heritage.webp',
+    description: [
+      'Our project focuses on digitally documenting and preserving the tangible and intangible heritage of Telangana spanning landmarks like the Ramappa Temple and Warangal Fort, along with the diverse crafts, rituals, and traditions of its communities, including the Gond tribe of Adilabad.',
+      'By employing cutting-edge technologies such as Virtual Reality (VR), Augmented Reality (AR), Artificial Intelligence (AI), and advanced material studies, this initiative aims to create a comprehensive digital repository that merges design, technology, and cultural memory.',
+    ],
+    objectives: [
+      'Heritage Documentation: Digitally capture and reconstruct Telangana’s architectural, artistic, and cultural legacy.',
+      'Design & Material Innovation: Apply modern design thinking and research to revitalize traditional crafts while maintaining authenticity.',
+      'AI-Driven Insights: Use AI for data processing, analysis, and preservation strategy optimization.',
+      'Immersive XR Experiences: Develop 1:1 virtual walkthroughs and interactive museum spaces to engage global audiences.',
+    ],
+    outcomes: [
+      'The project will result in a dynamic digital archive and Virtual Museum Walkthroughs showcasing Telangana’s tangible and intangible heritage through VR and AR. It also empowers indigenous communities by transforming heritage documentation into livelihood opportunities. By bridging tradition with innovation, the initiative establishes a replicable model for sustainable cultural preservation ensuring that the art, architecture, and stories of Telangana continue to inspire generations to come.',
+    ],
+    tags: ['VR', 'AR', 'AI', 'Digital Heritage', 'Gond Tribe', 'Ramappa Temple', 'Warangal Fort'],
   },
   {
     slug: 'ai-ar-vr-learning-models',

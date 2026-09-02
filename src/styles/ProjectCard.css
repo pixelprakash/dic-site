@@ -107,6 +107,13 @@
   color: var(--color-dic-red);
 }
 
+/* Inherits color/no-underline from the global `a` reset already, so this
+   just needs a visible focus ring — the title wasn't a link before. */
+.project-card__title-link:focus-visible {
+  outline: 2px solid var(--color-dic-red);
+  outline-offset: 4px;
+}
+
 .project-card__content p {
   margin-bottom: 20px;
   font-size: var(--text-sm);
