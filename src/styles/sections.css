@@ -28,10 +28,18 @@
   transform: translateX(4px);
 }
 
-/* ─── Stats Strip ─── */
+/* ─── Stats Strip (Education page) ─── */
 .stats {
-  padding: 64px var(--margin-x);
+  padding: var(--section-gap) var(--margin-x);
   background: var(--color-ink);
+}
+
+.stats__title {
+  color: var(--color-white);
+  margin-bottom: 40px;
+}
+
+.stats__grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 32px;
@@ -59,17 +67,56 @@
   text-transform: uppercase;
 }
 
+.stats__closing {
+  max-width: 70ch;
+  margin: 48px auto 0;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  text-align: center;
+  font-style: italic;
+  font-size: var(--text-md);
+  color: rgba(255, 255, 255, 0.65);
+}
+
 @media (max-width: 768px) {
-  .stats { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .stats__grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
 }
 
 @media (max-width: 480px) {
-  .stats { grid-template-columns: 1fr 1fr; gap: 16px; padding: 40px var(--margin-x); }
+  .stats { padding: 40px var(--margin-x); }
+  .stats__grid { grid-template-columns: 1fr 1fr; gap: 16px; }
 }
 
 /* ─── About Section ─── */
 .about {
   padding: var(--section-gap) var(--margin-x);
+}
+
+/* Education page's own intro — a single readable column with the first
+   line pulled out larger, rather than dropping straight into a wall of
+   same-weight body paragraphs. */
+.about__intro {
+  max-width: 68ch;
+}
+
+.about__intro p {
+  font-size: var(--text-md);
+  margin-bottom: 20px;
+}
+
+/* Comes after the plain `.about__intro p` rule above (and matches it too,
+   since this lede is itself a <p>) so its larger size actually wins
+   instead of being overridden by equal-specificity, later-in-source
+   sibling rule. */
+.about__lede {
+  font-size: var(--text-lg);
+  color: var(--color-charcoal);
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+.about__intro p:last-child {
+  margin-bottom: 0;
 }
 
 .about__grid {
@@ -467,27 +514,31 @@
   border-bottom: 1px solid var(--color-sand);
 }
 
-.courses__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+/* A wrapping pill list instead of a grid of bordered, shadow-on-hover
+   cards — 23 near-identical short course names in interchangeable boxes
+   read as a generic template, the same pattern already fixed for
+   "Future Programs" below and for Research's facilities list. Pills
+   match the tag language used for project/research tags elsewhere. */
+.course-pills {
+  display: flex;
+  flex-wrap: wrap;
   gap: 12px;
 }
 
-.course-card {
-  padding: 20px 24px;
+.course-pill {
+  padding: 10px 20px;
+  border-radius: 100px;
+  border: 1px solid rgba(26, 23, 20, 0.14);
   background: var(--color-white);
-  border: 1px solid var(--color-sand);
-  border-radius: var(--border-radius-sm);
+  font-family: var(--font-body);
   font-size: var(--text-sm);
-  font-weight: 400;
   color: var(--color-charcoal);
-  transition: all 0.3s var(--ease-smooth);
+  transition: border-color 0.25s var(--ease-smooth), color 0.25s var(--ease-smooth);
 }
 
-.course-card:hover {
+.course-pill:hover {
   border-color: var(--color-terracotta);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  color: var(--color-terracotta);
 }
 
 /* ─── Future Programs roadmap ─── */

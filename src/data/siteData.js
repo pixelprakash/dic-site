@@ -18,7 +18,7 @@ export const DOMAINS = [
   {
     title: "Cultural Heritage",
     desc: "Gond tribe studies, Dhokra craft, digital preservation of monuments",
-    image: "/images/image67.jpg",
+    image: "/images/projects/temple-heritage.webp",
   },
   {
     title: "Air Mobility",
@@ -33,7 +33,7 @@ export const DOMAINS = [
   {
     title: "Product Design",
     desc: "Solar cookers, bio-bricks, Ekant pods, vegetable dryers",
-    image: "/images/image7.jpg",
+    image: "/images/projects/aquaproject/aquaponics-1.webp",
   },
 ];
 
@@ -209,8 +209,8 @@ export const PARTNERS = [
 ];
 
 export const ABOUT_STACK_IMAGES = [
-  { src: "/images/image7.jpg", alt: "Product design lab at DIC", rotation: -12 },
-  { src: "/images/image67.jpg", alt: "Cultural heritage documentation", rotation: 6 },
+  { src: "/images/projects/aquaproject/aquaponics-1.webp", alt: "Urban aquaponics prototype at DIC", rotation: -12 },
+  { src: "/images/projects/temple-heritage.webp", alt: "Cultural heritage documentation", rotation: 6 },
   { src: "/images/image85.jpg", alt: "Autonomous air mobility prototype", rotation: -5 },
   { src: "/images/image39.jpg", alt: "VR and AR education research", rotation: 10 },
 ];
@@ -385,7 +385,7 @@ export const REQUEST_TYPES = [
 export const GALLERY_IMAGES = [
   { src: "/images/image103.jpeg", alt: "DIC field visit and site documentation" },
   { src: "/images/image67.jpg", alt: "Cultural heritage documentation in the field" },
-  { src: "/images/image7.jpg", alt: "Product design lab prototyping session" },
+  { src: "/images/projects/aquaproject/aquaponics-2.webp", alt: "Students building the urban aquaponics prototype" },
   { src: "/images/image52.jpg", alt: "Ramappa Temple digital preservation study" },
   { src: "/images/image84.jpg", alt: "Autonomous air mobility prototype trial" },
   { src: "/images/image55.jpg", alt: "Dhokra craft revival workshop" },
@@ -394,7 +394,7 @@ export const GALLERY_IMAGES = [
   { src: "/images/image56.jpg", alt: "Student design review at DIC" },
   { src: "/images/image68.jpg", alt: "DIC studio and workshop space" },
   { src: "/images/image40.png", alt: "Virtual chemistry lab interface" },
-  { src: "/images/image96.png", alt: "Sustainable product innovation display" },
+  { src: "/images/projects/aquaproject/aquaponics-6.webp", alt: "Fish and duckweed in the aquaponics pond" },
 ];
 
 export const TESTIMONIALS = [
