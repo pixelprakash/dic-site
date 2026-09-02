@@ -23,12 +23,12 @@ export const DOMAINS = [
   {
     title: "Air Mobility",
     desc: "eVTOL design, autonomous passenger drones, VR perception studies",
-    image: "/images/image85.jpg",
+    image: "/images/image85.webp",
   },
   {
     title: "VR/AR Education",
     desc: "STEM learning, interactive chemistry lab, educational game design",
-    image: "/images/image39.jpg",
+    image: "/images/image39.webp",
   },
   {
     title: "Product Design",
@@ -42,31 +42,31 @@ export const RESEARCH_AREAS = [
     title: "Digital Preservation of Indian Heritage",
     desc: "Study on digital preservation and virtual recreation of UNESCO and tentative heritage sites through photogrammetry, interactive mediums, and haptic VR experience. Includes Ramappa Temple, Thousand Pillar Temple, and Warangal Fort.",
     tags: ["Photogrammetry", "VR", "UNESCO", "ASI"],
-    image: "/images/image52.jpg",
+    image: "/images/image52.webp",
   },
   {
     title: "Gond Tribal Heritage of Telangana",
     desc: "Comprehensive documentation of tangible and intangible cultural heritage of the Gond tribe. Design intervention workshops for safeguarding Dhokra crafts of Ojha community at Adilabad. Virtual museum and digital repository creation.",
     tags: ["Documentation", "Craft Revival", "Virtual Museum", "Design Intervention"],
-    image: "/images/image55.jpg",
+    image: "/images/image55.webp",
   },
   {
     title: "Autonomous Urban Air Mobility",
     desc: "Design and development of autonomous passenger drones as air taxis. Full-scale eVTOL prototype, interior design and user experience study. VR-based perception and safety validation with 103 participants.",
     tags: ["eVTOL", "Drone Design", "UX Study", "DST Funded"],
-    image: "/images/image84.jpg",
+    image: "/images/image84.webp",
   },
   {
     title: "VR/AR in Learning Models",
     desc: "Integrating AI, AR and VR in learning models and measuring their impact. Virtual chemistry lab environments, VR-aided STEM content for schools, and interactive educational game design including Tatva Bhoomi.",
     tags: ["STEM", "Game Design", "VR Lab", "School Education"],
-    image: "/images/image40.png",
+    image: "/images/image40.webp",
   },
   {
     title: "Sustainable Product Innovation",
     desc: "Bio-bricks from agro-waste for sustainable housing. Solar-powered cookers for rural India. Ekant soundproof office pods. Solar vegetable dryer for small-scale vendors. Hydroponics and solar panels for parking areas.",
     tags: ["Sustainability", "Solar", "Bio-materials", "Rural India"],
-    image: "/images/image96.png",
+    image: "/images/image96.webp",
   },
 ];
 
@@ -211,21 +211,21 @@ export const PARTNERS = [
 export const ABOUT_STACK_IMAGES = [
   { src: "/images/projects/aquaproject/aquaponics-1.webp", alt: "Urban aquaponics prototype at DIC", rotation: -12 },
   { src: "/images/projects/temple-heritage.webp", alt: "Cultural heritage documentation", rotation: 6 },
-  { src: "/images/image85.jpg", alt: "Autonomous air mobility prototype", rotation: -5 },
-  { src: "/images/image39.jpg", alt: "VR and AR education research", rotation: 10 },
+  { src: "/images/image85.webp", alt: "Autonomous air mobility prototype", rotation: -5 },
+  { src: "/images/image39.webp", alt: "VR and AR education research", rotation: 10 },
 ];
 
 export const MARQUEE_IMAGES = [
-  "/images/image103.jpeg",
-  "/images/image67.jpg",
-  "/images/image7.jpg",
-  "/images/image52.jpg",
-  "/images/image84.jpg",
-  "/images/image55.jpg",
-  "/images/image85.jpg",
-  "/images/image39.jpg",
-  "/images/image56.jpg",
-  "/images/image68.jpg",
+  "/images/image103.webp",
+  "/images/image67.webp",
+  "/images/image7.webp",
+  "/images/image52.webp",
+  "/images/image84.webp",
+  "/images/image55.webp",
+  "/images/image85.webp",
+  "/images/image39.webp",
+  "/images/image56.webp",
+  "/images/image68.webp",
 ];
 
 export const NAV_LINKS = [
@@ -256,7 +256,7 @@ export const NAV_LINKS = [
     //     },
     //   ],
     //   featured: {
-    //     image: "/images/image85.jpg",
+    //     image: "/images/image85.webp",
     //     label: "Lorem Ipsum Dolor",
     //     desc: "Ut enim ad minim veniam quis nostrud exercitation ullamco laboris.",
     //     path: "/research",
@@ -298,7 +298,7 @@ export const NAV_LINKS = [
     //     },
     //   ],
     //   featured: {
-    //     image: "/images/image56.jpg",
+    //     image: "/images/image56.webp",
     //     label: "Lorem Ipsum Dolor",
     //     desc: "At vero eos et accusamus et iusto odio dignissimos ducimus.",
     //     path: "/education",
@@ -314,6 +314,29 @@ export const NAV_LINKS = [
     label: "All India DIC Meet 26",
     path: "/all-india-dic-meet-26",
   },
+  {
+    label: "Updates",
+    path: "/events",
+    menu: {
+      columns: [
+        {
+          heading: "Gatherings",
+          items: [
+            { label: "DIC Hosted Conferences", desc: "National and international conferences organised by DIC.", path: "/conferences" },
+            { label: "Events", desc: "Talks, exhibitions, and gatherings from across the Centre.", path: "/events" },
+            { label: "Workshops", desc: "Hands-on sessions in design, fabrication, and emerging tech.", path: "/workshops" },
+          ],
+        },
+      ],
+      featured: {
+        image: "/images/image56.webp",
+        label: "Blogs & Articles",
+        desc: "Insights, research notes, and stories from the DIC community.",
+        path: "/blogs",
+        cta: "Read more",
+      },
+    },
+  },
 ];
 
 export const CONTACT_LINK = { label: "Contact", path: "/contact" };
@@ -327,7 +350,7 @@ export const NEWS = [
     title: "Lorem ipsum dolor sit amet consectetur",
     excerpt: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     date: "2026-06-24",
-    image: "/images/image52.jpg",
+    image: "/images/image52.webp",
     tag: "Placeholder",
   },
   {
@@ -335,7 +358,7 @@ export const NEWS = [
     title: "Ut enim ad minim veniam quis nostrud",
     excerpt: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     date: "2026-06-18",
-    image: "/images/image85.jpg",
+    image: "/images/image85.webp",
     tag: "Placeholder",
   },
   {
@@ -343,7 +366,7 @@ export const NEWS = [
     title: "Duis aute irure dolor in reprehenderit",
     excerpt: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
     date: "2026-06-02",
-    image: "/images/image84.jpg",
+    image: "/images/image84.webp",
     tag: "Placeholder",
   },
   {
@@ -351,7 +374,7 @@ export const NEWS = [
     title: "Excepteur sint occaecat cupidatat non proident",
     excerpt: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     date: "2026-03-07",
-    image: "/images/image40.png",
+    image: "/images/image40.webp",
     tag: "Placeholder",
   },
 ];
@@ -383,17 +406,17 @@ export const REQUEST_TYPES = [
 ];
 
 export const GALLERY_IMAGES = [
-  { src: "/images/image103.jpeg", alt: "DIC field visit and site documentation" },
-  { src: "/images/image67.jpg", alt: "Cultural heritage documentation in the field" },
+  { src: "/images/image103.webp", alt: "DIC field visit and site documentation" },
+  { src: "/images/image67.webp", alt: "Cultural heritage documentation in the field" },
   { src: "/images/projects/aquaproject/aquaponics-2.webp", alt: "Students building the urban aquaponics prototype" },
-  { src: "/images/image52.jpg", alt: "Ramappa Temple digital preservation study" },
-  { src: "/images/image84.jpg", alt: "Autonomous air mobility prototype trial" },
-  { src: "/images/image55.jpg", alt: "Dhokra craft revival workshop" },
-  { src: "/images/image85.jpg", alt: "eVTOL interior user experience study" },
-  { src: "/images/image39.jpg", alt: "VR and AR education research session" },
-  { src: "/images/image56.jpg", alt: "Student design review at DIC" },
-  { src: "/images/image68.jpg", alt: "DIC studio and workshop space" },
-  { src: "/images/image40.png", alt: "Virtual chemistry lab interface" },
+  { src: "/images/image52.webp", alt: "Ramappa Temple digital preservation study" },
+  { src: "/images/image84.webp", alt: "Autonomous air mobility prototype trial" },
+  { src: "/images/image55.webp", alt: "Dhokra craft revival workshop" },
+  { src: "/images/image85.webp", alt: "eVTOL interior user experience study" },
+  { src: "/images/image39.webp", alt: "VR and AR education research session" },
+  { src: "/images/image56.webp", alt: "Student design review at DIC" },
+  { src: "/images/image68.webp", alt: "DIC studio and workshop space" },
+  { src: "/images/image40.webp", alt: "Virtual chemistry lab interface" },
   { src: "/images/projects/aquaproject/aquaponics-6.webp", alt: "Fish and duckweed in the aquaponics pond" },
 ];
 
@@ -403,21 +426,21 @@ export const TESTIMONIALS = [
     quote: "Working on the heritage digitisation project at DIC completely reshaped how I think about design — it's not just about form, it's about who a space belongs to and how technology can protect that.",
     name: "Ananya Sharma",
     role: "M.Des Student, IIT Hyderabad",
-    avatar: "/images/image56.jpg",
+    avatar: "/images/image56.webp",
   },
   {
     id: "t2",
     quote: "The eVTOL cabin study gave me hands-on time with VR perception testing I couldn't get anywhere else. DIC treats student fellows like real researchers, not interns.",
     name: "Rohan Vats",
     role: "Research Fellow, Air Mobility",
-    avatar: "/images/image84.jpg",
+    avatar: "/images/image84.webp",
   },
   {
     id: "t3",
     quote: "Documenting Dhokra craft with the Ojha community taught me more about design ethics than any lecture could. DIC's field-first approach changed how I see my own practice.",
     name: "Meher Iyer",
     role: "B.Des Student, IIT Hyderabad",
-    avatar: "/images/image55.jpg",
+    avatar: "/images/image55.webp",
   },
 ];
 

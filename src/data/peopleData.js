@@ -9,7 +9,7 @@ export const MEMBER_CATEGORIES = [
   { id: 'principal-investigator', label: 'Principal Investigator' },
   { id: 'design-manager', label: 'Design Head' },
   { id: 'phd-students', label: 'Phd Students' },
-  { id: 'project-staff', label: 'Lab Staff' },
+  { id: 'project-staff', label: 'Project Staff' },
   { id: 'interns', label: 'Interns' },
   { id: 'past-members', label: 'Past Members' },
 ];
@@ -382,8 +382,8 @@ export const MEMBERS = {
     {
       id: 'raja-sekhar-donka',
       name: 'Raja Sekhar Donka',
-      role: 'Lab Staff',
-      bio: 'Product Designer, UX Researcher, and Visual Storyteller — Lab Staff, Design Innovation Centre, IIT Hyderabad.',
+      role: 'Project Staff',
+      bio: 'Product Designer, UX Researcher, and Visual Storyteller — Project Staff, Design Innovation Centre, IIT Hyderabad.',
       fullBio: [
         'Raja Shekhar Donka is a multidisciplinary product designer, UX researcher, and visual storyteller on DIC’s lab team, applying interaction design and cognitive science to build intuitive digital experiences. His work spans research-driven UX design, rapid prototyping, and motion design across 2D, 3D, and AR/VR. His current work at DIC focuses on creating embodied digital heritage experiences using virtual reality to enhance the understanding of heritage sites.',
         'He holds an M.Des in New Media Design from the National Institute of Design, Gandhinagar, and a PG Certificate in Visual Design & UX from IIT Hyderabad. His master’s project, Socratease, was a cognitive UX case study exploring how conversational, Socratic-method-inspired interactions can reduce confirmation bias in news consumption, developed through action research with 30+ participants. Before moving into UX, he spent several years as a motion and 3D designer across edtech and studio production — including Vedantu Innovations, Toppr Technologies, and Srushti Creative Studio — creating educational 3D content, AR-ready visuals, and VFX for film and commercial work.',
@@ -426,18 +426,18 @@ export const MEMBERS = {
     {
       id: 'mayank-yadav',
       name: 'Mayank Yadav',
-      role: 'Lab Staff',
-      bio: 'Lab Staff, Design Innovation Centre, IIT Hyderabad.',
+      role: 'Project Staff',
+      bio: 'Project Staff, Design Innovation Centre, IIT Hyderabad.',
       photo: '',
     },
     {
       id: 'surya-prakash-musunuri',
       name: 'Surya Prakash Musunuri',
       role: 'Design Intern (UX Engineer)',
-      bio: 'UX/UI Designer & UX Engineer — Design Intern, Design Innovation Centre, IIT Hyderabad.',
+      bio: 'Design Engineer — Design Intern, Design Innovation Centre, IIT Hyderabad.',
       fullBio: [
-        'Surya Prakash Musunuri is a UX/UI Designer and UX Engineer with a computer science background, working as a Design Intern at the Design Innovation Centre, IIT Hyderabad since September 2025. He leads UX/UI design, frontend development, and AI-assisted workflows across DIC’s international, national, product, and portfolio web properties — building React websites with reusable, component-based architecture, optimising performance through code-splitting and lazy loading, and maintaining 90%+ Lighthouse accessibility scores.',
-        'He is also Co-Founder & Design Lead of ShunyaCoach, an AI startup providing real-time crowd density monitoring for metro transit systems, which secured ₹50,000 in seed funding from IIT Hyderabad’s BUILD fund. His prior experience spans UX/UI design roles at InnoMission and Error Technologies, a blockchain internship at Timechain Labs, and a machine learning internship at CloudKarya. He holds a B.Tech in Computer Science and Engineering from Gayatri Vidya Parishad College of Engineering, Visakhapatnam.',
+        'Surya Prakash Musunuri is a Design Engineer who brings six years of theoretical computer science education with a UX/UI design layer on top of it. At DIC he leads UX/UI design, frontend development, and AI-assisted workflows across DIC’s web properties.',
+        'He is also Co-Founder & Design Lead of ShunyaCoach, an AI startup for real-time crowd density monitoring on metro systems, backed by ₹50,000 in seed funding from IIT Hyderabad’s BUILD fund. His prior experience spans UX/UI roles at InnoMission and Error Technologies, plus internships in blockchain (Timechain Labs) and machine learning (CloudKarya).',
       ],
       tags: ['UX/UI Design', 'Frontend Development', 'AI-Assisted Design'],
       researchAreas: [
@@ -449,25 +449,22 @@ export const MEMBERS = {
         'Machine Learning & Computer Vision',
       ],
       education: [
-        { year: '2021 – 2024', degree: 'B.Tech, Computer Science and Engineering — First Class, CGPA 7.38', institution: 'Gayatri Vidya Parishad College of Engineering, Visakhapatnam' },
-        { year: '2018 – 2021', degree: 'Diploma in Computer Engineering — First Class Distinction, 80%', institution: 'Dr. B.R.A.G.M.R Polytechnic College, Rajahmundry' },
+        { year: '2021 – 2024', degree: 'B.Tech, Computer Science and Engineering', institution: 'Gayatri Vidya Parishad College of Engineering, Visakhapatnam' },
+        { year: '2018 – 2021', degree: 'Diploma in Computer Engineering', institution: 'Dr. B.R.A.G.M.R Polytechnic College, Rajahmundry' },
       ],
       // "Work Experience" — newest first, as given on the resume.
       experience: [
-        { role: 'Design Intern (UX Engineer)', org: 'Design Innovation Centre, IIT Hyderabad', duration: 'Sep 2025 – present', desc: 'Leads UX/UI design, frontend development, and AI-assisted workflows for the lab’s international, national, product, and portfolio web properties. Built end-to-end React websites with reusable, component-based architecture; implemented code-splitting and lazy loading; maintained 90%+ Lighthouse accessibility scores; deployed on Vercel with Search Console optimisation; integrated a headless CMS for independent content updates.' },
-        { role: 'Co-Founder & Design Lead', org: 'ShunyaCoach (AI Startup)', duration: 'Nov 2025 – present', desc: 'Secured ₹50,000 seed funding from IIT Hyderabad’s "BUILD" fund (iTIC Incubator, with Greenko Group) for an AI-powered real-time crowd density monitoring platform for metro transit systems. Led a team of 4 across product strategy, UI/UX design, and stakeholder presentations; designed the mobile app UI in Figma; showcased the product at D-Code Hackathon (IIT Hyderabad), ranking among the top competitors.' },
-        { role: 'UX/UI Designer', org: 'InnoMission', duration: 'Apr 2025 – Aug 2025', desc: 'Designed interfaces for an AI-supported Mental Health Companion app and a mentorship platform. Delivered UI mockups, prototypes, and component libraries that reduced dev rework by ~30%; introduced AI-assisted design workflows and facilitated user testing with client stakeholders.' },
-        { role: 'UX/UI Designer', org: 'Error Technologies', duration: 'Oct 2024 – Mar 2025', desc: 'Led the design of Tribe Africa, a web platform for African tourism and investment, restructuring scattered content into a clear information architecture. Progressed from low- to high-fidelity prototypes and delivered a scalable UI design system across web and mobile.' },
-        { role: 'Blockchain Intern', org: 'Timechain Labs', duration: 'May 2023 – Aug 2023', desc: 'Designed a Bitcoin Document Format (BDF) for decentralised document verification, mapping user flows and technical architecture for usability, data integrity, and auditability.' },
-        { role: 'Machine Learning Intern', org: 'CloudKarya', duration: 'May 2023 – Jun 2023', desc: 'Co-developed a behavioural analytics platform evaluating salesperson performance using real-time ML insights; designed dashboard UI screens and built backend services with FastAPI on Google Cloud Run.' },
+        { role: 'Design Intern (UX Engineer)', org: 'Design Innovation Centre, IIT Hyderabad', duration: 'Sep 2025 – present', desc: 'Leads UX/UI design, frontend development, and AI-assisted workflows for DIC’s web properties.' },
+        { role: 'Co-Founder & Design Lead', org: 'ShunyaCoach (AI Startup)', duration: 'Nov 2025 – present', desc: 'Co-founded an AI-powered crowd density monitoring platform for metro transit, securing ₹50,000 in seed funding.' },
+        { role: 'UX/UI Designer', org: 'InnoMission', duration: 'Apr 2025 – Aug 2025', desc: 'Designed UI for an AI-supported mental health app and a mentorship platform.' },
+        { role: 'UX/UI Designer', org: 'Error Technologies', duration: 'Oct 2024 – Mar 2025', desc: 'Led UI design for Tribe Africa, a web platform for African tourism and investment.' },
+        { role: 'Blockchain Intern', org: 'Timechain Labs', duration: 'May 2023 – Aug 2023', desc: 'Designed a Bitcoin Document Format for decentralised document verification.' },
+        { role: 'Machine Learning Intern', org: 'CloudKarya', duration: 'May 2023 – Jun 2023', desc: 'Built a behavioural analytics dashboard for evaluating salesperson performance.' },
       ],
       achievements: [
         'Secured 56th Rank in AP State ECET 2021',
         'Best Novel Idea Award, GVPCE Deep Learning Contest',
-        'Shortlisted from 1,200+ applicants for Lollypop Designathon 2023',
-        'UX Design Professional — Microsoft; Enterprise Design Thinking Practitioner — IBM; Ideas to Action & Insights for Innovation — IDEO U',
         'Top-1-ranked learner (activity & performance), Unicorn Designer Hub',
-        'Volunteer, UX India conference (2023, 2024 & 2025) — India’s largest UX design conference',
       ],
       photo: '/images/people/suryaprakash.webp',
       email: 'hello@uxsurya.com',

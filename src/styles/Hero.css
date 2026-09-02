@@ -40,7 +40,10 @@
 
 .hero__affiliation {
   font-family: var(--font-body);
-  font-size: var(--text-md);
+  /* Bumped up from a fixed --text-md — sits between the h1 and the
+     subtitle in the size scale (was smaller than the subtitle below it,
+     which is backwards for an attribution line right under the title). */
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
   font-weight: 500;
   color: rgba(255, 255, 255, 0.65);
   margin-bottom: 20px;

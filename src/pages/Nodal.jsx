@@ -127,7 +127,7 @@ function NodalFull() {
   return (
     <>
       <div className="page-header nodal-header">
-        <div className="nodal-header__bg" style={{ backgroundImage: 'url(/images/image103.jpeg)' }} aria-hidden="true" />
+        <div className="nodal-header__bg" style={{ backgroundImage: 'url(/images/image103.webp)' }} aria-hidden="true" />
         <div className="page-header__accent" />
         <p className="section-label" style={{ color: 'var(--color-terracotta-light)' }}>
           Ministry of Education · National Initiative for Design Innovation

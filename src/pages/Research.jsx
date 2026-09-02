@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useReveal } from '../hooks/useReveal';
 import { RESEARCH_AREAS, PATENTS, DIC_LAB_FACILITIES } from '../data/siteData';
 import { RESEARCH_PROJECTS } from '../data/researchProjectsData';
@@ -128,6 +129,11 @@ export default function Research() {
             </div>
           ))}
         </div>
+
+        <p className="lab-facilities__visit">
+          Interested in seeing the lab in person?{' '}
+          <Link to="/contact">Request a visit</Link>
+        </p>
       </section>
 
       {/* Patents — a register, not a card wall: entries vary a lot in

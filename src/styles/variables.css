@@ -78,6 +78,14 @@
   --color-dic-red: #F0301B;
   --color-dic-orange: #EF7621;
   --color-dic-blue: #2F3192;
+  /* A ~20%-darker shade of --color-dic-red, for the few spots where white
+     text sits directly on it (the pill-cta button label, the red
+     StoryFlow panel's body copy) — the pure brand red only clears 4.08:1
+     with white text, under WCAG AA's 4.5:1 minimum. Everywhere else
+     (logo, hover underlines, icon-only buttons, borders) keeps the exact
+     brand red unchanged, since none of those carry text needing this
+     ratio. */
+  --color-dic-red-text-safe: #C8200D;
 
   /* Layout */
   --margin-x: 60px;

@@ -29,6 +29,11 @@ const AllIndiaDicMeet26 = lazy(() => import('./pages/AllIndiaDicMeet26'));
 const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
 const ResearchDetail = lazy(() => import('./pages/ResearchDetail'));
 const NewsDetail = lazy(() => import('./pages/NewsDetail'));
+const Conferences = lazy(() => import('./pages/Conferences'));
+const FourthDicMeet = lazy(() => import('./pages/FourthDicMeet'));
+const Events = lazy(() => import('./pages/Events'));
+const Workshops = lazy(() => import('./pages/Workshops'));
+const Blogs = lazy(() => import('./pages/Blogs'));
 
 const DEFAULT_TITLE = 'DIC · IITH — Design Innovation Centre, IIT Hyderabad';
 
@@ -38,6 +43,14 @@ const DEFAULT_TITLE = 'DIC · IITH — Design Innovation Centre, IIT Hyderabad';
 const PAGE_TITLES = {
   [CONTACT_LINK.path]: `${CONTACT_LINK.label} — DIC · IITH`,
   ...Object.fromEntries(NAV_LINKS.map((link) => [link.path, `${link.label} — DIC · IITH`])),
+  // The Events & Insights mega-menu's four sub-pages each have their own
+  // path, distinct from the parent nav item's own — not covered by the
+  // NAV_LINKS spread above, which only maps each top-level item's path.
+  '/conferences': 'DIC Hosted Conferences — DIC · IITH',
+  '/conferences/fourth-all-india-dic-meet': 'Fourth All India DIC Meet — DIC · IITH',
+  '/events': 'Events — DIC · IITH',
+  '/workshops': 'Workshops — DIC · IITH',
+  '/blogs': 'Blogs & Articles — DIC · IITH',
   // Overrides the generic templated title the spread above gives '/nodal' —
   // this one needs to come last to win.
   '/nodal': 'DIC Nodal — India’s National Design Innovation Network',
@@ -100,6 +113,11 @@ export default function App() {
             <Route path="/news/:id" element={<NewsDetail />} />
             <Route path="/nodal" element={<Nodal />} />
             <Route path="/all-india-dic-meet-26" element={<AllIndiaDicMeet26 />} />
+            <Route path="/conferences" element={<Conferences />} />
+            <Route path="/conferences/fourth-all-india-dic-meet" element={<FourthDicMeet />} />
+            <Route path="/events" element={<Events />} />
+            <Route path="/workshops" element={<Workshops />} />
+            <Route path="/blogs" element={<Blogs />} />
           </Routes>
         </Suspense>
       </main>

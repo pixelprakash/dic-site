@@ -27,7 +27,7 @@ export default function Home() {
         <StorySection
           aria-label="About the Centre"
           className="story-section--intro"
-          style={{ background: 'var(--color-dic-red)', color: '#fff' }}
+          style={{ background: 'var(--color-dic-red-text-safe)', color: '#fff' }}
         >
           <div className="story-about__grid">
             <div className="story-about__text">
@@ -56,7 +56,12 @@ export default function Home() {
         <StorySection
           aria-label="Research domains"
           className="story-section--domains"
-          style={{ background: 'var(--color-dic-orange)', color: '#fff' }}
+          // Ink, not white — white text on this orange only measures
+          // 2.88:1, well under WCAG AA's 4.5:1 (3:1 even at this large
+          // heading size); ink clears 6.19:1. Matches the same fix
+          // already applied to the Hero's announcements panel, which
+          // uses this identical orange.
+          style={{ background: 'var(--color-dic-orange)', color: 'var(--color-ink)' }}
         >
           <h2 className="story-headline">Research Domains</h2>
           <ResearchDomainsNav />

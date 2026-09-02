@@ -49,6 +49,20 @@ export default function Contact() {
           </div>
 
           <div className="contact-info__item">
+            <h4>Visit the Lab</h4>
+            <p>
+              To arrange a visit or appointment at the DIC lab, write to us with your preferred
+              dates and the purpose of your visit.{' '}
+              <a
+                href="mailto:dic@des.iith.ac.in?subject=Lab%20Visit%20Request"
+                style={{ color: 'var(--color-terracotta)' }}
+              >
+                Request a visit
+              </a>
+            </p>
+          </div>
+
+          <div className="contact-info__item">
             <h4>Hub &amp; Spoke Network</h4>
             <p>
               IIT Hyderabad (Hub)<br />

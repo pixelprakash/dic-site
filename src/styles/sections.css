@@ -5,7 +5,7 @@
   align-items: center;
   gap: 10px;
   padding: 14px 32px;
-  background: var(--color-dic-red);
+  background: var(--color-dic-red-text-safe);
   color: var(--color-white);
   font-size: var(--text-sm);
   font-weight: 500;
@@ -104,11 +104,12 @@
   margin-bottom: 20px;
 }
 
-/* Comes after the plain `.about__intro p` rule above (and matches it too,
-   since this lede is itself a <p>) so its larger size actually wins
-   instead of being overridden by equal-specificity, later-in-source
-   sibling rule. */
-.about__lede {
+/* Scoped as `.about__intro .about__lede`, not just `.about__lede` — the
+   lede is itself a <p>, so a bare single-class selector here is actually
+   less specific than `.about__intro p` above (class+element beats a
+   lone class) and was silently losing the cascade regardless of source
+   order, leaving the lede rendering at the same size as body text. */
+.about__intro .about__lede {
   font-size: var(--text-lg);
   color: var(--color-charcoal);
   line-height: 1.6;
@@ -670,6 +671,27 @@
   font-size: var(--text-md);
   color: var(--color-stone);
   margin: 0;
+}
+
+.lab-facilities__visit {
+  margin-top: 56px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(26, 23, 20, 0.12);
+  font-size: var(--text-md);
+  color: var(--color-stone);
+}
+
+.lab-facilities__visit a {
+  color: var(--color-terracotta);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: rgba(149, 78, 48, 0.35);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.2s var(--ease-smooth);
+}
+
+.lab-facilities__visit a:hover {
+  text-decoration-color: var(--color-terracotta);
 }
 
 @media (max-width: 700px) {
