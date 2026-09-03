@@ -1,7 +1,9 @@
 .footer {
   position: relative;
   overflow: hidden;
-  background: var(--color-teal-dark);
+  /* Solid black while the aquarium/fish band is parked (see Footer.jsx) —
+     was --color-teal-dark, the backdrop the fish swam over. */
+  background: var(--color-ink);
   color: rgba(255, 255, 255, 0.7);
 }
 

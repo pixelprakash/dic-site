@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { REQUEST_TYPES } from '../data/siteData';
 import { useViewOnMap, ViewOnMapTrigger, ViewOnMapPanel } from './ViewOnMap';
-import AquariumBand from './AquariumBand';
+// Animated aquarium/fish band — parked for now. Not deleted: uncomment
+// this import and the <AquariumBand /> usage below to bring it back.
+// import AquariumBand from './AquariumBand';
 import '../styles/Footer.css';
 
 const SOCIALS = [
@@ -148,7 +150,7 @@ export default function Footer() {
 
   return (
     <footer className="footer">
-      <AquariumBand />
+      {/* <AquariumBand /> — parked for now, see import note above */}
       <div className="footer__inner">
       <div className="footer__top">
         <div className="footer__left">
