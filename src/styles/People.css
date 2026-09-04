@@ -138,11 +138,72 @@
 
 @media (max-width: 768px) {
   .people-header {
-    padding: 20px var(--margin-x);
+    padding: 16px 0 16px var(--margin-x);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .people-header__title {
+    font-size: 1.5rem;
+    padding-right: var(--margin-x);
+  }
+
+  /* The category pills wrapped into ragged, centered rows here (each row
+     independently right-aligned by the desktop's justify-content:flex-end),
+     eating a huge chunk of the sticky header's height before any actual
+     content showed. A single horizontally-scrollable strip — the same
+     "tab bar" pattern used for filters/categories on mobile everywhere —
+     keeps the header compact and makes it obvious there's more to swipe
+     to. The scrollbar itself is hidden since the pills' partial-cutoff at
+     the edge already signals scrollability. */
+  .people-tags {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-right: var(--margin-x);
+    /* Fades the last pill toward the edge instead of a hard clip, another
+       cue that the row continues off-screen. */
+    mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent 100%);
+  }
+
+  .people-tags::-webkit-scrollbar {
+    display: none;
+  }
+
+  .people-tag {
+    flex-shrink: 0;
+  }
+
+  .people-body {
+    padding: 0 var(--margin-x) 80px;
+  }
+
+  .people-section {
+    padding: 28px 0;
+  }
+
+  .people-section:first-child {
+    padding-top: 28px;
   }
 
   .people-grid {
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 16px;
+  }
+}
+
+@media (max-width: 560px) {
+  /* Below ~560px, auto-fill's 240px minimum only just fits one column
+     anyway (two would need ~530px plus the row gap and side margins) —
+     make that explicit rather than relying on the arithmetic, since a
+     couple of narrow phones (e.g. 375px) were landing exactly on that
+     boundary and flickering between 1 and a barely-fitting 2 columns. */
+  .people-grid {
+    grid-template-columns: 1fr;
   }
 }

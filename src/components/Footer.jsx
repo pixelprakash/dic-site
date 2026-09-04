@@ -154,10 +154,11 @@ export default function Footer() {
       <div className="footer__inner">
       <div className="footer__top">
         <div className="footer__left">
-          {/* Bento layout: this card + the brand card below it stack to
-              match the full height of the form card on the right — always
-              visible now rather than a hover-only overlay on the tank. */}
-          <Link to="/projects/urban-aquaponics-no-soil-farming" className="footer__project-card">
+          {/* Bento layout: this card used to stack above the brand card to
+              match the full height of the form card on the right. Parked
+              for now along with the aquarium band it linked to — not
+              deleted: uncomment to bring it back as the first item here. */}
+          {/* <Link to="/projects/urban-aquaponics-no-soil-farming" className="footer__project-card">
             <div className="footer__project-body">
               <p className="footer__project-eyebrow">Did you know?</p>
               <p className="footer__project-title">DIC grows food without soil, using fish like these</p>
@@ -168,7 +169,7 @@ export default function Footer() {
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </span>
-          </Link>
+          </Link> */}
 
           <div className={`footer__brand ${map.isOpen ? 'footer__brand--map-open' : ''}`}>
             {/* Two dedicated columns, not one shared row — the expanded

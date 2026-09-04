@@ -3,6 +3,32 @@ import { Link, useParams } from 'react-router-dom';
 import { getMemberBySlug, getMemberCategory } from '../data/peopleData';
 import '../styles/PersonProfile.css';
 
+// Known research/portfolio portals get their own recognisable name on the
+// CTA (e.g. "ResearchGate", "ORCID") instead of a generic "Website" —
+// matched by hostname so it still works regardless of the specific
+// profile path. Anything not on this list (a personal domain, a lab
+// page, etc.) falls back to the generic label.
+const WEBSITE_LABELS = [
+  { match: /(^|\.)researchgate\.net$/, label: 'ResearchGate' },
+  { match: /(^|\.)orcid\.org$/, label: 'ORCID' },
+  { match: /(^|\.)academia\.edu$/, label: 'Academia.edu' },
+  { match: /(^|\.)scholar\.google\./, label: 'Google Scholar' },
+  { match: /(^|\.)github\.io$/, label: 'GitHub' },
+  { match: /(^|\.)github\.com$/, label: 'GitHub' },
+  { match: /(^|\.)medium\.com$/, label: 'Medium' },
+  { match: /(^|\.)behance\.net$/, label: 'Behance' },
+];
+
+function websiteLabel(url) {
+  try {
+    const { hostname } = new URL(url);
+    const found = WEBSITE_LABELS.find((entry) => entry.match.test(hostname));
+    return found ? found.label : 'Website';
+  } catch {
+    return 'Website';
+  }
+}
+
 function initials(name) {
   return name
     .replace(/^(Dr\.|Prof\.|Mr\.|Ms\.|Mrs\.)\s+/i, '')
@@ -262,7 +288,7 @@ export default function PersonProfile() {
                 {website && (
                   <a className="profile__social" href={website} target="_blank" rel="noopener noreferrer">
                     <WebsiteIcon />
-                    Website
+                    {websiteLabel(website)}
                   </a>
                 )}
                 {email && (

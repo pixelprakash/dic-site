@@ -162,9 +162,23 @@ export const MEMBERS = {
       name: 'Yash',
       role: 'PhD Student',
       joinedYear: '2026',
-      bio: '',
-      fullBio: '',
-      tags: [],
+      bio: 'Visual artist & researcher — Research Scholar, IIT Hyderabad, working on traditional photographic printmaking and the history of photographic images.',
+      fullBio: [
+        'Yash is a visual artist & researcher based in Baroda. He is currently pursuing a PhD in the Department of Design at the Indian Institute of Technology Hyderabad (IITH). He holds an M.V.A. in Printmaking and a B.V.A. in Applied Art from the Maharaja Sayajirao University of Baroda. He is a recipient of the Hyundai Art for Hope Grant (2026) and was a finalist for the Inception Grant (2024). He has also received the Jeram Patel Award from the Department of Graphic Arts and the Photography Award from the Birla Academy of Art and Culture (2019).',
+        'He has exhibited widely at venues including the Museum of the Future, Dubai and the India Art Fair, Delhi as well as across major cities in India. In 2019, he was an artist-in-residence at Space Studio’s Art & Ecology Printmaking Residency. Yash was a fellow with the Sangeet Natak Akademi and B.C. Mistry & Sons, where he explored the traditional craft of Rudra Veena making (2024–26).',
+        'He has teaching experience at the Department of Graphic Arts, Faculty of Fine Arts, The Maharaja Sayajirao University of Baroda (2024–26), where he taught for two years, as well as at the World University of Design (2021–23). He has designed artist books for Shri Jyoti Bhatt in collaboration with Gallery Latitude 28, for The Print: Matter in Matrix, and for Goth: Adivasi Stories from Gujarat, published by the Bhasha Research and Publication Centre.',
+      ],
+      // Short highlight tags for the People-grid card — condensed from the
+      // fuller researchAreas list below, same pattern used for the other
+      // recently added scholars (Nandit, Salil). Education/experience/
+      // achievements/publications sections intentionally left empty for
+      // now — the user said the CV-style data for those will follow later.
+      tags: ['Photographic Printmaking', 'Visual Arts', 'Time-Based Media'],
+      researchAreas: [
+        'Traditional Photographic Printmaking Processes',
+        'History & Philosophy of Photographic Images',
+        'Experiential and Time-based Media in Contemporary Visual Scenarios',
+      ],
       interests: [],
       photo: '',
       email: '',
@@ -214,7 +228,7 @@ export const MEMBERS = {
       publications: [
         { title: 'Module Design Strategies for Residential Satisfaction in Row Housing: A Case of Central India', venue: 'Design Dialogue: Intersections of Practice, People and Place, 2026, pp. 1–17 (with P. Sharma)', year: 2026, link: 'https://www.scopus.com/pages/publications/105043201387?origin=resultslist' },
       ],
-      photo: '',
+      photo: '/images/people/nandit.webp',
       email: '',
       website: '',
       linkedin: 'https://www.linkedin.com/in/nanditpastariya',
@@ -374,7 +388,7 @@ export const MEMBERS = {
         { title: 'FDI in higher education: Rationales and priorities', venue: 'The Management Accountant Journal, 56(4), 40–42', year: 2021 },
         { title: 'NIRF: The regional realities for intervention', venue: 'Current Science, 120(4), 614–616 (with G. Srinivas)', year: 2021, link: 'https://www.currentscience.ac.in/Volumes/120/04/0614.pdf' },
       ],
-      photo: '',
+      photo: '/images/people/salil.webp',
       email: 'md23resch04001@iith.ac.in',
       website: 'https://orcid.org/0000-0003-1148-6838',
       linkedin: 'https://www.linkedin.com/in/salilsahadevan/',
