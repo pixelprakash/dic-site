@@ -293,7 +293,7 @@ export const MEMBERS = {
         { year: '2017 – 2020', degree: 'B.Sc. (Hons.) in Textile and Apparel Designing — Gold Medalist', institution: 'SNDT Women’s University, Mumbai' },
       ],
       experience: [
-        { role: 'Visiting Faculty — Textile and Apparel Design', org: 'The Maharaja Sayajirao University of Baroda, Vadodara', duration: 'Jan 2025 – Apr 2025', desc: 'Taught Fashion Marketing and Merchandising, and engaged with students in fashion and textile design education. Also served as Honorary Faculty, Fashion Design Department.' },
+        { role: 'Visiting Faculty — Textile and Apparel Design', org: 'The Maharaja Sayajirao University of Baroda, Vadodara', duration: 'Jan 2025 – Apr 2025', desc: 'Taught Fashion Marketing and Merchandising, and engaged with students in fashion and textile design education.' },
         { role: 'Faculty — Textile and Apparel Design', org: 'Institute for Excellence in Higher Education (IEHE), Bhopal', duration: 'Jul 2023 – Dec 2024', desc: 'Taught undergraduate courses including sewing techniques, garment construction, CAD, product design and development, fashion illustration, fashion retailing, and visual merchandising. Supervised and mentored students on academic projects, contributed to curriculum development and departmental events, and participated in conferences and faculty development activities.' },
       ],
       achievements: [
