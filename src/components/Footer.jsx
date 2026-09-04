@@ -115,9 +115,9 @@ const ICONS = {
 //     before recolouring what's left to black.
 const FOOTER_LOGOS = [
   { key: 'dic-nodal', src: '/images/dic-nodal-mono.png', alt: 'DIC Nodal' },
-  { key: 'ministry-of-education', src: '/images/ministry-of-education-crop.png', alt: 'Ministry of Education, Government of India' },
-  { key: 'design-dept', src: '/images/design-dept-mono.png', alt: 'Department of Design, IIT Hyderabad' },
-  { key: 'iith', src: '/images/iith-crop.png', alt: 'Indian Institute of Technology Hyderabad' },
+  { key: 'ministry-of-education', src: '/images/ministry-of-education-crop.png', alt: 'Ministry of Education, Government of India', href: 'https://www.education.gov.in' },
+  { key: 'design-dept', src: '/images/design-dept-mono.png', alt: 'Department of Design, IIT Hyderabad', href: 'https://design.iith.ac.in' },
+  { key: 'iith', src: '/images/iith-crop.png', alt: 'Indian Institute of Technology Hyderabad', href: 'https://www.iith.ac.in' },
 ];
 
 const CONTACT_GROUPS = [
@@ -212,16 +212,32 @@ export default function Footer() {
               ))}
 
               <div className="footer__logos" role="list" aria-label="Affiliated organisations">
-                {FOOTER_LOGOS.map((logo) => (
-                  <span className="footer__logo-chip" role="listitem" key={logo.key}>
+                {FOOTER_LOGOS.map((logo) => {
+                  const img = (
                     <img
                       src={logo.src}
                       alt={logo.alt}
                       className="footer__logo-item"
                       onError={(e) => { e.currentTarget.closest('.footer__logo-chip').style.display = 'none'; }}
                     />
-                  </span>
-                ))}
+                  );
+                  return logo.href ? (
+                    <a
+                      className="footer__logo-chip"
+                      role="listitem"
+                      key={logo.key}
+                      href={logo.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {img}
+                    </a>
+                  ) : (
+                    <span className="footer__logo-chip" role="listitem" key={logo.key}>
+                      {img}
+                    </span>
+                  );
+                })}
               </div>
             </div>
 
