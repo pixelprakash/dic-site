@@ -98,7 +98,14 @@ export default function People() {
           observer.unobserve(entry.target);
         });
       },
-      { threshold: 0.12, rootMargin: '0px 0px -10% 0px' },
+      // threshold: 0 — a section only needs to start entering the
+      // viewport, not have 12% of its own height visible. That 12%
+      // figure silently assumed a section is shorter than the viewport;
+      // on mobile a category with several stacked single-column cards
+      // (e.g. Phd Students) can run several times taller than the screen,
+      // so that fraction was never reachable and the section stayed at
+      // opacity: 0 forever — the "cards not coming up" bug.
+      { threshold: 0, rootMargin: '0px 0px -10% 0px' },
     );
 
     sections.forEach((s) => observer.observe(s));

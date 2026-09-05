@@ -45,3 +45,22 @@
     aspect-ratio: 4 / 5;
   }
 }
+
+@media (max-width: 640px) {
+  /* Stacked full-width at the desktop 4:5 ratio plus 32/40px padding
+     (sized for a wide side-by-side bar, not a stacked mobile card), this
+     one card alone could run taller than the viewport. An explicit height
+     (rather than aspect-ratio, which this flex-column + object-fit:cover
+     img combination was resolving against the photo's own intrinsic
+     400x533 ratio instead of the box's — leaving it just as tall as
+     before) reliably shrinks it regardless of the source photo's shape. */
+  .member-spotlight .member-spotlight__photo {
+    aspect-ratio: auto;
+    height: 300px;
+  }
+
+  .member-spotlight .member-card__info {
+    padding: 20px 18px 22px;
+    gap: 10px;
+  }
+}

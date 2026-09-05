@@ -578,7 +578,11 @@ a.footer__logo-chip:focus-visible {
     grid-template-columns: 1fr;
   }
 
-  .footer__brand-map {
+  /* Scoped to the open state, matching the desktop rule above (line 186)
+     — this was previously unscoped, so the map's column-turned-row
+     reserved a permanent 220px of empty dark space in the footer even
+     while the map stayed closed, which is what read as a "big gap". */
+  .footer__brand--map-open .footer__brand-map {
     min-height: 220px;
   }
 }

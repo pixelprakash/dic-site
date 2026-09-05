@@ -19,12 +19,22 @@
   border-radius: var(--border-radius);
   overflow: hidden;
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+  /* Shows through as letterboxing whenever an image's own ratio doesn't
+     match this box's 4:3 (see object-fit: contain below) — the same tone
+     as the page-header it sits on, so a photo that fills the box edge to
+     edge shows no seam, and a wide diagram just appears to float on it. */
+  background: var(--color-ink);
 }
 
 .project-detail__header-media img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  /* contain, not cover: a wide reference diagram (chart, screenshot,
+     figure) has real content — labels, axes — right up to its edges, and
+     cover was cropping into that. A portrait/landscape photo without
+     hard edges reads fine either way, so contain is the safe default for
+     both rather than needing a per-project flag. */
+  object-fit: contain;
 }
 
 /* The 3D-model trigger takes over the same header-image slot instead of

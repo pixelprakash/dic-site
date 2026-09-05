@@ -1,0 +1,150 @@
+.blog-detail__breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: var(--text-xs);
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 20px;
+}
+
+.blog-detail__breadcrumb li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.blog-detail__breadcrumb li:not(:last-child)::after {
+  content: '/';
+  margin-left: 8px;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.blog-detail__breadcrumb a {
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.2s var(--ease-smooth);
+}
+
+.blog-detail__breadcrumb a:hover {
+  color: var(--color-white);
+}
+
+/* Blog titles run longer and more descriptive than the short page names
+   .page-header's default clamp(…, 6vw, 4.5rem) was designed for — at
+   full size this one wrapped to 5 lines and pushed the header past
+   900px tall before any actual content appeared. A smaller, tighter
+   clamp keeps long post titles readable without dominating the page. */
+.blog-detail__title {
+  font-size: clamp(1.75rem, 3.4vw, 2.75rem) !important;
+  max-width: 850px !important;
+}
+
+.blog-detail__byline {
+  color: rgba(255, 255, 255, 0.55) !important;
+  margin-top: 16px;
+  font-size: var(--text-sm) !important;
+}
+
+.blog-detail__section {
+  padding: var(--section-gap) var(--margin-x);
+  max-width: 720px;
+}
+
+.blog-detail__body {
+  font-size: var(--text-md);
+  line-height: 1.7;
+  margin-bottom: 20px;
+  max-width: 75ch;
+}
+
+.blog-detail__body:last-of-type {
+  margin-bottom: 20px;
+}
+
+.blog-detail__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+  padding-left: 0;
+  list-style: none;
+}
+
+.blog-detail__list li {
+  position: relative;
+  padding-left: 26px;
+  font-size: var(--text-md);
+  line-height: 1.6;
+  color: var(--color-charcoal);
+}
+
+.blog-detail__list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-terracotta);
+}
+
+.blog-detail__external-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  margin-bottom: 40px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-terracotta);
+  transition: color 0.2s var(--ease-smooth);
+}
+
+.blog-detail__external-link:hover {
+  /* --color-dic-red itself is only 3.9:1 on this cream background — below
+     AA's 4.5:1 for this text size. --color-dic-red-text-safe is the same
+     token the sitewide contrast pass already introduced for this exact
+     gap (red text needing to pass contrast, as opposed to red used for
+     borders/icons/backgrounds where the ratio doesn't apply). */
+  color: var(--color-dic-red-text-safe);
+}
+
+.blog-detail__author-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(26, 23, 20, 0.12);
+}
+
+.blog-detail__author-name {
+  font-family: var(--font-heading);
+  font-style: normal;
+  font-weight: 600;
+  font-size: var(--text-lg);
+  color: var(--color-ink);
+}
+
+.blog-detail__author-role {
+  font-size: var(--text-sm);
+  color: var(--color-stone);
+  margin-bottom: 8px;
+}
+
+.blog-detail__author-card a {
+  align-self: flex-start;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-terracotta);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.blog-detail__author-card a:hover {
+  /* --color-dic-red itself is only 3.9:1 on this cream background — below
+     AA's 4.5:1 for this text size. --color-dic-red-text-safe is the same
+     token the sitewide contrast pass already introduced for this exact
+     gap (red text needing to pass contrast, as opposed to red used for
+     borders/icons/backgrounds where the ratio doesn't apply). */
+  color: var(--color-dic-red-text-safe);
+}

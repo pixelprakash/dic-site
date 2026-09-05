@@ -22,7 +22,7 @@ export default function ResearchDetail() {
   }
 
   const {
-    title, tagline, venue, image,
+    title, tagline, venue, image, gallery = [],
     sections = [], researchers = [], pi, partners = [],
     publications = [], patents = [], tags = [],
   } = project;
@@ -62,6 +62,17 @@ export default function ResearchDetail() {
           )}
         </section>
       ))}
+
+      {gallery.length > 0 && (
+        <section className="project-detail__section">
+          <h2 className="section-title">Gallery</h2>
+          <div className="project-detail__gallery">
+            {gallery.map((src) => (
+              <img key={src} src={src} alt="" loading="lazy" />
+            ))}
+          </div>
+        </section>
+      )}
 
       {(publications.length > 0 || patents.length > 0) && (
         <section className="project-detail__section project-detail__pair">

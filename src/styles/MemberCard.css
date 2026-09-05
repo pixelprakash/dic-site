@@ -178,3 +178,64 @@
 .member-card__link:hover {
   color: var(--color-terracotta-light);
 }
+
+@media (max-width: 640px) {
+  /* At full width in a single-column mobile grid, the 4:5 photo alone
+     ran ~430px tall (on a 375px-wide phone) before any info panel text —
+     over half the viewport for one card. A squarer crop plus tighter
+     type/padding brings a whole card down to roughly one screen's worth
+     scanned at a glance, rather than one card barely fitting the screen.
+     An explicit height rather than aspect-ratio: a real member photo's
+     own intrinsic 400x533 ratio otherwise overrides the box's aspect-ratio
+     for sizing (fallback initial avatars, with no <img>, honoured
+     aspect-ratio fine — only real photos hit this), leaving it just as
+     tall as before for anyone with a photo. */
+  .member-card__photo {
+    aspect-ratio: auto;
+    height: 300px;
+  }
+
+  .member-card__info {
+    padding: 16px 16px 18px;
+    gap: 8px;
+  }
+
+  .member-card__name {
+    font-size: 1.15rem;
+  }
+
+  .member-card__bio {
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    /* Caps a long one-off bio from ballooning the card — the same
+       "compact card, full detail on the profile page" split already
+       used for tags/research areas elsewhere. */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .member-card__joined {
+    left: 10px;
+    bottom: 10px;
+    padding: 5px 10px;
+    font-size: 10px;
+  }
+
+  .member-card__socials {
+    top: 10px;
+    right: 10px;
+    gap: 8px;
+  }
+
+  .member-card__social {
+    width: 34px;
+    height: 34px;
+  }
+
+  .member-card__tag {
+    font-size: 10px;
+    padding: 5px 10px;
+  }
+}
