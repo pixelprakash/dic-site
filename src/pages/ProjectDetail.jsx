@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { getProjectBySlug } from '../data/projectsData';
 import Model3DViewer from '../components/Model3DViewer';
 import Model3DModal from '../components/Model3DModal';
+import GalleryLightbox from '../components/GalleryLightbox';
 import '../styles/ProjectDetail.css';
 
 export default function ProjectDetail() {
@@ -15,6 +16,9 @@ export default function ProjectDetail() {
   // path to the fullscreen modal.
   const [modelLoaded, setModelLoaded] = useState(false);
   const [modelOpen, setModelOpen] = useState(false);
+  // Gallery lightbox — null (closed) or the open image's index, so the
+  // same state doubles as "which image" without a separate open flag.
+  const [lightboxIndex, setLightboxIndex] = useState(null);
 
   if (!project) {
     return (
@@ -124,8 +128,18 @@ export default function ProjectDetail() {
         <section className="project-detail__section">
           <h2 className="section-title">Gallery</h2>
           <div className="project-detail__gallery">
-            {gallery.map((src) => (
-              <img key={src} src={src} alt="" loading="lazy" />
+            {gallery.map((src, i) => (
+              <button
+                type="button"
+                key={src}
+                onClick={() => setLightboxIndex(i)}
+                aria-label={`View image ${i + 1} of ${gallery.length} full size`}
+              >
+                <img src={src} alt="" loading="lazy" />
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3" />
+                </svg>
+              </button>
             ))}
           </div>
         </section>
@@ -173,6 +187,13 @@ export default function ProjectDetail() {
           label={modelLabel}
         />
       )}
+
+      <GalleryLightbox
+        images={gallery}
+        index={lightboxIndex}
+        onClose={() => setLightboxIndex(null)}
+        onNavigate={setLightboxIndex}
+      />
     </div>
   );
 }

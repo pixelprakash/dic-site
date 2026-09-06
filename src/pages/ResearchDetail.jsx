@@ -1,10 +1,13 @@
+import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { getResearchProjectBySlug } from '../data/researchProjectsData';
+import GalleryLightbox from '../components/GalleryLightbox';
 import '../styles/ProjectDetail.css';
 
 export default function ResearchDetail() {
   const { slug } = useParams();
   const project = getResearchProjectBySlug(slug);
+  const [lightboxIndex, setLightboxIndex] = useState(null);
 
   if (!project) {
     return (
@@ -67,8 +70,18 @@ export default function ResearchDetail() {
         <section className="project-detail__section">
           <h2 className="section-title">Gallery</h2>
           <div className="project-detail__gallery">
-            {gallery.map((src) => (
-              <img key={src} src={src} alt="" loading="lazy" />
+            {gallery.map((src, i) => (
+              <button
+                type="button"
+                key={src}
+                onClick={() => setLightboxIndex(i)}
+                aria-label={`View image ${i + 1} of ${gallery.length} full size`}
+              >
+                <img src={src} alt="" loading="lazy" />
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3" />
+                </svg>
+              </button>
             ))}
           </div>
         </section>
@@ -121,10 +134,17 @@ export default function ResearchDetail() {
                   </Link>
                 )}
                 {researchers.map((r) => (
-                  <div className="project-detail__team-card" key={r}>
-                    <span className="project-detail__team-name">{r}</span>
-                    <span className="project-detail__team-role">Researcher</span>
-                  </div>
+                  r.slug ? (
+                    <Link className="project-detail__team-card" to={`/people/${r.slug}`} key={r.slug}>
+                      <span className="project-detail__team-name">{r.name}</span>
+                      <span className="project-detail__team-role">{r.role || 'Researcher'}</span>
+                    </Link>
+                  ) : (
+                    <div className="project-detail__team-card" key={r.name}>
+                      <span className="project-detail__team-name">{r.name}</span>
+                      <span className="project-detail__team-role">{r.role || 'Researcher'}</span>
+                    </div>
+                  )
                 ))}
               </div>
               {partners.length > 0 && (
@@ -155,6 +175,13 @@ export default function ResearchDetail() {
           </svg>
         </Link>
       </section>
+
+      <GalleryLightbox
+        images={gallery}
+        index={lightboxIndex}
+        onClose={() => setLightboxIndex(null)}
+        onNavigate={setLightboxIndex}
+      />
     </div>
   );
 }

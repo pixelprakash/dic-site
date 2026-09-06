@@ -15,7 +15,9 @@ export const RESEARCH_PROJECTS = [
     domain: 'Design Education',
     tagline: 'A culturally-responsive assessment framework for the fine arts schools of Telangana’s Social and Tribal Welfare Residential Educational Institutions.',
     image: '',
-    researchers: ['Ganesh Kumar Malthurkar, PhD Scholar, Indian Institute of Technology Hyderabad'],
+    researchers: [
+      { name: 'Ganesh Kumar Malthurkar', slug: 'malthurkar-ganesh-kumar', role: 'PhD Scholar, Indian Institute of Technology Hyderabad' },
+    ],
     pi: { name: 'Prof. Deepak John Mathew', slug: 'deepak-john-mathew' },
     sections: [
       {
@@ -61,7 +63,9 @@ export const RESEARCH_PROJECTS = [
     domain: 'Design Education',
     tagline: 'Adapting the game-design "skill tree" into a visualisation tool for mapping and personalising design curricula in India.',
     image: '/images/research/design-skill-tree.webp',
-    researchers: ['Harikrishna (Elias) Manoj, PhD Scholar, Indian Institute of Technology Hyderabad'],
+    researchers: [
+      { name: 'Harikrishna (Elias) Manoj', slug: 'harikrishna-manoj', role: 'PhD Scholar, Indian Institute of Technology Hyderabad' },
+    ],
     pi: { name: 'Prof. Deepak John Mathew', slug: 'deepak-john-mathew' },
     sections: [
       {
@@ -127,7 +131,9 @@ export const RESEARCH_PROJECTS = [
     domain: 'VR/AR Education',
     tagline: 'A quasi-experimental study evaluating VR and mixed reality for critical thinking and problem-solving in Telangana’s middle schools, with iHED and DAAD.',
     image: '',
-    researchers: ['Ushakiran Mangalagiri, Indian Institute of Technology Hyderabad'],
+    researchers: [
+      { name: 'Ushakiran Mangalagiri', slug: 'usha-kiran-mangalgiri', role: 'Indian Institute of Technology Hyderabad' },
+    ],
     pi: { name: 'Prof. Deepak John Mathew', slug: 'deepak-john-mathew' },
     partners: ['iHED — International Higher Education Dialogue', 'DAAD'],
     sections: [
@@ -194,7 +200,9 @@ export const RESEARCH_PROJECTS = [
       '/images/research/dhoolpet-idol-makers/dhoolpet-5.webp',
     ],
     venue: 'Presented at the Twentieth International Conference on Design Principles & Practices',
-    researchers: ['Kashish Nair, PhD Scholar, Indian Institute of Technology Hyderabad'],
+    researchers: [
+      { name: 'Kashish Nair', slug: 'kashish-nair', role: 'PhD Scholar, Indian Institute of Technology Hyderabad' },
+    ],
     pi: { name: 'Prof. Deepak John Mathew', slug: 'deepak-john-mathew' },
     sections: [
       {
@@ -247,7 +255,9 @@ export const RESEARCH_PROJECTS = [
     tagline: 'Documenting and safeguarding the traditions, crafts, and oral histories of the Gond tribe of Adilabad and Asifabad, Telangana.',
     image: '',
     venue: 'Fourth All India DIC Meet 2024, IIT Hyderabad',
-    researchers: ['Krishna Trivedi'],
+    researchers: [
+      { name: 'Krishna Trivedi', slug: 'krishna-jayeshbhai-trivedi', role: 'PhD Alumnus, Indian Institute of Technology Hyderabad' },
+    ],
     pi: { name: 'Prof. Deepak John Mathew', slug: 'deepak-john-mathew' },
     partners: ['SPA Delhi', 'IIT Delhi', 'IIT Bhubaneshwar', 'Central University of Kashmir'],
     sections: [
@@ -278,7 +288,9 @@ export const RESEARCH_PROJECTS = [
     domain: 'Air Mobility',
     tagline: 'A digital design and VR validation study of how Indian passengers perceive the visual safety of autonomous air-taxi exteriors.',
     image: '',
-    researchers: ['Ketan Madan Chaturmutha — PMRF ID 2002199'],
+    researchers: [
+      { name: 'Ketan Madan Chaturmutha', slug: 'ketan-madan-chaturmutha', role: 'PhD Alumnus — PMRF ID 2002199' },
+    ],
     pi: { name: 'Prof. Deepak John Mathew', slug: 'deepak-john-mathew' },
     partners: ['Prime Minister’s Research Fellowship (PMRF)'],
     sections: [
@@ -377,7 +389,9 @@ export const RESEARCH_PROJECTS = [
     domain: 'Cultural Heritage',
     tagline: 'Photogrammetry-documented Dhokra artefacts of the Gond community, rebuilt as a walkthrough virtual museum and 3D-printed replicas.',
     image: '',
-    researchers: ['Krishna Trivedi'],
+    researchers: [
+      { name: 'Krishna Trivedi', slug: 'krishna-jayeshbhai-trivedi', role: 'PhD Alumnus, Indian Institute of Technology Hyderabad' },
+    ],
     pi: { name: 'Prof. Deepak John Mathew', slug: 'deepak-john-mathew' },
     sections: [
       {

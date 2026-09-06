@@ -211,14 +211,34 @@
 
 /* ─── Section rhythm ─── */
 .project-detail__section {
-  padding: clamp(56px, 7vw, 96px) var(--margin-x);
+  padding: clamp(48px, 6vw, 84px) var(--margin-x);
   border-bottom: 1px solid rgba(26, 23, 20, 0.08);
+}
+
+/* The global h2 scale (up to 3.5rem/56px) is tuned for a page's one big
+   hero heading — here it's a recurring mid-page label ("Research Brief",
+   "Methodology", each "Key Observations — …"), and pages with several
+   such sections back to back (a short heading over just a 3-line bullet
+   list) looked heading-heavy and out of proportion to their own content.
+   Capped smaller, in line with the same reasoning already applied to
+   .project-detail__header h1 above. */
+.project-detail__section .section-title {
+  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+  margin-bottom: 20px;
 }
 
 .project-detail__body {
   max-width: 70ch;
   font-size: var(--text-lg);
   line-height: 1.75;
+  /* Consecutive paragraphs (a multi-paragraph Overview or Research Brief)
+     had no gap at all — only line-height separated them, so they read as
+     one dense block instead of distinct points. */
+  margin-bottom: 18px;
+}
+
+.project-detail__body:last-child {
+  margin-bottom: 0;
 }
 
 .project-detail__pair {
