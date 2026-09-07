@@ -295,6 +295,19 @@
   background: var(--color-dic-red);
 }
 
+/* A publication's DOI/link — without this it inherited the sitewide
+   `a { color: inherit; text-decoration: none; }` reset and was
+   completely invisible as a link (same colour as the surrounding text,
+   no underline). Navy + underline matches .profile__pub-link's exact
+   reasoning: at this text size/weight, --color-dic-red measures under
+   the 4.5:1 AA contrast minimum, navy clears it comfortably. */
+.project-detail__list li a {
+  font-weight: 600;
+  color: var(--color-navy);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 /* ─── Outcomes strip ─── */
 .project-detail__stats {
   display: grid;

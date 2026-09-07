@@ -145,28 +145,30 @@ export default function ProjectDetail() {
         </section>
       )}
 
-      <section className="project-detail__section project-detail__pair">
-        {pi && (
-          <div>
-            <h3>Team</h3>
-            <div className="project-detail__team">
-              <Link className="project-detail__team-card" to={`/people/${pi.slug}`}>
-                <span className="project-detail__team-name">{pi.name}</span>
-                <span className="project-detail__team-role">Principal Investigator</span>
-              </Link>
+      {(pi || tags.length > 0) && (
+        <section className="project-detail__section project-detail__pair">
+          {pi && (
+            <div>
+              <h3>Team</h3>
+              <div className="project-detail__team">
+                <Link className="project-detail__team-card" to={`/people/${pi.slug}`}>
+                  <span className="project-detail__team-name">{pi.name}</span>
+                  <span className="project-detail__team-role">Principal Investigator</span>
+                </Link>
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {tags.length > 0 && (
-          <div>
-            <h3>Tags</h3>
-            <div className="project-detail__tags">
-              {tags.map((t) => <span key={t}>{t}</span>)}
+          {tags.length > 0 && (
+            <div>
+              <h3>Tags</h3>
+              <div className="project-detail__tags">
+                {tags.map((t) => <span key={t}>{t}</span>)}
+              </div>
             </div>
-          </div>
-        )}
-      </section>
+          )}
+        </section>
+      )}
 
       <section className="project-detail__cta">
         <h2>Interested in collaborating on this work?</h2>

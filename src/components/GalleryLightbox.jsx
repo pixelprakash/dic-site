@@ -71,7 +71,7 @@ export default function GalleryLightbox({ images = [], index, onClose, onNavigat
       )}
 
       <figure className="gallery-lightbox__frame">
-        <img key={src} src={src} alt="" />
+        <img key={src} src={src} alt={count > 1 ? `Gallery image ${index + 1} of ${count}` : 'Gallery image'} />
       </figure>
 
       {count > 1 && (

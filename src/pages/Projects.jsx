@@ -46,7 +46,7 @@ export default function Projects() {
         <h2 className="section-title">Project Films</h2>
         <div className="video-grid">
           {VIDEOS.map((v) => (
-            <YouTubeEmbed key={v.id} videoId={v.id} title={v.title} />
+            <YouTubeEmbed key={v.id} videoId={v.id} title={v.title} channel={v.channel} />
           ))}
         </div>
       </section>

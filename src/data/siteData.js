@@ -1,10 +1,17 @@
+// `channel` is hardcoded (verified against YouTube's own oEmbed response)
+// rather than left for YouTubeEmbed to fetch live — without it, every one
+// of these six videos fired an unauthenticated request to youtube.com's
+// oEmbed endpoint on every page load just to learn a channel name that
+// never changes, undermining the click-gated privacy design already in
+// place for the iframe itself (a visitor's IP reached Google on page
+// load, before they'd ever chosen to play anything).
 export const VIDEOS = [
-  { id: "_jiQ5xb13pE", title: "DIC Project Documentary" },
-  { id: "OxqstyCRBwU", title: "Heritage Preservation" },
-  { id: "hinNkP3qjLo", title: "VR/AR in Education" },
-  { id: "gVAsxlgAvqw", title: "Urban Air Mobility" },
-  { id: "2pRFgecS3js", title: "Design Innovation" },
-  { id: "K0GEoz2SyeE", title: "Product Design Lab" },
+  { id: "_jiQ5xb13pE", title: "DIC Project Documentary", channel: "DIC - IITH" },
+  { id: "OxqstyCRBwU", title: "Heritage Preservation", channel: "DIC - IITH" },
+  { id: "hinNkP3qjLo", title: "VR/AR in Education", channel: "DIC - IITH" },
+  { id: "gVAsxlgAvqw", title: "Urban Air Mobility", channel: "DIC - IITH" },
+  { id: "2pRFgecS3js", title: "Design Innovation", channel: "DIC - IITH" },
+  { id: "K0GEoz2SyeE", title: "Product Design Lab", channel: "DIC - IITH" },
 ];
 
 export const STATS = [

@@ -100,7 +100,7 @@ export default function ResearchDetail() {
                     {p.doi && (
                       <>
                         {' '}
-                        <a href={p.doi} target="_blank" rel="noopener noreferrer">{p.doi}</a>
+                        <a href={p.doi} target="_blank" rel="noopener noreferrer">View</a>
                       </>
                     )}
                   </li>
