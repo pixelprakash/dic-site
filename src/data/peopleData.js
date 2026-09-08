@@ -256,10 +256,38 @@ export const MEMBERS = {
       role: 'PhD Student',
       track: 'external',
       joinedYear: '2025',
-      bio: 'Supervised by Prof. Deepak John Mathew.',
-      fullBio: 'Rucha Deshpande joined the Design Innovation Centre as a PhD scholar in 2025, supervised by Prof. Deepak John Mathew. Their research explores generative AI, user experience, generational shift and design education.',
-      tags: ['Generative AI', 'User Experience', 'Generational Shift', 'Design Education'],
+      bio: 'Assistant Professor & Programme Co-Ordinator, MIT-WPU — PhD Scholar, IIT Hyderabad, working on generative AI, UX, and design education.',
+      fullBio: [
+        'With 16+ years of experience spanning industry and academia, Rucha Deshpande works at the intersection of design practice, research, technology, and education. Her academic and teaching practice focuses on creating experiential learning environments that encourage critical thinking, creative confidence, systemic thinking, and innovation, enabling learners to connect design theory with real-world challenges.',
+        'Her research explores the intersection of generative AI, user experience, human behaviour, creativity and creative cognition, design psychology, and design education. Her work examines how emerging technologies, psychological perspectives, and human-centred approaches can influence creative processes, user experiences, and design learning.',
+        'She is committed to advancing design education that nurtures reflective practitioners, adaptive thinkers, empathetic researchers, and responsible innovators equipped to navigate complexity and shape meaningful futures.',
+      ],
+      tags: ['Generative AI', 'User Experience', 'Design Psychology'],
+      researchAreas: ['Generative AI', 'User Experience', 'Human Behaviour', 'Creativity and Creative Cognition', 'Design Psychology', 'Design Education'],
       interests: ['Generative AI', 'User Experience', 'Generational Shift', 'Design Education'],
+      education: [
+        { year: '2025 – present', degree: 'PhD, Design', institution: 'Indian Institute of Technology Hyderabad' },
+        { degree: 'Certified UX Designer', institution: 'IIT Delhi' },
+        { degree: 'Alumna', institution: 'National Institute of Design (NID), Ahmedabad' },
+        { degree: 'Alumna', institution: 'SNDT' },
+      ],
+      // Teaching Experience / Industry Experience given as aggregate
+      // year-counts + institution lists on the source bio template, not
+      // per-stint dates — kept as given rather than inventing exact
+      // date ranges or job titles for each employer.
+      experience: [
+        { role: 'Assistant Professor — Programme Co-Ordinator', org: 'User Experience Design Department, MIT World Peace University (MIT-WPU), School of Design', duration: 'Current', desc: 'Teaches User Research and Analysis, UX Research Seminar, Research Methodology for Design, UX Psychology, Branding and Identity Design, and UX Studio Projects.' },
+        { role: 'Teaching Experience (7+ years)', org: 'MIT-WPU School of Design; Symbiosis Institute of Design, Pune; Symbiosis Institute of Design, Nagpur' },
+        { role: 'Retail Experience Design (8 years)', org: 'Reliance Retail, Lifestyle Retail, Spacewood Furnishers' },
+      ],
+      achievements: [
+        'Member, ADI – Pune Chapter',
+        'Member, NIDAA',
+        'Member, IxDF (Interaction Design Foundation)',
+      ],
+      publications: [
+        { title: 'Design Intervention and Product Diversification as Sustainable Strategies for Inclusivity of Craft and Communities: A Case Study of Devrai Art Village', link: 'https://www.researchgate.net/publication/396943314_Design_Intervention_and_Product_Diversification_as_Sustainable_Strategies_for_Inclusivity_of_Craft_and_Communities_A_Case_Study_of_Devrai_Art_Village' },
+      ],
       photo: '',
       email: 'md25resch14001@iith.ac.in',
       website: '',
