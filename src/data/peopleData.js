@@ -288,7 +288,7 @@ export const MEMBERS = {
       publications: [
         { title: 'Design Intervention and Product Diversification as Sustainable Strategies for Inclusivity of Craft and Communities: A Case Study of Devrai Art Village', link: 'https://www.researchgate.net/publication/396943314_Design_Intervention_and_Product_Diversification_as_Sustainable_Strategies_for_Inclusivity_of_Craft_and_Communities_A_Case_Study_of_Devrai_Art_Village' },
       ],
-      photo: '',
+      photo: '/images/people/rucha.webp',
       email: 'md25resch14001@iith.ac.in',
       website: '',
       linkedin: 'https://www.linkedin.com/in/rucha-arundhati-deshpande-351341b/',

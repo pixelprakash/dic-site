@@ -11,6 +11,14 @@ const BLOG_POSTS = [
     path: '/blogs/reimagining-formative-assessment-art-education',
   },
   {
+    id: 'how-intelligent-are-we-about-natural-intelligence',
+    title: 'How Intelligent Are We About Our Natural Intelligence?',
+    excerpt: 'Salil Sahadevan and Prof. Deepak John Mathew, writing in The Hindu, on pea plants, slime moulds, and the many modes of intelligence already in play beyond co-intelligence with AI.',
+    author: 'Salil Sahadevan & Deepak John Mathew',
+    date: 'October 14, 2025',
+    path: '/blogs/how-intelligent-are-we-about-natural-intelligence',
+  },
+  {
     id: 'wiki-thesis-research-assessment-ai',
     title: "Time for the 'Wiki-Thesis': Rethinking Research Assessment in the Age of AI Writing",
     excerpt: 'Salil S and Prof. Deepak John Mathew, writing in Careers360, on why AI writing tools call for new thesis formats — and three alternatives worth considering.',

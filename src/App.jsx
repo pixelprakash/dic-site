@@ -36,6 +36,7 @@ const Workshops = lazy(() => import('./pages/Workshops'));
 const Blogs = lazy(() => import('./pages/Blogs'));
 const BlogDetail = lazy(() => import('./pages/BlogDetail'));
 const WikiThesisBlog = lazy(() => import('./pages/WikiThesisBlog'));
+const NaturalIntelligenceBlog = lazy(() => import('./pages/NaturalIntelligenceBlog'));
 
 const DEFAULT_TITLE = 'DIC · IITH — Design Innovation Centre, IIT Hyderabad';
 
@@ -55,6 +56,7 @@ const PAGE_TITLES = {
   '/blogs': 'Blogs & Articles — DIC · IITH',
   '/blogs/reimagining-formative-assessment-art-education': 'Reimagining Formative Assessment in Art Education — DIC · IITH',
   '/blogs/wiki-thesis-research-assessment-ai': "Time for the 'Wiki-Thesis' — DIC · IITH",
+  '/blogs/how-intelligent-are-we-about-natural-intelligence': 'How Intelligent Are We About Our Natural Intelligence? — DIC · IITH',
   // Overrides the generic templated title the spread above gives '/nodal' —
   // this one needs to come last to win.
   '/nodal': 'DIC Nodal — India’s National Design Innovation Network',
@@ -124,6 +126,7 @@ export default function App() {
             <Route path="/blogs" element={<Blogs />} />
             <Route path="/blogs/reimagining-formative-assessment-art-education" element={<BlogDetail />} />
             <Route path="/blogs/wiki-thesis-research-assessment-ai" element={<WikiThesisBlog />} />
+            <Route path="/blogs/how-intelligent-are-we-about-natural-intelligence" element={<NaturalIntelligenceBlog />} />
           </Routes>
         </Suspense>
       </main>
