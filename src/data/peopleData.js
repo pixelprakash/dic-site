@@ -151,7 +151,7 @@ export const MEMBERS = {
       fullBio: '',
       tags: [],
       interests: [],
-      photo: '',
+      photo: '/images/people/kranthi.webp',
       email: '',
       website: '',
       linkedin: '',
