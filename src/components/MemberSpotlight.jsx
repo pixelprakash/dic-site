@@ -45,7 +45,7 @@ function PersonIcon() {
    so it's visually identical in every detail except the layout direction. */
 export default function MemberSpotlight({ member }) {
   const [imgError, setImgError] = useState(false);
-  const { id, name, role, joinedYear, bio, tags = [], photo, linkedin, scholar, placeholder } = member;
+  const { id, name, role, joinedYear, relievedYear, defenceYear, bio, tags = [], photo, linkedin, scholar, placeholder } = member;
   const showPhoto = Boolean(photo) && !imgError;
 
   return (
@@ -59,7 +59,13 @@ export default function MemberSpotlight({ member }) {
           </div>
         )}
 
-        {joinedYear && <span className="member-card__joined">Joined {joinedYear}</span>}
+        {(joinedYear || relievedYear || defenceYear) && (
+          <div className="member-card__pills">
+            {joinedYear && <span className="member-card__joined">Joined {joinedYear}</span>}
+            {defenceYear && <span className="member-card__joined member-card__joined--defence">Defence {defenceYear}</span>}
+            {relievedYear && <span className="member-card__joined member-card__joined--left">Left {relievedYear}</span>}
+          </div>
+        )}
 
         {(linkedin || scholar) && (
           <div className="member-card__socials">

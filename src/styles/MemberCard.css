@@ -50,11 +50,21 @@
   color: var(--color-warm-gray);
 }
 
-.member-card__joined {
+/* Wraps the "Joined", "Defence" (PhD viva year), and "Left" pills so they
+   sit side by side without needing separate absolute-position math for
+   each — only the wrapper is positioned; the pills themselves just flex
+   inside it. */
+.member-card__pills {
   position: absolute;
   left: 14px;
   bottom: 14px;
   z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.member-card__joined {
   padding: 6px 12px;
   border-radius: 999px;
   background: rgba(16, 27, 66, 0.6);
@@ -65,6 +75,18 @@
   font-size: var(--text-2xs);
   font-weight: 600;
   letter-spacing: 0.02em;
+}
+
+/* Same pill, a sage tone (matches the site's "Ongoing" status colour) so
+   "Defence" reads as its own milestone between "Joined" and "Left". */
+.member-card__joined--defence {
+  background: rgba(122, 145, 120, 0.8);
+}
+
+/* Same pill, a warmer tone so "Left" reads distinctly from "Joined" at a
+   glance rather than needing to read the text to tell them apart. */
+.member-card__joined--left {
+  background: rgba(149, 78, 48, 0.75);
 }
 
 /* Floating LinkedIn / Google Scholar buttons on the photo — a dark glass
@@ -216,9 +238,13 @@
     overflow: hidden;
   }
 
-  .member-card__joined {
+  .member-card__pills {
     left: 10px;
     bottom: 10px;
+    gap: 6px;
+  }
+
+  .member-card__joined {
     padding: 5px 10px;
     font-size: 10px;
   }

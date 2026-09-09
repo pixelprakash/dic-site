@@ -16,7 +16,7 @@ export const RESEARCH_PROJECTS = [
     tagline: 'A culturally-responsive assessment framework for the fine arts schools of Telangana’s Social and Tribal Welfare Residential Educational Institutions.',
     image: '',
     researchers: [
-      { name: 'Ganesh Kumar Malthurkar', slug: 'malthurkar-ganesh-kumar', role: 'PhD Scholar, Indian Institute of Technology Hyderabad' },
+      { name: 'Ganesh Kumar Malthurkar', slug: 'malthurkar-ganesh-kumar', role: 'PhD Alumnus, Indian Institute of Technology Hyderabad' },
     ],
     pi: { name: 'Prof. Deepak John Mathew', slug: 'deepak-john-mathew' },
     sections: [
@@ -64,7 +64,7 @@ export const RESEARCH_PROJECTS = [
     tagline: 'Adapting the game-design "skill tree" into a visualisation tool for mapping and personalising design curricula in India.',
     image: '/images/research/design-skill-tree.webp',
     researchers: [
-      { name: 'Harikrishna (Elias) Manoj', slug: 'harikrishna-manoj', role: 'PhD Scholar, Indian Institute of Technology Hyderabad' },
+      { name: 'Harikrishna (Elias) Manoj', slug: 'harikrishna-manoj', role: 'PhD Alumnus, Indian Institute of Technology Hyderabad' },
     ],
     pi: { name: 'Prof. Deepak John Mathew', slug: 'deepak-john-mathew' },
     sections: [
@@ -201,7 +201,7 @@ export const RESEARCH_PROJECTS = [
     ],
     venue: 'Presented at the Twentieth International Conference on Design Principles & Practices',
     researchers: [
-      { name: 'Kashish Nair', slug: 'kashish-nair', role: 'PhD Scholar, Indian Institute of Technology Hyderabad' },
+      { name: 'Kashish Nair', slug: 'kashish-nair', role: 'PhD Alumnus, Indian Institute of Technology Hyderabad' },
     ],
     pi: { name: 'Prof. Deepak John Mathew', slug: 'deepak-john-mathew' },
     sections: [
