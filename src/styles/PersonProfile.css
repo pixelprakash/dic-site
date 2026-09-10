@@ -1,5 +1,5 @@
 .profile {
-  padding: clamp(40px, 6vw, 56px) var(--margin-x) clamp(64px, 10vw, 120px);
+  padding: clamp(48px, 7vw, 76px) var(--page-gutter) clamp(80px, 12vw, 140px);
 }
 
 .profile__breadcrumb {
@@ -8,7 +8,7 @@
   align-items: center;
   gap: 8px;
   list-style: none;
-  margin: 0 0 40px;
+  margin: 0 0 48px;
   padding: 0;
   font-family: var(--font-body);
   font-size: var(--text-xs);
@@ -361,7 +361,7 @@
 
 /* ─── Not found ─── */
 .profile-missing {
-  padding: 140px var(--margin-x);
+  padding: 140px var(--page-gutter);
   text-align: center;
 }
 

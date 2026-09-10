@@ -1,5 +1,5 @@
 .gallery {
-  padding: var(--section-gap) var(--margin-x);
+  padding: var(--section-gap) var(--page-gutter);
 }
 
 .gallery__grid {

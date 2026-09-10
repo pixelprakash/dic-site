@@ -4,7 +4,7 @@
   position: sticky;
   z-index: 40;
   background: var(--color-cream);
-  padding: 24px var(--margin-x);
+  padding: 28px var(--page-gutter);
   border-bottom: 1px solid var(--color-sand);
   display: flex;
   align-items: center;
@@ -62,11 +62,11 @@
 }
 
 .people-body {
-  padding: 0 var(--margin-x) 120px;
+  padding: 0 var(--page-gutter) 140px;
 }
 
 .people-section {
-  padding: 36px 0;
+  padding: 48px 0;
 }
 
 .people-section:first-child {
@@ -96,13 +96,13 @@
   font-family: var(--font-heading);
   font-style: normal;
   font-weight: 600;
-  font-size: clamp(1.375rem, 2.4vw, 1.75rem);
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
   color: var(--color-ink);
-  margin-bottom: 20px;
+  margin-bottom: 32px;
 }
 
 .people-subgroup {
-  margin-bottom: 40px;
+  margin-bottom: 56px;
 }
 
 .people-subgroup:last-child {
@@ -123,7 +123,7 @@
 .people-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 24px;
+  gap: 32px;
 }
 
 .people-empty {

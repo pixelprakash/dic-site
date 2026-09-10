@@ -1,9 +1,10 @@
 .blogs-list {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
   padding: var(--section-gap) var(--margin-x);
-  max-width: 900px;
+  max-width: 960px;
+  margin-inline: auto;
 }
 
 .blog-card {

@@ -1,6 +1,6 @@
 .coming-soon {
-  margin: 64px var(--margin-x) var(--section-gap);
-  padding: 40px;
+  margin: 80px var(--margin-x) var(--section-gap);
+  padding: 48px;
   max-width: 640px;
   border: 1px dashed var(--color-warm-gray);
   border-radius: var(--border-radius);
@@ -21,6 +21,6 @@
   .coming-soon {
     margin-left: var(--margin-x);
     margin-right: var(--margin-x);
-    padding: 40px var(--margin-x);
+    padding: 40px 28px;
   }
 }

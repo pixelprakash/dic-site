@@ -17,7 +17,7 @@ keeps the system growing intentionally instead of drifting.
 
 | Token | Value | Use |
 |---|---|---|
-| `--font-heading` | Erode | All headings (h1–h6), section titles, display text |
+| `--font-heading` | Zilla Slab | All headings (h1–h6), section titles, display text |
 | `--font-body` | DM Sans | Everything else — body copy, UI, labels |
 
 Root font-size is `106.25%` (≈17px), so every `rem`-based size below reads
@@ -65,7 +65,7 @@ of jumping between fixed breakpoints:
 | `h4` | `clamp(1.1rem, 2vw, 1.4rem)` |
 
 All headings: `font-family: var(--font-heading)`, `font-weight: 600`,
-`font-style: normal`, `line-height: 1.15`, `color: var(--color-ink)`.
+`font-style: normal`, `line-height: 1.2`, `color: var(--color-ink)`.
 
 A page's own hero title (e.g. "Research", "Projects") is a real `h1` and
 gets this scale automatically. A titled *section* inside a page (e.g. a

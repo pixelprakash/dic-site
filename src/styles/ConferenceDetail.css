@@ -48,7 +48,7 @@
 }
 
 .conference-detail__section {
-  padding: var(--section-gap) var(--margin-x);
+  padding: var(--section-gap) var(--page-gutter);
 }
 
 .conference-detail__section + .conference-detail__section {

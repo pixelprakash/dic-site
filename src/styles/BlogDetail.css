@@ -46,14 +46,15 @@
 
 .blog-detail__section {
   padding: var(--section-gap) var(--margin-x);
-  max-width: 720px;
+  max-width: 760px;
+  margin-inline: auto;
 }
 
 .blog-detail__body {
-  font-size: var(--text-md);
-  line-height: 1.7;
-  margin-bottom: 20px;
-  max-width: 75ch;
+  font-size: var(--text-lg);
+  line-height: 1.75;
+  margin-bottom: 24px;
+  max-width: none;
 }
 
 .blog-detail__body:last-of-type {

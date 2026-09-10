@@ -88,7 +88,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 10px 8px;
-  padding: 20px var(--margin-x);
+  padding: 20px var(--page-gutter);
   font-size: var(--text-sm);
   color: var(--color-stone);
 }
@@ -196,17 +196,17 @@
    back, so the marketing-page --section-gap (140px top *and* bottom) would
    double up into a very large empty gap at every boundary. */
 .nodal-mission {
-  padding: clamp(48px, 6vw, 72px) var(--margin-x);
+  padding: clamp(48px, 6vw, 72px) var(--page-gutter);
 }
 
 .nodal-marquee__label {
-  padding: 0 var(--margin-x);
+  padding: 0 var(--page-gutter);
   margin-bottom: 22px;
 }
 
 /* Hub & spoke — vivid colour-coded cards on cream */
 .nodal-network {
-  padding: clamp(48px, 6vw, 72px) var(--margin-x);
+  padding: clamp(48px, 6vw, 72px) var(--page-gutter);
 }
 
 .nodal-network > p {
@@ -335,7 +335,7 @@
 
 /* Register of centres */
 .nodal-directory {
-  padding: clamp(48px, 6vw, 72px) var(--margin-x);
+  padding: clamp(48px, 6vw, 72px) var(--page-gutter);
 }
 
 .nodal-directory > p {
@@ -637,7 +637,7 @@
 
 /* Events board */
 .nodal-events {
-  padding: clamp(48px, 6vw, 72px) var(--margin-x);
+  padding: clamp(48px, 6vw, 72px) var(--page-gutter);
   background: var(--color-sand);
 }
 
@@ -803,7 +803,7 @@
 
 /* Leadership */
 .nodal-lead {
-  padding: clamp(48px, 6vw, 72px) var(--margin-x);
+  padding: clamp(48px, 6vw, 72px) var(--page-gutter);
 }
 
 .nodal-lead__grid {
@@ -861,7 +861,7 @@
 .nodal-join {
   background: var(--color-ink);
   text-align: center;
-  padding: clamp(56px, 7vw, 88px) var(--margin-x);
+  padding: clamp(56px, 7vw, 88px) var(--page-gutter);
 }
 
 .nodal-join h2 {

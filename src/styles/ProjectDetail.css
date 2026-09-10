@@ -139,8 +139,17 @@
 .project-detail__header p.project-detail__subtitle {
   font-family: var(--font-body);
   font-weight: 500;
+  font-size: var(--text-md);
+  line-height: 1.6;
   color: rgba(255, 255, 255, 0.65);
-  margin-top: 4px;
+  max-width: 56ch;
+  margin-top: 20px;
+}
+
+.project-detail__header p.project-detail__subtitle + p.project-detail__subtitle {
+  margin-top: 8px;
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 @media (max-width: 900px) {
@@ -211,8 +220,12 @@
 
 /* ─── Section rhythm ─── */
 .project-detail__section {
-  padding: clamp(48px, 6vw, 84px) var(--margin-x);
+  padding: clamp(64px, 8vw, 112px) var(--page-gutter);
   border-bottom: 1px solid rgba(26, 23, 20, 0.08);
+}
+
+.project-detail__section:last-of-type {
+  border-bottom: none;
 }
 
 /* The global h2 scale (up to 3.5rem/56px) is tuned for a page's one big
@@ -224,17 +237,17 @@
    .project-detail__header h1 above. */
 .project-detail__section .section-title {
   font-size: clamp(1.5rem, 2.6vw, 2.1rem);
-  margin-bottom: 20px;
+  margin-bottom: 28px;
 }
 
 .project-detail__body {
-  max-width: 70ch;
+  max-width: 68ch;
   font-size: var(--text-lg);
   line-height: 1.75;
   /* Consecutive paragraphs (a multi-paragraph Overview or Research Brief)
      had no gap at all — only line-height separated them, so they read as
      one dense block instead of distinct points. */
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
 
 .project-detail__body:last-child {
@@ -250,7 +263,7 @@
 .project-detail__pair h3,
 .project-detail__card h3 {
   font-size: clamp(1.3rem, 2.4vw, 1.7rem);
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 }
 
 .project-detail__card p {
@@ -269,7 +282,7 @@
 .project-detail__list {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 18px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -342,21 +355,21 @@
 .project-detail__gallery {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 20px;
 }
 
 .project-detail__gallery img {
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
-  border-radius: var(--border-radius-sm);
+  border-radius: var(--border-radius);
 }
 
 /* ─── Team ─── */
 .project-detail__team {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .project-detail__team-card {
@@ -436,7 +449,7 @@
 
 /* ─── CTA ─── */
 .project-detail__cta {
-  padding: clamp(64px, 8vw, 100px) var(--margin-x);
+  padding: clamp(64px, 8vw, 100px) var(--page-gutter);
   text-align: center;
   background: var(--color-ink);
 }

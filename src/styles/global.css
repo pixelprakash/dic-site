@@ -24,16 +24,17 @@ body {
   overflow-x: hidden;
 }
 
-/* Erode has no italic slant doing the work of separating headings from
-   body text anymore (that job used to fall to DM Serif Display's italic).
-   A confident 600 weight — versus DM Sans's 400/500 body weights — is what
-   carries that contrast now, without going so heavy (700+) that long
-   headings get harder to read. */
+/* Zilla Slab does no italic-slant work to separate headings from body
+   text — a confident 600 weight, versus DM Sans's 400/500 body weights,
+   carries that contrast without going so heavy (700+) that long headings
+   get harder to read. line-height a touch looser than Erode's (1.15 →
+   1.2): the slab's heavier horizontal serifs eat into the space between
+   lines, so multi-line headings need slightly more room to breathe. */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   font-weight: 600;
   font-style: normal;
-  line-height: 1.15;
+  line-height: 1.2;
   color: var(--color-ink);
 }
 
@@ -84,11 +85,11 @@ ul, ol {
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--color-terracotta);
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .section-title {
-  margin-bottom: 24px;
+  margin-bottom: 32px;
 }
 
 /* ─── Reveal animation ─── */

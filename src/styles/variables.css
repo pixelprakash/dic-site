@@ -1,11 +1,14 @@
 /* ─── DIC Design System ─── */
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap');
-/* Heading font — adopted after trialing Melodrama, Erode, Boska and Prata
-   (Rajdhani/Rozha One/Eczar/IBM Plex Serif/Martel before that) against the
-   Sarvam-style brief. Erode won: from Fontshare, a free-license platform
-   built to rival paid type foundries, refined enough to hold up at both
-   display and body-adjacent sizes rather than just one hero moment. */
-@import url('https://api.fontshare.com/v2/css?f[]=erode@400,500,600,700,400i,500i,600i,700i&display=swap');
+/* Heading font — Zilla Slab (Typotheque, commissioned by Mozilla), a
+   contemporary slab serif. Replaced Erode after a live trial on the
+   Projects page: it keeps headings in the serif family that suits the
+   Centre's identity while reading more editorial and institutional, and
+   pairs cleanly with DM Sans body copy — the slab's flat, sturdy serifs
+   sit well against DM Sans's humanist sans forms, with the 600 heading
+   weight carrying the contrast against the 400/500 body weights.
+   Weights 400/500/600/700, no italics (headings never render italic). */
+@import url('https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;500;600;700&display=swap');
 
 :root {
   /* Base size — a modest bump over the browser default (16px → 17px) so
@@ -14,7 +17,7 @@
   font-size: 106.25%;
 
   /* Typography */
-  --font-heading: 'Erode', serif;
+  --font-heading: 'Zilla Slab', serif;
   --font-body: 'DM Sans', sans-serif;
 
   /* Type scale — use these instead of one-off rem values. Named by role,
@@ -88,10 +91,17 @@
   --color-dic-red-text-safe: #C8200D;
 
   /* Layout */
-  --margin-x: 60px;
-  --section-gap: 140px;
-  --border-radius: 16px;
-  --border-radius-sm: 8px;
+  --margin-x: 72px;
+  /* Content is capped and centred on wide screens rather than stretching
+     edge to edge — text measures stay readable and the pages get real
+     breathing room in the gutters. --page-gutter is what the page
+     templates pad with (page-header, section wrappers, cards); --margin-x
+     stays the raw minimum edge gutter that navbar/footer use directly. */
+  --content-max: 1360px;
+  --page-gutter: max(var(--margin-x), calc((100% - var(--content-max)) / 2));
+  --section-gap: 160px;
+  --border-radius: 20px;
+  --border-radius-sm: 10px;
 
   /* Transitions */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -101,21 +111,21 @@
 
 @media (max-width: 1024px) {
   :root {
-    --margin-x: 48px;
-    --section-gap: 100px;
+    --margin-x: 56px;
+    --section-gap: 112px;
   }
 }
 
 @media (max-width: 768px) {
   :root {
-    --margin-x: 24px;
-    --section-gap: 72px;
+    --margin-x: 28px;
+    --section-gap: 80px;
   }
 }
 
 @media (max-width: 480px) {
   :root {
-    --margin-x: 16px;
-    --section-gap: 56px;
+    --margin-x: 20px;
+    --section-gap: 60px;
   }
 }

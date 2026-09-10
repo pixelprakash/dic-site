@@ -30,7 +30,7 @@
 
 /* ─── Stats Strip (Education page) ─── */
 .stats {
-  padding: var(--section-gap) var(--margin-x);
+  padding: var(--section-gap) var(--page-gutter);
   background: var(--color-ink);
 }
 
@@ -83,13 +83,13 @@
 }
 
 @media (max-width: 480px) {
-  .stats { padding: 40px var(--margin-x); }
+  .stats { padding: 40px var(--page-gutter); }
   .stats__grid { grid-template-columns: 1fr 1fr; gap: 16px; }
 }
 
 /* ─── About Section ─── */
 .about {
-  padding: var(--section-gap) var(--margin-x);
+  padding: var(--section-gap) var(--page-gutter);
 }
 
 /* Education page's own intro — a single readable column with the first
@@ -163,7 +163,7 @@
 
 /* ─── Domains Section ─── */
 .domains {
-  padding: var(--section-gap) var(--margin-x);
+  padding: var(--section-gap) var(--page-gutter);
 }
 
 .domains__grid {
@@ -253,14 +253,14 @@
 
 /* ─── Projects / Videos Section ─── */
 .projects {
-  padding: var(--section-gap) var(--margin-x);
+  padding: var(--section-gap) var(--page-gutter);
 }
 
 .projects__header {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-bottom: 48px;
+  margin-bottom: 56px;
 }
 
 .projects__header p {
@@ -270,7 +270,7 @@
 .video-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 24px;
+  gap: 32px;
 }
 
 @media (max-width: 480px) {
@@ -312,7 +312,7 @@
 
 /* ─── Partners / Collaborations ─── */
 .partners {
-  padding: var(--section-gap) var(--margin-x);
+  padding: var(--section-gap) var(--page-gutter);
   text-align: center;
 }
 
@@ -343,7 +343,7 @@
 
 /* ─── Contact / CTA Section ─── */
 .contact-cta {
-  margin: var(--section-gap) var(--margin-x);
+  margin: var(--section-gap) var(--page-gutter);
   padding: 80px 64px;
   background: var(--color-ink);
   border-radius: var(--border-radius);
@@ -391,7 +391,7 @@
 
 /* ─── Page templates ─── */
 .page-header {
-  padding: 160px var(--margin-x) 80px;
+  padding: clamp(150px, 15vh, 210px) var(--page-gutter) clamp(80px, 10vh, 120px);
   background: var(--color-ink);
   position: relative;
   overflow: hidden;
@@ -400,14 +400,26 @@
 .page-header h1 {
   color: var(--color-white);
   font-size: clamp(2.5rem, 6vw, 4.5rem);
-  max-width: 700px;
+  max-width: 15ch;
 }
 
 .page-header p {
-  color: rgba(255,255,255,0.55);
-  margin-top: 16px;
-  font-size: var(--text-md);
-  max-width: 50ch;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 24px;
+  font-size: var(--text-lg);
+  line-height: 1.6;
+  max-width: 46ch;
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    padding: 112px var(--page-gutter) 64px;
+  }
+
+  .page-header p {
+    font-size: var(--text-md);
+    margin-top: 18px;
+  }
 }
 
 .page-header__accent {
@@ -423,7 +435,7 @@
 
 /* ─── Research page ─── */
 .research-list {
-  padding: var(--section-gap) var(--margin-x);
+  padding: var(--section-gap) var(--page-gutter);
 }
 
 .research-item {
@@ -497,12 +509,12 @@
 
 /* ─── Research projects & publications (Research page) ─── */
 .research-projects {
-  padding: var(--section-gap) var(--margin-x) 0;
+  padding: var(--section-gap) var(--page-gutter) 0;
 }
 
 /* ─── Courses grid ─── */
 .courses {
-  padding: var(--section-gap) var(--margin-x);
+  padding: var(--section-gap) var(--page-gutter);
 }
 
 .courses__group {
@@ -592,7 +604,7 @@
    large index numeral standing in for a divider — no borders, no boxes,
    no repeated label pattern. */
 .lab-facilities {
-  padding: var(--section-gap) var(--margin-x);
+  padding: var(--section-gap) var(--page-gutter);
   background: var(--color-sand);
 }
 
@@ -702,7 +714,7 @@
 
 /* ─── Patents (Research page) ─── */
 .patents {
-  padding: var(--section-gap) var(--margin-x);
+  padding: var(--section-gap) var(--page-gutter);
 }
 
 .patents-list {
@@ -786,7 +798,7 @@
 
 /* ─── Contact page ─── */
 .contact-content {
-  padding: var(--section-gap) var(--margin-x);
+  padding: var(--section-gap) var(--page-gutter);
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 80px;
