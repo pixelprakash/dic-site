@@ -1,0 +1,146 @@
+.gond-viewer {
+  margin-top: 8px;
+}
+
+.gond-viewer--fill {
+  margin-top: 0;
+  height: 100%;
+}
+
+.gond-viewer__stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  background: var(--color-ink);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
+.gond-viewer--fill .gond-viewer__stage {
+  aspect-ratio: auto;
+  height: 100%;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.gond-viewer__stage canvas {
+  display: block;
+  cursor: grab;
+  touch-action: none; /* dragging to look shouldn't also scroll/pinch-zoom the page */
+}
+
+.gond-viewer__stage canvas:active {
+  cursor: grabbing;
+}
+
+/* On-screen movement joystick — bottom-left, works with mouse or touch.
+   Sits on its own element (not a hit-test region on the canvas) so a drag
+   starting on it is unambiguously "move", never "look". */
+.gond-viewer__joystick {
+  position: absolute;
+  right: 28px;
+  bottom: 28px;
+  width: 132px;
+  height: 132px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  touch-action: none;
+  z-index: 3;
+}
+
+.gond-viewer__joystick-knob {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 58px;
+  height: 58px;
+  margin: -29px 0 0 -29px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  pointer-events: none;
+}
+
+.gond-viewer__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-ink);
+}
+
+.gond-viewer__status {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.75);
+  text-align: center;
+  max-width: 60%;
+}
+
+.gond-viewer__progress {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: min(220px, 70%);
+}
+
+.gond-viewer__progress-track {
+  width: 100%;
+  height: 3px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.16);
+  overflow: hidden;
+}
+
+.gond-viewer__progress-fill {
+  height: 100%;
+  border-radius: 100px;
+  background: var(--color-terracotta-light);
+  transition: width 0.2s var(--ease-smooth);
+}
+
+.gond-viewer__hint {
+  margin: 12px 0 0;
+  font-size: var(--text-xs);
+  color: var(--color-stone);
+  text-align: center;
+  max-width: none;
+}
+
+/* In the fullscreen modal there's no room below the stage for a caption
+   line, so it floats as a small pill over the bottom of the viewport —
+   same treatment Model3DViewer uses in its own fill mode. */
+.gond-viewer--fill .gond-viewer__hint {
+  position: absolute;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 9px 20px;
+  width: max-content;
+  max-width: calc(100% - 32px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-radius: 100px;
+  background: rgba(20, 18, 15, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: rgba(255, 255, 255, 0.85);
+  z-index: 2;
+}
+
+/* VRButton.createButton() injects its own inline-styled <button> — this
+   overrides just enough (position + brand color) to sit inside the stage
+   instead of the page's bottom-center default, without fighting the rest
+   of its inline styling. */
+.gond-viewer__vr-button.gond-viewer__vr-button {
+  bottom: 76px !important;
+  background: var(--color-dic-red-text-safe) !important;
+  border: none !important;
+}
