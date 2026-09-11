@@ -19,19 +19,74 @@ const PITCH_LIMIT = Math.PI / 2 - 0.05
 // best phonetic/thematic match (tortoise totem; medicine-man's amulet) but
 // that pairing is a guess, not something recovered from the original
 // scene's own trigger logic (not present in this APK's extracted data).
-const EXHIBIT_SOUNDS = [
-  { node: 'Horse_LOD0', file: '/audio/gond/ghoda.mp3' },
-  { node: 'Elephant_LOD0', file: '/audio/gond/hathi.mp3' },
-  { node: 'Deer_LOD0', file: '/audio/gond/hiran.mp3' },
-  { node: 'Fish_LOD0', file: '/audio/gond/machali.mp3' },
-  { node: 'Bird_LOD0', file: '/audio/gond/morpakshi.mp3' },
-  { node: 'Tiger_01', file: '/audio/gond/waghoba.mp3' },
-  { node: 'KasoPen_LOD0', file: '/audio/gond/kachoba.mp3' },
-  { node: 'Medicall_LOD0', file: '/audio/gond/tavij.mp3' },
-  { node: 'Diya_LOD0', file: '/audio/gond/dhupli_lamp.mp3' },
+// `title`/`description` are placards written for this rebuild — the
+// original app had no extracted curatorial text to recover, so these are
+// deliberately general (the animal's role in Gond belief, the Dhokra
+// casting technique) rather than invented specifics about any one piece.
+const EXHIBITS = [
+  {
+    node: 'Horse_LOD0',
+    file: '/audio/gond/ghoda.mp3',
+    title: 'Horse (Ghoda)',
+    description: 'A cast bronze horse in the Dhokra tradition — the lost-wax metal-casting craft practiced by Gond and other tribal communities of central India.',
+  },
+  {
+    node: 'Elephant_LOD0',
+    file: '/audio/gond/hathi.mp3',
+    title: 'Elephant (Hathi)',
+    description: 'The elephant is a recurring figure in Gond folk art, often associated with strength and prosperity.',
+  },
+  {
+    node: 'Deer_LOD0',
+    file: '/audio/gond/hiran.mp3',
+    title: 'Deer (Hiran)',
+    description: 'Forest animals like the deer are central to Gond visual storytelling, reflecting a close relationship with the surrounding woodland.',
+  },
+  {
+    node: 'Fish_LOD0',
+    file: '/audio/gond/machali.mp3',
+    title: 'Fish (Machali)',
+    description: 'A motif tied to rivers and water bodies significant to Gond settlements, common across the region’s folk and tribal art.',
+  },
+  {
+    node: 'Bird_LOD0',
+    file: '/audio/gond/morpakshi.mp3',
+    title: 'Peacock (Mor)',
+    description: 'The peacock appears widely across Gond art as a decorative and symbolic motif.',
+  },
+  {
+    node: 'Tiger_01',
+    file: '/audio/gond/waghoba.mp3',
+    title: 'Tiger (Waghoba)',
+    description: 'Waghoba, the tiger deity, is worshipped across Gond and neighbouring tribal communities as a guardian spirit of the forest.',
+  },
+  {
+    node: 'KasoPen_LOD0',
+    file: '/audio/gond/kachoba.mp3',
+    title: 'Kaso Pen',
+    description: 'A totemic figure from Gond ancestral/clan-deity (Pen) tradition — the exact identity of this particular piece wasn’t recoverable from the source material.',
+  },
+  {
+    node: 'Medicall_LOD0',
+    file: '/audio/gond/tavij.mp3',
+    title: 'Healing Figure',
+    description: 'Associated with traditional Gond medicinal and protective practice — this piece’s specific narrative wasn’t recoverable from the source material.',
+  },
+  {
+    node: 'Diya_LOD0',
+    file: '/audio/gond/dhupli_lamp.mp3',
+    title: 'Diya (Lamp)',
+    description: 'An oil lamp, used across Indian traditions in ritual and everyday lighting alike.',
+  },
+  {
+    node: '09_Dog',
+    title: 'Dog',
+    description: 'A cast figure recovered from the project’s Blender source file — absent from the original Unity/Oculus build, added here for the first time.',
+  },
 ]
 const TRIGGER_RADIUS = 2.4 // metres — walking this close plays the clip
 const RETRIGGER_RADIUS = 4 // must back off this far before it can fire again
+const INFO_RADIUS = 3.5 // metres — shows that exhibit's info card
 const AMBIENCE_VOLUME = 0.22
 const EXHIBIT_VOLUME = 0.85
 const VIDEO_PREVIEW_RADIUS = 6 // metres — screens only decode/play (muted) once you're this close
@@ -65,6 +120,7 @@ export default function GondMuseumViewer({ src, fill = false, duckAudio = false,
   const ambienceRef = useRef(null)
   const [status, setStatus] = useState('loading') // loading | ready | error
   const [progress, setProgress] = useState(0)
+  const [activeExhibit, setActiveExhibit] = useState(null) // { title, description } | null
 
   // Ducks the ambient room loop while a documentary plays over it (see
   // GondMuseumModal) — kept as its own effect, keyed only on `duckAudio`,
@@ -165,6 +221,17 @@ export default function GondMuseumViewer({ src, fill = false, duckAudio = false,
         // its real-world scale is exactly what a "stand inside it" VR view
         // needs.
         scene.add(model)
+        // A freshly-added object's matrixWorld isn't computed until the
+        // renderer's next render pass — calling getWorldPosition() on any of
+        // its children before that returns each one's stale default
+        // (effectively ~(0,0,0), not its real place in the room). Every
+        // exhibit below was resolving to nearly the same wrong point, right
+        // next to the spawn position — meaning all of them read as "in
+        // range" simultaneously the moment the experience opened, and every
+        // clip fired at once (staggered only by how long each one took to
+        // download/decode, which is exactly the "one after another in the
+        // background" symptom this fixes).
+        model.updateMatrixWorld(true)
 
         // ── Audio: ambient room loop + proximity-triggered exhibit sounds ──
         // The click that opened this experience is the user gesture the
@@ -185,21 +252,25 @@ export default function GondMuseumViewer({ src, fill = false, duckAudio = false,
           ambience.play()
         })
 
-        const exhibitTriggers = EXHIBIT_SOUNDS.map(({ node, file }) => {
+        const exhibitTriggers = EXHIBITS.map(({ node, file, title, description }) => {
           const target = model.getObjectByName(node)
           if (!target) return null
           const worldPos = new THREE.Vector3()
           target.getWorldPosition(worldPos)
-          const audio = new THREE.PositionalAudio(listener)
-          audio.setRefDistance(1.5)
-          audio.setRolloffFactor(2)
-          audio.setVolume(EXHIBIT_VOLUME)
-          audioLoader.load(file, (buffer) => audio.setBuffer(buffer))
-          const anchor = new THREE.Object3D()
-          anchor.position.copy(worldPos)
-          anchor.add(audio)
-          scene.add(anchor)
-          return { position: worldPos, audio, armed: true }
+
+          let audio = null
+          if (file) {
+            audio = new THREE.PositionalAudio(listener)
+            audio.setRefDistance(1.5)
+            audio.setRolloffFactor(2)
+            audio.setVolume(EXHIBIT_VOLUME)
+            audioLoader.load(file, (buffer) => audio.setBuffer(buffer))
+            const anchor = new THREE.Object3D()
+            anchor.position.copy(worldPos)
+            anchor.add(audio)
+            scene.add(anchor)
+          }
+          return { position: worldPos, audio, armed: true, title, description }
         }).filter(Boolean)
 
         // ── In-world documentary video screens ──
@@ -396,6 +467,7 @@ export default function GondMuseumViewer({ src, fill = false, duckAudio = false,
         joyBase?.addEventListener('pointercancel', onJoyUp)
 
         const clock = new THREE.Clock()
+        let lastInfoKey = null // which exhibit's info card is currently shown, if any
 
         renderer.setAnimationLoop(() => {
           const dt = Math.min(clock.getDelta(), 0.1) // clamp so a tab-switch stall doesn't teleport the walker
@@ -437,14 +509,29 @@ export default function GondMuseumViewer({ src, fill = false, duckAudio = false,
           // (armed → play → disarmed), only re-arming once the visitor has
           // walked back out past a wider radius — otherwise standing right
           // next to an exhibit would restart its clip on every frame.
+          // Also tracks the single nearest exhibit (within INFO_RADIUS) for
+          // the info-card overlay below.
+          let nearest = null
+          let nearestDist = INFO_RADIUS
           for (const trigger of exhibitTriggers) {
             const dist = camera.position.distanceTo(trigger.position)
-            if (trigger.armed && dist < TRIGGER_RADIUS) {
-              trigger.armed = false
-              if (trigger.audio.buffer && !trigger.audio.isPlaying) trigger.audio.play()
-            } else if (!trigger.armed && dist > RETRIGGER_RADIUS) {
-              trigger.armed = true
+            if (trigger.audio) {
+              if (trigger.armed && dist < TRIGGER_RADIUS) {
+                trigger.armed = false
+                if (trigger.audio.buffer && !trigger.audio.isPlaying) trigger.audio.play()
+              } else if (!trigger.armed && dist > RETRIGGER_RADIUS) {
+                trigger.armed = true
+              }
             }
+            if (dist < nearestDist) {
+              nearestDist = dist
+              nearest = trigger
+            }
+          }
+          const nearestKey = nearest ? nearest.title : null
+          if (nearestKey !== lastInfoKey) {
+            lastInfoKey = nearestKey
+            setActiveExhibit(nearest ? { title: nearest.title, description: nearest.description } : null)
           }
 
           // Video screens: only decode/play (muted) once a visitor is close
@@ -477,10 +564,11 @@ export default function GondMuseumViewer({ src, fill = false, duckAudio = false,
 
         cleanupRef.current = () => {
           renderer.setAnimationLoop(null)
+          setActiveExhibit(null)
           if (ambience.isPlaying) ambience.stop()
           ambienceRef.current = null
           exhibitTriggers.forEach(({ audio }) => {
-            if (audio.isPlaying) audio.stop()
+            if (audio?.isPlaying) audio.stop()
           })
           videoScreens.forEach(({ video }) => {
             video.pause()
@@ -546,6 +634,12 @@ export default function GondMuseumViewer({ src, fill = false, duckAudio = false,
         <div className="gond-viewer__joystick" ref={joystickBaseRef} aria-hidden="true">
           <div className="gond-viewer__joystick-knob" ref={joystickKnobRef} />
         </div>
+        {activeExhibit && (
+          <div className="gond-viewer__info-card" role="status">
+            <h4>{activeExhibit.title}</h4>
+            <p>{activeExhibit.description}</p>
+          </div>
+        )}
       </div>
       {status === 'ready' && (
         <p className="gond-viewer__hint">Drag to look around · WASD, arrow keys, or the joystick to walk · click a video screen to watch · Enter VR on a headset for the full experience</p>
