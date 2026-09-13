@@ -162,26 +162,72 @@ export const MEMBERS = {
       name: 'Yash',
       role: 'PhD Student',
       joinedYear: '2026',
-      bio: 'Visual artist & researcher — Research Scholar, IIT Hyderabad, working on traditional photographic printmaking and the history of photographic images.',
+      // bio/fullBio restructured to match Kashish Nair's pattern: a short
+      // "Role | PhD Scholar, Dept., Institution" bio line, then a fullBio
+      // of exactly two paragraphs — (1) identity/background framed as
+      // "brings together X, Y, Z to explore...", (2) "research interests
+      // lie at the intersection of..." naming his current focus. The
+      // CV-narrative detail (awards, exhibitions, teaching stints, book
+      // credits) that used to fill three paragraphs here now lives in the
+      // achievements/experience/publications arrays below instead, so it
+      // isn't duplicated in both places.
+      bio: 'Visual Artist & Researcher | PhD Scholar, Department of Design, IIT Hyderabad.',
       fullBio: [
-        'Yash is a visual artist & researcher based in Baroda. He is currently pursuing a PhD in the Department of Design at the Indian Institute of Technology Hyderabad (IITH). He holds an M.V.A. in Printmaking and a B.V.A. in Applied Art from the Maharaja Sayajirao University of Baroda. He is a recipient of the Hyundai Art for Hope Grant (2026) and was a finalist for the Inception Grant (2024). He has also received the Jeram Patel Award from the Department of Graphic Arts and the Photography Award from the Birla Academy of Art and Culture (2019).',
-        'He has exhibited widely at venues including the Museum of the Future, Dubai and the India Art Fair, Delhi as well as across major cities in India. In 2019, he was an artist-in-residence at Space Studio’s Art & Ecology Printmaking Residency. Yash was a fellow with the Sangeet Natak Akademi and B.C. Mistry & Sons, where he explored the traditional craft of Rudra Veena making (2024–26).',
-        'He has teaching experience at the Department of Graphic Arts, Faculty of Fine Arts, The Maharaja Sayajirao University of Baroda (2024–26), where he taught for two years, as well as at the World University of Design (2021–23). He has designed artist books for Shri Jyoti Bhatt in collaboration with Gallery Latitude 28, for The Print: Matter in Matrix, and for Goth: Adivasi Stories from Gujarat, published by the Bhasha Research and Publication Centre.',
+        'Yash is a visual artist and researcher with a background in printmaking and photography, currently pursuing doctoral research in Design at the Indian Institute of Technology Hyderabad. With experience across studio practice, teaching, and artist-book design, he brings together fine art, craft documentation, and archival photography to explore how traditional and alternative image-making processes engage with cultural memory.',
+        'His research interests lie at the intersection of traditional and alternative photographic processes, printmaking, and the documentation of intangible craft heritage. His current research explores the history and philosophy of photographic images alongside experiential, time-based media — extending from his own studio practice into the archival and craft-documentation work he has carried out with historic photographic collections and traditional instrument-making.',
       ],
       // Short highlight tags for the People-grid card — condensed from the
       // fuller researchAreas list below, same pattern used for the other
-      // recently added scholars (Nandit, Salil). Education/experience/
-      // achievements/publications sections intentionally left empty for
-      // now — the user said the CV-style data for those will follow later.
-      tags: ['Photographic Printmaking', 'Visual Arts', 'Time-Based Media'],
+      // recently added scholars (Nandit, Salil). CV-style sections below
+      // filled in from his September 2026 CV (PDF, shared over WhatsApp).
+      tags: ['Printmaking', 'Photography', 'Visual Art', 'Alternative Photographic Processes'],
       researchAreas: [
         'Traditional Photographic Printmaking Processes',
+        'Alternative & Historical Photographic Processes',
         'History & Philosophy of Photographic Images',
+        'Traditional Craft Documentation (Rudra Veena Making)',
+        'Artist Book Design',
         'Experiential and Time-based Media in Contemporary Visual Scenarios',
+      ],
+      education: [
+        { year: '', degree: 'PhD Scholar, Department of Design', institution: 'IIT Hyderabad' },
+        { year: '2026', degree: 'Qualified UGC NET Examination (June)' },
+        { year: '2015 – 2020', degree: 'Diploma in Performing Arts (Sitar)', institution: 'Faculty of Performing Arts, The Maharaja Sayajirao University of Baroda' },
+        { year: '2017 – 2019', degree: 'Master of Visual Art (M.V.A.), Printmaking', institution: 'Faculty of Fine Arts, The Maharaja Sayajirao University of Baroda' },
+        { year: '2013 – 2017', degree: 'Bachelor of Visual Art (B.V.A.), Applied Art', institution: 'Faculty of Fine Arts, The Maharaja Sayajirao University of Baroda' },
+        { year: '2011 – 2013', degree: 'Arena Animation International Programme', institution: 'Arena Multimedia & Animation, Vadodara' },
+      ],
+      // Experience — the CV lists many overlapping short-term appointments
+      // (external juror stints, one-off workshops); the standing academic
+      // and studio roles are kept here, newest first, with the one-off
+      // juror/workshop credits folded into achievements instead so this
+      // doesn't read as an exhaustive CV dump.
+      experience: [
+        { role: 'Teaching Assistant (Temporary)', org: 'Dept. of Graphic Arts, Faculty of Fine Arts, The M.S. University of Baroda', duration: '2024 – present' },
+        { role: 'Visiting Faculty', org: 'Maharaja Ranjitsinh Gaekwad Institute of Design, Faculty of Fine Arts, The M.S. University of Baroda', duration: '2024 – 2026' },
+        { role: 'Digital Image Restorer and Designer', org: 'B.C. Mistry & Sons', duration: '2024 – 2025', desc: 'Restored a 100-year-old photographic archive for the 150-year-old Indian classical instrument maker and designer, based in Vadodara.' },
+        { role: 'Assistant Professor', org: 'School of Visual Arts, World University of Design, Sonipat', duration: '2021 – 2023' },
+        { role: 'Visual Art Faculty', org: 'Meraki Portfolio Consultancy, Vadodara', duration: '2019 – 2021' },
+      ],
+      achievements: [
+        'Art for Hope Grant, Hyundai Motor India Foundation (2026)',
+        'Finalist, Inception Grant (2024)',
+        'Jeram Patel Award, Dept. of Graphic Arts, Faculty of Fine Arts, The M.S. University of Baroda (2018–19)',
+        'Photography Award, 52nd Annual Exhibition, Birla Academy of Art & Culture, Kolkata (2019)',
+        'Kala Deeksha — funded fellowship from the Sangeet Natak Akademi for training in traditional Rudra Veena making under Shri Kishorbhai Mistry (2024–26)',
+        'Curator, Baroda Art Trail — a month-long open-studio event for emerging artists, with co-curator Santhosh Sadrak (2024 & 2025)',
+        'Exhibited at the Museum of the Future (Dubai), India Art Fair (Delhi), and the 3rd Print Biennale, Lalit Kala Akademi (Kolkata), among many other venues across India',
+      ],
+      // "Publications" repurposed for his artist-book design credits — the
+      // closest fit in this schema for design work rather than authored
+      // papers.
+      publications: [
+        { title: 'Artist book for Shri Jyoti Bhatt, for the show "The Print: Matter in Matrix"', venue: 'Gallery Latitude 28, at Shridharani Gallery, Delhi', year: '2020' },
+        { title: '"Goth: Adivasi Stories from Gujarat" (compiled by Kanji Patel)', venue: 'Bhasha Research and Publication Centre, Vadodara', year: '2017' },
       ],
       interests: [],
       photo: '',
-      email: '',
+      email: 'yashdesai94@gmail.com',
       website: '',
       linkedin: '',
       scholar: '',

@@ -64,6 +64,33 @@
   pointer-events: none;
 }
 
+/* Center reticle — a quiet dot most of the time; grows and turns brand-red
+   the instant a video screen is under it, so clicking reads as a deliberate
+   action with feedback rather than a blind guess. Purely cosmetic (never
+   intercepts the drag-to-look gesture underneath it). */
+.gond-viewer__reticle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+  z-index: 2;
+  transition: width 0.12s var(--ease-out), height 0.12s var(--ease-out), margin 0.12s var(--ease-out), background 0.12s var(--ease-out);
+}
+
+.gond-viewer__reticle.is-active {
+  width: 22px;
+  height: 22px;
+  margin: -11px 0 0 -11px;
+  background: rgba(224, 83, 61, 0.85);
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
 .gond-viewer__overlay {
   position: absolute;
   inset: 0;

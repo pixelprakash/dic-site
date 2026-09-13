@@ -112,10 +112,21 @@ const CLICK_MAX_DURATION = 400 // ms
 // forward/right vectors derived from yaw alone — pitch is deliberately left
 // out of the movement basis so looking up/down doesn't tilt your walking
 // direction into the floor or ceiling, same as any FPS-style walk control.
+// None of that keyboard/joystick input exists once a headset is actually on,
+// though — an earlier version of this file left VR sessions able to look
+// around via head tracking but with no way to move at all. VR locomotion is
+// real controller-based teleport instead (see the controller setup and
+// teleportTo below): hold a trigger to aim a ray at the floor, release to
+// teleport there — matching the "Teleportation Ray"/"Reticle" objects found
+// on the source app's own XR Origin rig, i.e. this was thumbstick/trigger
+// teleport originally, not smooth walking. Aiming at a video screen instead
+// of the floor and releasing opens it, the VR equivalent of the desktop
+// click-a-screen interaction.
 export default function GondMuseumViewer({ src, fill = false, duckAudio = false, documentaries = [], onOpenVideo }) {
   const stageRef = useRef(null)
   const joystickBaseRef = useRef(null)
   const joystickKnobRef = useRef(null)
+  const reticleRef = useRef(null)
   const cleanupRef = useRef(null)
   const ambienceRef = useRef(null)
   const [status, setStatus] = useState('loading') // loading | ready | error
@@ -147,19 +158,25 @@ export default function GondMuseumViewer({ src, fill = false, duckAudio = false,
 
     ;(async () => {
       try {
-        const [THREE, { GLTFLoader }, { MeshoptDecoder }, { VRButton }] = await Promise.all([
+        const [THREE, { GLTFLoader }, { MeshoptDecoder }, { VRButton }, { XRControllerModelFactory }] = await Promise.all([
           import('three'),
           import('three/addons/loaders/GLTFLoader.js'),
           import('three/addons/libs/meshopt_decoder.module.js'),
           import('three/addons/webxr/VRButton.js'),
+          import('three/addons/webxr/XRControllerModelFactory.js'),
         ])
         if (cancelled) return
 
         const scene = new THREE.Scene()
         scene.background = new THREE.Color('#1a1714')
 
+        // 50° read as a narrow "peephole" on a flat desktop screen — a
+        // headset's own effective FOV is much wider than that, so this was
+        // actively working against the "feels like the real thing" ask.
+        // 75° is a common approximation for a VR-like field of view on a
+        // regular monitor without fisheye distortion creeping in.
         const camera = new THREE.PerspectiveCamera(
-          50,
+          75,
           container.clientWidth / container.clientHeight,
           0.05,
           500
@@ -171,12 +188,99 @@ export default function GondMuseumViewer({ src, fill = false, duckAudio = false,
         renderer.setSize(container.clientWidth, container.clientHeight)
         renderer.outputColorSpace = THREE.SRGBColorSpace
         renderer.xr.enabled = true
+        // 'local-floor' reports headset height relative to the real floor
+        // (the default 'local' space can leave you floating or sunk into
+        // the ground depending on the device) — matches how the original
+        // Quest build would have tracked a standing/room-scale player.
+        renderer.xr.setReferenceSpaceType('local-floor')
         container.appendChild(renderer.domElement)
         renderer.domElement.classList.add('gond-viewer__canvas')
 
         const vrButton = VRButton.createButton(renderer)
         vrButton.classList.add('gond-viewer__vr-button')
         container.appendChild(vrButton)
+
+        // ── VR controllers: models + aim rays + teleport locomotion ──
+        // The previous version of this viewer only ever moved the camera
+        // via keyboard/joystick — which don't exist once a headset is on,
+        // so putting one on left you able to look around but completely
+        // unable to move. The source Unity scene's own XR Origin rig had
+        // "Left/Right Teleportation Ray" and "Reticle" objects under each
+        // hand — i.e. the original was thumbstick/trigger teleport, the
+        // standard comfort-locomotion pattern for Quest, not smooth
+        // walking. This reproduces that: hold a controller's trigger to
+        // aim a ray at the floor, release to teleport there; aiming at a
+        // video screen and releasing opens it instead of teleporting.
+        const controllerModelFactory = new XRControllerModelFactory()
+        const RAY_LENGTH = 8
+        const rayGeometry = new THREE.BufferGeometry().setFromPoints([
+          new THREE.Vector3(0, 0, 0),
+          new THREE.Vector3(0, 0, -RAY_LENGTH),
+        ])
+        const reticleGeometry = new THREE.RingGeometry(0.18, 0.24, 32).rotateX(-Math.PI / 2)
+        const reticleMaterial = new THREE.MeshBasicMaterial({ color: 0xe0533d, transparent: true, opacity: 0.9 })
+
+        const controllers = [0, 1].map((i) => {
+          const controller = renderer.xr.getController(i)
+          const ray = new THREE.Line(rayGeometry, new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.6 }))
+          ray.name = 'ray'
+          ray.visible = false
+          controller.add(ray)
+          scene.add(controller)
+
+          const grip = renderer.xr.getControllerGrip(i)
+          grip.add(controllerModelFactory.createControllerModel(grip))
+          scene.add(grip)
+
+          const reticle = new THREE.Mesh(reticleGeometry, reticleMaterial)
+          reticle.visible = false
+          scene.add(reticle)
+
+          const state = { controller, grip, ray, reticle, selecting: false, floorHit: null, screenHit: null }
+
+          const onSelectStart = () => { state.selecting = true }
+          const onSelectEnd = () => {
+            state.selecting = false
+            ray.visible = false
+            reticle.visible = false
+            if (state.screenHit) {
+              onOpenVideoRef.current?.(state.screenHit.doc)
+              state.screenHit = null
+            } else if (state.floorHit) {
+              teleportTo(state.floorHit.x, state.floorHit.z)
+              state.floorHit = null
+            }
+          }
+          controller.addEventListener('selectstart', onSelectStart)
+          controller.addEventListener('selectend', onSelectEnd)
+          state.dispose = () => {
+            controller.removeEventListener('selectstart', onSelectStart)
+            controller.removeEventListener('selectend', onSelectEnd)
+          }
+          return state
+        })
+
+        // Moves the player within a live XR session by offsetting the
+        // reference space — the canonical WebXR teleport technique (see
+        // three.js's own webxr_vr_teleport example). This can't just set
+        // camera.position the way desktop movement does: while presenting,
+        // three.js overwrites the camera's transform every frame from the
+        // real headset pose, so anything written to it directly would be
+        // discarded on the next frame.
+        const teleportTo = (x, z) => {
+          const baseSpace = renderer.xr.getReferenceSpace()
+          if (!baseSpace || typeof XRRigidTransform === 'undefined') return
+          const dx = x - camera.position.x
+          const dz = z - camera.position.z
+          const transform = new XRRigidTransform({ x: -dx, y: 0, z: -dz })
+          renderer.xr.setReferenceSpace(baseSpace.getOffsetReferenceSpace(transform))
+        }
+
+        // Reused every frame for controller-aim raycasts, rather than
+        // allocating fresh objects per frame.
+        const controllerAimMatrix = new THREE.Matrix4()
+        const floorPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0)
+        const floorHitPoint = new THREE.Vector3()
 
         // Colors here are pulled from the original lighting rig recovered
         // from the design's Blender source file (Gond_Musium_with_Light2.blend):
@@ -190,11 +294,17 @@ export default function GondMuseumViewer({ src, fill = false, duckAudio = false,
         // previously a guessed warm off-white — swapped to actual neutral
         // white to match the real spotlights, with the amber now carried by
         // the fill light instead of also being neutral.
-        scene.add(new THREE.AmbientLight(0xffffff, 0.5))
-        const key = new THREE.DirectionalLight(0xffffff, 1.1)
+        // Bumped up from the first pass (0.5/1.1/0.45) — the room's own
+        // textures are Unity-baked lightmaps already painted quite dark
+        // (mood-lit museum spotlighting), and stacking a subtle add-on
+        // read as barely-lit on an SDR desktop monitor rather than
+        // atmospheric. This keeps the same palette (neutral key, warm
+        // amber fill) just turned up enough to actually see the room.
+        scene.add(new THREE.AmbientLight(0xffffff, 0.85))
+        const key = new THREE.DirectionalLight(0xffffff, 1.6)
         key.position.set(2, 4, 2)
         scene.add(key)
-        const fillLight = new THREE.DirectionalLight(0xffa36d, 0.45)
+        const fillLight = new THREE.DirectionalLight(0xffa36d, 0.75)
         fillLight.position.set(-2, 2, -2)
         scene.add(fillLight)
 
@@ -468,6 +578,9 @@ export default function GondMuseumViewer({ src, fill = false, duckAudio = false,
 
         const clock = new THREE.Clock()
         let lastInfoKey = null // which exhibit's info card is currently shown, if any
+        const reticleEl = reticleRef.current
+        const CENTER_NDC = new THREE.Vector2(0, 0)
+        let lastHovering = false
 
         renderer.setAnimationLoop(() => {
           const dt = Math.min(clock.getDelta(), 0.1) // clamp so a tab-switch stall doesn't teleport the walker
@@ -503,6 +616,46 @@ export default function GondMuseumViewer({ src, fill = false, duckAudio = false,
 
           if (!renderer.xr.isPresenting) {
             camera.rotation.set(pitch, yaw, 0)
+          }
+
+          // VR controller aim: while a trigger is held, cast a ray from
+          // that controller and show either a highlighted video screen or
+          // a floor reticle — whichever it's over — so releasing knows
+          // whether to open a documentary or teleport there (see
+          // selectend, above, and teleportTo).
+          if (renderer.xr.isPresenting) {
+            for (const state of controllers) {
+              if (!state.selecting) {
+                state.ray.visible = false
+                state.reticle.visible = false
+                state.floorHit = null
+                state.screenHit = null
+                continue
+              }
+              state.ray.visible = true
+              controllerAimMatrix.identity().extractRotation(state.controller.matrixWorld)
+              raycaster.ray.origin.setFromMatrixPosition(state.controller.matrixWorld)
+              raycaster.ray.direction.set(0, 0, -1).applyMatrix4(controllerAimMatrix)
+
+              const screenHit = screenMeshes.length ? raycaster.intersectObjects(screenMeshes, true)[0] : null
+              if (screenHit && raycaster.ray.origin.distanceTo(screenHit.point) <= VIDEO_INTERACT_RADIUS) {
+                const screen = videoScreens.find((s) => s.mesh === screenHit.object || s.mesh === screenHit.object.parent)
+                state.screenHit = screen ? { doc: screen.doc } : null
+                state.floorHit = null
+                state.reticle.visible = false
+              } else if (raycaster.ray.intersectPlane(floorPlane, floorHitPoint)) {
+                state.screenHit = null
+                const fx = Math.max(bounds.min.x, Math.min(bounds.max.x, floorHitPoint.x))
+                const fz = Math.max(bounds.min.z, Math.min(bounds.max.z, floorHitPoint.z))
+                state.floorHit = { x: fx, z: fz }
+                state.reticle.position.set(fx, 0.01, fz)
+                state.reticle.visible = true
+              } else {
+                state.screenHit = null
+                state.floorHit = null
+                state.reticle.visible = false
+              }
+            }
           }
 
           // Proximity-triggered exhibit sounds: fires once per approach
@@ -549,6 +702,23 @@ export default function GondMuseumViewer({ src, fill = false, duckAudio = false,
             }
           }
 
+          // Desktop center reticle: a plain dot most of the time, but it
+          // grows and recolors when a video screen is actually under it —
+          // real feedback that clicking there does something, instead of
+          // relying on someone to notice a screen is playing and guess.
+          // Skipped in XR (no on-screen reticle in a headset; the
+          // controller ray/floor-reticle above is the VR equivalent) and
+          // while look-dragging doesn't matter since it's screen-fixed.
+          if (reticleEl && !renderer.xr.isPresenting) {
+            raycaster.setFromCamera(CENTER_NDC, camera)
+            const hit = screenMeshes.length ? raycaster.intersectObjects(screenMeshes, true)[0] : null
+            const hovering = hit && camera.position.distanceTo(hit.point) <= VIDEO_INTERACT_RADIUS
+            if (hovering !== lastHovering) {
+              lastHovering = hovering
+              reticleEl.classList.toggle('is-active', hovering)
+            }
+          }
+
           renderer.render(scene, camera)
         })
 
@@ -565,6 +735,7 @@ export default function GondMuseumViewer({ src, fill = false, duckAudio = false,
         cleanupRef.current = () => {
           renderer.setAnimationLoop(null)
           setActiveExhibit(null)
+          controllers.forEach((state) => state.dispose())
           if (ambience.isPlaying) ambience.stop()
           ambienceRef.current = null
           exhibitTriggers.forEach(({ audio }) => {
@@ -634,6 +805,7 @@ export default function GondMuseumViewer({ src, fill = false, duckAudio = false,
         <div className="gond-viewer__joystick" ref={joystickBaseRef} aria-hidden="true">
           <div className="gond-viewer__joystick-knob" ref={joystickKnobRef} />
         </div>
+        <div className="gond-viewer__reticle" ref={reticleRef} aria-hidden="true" />
         {activeExhibit && (
           <div className="gond-viewer__info-card" role="status">
             <h4>{activeExhibit.title}</h4>
