@@ -23,11 +23,29 @@ export default function Testimonials() {
               <path d="M0 32V19.2C0 8.6 6.4 1.6 17.6 0l2.4 5.6C13.6 7.2 9.6 11.2 9.6 17.6H17.6V32H0ZM22.4 32V19.2C22.4 8.6 28.8 1.6 40 0l2.4 5.6C36 7.2 32 11.2 32 17.6H40V32H22.4Z" fill="currentColor" />
             </svg>
             <blockquote key={t.id}>
-              <p>{t.quote}</p>
+              {/* A few of these run long enough in the giver's own words to
+                  read as several paragraphs — quote can be a string or an
+                  array of paragraphs, same pattern as fullBio elsewhere. */}
+              {(Array.isArray(t.quote) ? t.quote : [t.quote]).map((para, i) => (
+                <p key={i}>{para}</p>
+              ))}
             </blockquote>
           </div>
           <div className="testimonials__photo">
-            <img src={t.avatar} alt="" loading="lazy" />
+            {t.avatar ? (
+              <img src={t.avatar} alt="" loading="lazy" />
+            ) : (
+              // No photo on file for this person — an initials tile
+              // instead of a broken image, matching the fallback pattern
+              // used for missing profile photos elsewhere on the site.
+              <div className="testimonials__photo-fallback" aria-hidden="true">
+                {t.name
+                  .split(' ')
+                  .map((w) => w[0])
+                  .slice(0, 2)
+                  .join('')}
+              </div>
+            )}
           </div>
         </div>
 
@@ -36,18 +54,20 @@ export default function Testimonials() {
             <p className="testimonials__name">{t.name}</p>
             <p className="testimonials__role">{t.role}</p>
           </div>
-          <div className="testimonials__nav">
-            <button type="button" className="testimonials__nav-btn" onClick={prev} aria-label="Previous testimonial">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M15 18l-6-6 6-6" />
-              </svg>
-            </button>
-            <button type="button" className="testimonials__nav-btn" onClick={next} aria-label="Next testimonial">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M9 18l6-6-6-6" />
-              </svg>
-            </button>
-          </div>
+          {TESTIMONIALS.length > 1 && (
+            <div className="testimonials__nav">
+              <button type="button" className="testimonials__nav-btn" onClick={prev} aria-label="Previous testimonial">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+              <button type="button" className="testimonials__nav-btn" onClick={next} aria-label="Next testimonial">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </section>

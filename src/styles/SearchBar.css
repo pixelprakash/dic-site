@@ -129,15 +129,6 @@
   padding: 8px;
 }
 
-.search__group-label {
-  padding: 10px 14px 6px;
-  font-size: var(--text-2xs);
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-stone);
-}
-
 .search__item {
   display: flex;
   flex-direction: column;
@@ -146,7 +137,6 @@
   border-radius: var(--border-radius-sm);
   cursor: pointer;
   transition: background 0.2s var(--ease-smooth);
-  position: relative;
 }
 
 .search__item.active,
@@ -154,9 +144,23 @@
   background: var(--color-cream);
 }
 
+/* Real content titles (a project or research-project name, say) run much
+   longer than the nav-menu labels this panel first shipped with, and can
+   wrap to 2–3 lines — a tag pinned to the top-right corner would then sit
+   on top of that wrapped text. Rendering it as its own line above the
+   title instead sidesteps the overlap entirely, regardless of length. */
+.search__item-tag {
+  font-size: var(--text-2xs);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-terracotta);
+}
+
 .search__item-title {
   font-size: var(--text-sm);
   font-weight: 600;
+  line-height: 1.35;
   color: var(--color-ink);
 }
 
@@ -172,17 +176,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.search__item-tag {
-  position: absolute;
-  top: 10px;
-  right: 14px;
-  font-size: var(--text-2xs);
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--color-terracotta);
 }
 
 .search__empty {

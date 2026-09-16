@@ -1,3 +1,14 @@
+// Cross-page imports for SEARCH_INDEX, at the bottom of this file — pulling
+// in the actual per-item data (people, projects, blog posts, ...) rather
+// than just the top-level nav menu, so search can jump straight to any
+// individual page on the site, not only its section.
+import { ALL_MEMBERS, getMemberCategory } from './peopleData';
+import { PROJECTS } from './projectsData';
+import { RESEARCH_PROJECTS } from './researchProjectsData';
+import { BLOG_POSTS } from './blogsData';
+import { CONFERENCES } from './conferencesData';
+import { CENTRES, EVENTS as NODAL_EVENTS } from './nodalData';
+
 // `channel` is hardcoded (verified against YouTube's own oEmbed response)
 // rather than left for YouTubeEmbed to fetch live — without it, every one
 // of these six videos fired an unauthenticated request to youtube.com's
@@ -427,27 +438,16 @@ export const GALLERY_IMAGES = [
   { src: "/images/projects/aquaproject/aquaponics-6.webp", alt: "Fish and duckweed in the aquaponics pond" },
 ];
 
+// The previous three entries here (Ananya Sharma, Rohan Vats, Meher Iyer)
+// were placeholder/composite quotes, not real testimonials — removed
+// rather than restored alongside a genuine one.
 export const TESTIMONIALS = [
   {
-    id: "t1",
-    quote: "Working on the heritage digitisation project at DIC completely reshaped how I think about design — it's not just about form, it's about who a space belongs to and how technology can protect that.",
-    name: "Ananya Sharma",
-    role: "M.Des Student, IIT Hyderabad",
-    avatar: "/images/image56.webp",
-  },
-  {
-    id: "t2",
-    quote: "The eVTOL cabin study gave me hands-on time with VR perception testing I couldn't get anywhere else. DIC treats student fellows like real researchers, not interns.",
-    name: "Rohan Vats",
-    role: "Research Fellow, Air Mobility",
-    avatar: "/images/image84.webp",
-  },
-  {
-    id: "t3",
-    quote: "Documenting Dhokra craft with the Ojha community taught me more about design ethics than any lecture could. DIC's field-first approach changed how I see my own practice.",
-    name: "Meher Iyer",
-    role: "B.Des Student, IIT Hyderabad",
-    avatar: "/images/image55.webp",
+    id: "chandrakanth-mdes-2027",
+    quote: "My six months at DIC have been a really special experience. As a Product Design student, I've had the chance to explore diverse projects—from cultural heritage and digital preservation to AI and experimental design. What I enjoy most is the people; everyone is welcoming, supportive, and it genuinely feels like a little family. Working on projects like the solar dehydrator and experimenting with AI filmmaking has given me the freedom to explore, learn, and try new things. DIC has truly been a great space to learn and grow.",
+    name: "Chandrakanth",
+    role: "M.Des Student, IIT Hyderabad (Class of 2027)",
+    avatar: "/images/testimonials/chandu.webp",
   },
 ];
 
@@ -526,4 +526,64 @@ export const SEARCH_INDEX = [
     category: "FAQ",
   })),
   { id: "page-contact", title: "Contact DIC", desc: "Get in touch with the team", path: "/contact", category: "Menu" },
+
+  // Placeholder stand-in cards (no confirmed person yet) are excluded —
+  // they have no real /people/:slug page to link to.
+  ...ALL_MEMBERS.filter((m) => !m.placeholder).map((m) => ({
+    id: `person-${m.id}`,
+    title: m.name,
+    desc: m.bio || m.role,
+    path: `/people/${m.id}`,
+    category: getMemberCategory(m.id)?.label || "People",
+  })),
+
+  ...PROJECTS.map((p) => ({
+    id: `project-${p.slug}`,
+    title: p.title,
+    desc: p.tagline,
+    path: `/projects/${p.slug}`,
+    category: "Project",
+  })),
+
+  ...RESEARCH_PROJECTS.map((r) => ({
+    id: `research-project-${r.slug}`,
+    title: r.title,
+    desc: r.tagline,
+    path: `/research/${r.slug}`,
+    category: "Research Project",
+  })),
+
+  ...BLOG_POSTS.map((b) => ({
+    id: `blog-${b.id}`,
+    title: b.title,
+    desc: b.excerpt,
+    path: b.path,
+    category: "Blog",
+  })),
+
+  ...CONFERENCES.map((c) => ({
+    id: `conference-${c.id}`,
+    title: c.title,
+    desc: c.tagline,
+    path: c.path,
+    category: "Conference",
+  })),
+
+  ...CENTRES.map((c) => ({
+    id: `centre-${c.code}`,
+    title: c.name,
+    desc: c.note,
+    path: "/nodal",
+    hash: "#centres",
+    category: "Nodal Network",
+  })),
+
+  ...NODAL_EVENTS.map((e, i) => ({
+    id: `nodal-event-${i}`,
+    title: e.title,
+    desc: e.desc,
+    path: "/nodal",
+    hash: "#events",
+    category: "Nodal Event",
+  })),
 ];

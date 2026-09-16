@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useReveal } from '../hooks/useReveal';
-import { MARQUEE_IMAGES } from '../data/siteData';
+import { MARQUEE_IMAGES, ABOUT_STACK_IMAGES } from '../data/siteData';
 import '../styles/Nodal.css';
 import {
   NODAL_SEALS,
@@ -15,6 +14,11 @@ import {
   EVENTS,
   WHO_CAN_JOIN,
 } from '../data/nodalData';
+
+// Three of NODAL_SEALS' four figures — chosen for the hero specifically;
+// the full set of four still appears in NodalFull's own header lower down
+// the (parked) old page.
+const HERO_METRICS = NODAL_SEALS.slice(0, 3);
 
 const EVENT_FILTERS = [
   { key: 'all', label: 'All' },
@@ -70,10 +74,138 @@ function initials(name) {
   return picked.map((w) => w[0]).join('').toUpperCase().slice(0, 2);
 }
 
+// New page structure, built section by section per direct spec rather than
+// reusing NodalFull's layout (a different design entirely — mission/vision,
+// hub-spoke, directory, leadership — kept parked below, untouched, in case
+// any of it gets folded back in later).
+//
+// Hero: left column is a lead paragraph over three metric blocks; right
+// column is a 2×2 image grid (reusing ABOUT_STACK_IMAGES — the same four
+// real project photos already used for this exact grid on the parked
+// Home.jsx About section, rather than stock/placeholder images).
+function NodalHero() {
+  return (
+    <section className="nodal2-hero">
+      <div className="nodal2-hero__bg" aria-hidden="true" />
+      <div className="nodal2-hero__inner">
+        <div className="nodal2-hero__left">
+          <p className="section-label" style={{ color: 'var(--color-terracotta-light)' }}>
+            National Design Innovation Network
+          </p>
+          <h1>The national node for design-led innovation in India.</h1>
+          <p className="nodal2-hero__para">
+            The Design Innovation Centre at IIT Hyderabad convenes a country-wide network of
+            Design Innovation Centres — bringing designers, engineers, industry and government
+            together to solve real problems at scale, in step with the national vision of
+            Viksit Bharat 2047.
+          </p>
+          <div className="nodal2-metrics">
+            {HERO_METRICS.map((m) => (
+              <div className="nodal2-metric" key={m.label}>
+                <b>{m.value}</b>
+                <span>{m.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="nodal2-hero__right">
+          {ABOUT_STACK_IMAGES.map((img) => (
+            <div className="nodal2-hero__image" key={img.src}>
+              <img src={img.src} alt={img.alt} loading="lazy" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// Upcoming events — full-width rows stacked one after another (not the
+// grid-of-cards NodalFull used for the same EVENTS data).
+function UpcomingEventsSection() {
+  return (
+    <section className="nodal2-events">
+      <p className="section-label">Upcoming</p>
+      <h2 className="section-title">Events across the network</h2>
+      <div className="nodal2-events__list">
+        {EVENTS.map((e) => {
+          const parts = eventDateParts(e.date);
+          const range =
+            e.end && e.end !== e.date ? `${formatDate(e.date)} – ${formatDate(e.end)}` : formatDate(e.date);
+          return (
+            <article className="nodal2-events__row" key={e.title}>
+              <div className="nodal2-events__date" aria-hidden="true">
+                <b>{parts.day}</b>
+                <span>{parts.month}</span>
+              </div>
+              <div className="nodal2-events__body">
+                <h3>{e.title}</h3>
+                <p className="nodal2-events__meta">
+                  {range} · {e.host} · {e.city}
+                </p>
+                <p className="nodal2-events__desc">{e.desc}</p>
+              </div>
+              {e.link ? (
+                <a className="nodal2-events__link" href={e.link} rel="noopener noreferrer">
+                  {e.linkText || 'Details'}
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </a>
+              ) : (
+                <span className="nodal2-events__link nodal2-events__link--muted">Details soon</span>
+              )}
+            </article>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+// Research / Outreach / Education — no layout spec yet beyond "a section
+// named X goes here", so these are honest placeholders (heading + note)
+// rather than guessed-at content, ready to fill in next.
+function NodalPlaceholderSection({ id, eyebrow, title, note }) {
+  return (
+    <section className="nodal2-placeholder" id={id}>
+      <p className="section-label">{eyebrow}</p>
+      <h2 className="section-title">{title}</h2>
+      <p className="nodal2-placeholder__note">{note}</p>
+    </section>
+  );
+}
+
+function NodalNew() {
+  return (
+    <>
+      <NodalHero />
+      <UpcomingEventsSection />
+      <NodalPlaceholderSection
+        id="research"
+        eyebrow="Research"
+        title="Research across the network"
+        note="Structure pending — say what should go in this section and I'll build it next."
+      />
+      <NodalPlaceholderSection
+        id="outreach"
+        eyebrow="Outreach"
+        title="Outreach & impact"
+        note="Structure pending — say what should go in this section and I'll build it next."
+      />
+      <NodalPlaceholderSection
+        id="education"
+        eyebrow="Education"
+        title="Education & capacity building"
+        note="Structure pending — say what should go in this section and I'll build it next."
+      />
+    </>
+  );
+}
+
 // Parked, not deleted: the full national-network page below (NodalFull) is
-// intact and unused while the site shows an "under construction" notice
-// instead. To restore it, change the default export at the bottom of this
-// file back to NodalFull.
+// a different design entirely — kept intact and unused while the page is
+// rebuilt section by section above.
 function NodalFull() {
   const [missionRef, missionVis] = useReveal();
   const [networkRef, networkVis] = useReveal();
@@ -497,17 +629,23 @@ function NodalFull() {
 }
 
 export default function Nodal() {
-  return (
-    <div className="page-header" style={{ textAlign: 'center' }}>
-      <div className="page-header__accent" />
-      <h1 style={{ margin: '0 auto', maxWidth: '18ch' }}>Under construction</h1>
-      <p style={{ margin: '16px auto 0' }}>
-        This page is being rebuilt. In the meantime, see{' '}
-        <Link to="/" style={{ color: 'var(--color-terracotta-light)', textDecoration: 'underline' }}>
-          DIC · IITH
-        </Link>
-        .
-      </p>
-    </div>
-  );
+  return <NodalNew />;
 }
+
+// Parked, not deleted: the plain "under construction" notice this page
+// showed before NodalNew existed.
+// function NodalUnderConstruction() {
+//   return (
+//     <div className="page-header" style={{ textAlign: 'center' }}>
+//       <div className="page-header__accent" />
+//       <h1 style={{ margin: '0 auto', maxWidth: '18ch' }}>Under construction</h1>
+//       <p style={{ margin: '16px auto 0' }}>
+//         This page is being rebuilt. In the meantime, see{' '}
+//         <Link to="/" style={{ color: 'var(--color-terracotta-light)', textDecoration: 'underline' }}>
+//           DIC · IITH
+//         </Link>
+//         .
+//       </p>
+//     </div>
+//   );
+// }

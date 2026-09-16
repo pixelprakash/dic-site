@@ -1,7 +1,33 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import GondMuseumModal from '../components/GondMuseumModal';
+import Testimonials from '../components/Testimonials';
+import { COLLABORATORS } from '../data/siteData';
 import '../styles/Home.css';
+
+// Reuses the same COLLABORATORS data (and logo files) as the parked
+// Collaborators.jsx below, but with its own light-background styling —
+// that component's white-text label and translucent border were tuned
+// for the dark story-section it used to sit inside, which doesn't apply
+// here on the plain page background.
+function CollaboratorsSection() {
+  return (
+    <section className="home-collaborators" aria-label="Collaborators">
+      <p className="home-collaborators__label">Collaborators</p>
+      <div className="home-collaborators__grid">
+        {COLLABORATORS.map((c) => (
+          <div className="home-collaborators__tile" key={c.id} title={c.name}>
+            {c.logo ? (
+              <img src={c.logo} alt={c.name} loading="lazy" />
+            ) : (
+              <span>{c.name}</span>
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
 
 // ─────────────────────────────────────────────────────────────────────
 // The full home page is PARKED while it's being redesigned — not
@@ -76,7 +102,9 @@ export default function Home() {
         </div>
       </section>
 
+      <CollaboratorsSection />
       <GondMuseumSection />
+      <Testimonials />
     </>
   );
 }

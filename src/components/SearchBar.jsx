@@ -1,15 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { SEARCH_INDEX, NAV_LINKS } from '../data/siteData';
+import { SEARCH_INDEX } from '../data/siteData';
 import '../styles/SearchBar.css';
-
-const QUICK_LINKS = NAV_LINKS.map((link) => ({
-  id: `quick-${link.path}`,
-  title: link.label,
-  desc: 'Jump to section',
-  path: link.path,
-  category: 'Quick link',
-}));
 
 function highlight(text, query) {
   if (!query) return text;
@@ -35,7 +27,7 @@ export default function SearchBar() {
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return QUICK_LINKS;
+    if (!q) return [];
     return SEARCH_INDEX.filter(
       (item) =>
         item.title.toLowerCase().includes(q) || item.desc?.toLowerCase().includes(q),
@@ -68,6 +60,13 @@ export default function SearchBar() {
   const goTo = (item) => {
     if (!item) return;
     setOpen(false);
+    // A handful of indexed items (e.g. an externally-hosted conference)
+    // point off-site — react-router's navigate() treats any string as an
+    // in-app path, so an absolute URL here needs a real page load instead.
+    if (/^https?:\/\//.test(item.path)) {
+      window.open(item.path, '_blank', 'noopener,noreferrer');
+      return;
+    }
     const finishScroll = () => {
       if (!item.hash) return;
       requestAnimationFrame(() => {
@@ -153,29 +152,30 @@ export default function SearchBar() {
         )}
       </div>
 
-      <div className={`search__panel ${open ? 'open' : ''}`}>
-        {results.length > 0 ? (
-          <ul className="search__list" role="listbox" id="site-search-listbox">
-            {!query && <li className="search__group-label">Quick links</li>}
-            {results.map((item, i) => (
-              <li
-                key={item.id}
-                id={`search-option-${i}`}
-                role="option"
-                aria-selected={activeIndex === i}
-                className={`search__item ${activeIndex === i ? 'active' : ''}`}
-                onMouseDown={(e) => e.preventDefault()}
-                onClick={() => goTo(item)}
-                onMouseEnter={() => setActiveIndex(i)}
-              >
-                <span className="search__item-title">{highlight(item.title, query)}</span>
-                {item.desc && <span className="search__item-desc">{item.desc}</span>}
-                <span className="search__item-tag">{item.category}</span>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="search__empty">No results for &ldquo;{query}&rdquo;</p>
+      <div className={`search__panel ${open && query ? 'open' : ''}`}>
+        {query && (
+          results.length > 0 ? (
+            <ul className="search__list" role="listbox" id="site-search-listbox">
+              {results.map((item, i) => (
+                <li
+                  key={item.id}
+                  id={`search-option-${i}`}
+                  role="option"
+                  aria-selected={activeIndex === i}
+                  className={`search__item ${activeIndex === i ? 'active' : ''}`}
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => goTo(item)}
+                  onMouseEnter={() => setActiveIndex(i)}
+                >
+                  <span className="search__item-tag">{item.category}</span>
+                  <span className="search__item-title">{highlight(item.title, query)}</span>
+                  {item.desc && <span className="search__item-desc">{item.desc}</span>}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="search__empty">No results for &ldquo;{query}&rdquo;</p>
+          )
         )}
       </div>
     </div>
