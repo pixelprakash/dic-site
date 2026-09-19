@@ -162,61 +162,48 @@ export const MEMBERS = {
       name: 'Yash',
       role: 'PhD Student',
       joinedYear: '2026',
-      // bio/fullBio restructured to match Kashish Nair's pattern: a short
-      // "Role | PhD Scholar, Dept., Institution" bio line, then a fullBio
-      // of exactly two paragraphs — (1) identity/background framed as
-      // "brings together X, Y, Z to explore...", (2) "research interests
-      // lie at the intersection of..." naming his current focus. The
-      // CV-narrative detail (awards, exhibitions, teaching stints, book
-      // credits) that used to fill three paragraphs here now lives in the
-      // achievements/experience/publications arrays below instead, so it
-      // isn't duplicated in both places.
-      bio: 'Visual Artist & Researcher | PhD Scholar, Department of Design, IIT Hyderabad.',
+      bio: 'Visual Artist & Researcher | PhD Candidate, Department of Design, IIT Hyderabad.',
       fullBio: [
-        'Yash is a visual artist and researcher with a background in printmaking and photography, currently pursuing doctoral research in Design at the Indian Institute of Technology Hyderabad. With experience across studio practice, teaching, and artist-book design, he brings together fine art, craft documentation, and archival photography to explore how traditional and alternative image-making processes engage with cultural memory.',
-        'His research interests lie at the intersection of traditional and alternative photographic processes, printmaking, and the documentation of intangible craft heritage. His current research explores the history and philosophy of photographic images alongside experiential, time-based media — extending from his own studio practice into the archival and craft-documentation work he has carried out with historic photographic collections and traditional instrument-making.',
+        'Yash is a Baroda-based visual artist, researcher, and PhD candidate in Design at IIT Hyderabad. His practice operates at the intersection of painting, traditional photographic processes, and new media as a visual art language. Driven by an interest in image philosophy and time-based media, his research examines the importance of individual and cultural memory in shaping identity, preserving history, and understanding shared human experience. Through this lens, he aims to develop innovative pedagogies that offer new pathways to contemporary image-making.',
+        'He is an artist-in-residence with the UNIDEE Residency Program at Fondazione Pistoletto (Italy), supported by the Inlaks Shivdasani Foundation (2026), and has previously held a residency at Space Studio, Vadodara. A recipient of the Hyundai Art for Hope Grant (2026) and the Jeram Patel Award, he was also a fellow exploring traditional Rudra Veena making. Yash has exhibited at venues including the Museum of the Future (Dubai) and the India Art Fair, taught at MSU Baroda and the World University of Design, and designed an artist book for Shri Jyoti Bhatt.',
       ],
       // Short highlight tags for the People-grid card — condensed from the
       // fuller researchAreas list below, same pattern used for the other
-      // recently added scholars (Nandit, Salil). CV-style sections below
-      // filled in from his September 2026 CV (PDF, shared over WhatsApp).
-      tags: ['Printmaking', 'Photography', 'Visual Art', 'Alternative Photographic Processes'],
+      // recently added scholars (Nandit, Salil).
+      tags: ['Painting', 'Photographic Processes', 'New Media', 'Time-Based Media'],
       researchAreas: [
         'Traditional Photographic Printmaking Processes',
-        'Alternative & Historical Photographic Processes',
-        'History & Philosophy of Photographic Images',
-        'Traditional Craft Documentation (Rudra Veena Making)',
-        'Artist Book Design',
-        'Experiential and Time-based Media in Contemporary Visual Scenarios',
+        'History & Philosophy of Photography & Material',
+        'Contemporary Visual Practices',
+        'Experiential & Time-Based Media',
+        'New Media Practice in Visual Art',
+        'Pedagogy for Contemporary Image-making Processes',
       ],
       education: [
         { year: '', degree: 'PhD Scholar, Department of Design', institution: 'IIT Hyderabad' },
         { year: '2026', degree: 'Qualified UGC NET Examination (June)' },
-        { year: '2015 – 2020', degree: 'Diploma in Performing Arts (Sitar)', institution: 'Faculty of Performing Arts, The Maharaja Sayajirao University of Baroda' },
         { year: '2017 – 2019', degree: 'Master of Visual Art (M.V.A.), Printmaking', institution: 'Faculty of Fine Arts, The Maharaja Sayajirao University of Baroda' },
         { year: '2013 – 2017', degree: 'Bachelor of Visual Art (B.V.A.), Applied Art', institution: 'Faculty of Fine Arts, The Maharaja Sayajirao University of Baroda' },
+        { year: '2015 – 2020', degree: 'Diploma in Performing Arts (Sitar)', institution: 'Faculty of Performing Arts, The Maharaja Sayajirao University of Baroda' },
         { year: '2011 – 2013', degree: 'Arena Animation International Programme', institution: 'Arena Multimedia & Animation, Vadodara' },
       ],
-      // Experience — the CV lists many overlapping short-term appointments
-      // (external juror stints, one-off workshops); the standing academic
-      // and studio roles are kept here, newest first, with the one-off
-      // juror/workshop credits folded into achievements instead so this
-      // doesn't read as an exhaustive CV dump.
       experience: [
-        { role: 'Teaching Assistant (Temporary)', org: 'Dept. of Graphic Arts, Faculty of Fine Arts, The M.S. University of Baroda', duration: '2024 – present' },
+        { role: 'Teaching Assistant', org: 'Dept. of Graphic Arts, Faculty of Fine Arts, The M.S. University of Baroda', duration: '2024 – 2026' },
         { role: 'Visiting Faculty', org: 'Maharaja Ranjitsinh Gaekwad Institute of Design, Faculty of Fine Arts, The M.S. University of Baroda', duration: '2024 – 2026' },
-        { role: 'Digital Image Restorer and Designer', org: 'B.C. Mistry & Sons', duration: '2024 – 2025', desc: 'Restored a 100-year-old photographic archive for the 150-year-old Indian classical instrument maker and designer, based in Vadodara.' },
+        { role: 'Curator, Baroda Art Trail (independent project)', org: 'Month-long open-studio event for emerging artists, with co-curator Santhosh Sadrak', duration: '2024 & 2025' },
+        { role: 'Freelance Project — Digital Image Restoration', org: 'B.C. Mistry & Sons, Vadodara', duration: '2024 – 2025', desc: 'Worked on a 100-year-old photographic archive for the renowned Indian classical instrument maker.' },
         { role: 'Assistant Professor', org: 'School of Visual Arts, World University of Design, Sonipat', duration: '2021 – 2023' },
         { role: 'Visual Art Faculty', org: 'Meraki Portfolio Consultancy, Vadodara', duration: '2019 – 2021' },
       ],
       achievements: [
+        'Exhibited at the Museum of the Future (Dubai), India Art Fair (Delhi), and the 3rd Print Biennale, Lalit Kala Akademi (Kolkata), Dhi Contemporary (Hyderabad) among many other venues across India',
+        'Artist-in-residence with the UNIDEE Research Residency Program at Fondazione Pistoletto (Italy), supported by the Inlaks Shivdasani Foundation (2026)',
         'Art for Hope Grant, Hyundai Motor India Foundation (2026)',
-        'Finalist, Inception Grant (2024)',
-        'Jeram Patel Award, Dept. of Graphic Arts, Faculty of Fine Arts, The M.S. University of Baroda (2018–19)',
+        'Finalist, Inception Grant by Art Incept, Delhi (2024)',
+        'Artist-in-residence for Art & Ecology at Space Studio, Vadodara (2019)',
+        'Jeram Patel Award, Dept. of Graphic Arts, Faculty of Fine Arts, The M.S. University of Baroda (2019)',
         'Photography Award, 52nd Annual Exhibition, Birla Academy of Art & Culture, Kolkata (2019)',
         'Kala Deeksha — funded fellowship from the Sangeet Natak Akademi for training in traditional Rudra Veena making under Shri Kishorbhai Mistry (2024–26)',
-        'Curator, Baroda Art Trail — a month-long open-studio event for emerging artists, with co-curator Santhosh Sadrak (2024 & 2025)',
-        'Exhibited at the Museum of the Future (Dubai), India Art Fair (Delhi), and the 3rd Print Biennale, Lalit Kala Akademi (Kolkata), among many other venues across India',
       ],
       // "Publications" repurposed for his artist-book design credits — the
       // closest fit in this schema for design work rather than authored
@@ -226,7 +213,7 @@ export const MEMBERS = {
         { title: '"Goth: Adivasi Stories from Gujarat" (compiled by Kanji Patel)', venue: 'Bhasha Research and Publication Centre, Vadodara', year: '2017' },
       ],
       interests: [],
-      photo: '',
+      photo: '/images/people/yash.webp',
       email: 'yashdesai94@gmail.com',
       website: '',
       linkedin: '',
