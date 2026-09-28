@@ -803,17 +803,41 @@ export const MEMBERS = {
     },
     {
       id: 'ahaana',
-      name: 'Ahaana',
+      name: 'Ahaana Barua',
       role: 'Intern',
-      joinedYear: '',
-      bio: '',
-      fullBio: '',
-      tags: [],
+      joinedYear: '2026',
+      bio: 'Bachelor of Design student, Centre for Design Studies, Indore — documentary & editorial photographer working independently as ‘Chitra by Ahaana’.',
+      fullBio: [
+        'Ahaana Barua is a third-year Bachelor of Design student at the Centre for Design Studies, Indore, graduating in 2027. Her studies span animation and game design alongside photography, which she also practises independently under the name Chitra by Ahaana. She is drawn to documentary and editorial image-making, and to how photography, motion, and book design can carry narrative together.',
+        'She has completed two book projects. Departure and Arrival is a photobook documenting human presence in Indian transit spaces. Beside the Easel documents the works and life of her father, an artist, and was an exercise in portraiture, archiving, and long-form storytelling. She designed and photographed both.',
+      ],
+      tags: ['Photography', 'Documentary Photography', 'Book Design', 'Animation & Game Design'],
+      // "Research Areas" was left blank in what was given — drawn from the
+      // interests and practice named in her own bio above instead.
+      researchAreas: [
+        'Documentary & Editorial Photography',
+        'Book Design & Narrative',
+        'Animation & Game Design',
+        'Portraiture & Archiving',
+      ],
+      education: [
+        { year: '2023 – 2027', degree: 'Bachelor of Design, Design and Visual Communications', institution: 'Centre for Design Studies (Sri Aurobindo Institute of Technology), Indore' },
+      ],
+      experience: [
+        { role: 'Intern (7th Semester)', org: 'Design Innovation Centre, IIT Hyderabad', duration: 'Aug 2026 – Dec 2026' },
+      ],
+      // "Publications" repurposed for her two completed book/photobook
+      // projects, named and described in her own bio — same pattern
+      // used for Yash's artist-book credits. No dates were given.
+      publications: [
+        { title: 'Departure and Arrival', venue: 'Photobook documenting human presence in Indian transit spaces — designed and photographed by Ahaana Barua' },
+        { title: 'Beside the Easel', venue: 'A study of her father’s (an artist) works and life, through portraiture, archiving, and long-form storytelling — designed and photographed by Ahaana Barua' },
+      ],
       interests: [],
-      photo: '',
-      email: '',
+      photo: '/images/people/ahaana.webp',
+      email: 'baruaahaana04@gmail.com',
       website: '',
-      linkedin: '',
+      linkedin: 'https://www.linkedin.com/in/ahaana-barua',
       scholar: '',
     },
   ],
@@ -1034,10 +1058,33 @@ export const MEMBERS = {
       role: 'PhD Alumnus',
       joinedYear: '2020',
       defenceYear: '2026',
-      bio: 'Supervised by Prof. Deepak John Mathew.',
-      fullBio: 'Krishna Jayeshbhai Trivedi joined the Design Innovation Centre as a PhD scholar in 2020, supervised by Prof. Deepak John Mathew, and defended in 2026. Their research explored indigenous cultural heritage and material culture.',
-      tags: ['Indigenous Cultural Heritage', 'Material Culture'],
-      interests: ['Indigenous Cultural Heritage', 'Material Culture'],
+      bio: 'Visual Artist & Researcher | PhD Scholar, IITH–Swinburne Joint Doctoral Programme, Department of Design, IIT Hyderabad.',
+      fullBio: [
+        'Krishna Jayeshbhai Trivedi is a PhD student, visual artist, and researcher whose practice engages cultural narratives through visual art forms. Their research focus spans indigenous cultural heritage studies, material culture and its museum representations, and folk art practices, aiming to contribute to the preservation and understanding of diverse cultural legacies — with particular interests in visual arts painting, ethnography, documentary photography, and tribal and folk art practices.',
+        'Their PhD is a Joint Doctoral programme between the Department of Design, IIT Hyderabad, and the School of Architecture and Design, Swinburne University of Technology (Melbourne, Australia), supervised by Prof. Deepak John Mathew at IIT Hyderabad and Prof. Flavia Marcello at Swinburne. They hold a Master’s and Bachelor’s degree in Visual Arts (Painting) from The Maharaja Sayajirao University of Baroda.',
+      ],
+      tags: ['Indigenous Cultural Heritage', 'Ethnography', 'Museum Studies', 'Folk Art'],
+      researchAreas: [
+        'Visual Arts / Painting',
+        'Ethnography',
+        'Documentary Photography',
+        'Indigenous Cultural Heritage and Museum Representations',
+        'Cultural Heritage Preservation',
+        'Tribal and Folk Art Practices',
+      ],
+      education: [
+        // LinkedIn's own PhD entries give varying end dates (Aug 2025 on
+        // two, "Present" on a third) — kept consistent with the
+        // defenceYear (2026) already confirmed directly by the user
+        // earlier, rather than any one of those.
+        { year: 'Aug 2020 – 2026', degree: 'PhD, Design (Joint Doctoral Programme)', institution: 'IIT Hyderabad & Swinburne University of Technology, Melbourne' },
+        { year: 'Aug 2013 – May 2015', degree: 'Master’s Degree, Visual Arts — Fine Arts (Painting)', institution: 'The Maharaja Sayajirao University of Baroda' },
+        { year: 'Aug 2009 – May 2013', degree: 'Bachelor’s Degree, Visual Arts — Painting', institution: 'The Maharaja Sayajirao University of Baroda' },
+      ],
+      experience: [
+        { role: 'Researcher, PhD Student', org: 'IIT Hyderabad', duration: 'Aug 2020 – present', desc: 'Research design and qualitative research, as part of the IITH–Swinburne Joint Doctoral Programme.' },
+      ],
+      interests: [],
       photo: '',
       email: 'md20resch11003@iith.ac.in',
       website: '',
@@ -1050,14 +1097,61 @@ export const MEMBERS = {
       role: 'PhD Alumnus',
       joinedYear: '2021',
       defenceYear: '2026',
-      bio: 'Supervised by Prof. Deepak John Mathew.',
-      fullBio: 'Ketan Madan Chaturmutha joined the Design Innovation Centre as a PhD scholar in 2021, supervised by Prof. Deepak John Mathew, and defended in 2026. His research explored transportation, urban air mobility, product semantics, and perception of safety.',
-      tags: ['Transportation', 'Urban Air Mobility', 'Product Semantics', 'Perception of Safety'],
-      interests: ['Transportation', 'Urban Air Mobility', 'Product Semantics', 'Perception of Safety'],
-      photo: '',
+      bio: 'Associate Professor, BITS Design School Mumbai — PMRF PhD Scholar, Department of Design, IIT Hyderabad.',
+      fullBio: [
+        'Ketan Madan Chaturmutha is a design lead with more than 11 years of experience in Industrial Design and User Experience design, with extensive work in consumer electronics for companies including Philips Displays, Videocon Industries, Whirlpool India, Voltup India, Gratus (UAE), Surbhi Satcom, and CASTLE Advance Technologies and Systems. As an educator and mentor, he has spent over 7 years training industrial professionals and college students in Product Design and Furniture Design, and runs NDTS — National Design & Technology Services, a design consultancy in Nashik spanning industrial design, strategic branding, communication design, and furniture design.',
+        'A recipient of the Prime Minister’s Research Fellowship (PMRF), he pursued a practice-based PhD at the Design Innovation Centre, IIT Hyderabad, contributing to the design and development of Urban Air Mobility (UAM) aircraft at TiHAN, supervised by Prof. Deepak John Mathew. He joined the Centre in 2021 and defended in 2026, and is now an Associate Professor at BITS Design School, Mumbai.',
+      ],
+      tags: ['Urban Air Mobility', 'Industrial Design', 'UX Design', 'Autonomous Vehicles'],
+      researchAreas: [
+        'Urban Air Mobility (UAM) Design',
+        'Autonomous Passenger Drone Interior & Cabin UX',
+        'Visual Design & Perception of Safety in Aviation',
+        'Human-Technology Interaction / User Experience Design',
+        'Industrial & Product Design',
+      ],
+      education: [
+        // Education-tab dates on LinkedIn read "2021 – 2024" for the PhD,
+        // but his own Experience entry there gives "Jul 2021 – Mar 2026"
+        // for the PMRF scholarship — kept consistent with the defenceYear
+        // (2026) already confirmed directly by the user earlier, rather
+        // than the likely-stale Education-tab end date.
+        { year: '2021 – 2026', degree: 'PhD (Practice-based), Autonomous Vehicle / Urban Air Mobility Design', institution: 'IIT Hyderabad' },
+        { year: '2008 – 2010', degree: 'M.Des, Industrial Design', institution: 'Indian Institute of Technology, Guwahati' },
+        { year: '2004 – 2008', degree: 'Bachelor of Design (B.Des.), Product Design', institution: 'Savitribai Phule Pune University' },
+      ],
+      experience: [
+        { role: 'Associate Professor', org: 'BITS Design School, Mumbai', duration: 'Mar 2026 – present' },
+        { role: 'PMRF PhD Scholar', org: 'IIT Hyderabad', duration: 'Jul 2021 – Mar 2026', desc: 'Contributed to the design and development of Urban Air Mobility (UAM) aircraft.' },
+        { role: 'Creative Head', org: 'NDTS — National Design & Technology Services, Nashik', duration: 'Jan 2012 – Mar 2026', desc: 'Design consultancy spanning industrial design, strategic branding, communication design, and furniture design — including a solar cooker for Vinodrai Industries, an automated toilet for SS Enterprises, a bio-composter for Mantras Green Resources, an STP/ETP for SAM Consultech, a construction helmet for the National Innovation Foundation, and a biogas stove for ARTI.' },
+        { role: 'Design Educator', org: 'Savitribai Phule Pune University — MVP College of Architecture & Center for Design, Nashik', duration: 'Nov 2014 – Jul 2021', desc: 'Lead Instructor for the Product Design (B.Des.) certification programme and the Computer Aided Product Design & Development course under DIC Nashik (a Pune-University-affiliated spoke centre funded by MHRD).' },
+        { role: 'Industrial Designer, Assistant Manager', org: 'Videocon Industries Limited, Aurangabad', duration: '2010 – 2012', desc: 'Designed products for Philips (PE Electronics, India) and Videocon, including LCD/LED TVs, TV remotes and GUIs, a washing machine, a refrigerator, and stabilizers.' },
+        { role: 'Associate Designer', org: 'R&D, Indian Institute of Technology, Guwahati', duration: 'Aug 2009 – Aug 2010', desc: 'Worked on a project for the Indian Army.' },
+        { role: 'Industrial Designer (Internship)', org: 'Whirlpool Asia’s Global Consumer Design Studio, Gurugram', duration: 'May – Jul 2009' },
+        { role: 'Product Designer', org: 'Appropriate Rural Technology Institute (ARTI), Pune', duration: 'Dec 2007 – Mar 2008', desc: 'Design and development of a biogas stove.' },
+        { role: 'Industrial Designer (Internship)', org: 'Videocon Industries Limited, Aurangabad', duration: 'May – Sep 2007' },
+        { role: 'Product Designer (part-time)', org: 'M.S. Group, manufacturers of kitchen products and kitchen trolleys', duration: '2005 – 2006' },
+      ],
+      achievements: [
+        'Prime Minister’s Research Fellowship (PMRF), issued by the Ministry of Human Resource Development (MHRD), Government of India (Jul 2022)',
+        '2nd Position, ADC’10 — Automotive Design Challenge by SIAM (Society of Indian Automobile Manufacturers); scaled concepts presented at Auto Expo 2010, Delhi (Jan 2010)',
+      ],
+      publications: [
+        { title: 'Expanding Urban Air Mobility: A Proposal for Dual Landing Capabilities on Water Surfaces', venue: 'Springer, Singapore', year: 2025 },
+        { title: 'Immersive Learning in Indian Schools: Exploring Approaches to Education Using AR/VR', venue: 'Springer, Singapore', year: 2025 },
+        { title: 'A Visual Design Analysis of Urban Air Mobility for Indian Users', venue: 'Springer, Singapore', year: 2023 },
+        { title: 'Study and Evaluation of User Interaction and User Experience Design for the Development of a Fully Autonomous Passenger Drone Interior Cabin for India', venue: 'Springer, Singapore', year: 2023 },
+        { title: 'Factors Influencing the Exterior Design of Autonomous Passenger Drones: Literature Review', venue: 'Cambridge University Press', year: 2022 },
+        // Cross-referenced from Harikrishna Manoj's profile (not in the
+        // LinkedIn export above, likely because it postdates it) — Ketan
+        // is a credited co-author on this one.
+        { title: 'Integrating AI in Design: Exploratory Curriculum of Generative AI as a Design Thinking Course', venue: '20th International Conference on Design Principles & Practices, Sapienza University of Rome, Italy (with Deepak John Mathew & Harikrishna Manoj)', year: 2026 },
+      ],
+      interests: [],
+      photo: '/images/people/ketan.webp',
       email: 'md21resch11005@iith.ac.in',
       website: '',
-      linkedin: 'https://www.linkedin.com/in/ketanchaturmutha',
+      linkedin: 'https://www.linkedin.com/in/ketanchaturmutha/',
       scholar: '',
     },
   ],
