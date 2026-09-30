@@ -59,6 +59,10 @@ export const RESEARCH_PROJECTS = [
   },
   {
     slug: 'design-skill-tree-visualisation-tool',
+    // Parked, not deleted — taken off the Research listing (and out of
+    // search) at the user's request; the entry stays intact here so it
+    // can be brought back by removing this flag.
+    hidden: true,
     title: 'Designing the Design Skill Tree: Visualisation Tool for the Design Curriculum in India',
     domain: 'Design Education',
     tagline: 'Adapting the game-design "skill tree" into a visualisation tool for mapping and personalising design curricula in India.',
@@ -188,6 +192,10 @@ export const RESEARCH_PROJECTS = [
   },
   {
     slug: 'dhoolpet-idol-makers-craft-identity',
+    // Parked, not deleted — taken off the Research listing (and out of
+    // search) at the user's request; the entry stays intact here so it
+    // can be brought back by removing this flag.
+    hidden: true,
     title: 'Rethinking Craft Identity through the Case of Dhoolpet Idol Makers in Hyderabad',
     domain: 'Craft & Material Culture',
     tagline: 'Is idol-making in Dhoolpet a traditional craft or a survival-driven practice? A qualitative study of Hyderabad’s idol-making artisans.',

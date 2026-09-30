@@ -1,0 +1,6 @@
+.particle-animation {
+  position: absolute;
+  inset: 0;
+  display: block;
+  pointer-events: none;
+}

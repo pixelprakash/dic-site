@@ -545,7 +545,7 @@ export const SEARCH_INDEX = [
     category: "Project",
   })),
 
-  ...RESEARCH_PROJECTS.map((r) => ({
+  ...RESEARCH_PROJECTS.filter((r) => !r.hidden).map((r) => ({
     id: `research-project-${r.slug}`,
     title: r.title,
     desc: r.tagline,

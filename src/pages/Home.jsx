@@ -1,9 +1,18 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+// `Link` is only used inside the parked "under construction" nav pills below —
+// re-add this import if that block is restored.
+// import { Link } from 'react-router-dom';
 import GondMuseumModal from '../components/GondMuseumModal';
 import Testimonials from '../components/Testimonials';
+import ParticleAnimation from '../components/ParticleAnimation';
 import { COLLABORATORS } from '../data/siteData';
 import '../styles/Home.css';
+
+// DIC's own brand palette (see variables.css) — the wordmark's red/blue,
+// plus the warm terracotta/orange accents used across the rest of the
+// site, rather than the generic yellow/purple/pink demo palette on
+// 21st.dev's own preview of this component.
+const HERO_PARTICLE_COLORS = ['#F0301B', '#EF7621', '#D4906B', '#2F3192'];
 
 // Reuses the same COLLABORATORS data (and logo files) as the parked
 // Collaborators.jsx below, but with its own light-background styling —
@@ -85,7 +94,16 @@ export default function Home() {
   return (
     <>
       <section className="home-construction">
-        <div className="home-construction__inner">
+        <ParticleAnimation colors={HERO_PARTICLE_COLORS} particleCount={260} />
+        {/* Big centered wordmark sitting over the particle field, same
+            "giant text over the canvas" treatment as the 21st.dev demo's
+            own "Time Travell" span — a faint watermark behind the real
+            content rather than competing with it for the same space. */}
+        <span className="home-construction__watermark" aria-hidden="true">Design Innovation Centre</span>
+        {/* "Under construction" copy + nav pills — parked for now, not
+            deleted. Un-comment to bring back the glass panel with the
+            eyebrow/heading/body/nav links over the particle hero. */}
+        {/* <div className="home-construction__inner">
           <p className="home-construction__eyebrow">Design Innovation Centre · IIT Hyderabad</p>
           <h1 className="home-construction__title">This page is under construction</h1>
           <p className="home-construction__body">
@@ -99,7 +117,7 @@ export default function Home() {
             <Link to="/education">Education</Link>
             <Link to="/contact">Contact</Link>
           </nav>
-        </div>
+        </div> */}
       </section>
 
       <CollaboratorsSection />

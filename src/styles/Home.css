@@ -3,6 +3,7 @@
    brand: same ink ground and Zilla Slab heading as the site's other
    page headers. */
 .home-construction {
+  position: relative;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -10,10 +11,46 @@
   padding: 160px var(--page-gutter) 120px;
   background: var(--color-ink);
   color: var(--color-white);
+  overflow: hidden;
 }
 
+/* Bold solid-white wordmark the particle burst radiates out from/around —
+   matching the 21st.dev reference's centered "Time Travell" treatment.
+   Sits above the canvas but below the real heading/body copy, which has
+   its own dark-glass backdrop (below) so the two never fight for
+   legibility even though they occupy the same centered flex box. */
+.home-construction__watermark {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--page-gutter);
+  text-align: center;
+  font-family: var(--font-heading);
+  font-style: normal;
+  font-weight: 800;
+  font-size: clamp(2rem, 6vw, 5.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--color-white);
+  white-space: normal;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Dark glass backdrop so the real heading/body text stays legible sitting
+   over both the bold watermark and the particle canvas behind it. */
 .home-construction__inner {
+  position: relative;
+  z-index: 1;
   max-width: 46ch;
+  padding: 40px 44px;
+  border-radius: var(--border-radius);
+  background: rgba(20, 18, 15, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
 .home-construction__eyebrow {
@@ -68,6 +105,10 @@
 @media (max-width: 768px) {
   .home-construction {
     padding: 128px var(--page-gutter) 96px;
+  }
+
+  .home-construction__inner {
+    padding: 28px 24px;
   }
 }
 

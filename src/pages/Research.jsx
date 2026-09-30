@@ -81,7 +81,7 @@ export default function Research() {
           their own posters. Each links through to a full detail page. */}
       <section className={`research-projects reveal ${rpVis ? 'visible' : ''}`} ref={rpRef}>
         <h2 className="section-title">Research projects &amp; publications</h2>
-        {RESEARCH_PROJECTS.map((r) => (
+        {RESEARCH_PROJECTS.filter((r) => !r.hidden).map((r) => (
           <ProjectCard key={r.slug} project={r} basePath="/research" ctaLabel="View Research" />
         ))}
       </section>
