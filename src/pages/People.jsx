@@ -29,7 +29,6 @@ export default function People() {
   const [offset, setOffset] = useState(160);
   const [activeId, setActiveId] = useState(MEMBER_CATEGORIES[0].id);
   const [revealedIds, setRevealedIds] = useState(() => new Set());
-  const total = MEMBER_CATEGORIES.reduce((n, c) => n + (MEMBERS[c.id] || []).length, 0);
 
   // Sticky header sits directly under the navbar, and each section needs to
   // stop scrolling right where the sticky header's bottom edge is — both
@@ -138,8 +137,7 @@ export default function People() {
         <p className="people-intro__eyebrow">Design Innovation Centre · IIT Hyderabad</p>
         <h1 className="people-intro__title">Members of DIC</h1>
         <p className="people-intro__lede">
-          The faculty, researchers, designers and students of the Centre
-          {total > 0 && <> — {total} people across {MEMBER_CATEGORIES.length} groups</>}.
+          The faculty, researchers, designers and students of the Centre.
         </p>
       </header>
 
@@ -153,7 +151,6 @@ export default function People() {
               aria-current={activeId === c.id ? 'true' : undefined}
             >
               {c.label}
-              <span className="people-tag__count" aria-hidden="true">{(MEMBERS[c.id] || []).length}</span>
             </a>
           ))}
         </nav>
@@ -170,10 +167,7 @@ export default function People() {
               className={`people-section reveal ${revealed ? 'visible' : ''}`}
               style={{ scrollMarginTop: offset }}
             >
-              <h2 className="people-section__title">
-                {c.label}
-                {members.length > 0 && <span className="people-section__count">{members.length}</span>}
-              </h2>
+              <h2 className="people-section__title">{c.label}</h2>
               {members.length === 1 ? (
                 <MemberSpotlight member={members[0]} />
               ) : members.length > 0 ? (
@@ -189,9 +183,9 @@ export default function People() {
                     </div>
                   ))
                 ) : (
-                  <div className={`people-grid reveal-stagger ${c.id === 'past-members' ? 'people-grid--compact' : ''} ${revealed ? 'visible' : ''}`}>
+                  <div className={`people-grid reveal-stagger ${revealed ? 'visible' : ''}`}>
                     {members.map((m) => (
-                      <MemberCard key={m.id} member={m} variant={c.id === 'past-members' ? 'compact' : 'card'} />
+                      <MemberCard key={m.id} member={m} />
                     ))}
                   </div>
                 )
