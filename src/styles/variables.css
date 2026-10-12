@@ -1,5 +1,7 @@
 /* ─── DIC Design System ─── */
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap');
+/* Fonts (DM Sans body, Zilla Slab headings) are loaded by <link> tags in
+   index.html — an @import here made the browser fetch the CSS, then discover
+   the font stylesheet, then the font files, one after another. */
 /* Heading font — Zilla Slab (Typotheque, commissioned by Mozilla), a
    contemporary slab serif. Replaced Erode after a live trial on the
    Projects page: it keeps headings in the serif family that suits the
@@ -8,7 +10,6 @@
    sit well against DM Sans's humanist sans forms, with the 600 heading
    weight carrying the contrast against the 400/500 body weights.
    Weights 400/500/600/700, no italics (headings never render italic). */
-@import url('https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;500;600;700&display=swap');
 
 :root {
   /* Base size — a modest bump over the browser default (16px → 17px) so

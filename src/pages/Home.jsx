@@ -96,7 +96,7 @@ export default function Home() {
   return (
     <>
       <section className="home-construction">
-        <ParticleAnimation colors={HERO_PARTICLE_COLORS} particleCount={260} />
+        <ParticleAnimation colors={HERO_PARTICLE_COLORS} particleCount={160} />
         {/* Big centered wordmark sitting over the particle field, same
             "giant text over the canvas" treatment as the 21st.dev demo's
             own "Time Travell" span — a faint watermark behind the real

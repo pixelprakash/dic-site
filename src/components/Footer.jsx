@@ -114,10 +114,10 @@ const ICONS = {
 //     that navy out pixel-by-pixel (by distance from the navy colour)
 //     before recolouring what's left to black.
 const FOOTER_LOGOS = [
-  { key: 'dic-nodal', src: '/images/dic-nodal-mono.png', alt: 'DIC Nodal' },
-  { key: 'ministry-of-education', src: '/images/ministry-of-education-crop.png', alt: 'Ministry of Education, Government of India', href: 'https://www.education.gov.in' },
-  { key: 'design-dept', src: '/images/design-dept-mono.png', alt: 'Department of Design, IIT Hyderabad', href: 'https://design.iith.ac.in' },
-  { key: 'iith', src: '/images/iith-crop.png', alt: 'Indian Institute of Technology Hyderabad', href: 'https://www.iith.ac.in' },
+  { key: 'dic-nodal', src: '/images/dic-nodal-mono.webp', alt: 'DIC Nodal' },
+  { key: 'ministry-of-education', src: '/images/ministry-of-education-crop.webp', alt: 'Ministry of Education, Government of India', href: 'https://www.education.gov.in' },
+  { key: 'design-dept', src: '/images/design-dept-mono.webp', alt: 'Department of Design, IIT Hyderabad', href: 'https://design.iith.ac.in' },
+  { key: 'iith', src: '/images/iith-crop.webp', alt: 'Indian Institute of Technology Hyderabad', href: 'https://www.iith.ac.in' },
 ];
 
 const CONTACT_GROUPS = [
@@ -218,6 +218,8 @@ export default function Footer() {
                       src={logo.src}
                       alt={logo.alt}
                       className="footer__logo-item"
+                      loading="lazy"
+                      decoding="async"
                       onError={(e) => { e.currentTarget.closest('.footer__logo-chip').style.display = 'none'; }}
                     />
                   );

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { buildSearchIndex } from '../data/siteData';
+import { SEARCH_INDEX, buildSearchIndex } from '../data/siteData';
 import { useMembers, useProjects, useResearchProjects, useBlogPosts, useConferences, useNodalEvents, useNodalCentres, useFeed } from '../lib/cms';
 import '../styles/SearchBar.css';
 
@@ -17,14 +17,9 @@ function highlight(text, query) {
   );
 }
 
-export default function SearchBar() {
-  const [open, setOpen] = useState(false);
-  const [query, setQuery] = useState('');
-  const [activeIndex, setActiveIndex] = useState(-1);
-  const wrapperRef = useRef(null);
-  const inputRef = useRef(null);
-  const navigate = useNavigate();
-  const location = useLocation();
+// Mounted only while the search box is open, so the site's content (people,
+// projects, news...) isn't downloaded for visitors who never search.
+function SearchIndexLoader({ onReady }) {
   const { members } = useMembers();
   const { projects } = useProjects();
   const { researchProjects } = useResearchProjects();
@@ -34,10 +29,24 @@ export default function SearchBar() {
   const { centres } = useNodalCentres();
   const { data: feed } = useFeed();
 
-  const searchIndex = useMemo(
-    () => buildSearchIndex({ members, projects, researchProjects, blogs, conferences, centres, events, feed }),
-    [members, projects, researchProjects, blogs, conferences, centres, events, feed],
-  );
+  useEffect(() => {
+    onReady(buildSearchIndex({ members, projects, researchProjects, blogs, conferences, centres, events, feed }));
+  }, [members, projects, researchProjects, blogs, conferences, centres, events, feed, onReady]);
+  return null;
+}
+
+export default function SearchBar() {
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState('');
+  const [activeIndex, setActiveIndex] = useState(-1);
+  const wrapperRef = useRef(null);
+  const inputRef = useRef(null);
+  const navigate = useNavigate();
+  const location = useLocation();
+  // Live content is only fetched once the search box is actually opened;
+  // until then (and if the CMS is slow) the built-in index is used.
+  const [liveIndex, setLiveIndex] = useState(null);
+  const searchIndex = liveIndex || SEARCH_INDEX;
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -120,6 +129,7 @@ export default function SearchBar() {
 
   return (
     <div className={`search ${open ? 'search--open' : ''}`} ref={wrapperRef}>
+      {open && <SearchIndexLoader onReady={setLiveIndex} />}
       <button
         type="button"
         className="search__toggle"

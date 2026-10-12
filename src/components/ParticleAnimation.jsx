@@ -18,7 +18,7 @@ import '../styles/ParticleAnimation.css'
 // by whoever renders this rather than hardcoded here.
 export default function ParticleAnimation({
   colors = ['#F0301B', '#EF7621', '#D4906B', '#2F3192'],
-  particleCount = 220,
+  particleCount = 160,
   className = '',
 }) {
   const canvasRef = useRef(null)
@@ -35,7 +35,9 @@ export default function ParticleAnimation({
     let cx = 0
     let cy = 0
     let maxDist = 0
-    const dpr = Math.min(window.devicePixelRatio || 1, 2)
+    // Capped at 1.5: at 2x the canvas is 4x the pixels of 1x for thin streaks
+    // that look the same, and this is what each frame has to repaint.
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5)
 
     const resize = () => {
       width = container.clientWidth
@@ -43,11 +45,12 @@ export default function ParticleAnimation({
       cx = width / 2
       cy = height / 2
       maxDist = Math.hypot(cx, cy) * 1.15 // a little past the corners, so streaks clear the edges before resetting
-      canvas.width = width * dpr
-      canvas.height = height * dpr
+      canvas.width = Math.round(width * dpr)
+      canvas.height = Math.round(height * dpr)
       canvas.style.width = `${width}px`
       canvas.style.height = `${height}px`
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+      ctx.lineCap = 'round'
     }
     resize()
     window.addEventListener('resize', resize)
@@ -66,41 +69,41 @@ export default function ParticleAnimation({
       dist: rand(2, maxDist * 0.15), // staggered starting distance so the burst doesn't pulse in sync
       speed: rand(0.35, 0.9), // growth rate exponent
       color: pickColor(),
-      width: rand(1.4, 3), // thick enough to read as a glowing streak, not a hairline
+      width: rand(1.4, 3),
     })
 
     const particles = Array.from({ length: particleCount }, makeParticle)
 
+    // Streaks are drawn in two passes — a wide, faint stroke (the glow) and a
+    // thin, bright one (the core). The glow used to be ctx.shadowBlur, which is
+    // a per-stroke Gaussian blur and by far the slowest thing the canvas can
+    // do (hundreds per frame); two plain strokes look the same and cost a
+    // fraction of it.
     const drawFrame = (dt) => {
       ctx.clearRect(0, 0, width, height)
-      ctx.lineCap = 'round'
-      for (const p of particles) {
-        if (dt !== null) {
-          p.dist += p.dist * p.speed * (dt / 1000) + 0.4
-          if (p.dist > maxDist) Object.assign(p, makeParticle())
+      for (const pass of [0, 1]) {
+        for (const p of particles) {
+          if (pass === 0 && dt !== null) {
+            p.dist += p.dist * p.speed * (dt / 1000) + 0.4
+            if (p.dist > maxDist) Object.assign(p, makeParticle())
+          }
+
+          const cos = Math.cos(p.angle)
+          const sin = Math.sin(p.angle)
+          // Trail length scales with distance-from-center too, so it reads
+          // as acceleration blur rather than a fixed-length dash.
+          const trail = Math.min(p.dist * 0.6, 140)
+          const fade = Math.min(1, p.dist / (maxDist * 0.2)) // fades in from the very center instead of popping in at full strength
+
+          ctx.beginPath()
+          ctx.strokeStyle = p.color
+          ctx.lineWidth = pass === 0 ? p.width * 3 : p.width
+          ctx.globalAlpha = pass === 0 ? fade * 0.16 : fade
+          ctx.moveTo(cx + cos * (p.dist - trail), cy + sin * (p.dist - trail))
+          ctx.lineTo(cx + cos * p.dist, cy + sin * p.dist)
+          ctx.stroke()
         }
-
-        const cos = Math.cos(p.angle)
-        const sin = Math.sin(p.angle)
-        // Trail length scales with distance-from-center too, so it reads
-        // as acceleration blur rather than a fixed-length dash.
-        const trail = Math.min(p.dist * 0.6, 140)
-        const x1 = cx + cos * (p.dist - trail)
-        const y1 = cy + sin * (p.dist - trail)
-        const x2 = cx + cos * p.dist
-        const y2 = cy + sin * p.dist
-
-        ctx.beginPath()
-        ctx.strokeStyle = p.color
-        ctx.shadowColor = p.color
-        ctx.shadowBlur = 8
-        ctx.lineWidth = p.width
-        ctx.globalAlpha = Math.min(1, p.dist / (maxDist * 0.2)) // fades in from the very center instead of popping in at full strength
-        ctx.moveTo(x1, y1)
-        ctx.lineTo(x2, y2)
-        ctx.stroke()
       }
-      ctx.shadowBlur = 0
       ctx.globalAlpha = 1
     }
 
@@ -109,18 +112,41 @@ export default function ParticleAnimation({
       return () => window.removeEventListener('resize', resize)
     }
 
-    let lastTime = performance.now()
-    let frameId
+    // Only animate while the hero is actually on screen and the tab is
+    // visible — scrolled past it, nothing is repainting a full-viewport canvas
+    // for no one.
+    let frameId = 0
+    let lastTime = 0
+    let onScreen = true
     const tick = (now) => {
       const dt = Math.min(now - lastTime, 100)
       lastTime = now
       drawFrame(dt)
       frameId = requestAnimationFrame(tick)
     }
-    frameId = requestAnimationFrame(tick)
+    const start = () => {
+      if (frameId || !onScreen || document.hidden) return
+      lastTime = performance.now()
+      frameId = requestAnimationFrame(tick)
+    }
+    const stop = () => {
+      cancelAnimationFrame(frameId)
+      frameId = 0
+    }
+    const observer = new IntersectionObserver(([entry]) => {
+      onScreen = entry.isIntersecting
+      if (onScreen) start()
+      else stop()
+    })
+    observer.observe(container)
+    const onVisibility = () => (document.hidden ? stop() : start())
+    document.addEventListener('visibilitychange', onVisibility)
+    start()
 
     return () => {
-      cancelAnimationFrame(frameId)
+      stop()
+      observer.disconnect()
+      document.removeEventListener('visibilitychange', onVisibility)
       window.removeEventListener('resize', resize)
     }
   }, [colors, particleCount])

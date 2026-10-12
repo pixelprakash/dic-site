@@ -40,6 +40,30 @@ const WikiThesisBlog = lazy(() => import('./pages/WikiThesisBlog'));
 const NaturalIntelligenceBlog = lazy(() => import('./pages/NaturalIntelligenceBlog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 
+// Once the first page has loaded and the browser is idle, quietly fetch the
+// main sections' code, so clicking through the navbar swaps pages instantly
+// instead of showing the loader while each one downloads.
+const PREFETCH = [
+  () => import('./pages/People'),
+  () => import('./pages/Research'),
+  () => import('./pages/Projects'),
+  () => import('./pages/Education'),
+  () => import('./pages/Nodal'),
+  () => import('./pages/News'),
+  () => import('./pages/Contact'),
+];
+function usePrefetchRoutes() {
+  useEffect(() => {
+    const run = () => PREFETCH.forEach((load) => load().catch(() => {}));
+    if ('requestIdleCallback' in window) {
+      const id = window.requestIdleCallback(run, { timeout: 4000 });
+      return () => window.cancelIdleCallback(id);
+    }
+    const id = setTimeout(run, 2500);
+    return () => clearTimeout(id);
+  }, []);
+}
+
 const DEFAULT_TITLE = 'DIC · IITH — Design Innovation Centre, IIT Hyderabad';
 
 // Every page's tab title is derived from its own navbar label — People,
@@ -72,24 +96,35 @@ const NEWS_PREFIX = '/news/';
    DIC · IITH or DIC Nodal — is currently on screen. A person's profile
    page gets its own name in the title (for sharing/bookmarking), looked
    up from the same slug the route and the card link use. */
-function DocumentTitle() {
-  const location = useLocation();
+// Each route type is its own component so a page only asks the CMS for what
+// its title needs — a person's profile loads people, a news post loads news,
+// everything else loads nothing.
+function PersonTitle({ slug }) {
   const { all: members } = useMembers();
+  useEffect(() => {
+    const member = members.find((m) => m.id === slug && !m.placeholder);
+    document.title = member ? `${member.name} — DIC · IITH` : PAGE_TITLES['/people'];
+  }, [members, slug]);
+  return null;
+}
+
+function NewsTitle({ slug }) {
   const { data: feed } = useFeed();
   useEffect(() => {
-    if (location.pathname.startsWith(PEOPLE_PREFIX)) {
-      const slug = location.pathname.slice(PEOPLE_PREFIX.length);
-      const member = members.find((m) => m.id === slug && !m.placeholder);
-      document.title = member ? `${member.name} — DIC · IITH` : PAGE_TITLES['/people'];
-      return;
-    }
-    if (location.pathname.startsWith(NEWS_PREFIX)) {
-      const post = feed.find((p) => p.slug === location.pathname.slice(NEWS_PREFIX.length));
-      document.title = post ? `${post.title || post.text.split('\n')[0]} — DIC · IITH` : PAGE_TITLES['/news'];
-      return;
-    }
-    document.title = PAGE_TITLES[location.pathname] || DEFAULT_TITLE;
-  }, [location.pathname, members, feed]);
+    const post = feed.find((p) => p.slug === slug);
+    document.title = post ? `${post.title || post.text.split('\n')[0]} — DIC · IITH` : PAGE_TITLES['/news'];
+  }, [feed, slug]);
+  return null;
+}
+
+function DocumentTitle() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    if (pathname.startsWith(PEOPLE_PREFIX) || pathname.startsWith(NEWS_PREFIX)) return;
+    document.title = PAGE_TITLES[pathname] || DEFAULT_TITLE;
+  }, [pathname]);
+  if (pathname.startsWith(PEOPLE_PREFIX)) return <PersonTitle slug={pathname.slice(PEOPLE_PREFIX.length)} />;
+  if (pathname.startsWith(NEWS_PREFIX)) return <NewsTitle slug={pathname.slice(NEWS_PREFIX.length)} />;
   return null;
 }
 
@@ -105,6 +140,7 @@ function Loader() {
 }
 
 export default function App() {
+  usePrefetchRoutes();
   return (
     <BrowserRouter>
       <DocumentTitle />
