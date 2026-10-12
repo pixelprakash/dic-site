@@ -23,7 +23,7 @@ export default function NewsSection() {
   const cover = lead.images[0];
 
   return (
-    <section className="ns" aria-labelledby="ns-heading">
+    <section className="ns" id="home-news" aria-labelledby="ns-heading">
       <div className="ns-head">
         <div>
           <h2 className="ns-heading" id="ns-heading">News &amp; Updates</h2>

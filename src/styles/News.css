@@ -38,7 +38,7 @@
 .ns {
   max-width: var(--content-max);
   margin: 0 auto;
-  padding: 88px var(--margin-x) 0;
+  padding: var(--home-section-gap, 88px) var(--margin-x) 0;
 }
 .ns-head {
   display: flex;
@@ -359,7 +359,6 @@
   .np-aside { position: static; }
 }
 @media (max-width: 680px) {
-  .ns { padding-top: 64px; }
   .ns-head { flex-direction: column; align-items: flex-start; gap: 12px; }
   .nw-grid { grid-template-columns: 1fr; }
   .nw-cell--lead { grid-column: auto; }

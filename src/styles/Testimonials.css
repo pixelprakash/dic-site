@@ -49,8 +49,8 @@
 }
 
 .testimonials__card blockquote p {
-  font-size: clamp(1.15rem, 2vw, 1.6rem);
-  line-height: 1.55;
+  font-size: clamp(1.02rem, 0.8rem + 1.1vw, 1.55rem);
+  line-height: 1.6;
   color: var(--color-ink);
   max-width: 62ch;
 }

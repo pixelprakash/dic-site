@@ -1,7 +1,5 @@
 import { useState } from 'react';
-// `Link` is only used inside the parked "under construction" nav pills below —
-// re-add this import if that block is restored.
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import GondMuseumModal from '../components/GondMuseumModal';
 import Testimonials from '../components/Testimonials';
 import ParticleAnimation from '../components/ParticleAnimation';
@@ -23,8 +21,8 @@ const HERO_PARTICLE_COLORS = ['#F0301B', '#EF7621', '#D4906B', '#2F3192'];
 function CollaboratorsSection() {
   const collaborators = useCollaborators();
   return (
-    <section className="home-collaborators" aria-label="Collaborators">
-      <p className="home-collaborators__label">Collaborators</p>
+    <section className="home-collaborators" aria-labelledby="collaborators-heading">
+      <h2 className="home-heading" id="collaborators-heading">Collaborators</h2>
       <div className="home-collaborators__grid">
         {collaborators.map((c) => (
           <div className="home-collaborators__tile" key={c.id} title={c.name}>
@@ -61,14 +59,16 @@ function GondMuseumSection() {
   const [open, setOpen] = useState(false);
 
   return (
-    <section className="home-gond" aria-label="Gond Virtual Museum">
-      <p className="home-gond__eyebrow">New · WebXR preview</p>
-      <h2 className="home-gond__title">Step into the Gond Virtual Museum</h2>
-      <p className="home-gond__body">
-        A room of Gond folk art — tiger, horse, bird, and dancer motifs rendered as a walkable
-        3D diorama — rebuilt from DIC&rsquo;s original Oculus experience for the browser. Look
-        around on desktop, or put on a headset and use Enter&nbsp;VR for the full experience.
-      </p>
+    <section className="home-gond" aria-labelledby="gond-heading">
+      <div className="home-gond__copy">
+        <p className="home-gond__eyebrow">New · WebXR preview</p>
+        <h2 className="home-heading" id="gond-heading">Step into the Gond Virtual Museum</h2>
+        <p className="home-gond__body">
+          A room of Gond folk art — tiger, horse, bird, and dancer motifs rendered as a walkable
+          3D diorama — rebuilt from DIC&rsquo;s original Oculus experience for the browser. Look
+          around on desktop, or put on a headset and use Enter&nbsp;VR for the full experience.
+        </p>
+      </div>
 
       <button
         type="button"
@@ -97,11 +97,21 @@ export default function Home() {
     <>
       <section className="home-construction">
         <ParticleAnimation colors={HERO_PARTICLE_COLORS} particleCount={160} />
-        {/* Big centered wordmark sitting over the particle field, same
-            "giant text over the canvas" treatment as the 21st.dev demo's
-            own "Time Travell" span — a faint watermark behind the real
-            content rather than competing with it for the same space. */}
-        <span className="home-construction__watermark" aria-hidden="true">Design Innovation Centre</span>
+        <div className="home-hero">
+          <p className="home-hero__eyebrow">IIT Hyderabad</p>
+          <h1 className="home-hero__title">Design Innovation Centre</h1>
+          <p className="home-hero__sub">
+            Interdisciplinary design research across cultural heritage, autonomous mobility,
+            immersive education, and sustainable innovation.
+          </p>
+          <div className="home-hero__actions">
+            <Link className="home-hero__btn home-hero__btn--primary" to="/research">Explore our research</Link>
+            <Link className="home-hero__btn" to="/people">Meet the team</Link>
+          </div>
+        </div>
+        <a className="home-hero__scroll" href="#home-news" aria-label="Scroll to News and Updates">
+          <span aria-hidden="true" />
+        </a>
         {/* "Under construction" copy + nav pills — parked for now, not
             deleted. Un-comment to bring back the glass panel with the
             eyebrow/heading/body/nav links over the particle hero. */}
