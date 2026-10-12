@@ -164,6 +164,19 @@ COLLABORATORS.forEach((c, i) => {
   docs.push(clean({_id: `collaborator-${c.id}`, _type: 'collaborator', name: c.name, logo: image(c.logo), order: i + 1}))
 })
 
+// `--only member-<slug> [more ids]` writes just those documents to
+// seed/partial.ndjson, so one new profile can be pushed without --replace-ing
+// (and so overwriting any Studio edits to) everything else.
+const onlyAt = process.argv.indexOf('--only')
+if (onlyAt !== -1) {
+  const ids = process.argv.slice(onlyAt + 1)
+  const picked = docs.filter((d) => ids.includes(d._id))
+  writeFileSync(join(HERE, '..', 'seed', 'partial.ndjson'), picked.map((d) => JSON.stringify(d)).join('\n') + '\n')
+  console.log(`Wrote ${picked.length} of ${ids.length} requested documents to seed/partial.ndjson`)
+  if (missing.length) console.warn('Images referenced but not found in public/ (skipped):', missing)
+  process.exit(0)
+}
+
 const out = join(HERE, '..', 'seed', 'content.ndjson')
 writeFileSync(out, docs.map((d) => JSON.stringify(d)).join('\n') + '\n')
 const counts = docs.reduce((a, d) => ({...a, [d._type]: (a[d._type] || 0) + 1}), {})
