@@ -507,15 +507,15 @@ export const MEMBERS = {
       joinedYear: '2024',
       bio: 'PhD Scholar in Art and Design Education at IIT Hyderabad — a 20+ year user experience specialist and sculptor bridging design research, education, and craft.',
       fullBio: [
-        'Malthurkar Ganesh Kumar joined the Design Innovation Centre as a PhD scholar in January 2024, supervised by Prof. Deepak John Mathew. His research explores art and design education, and STEM and STEAM education in Indian schools.',
-        'Before returning to academia, he spent over 20 years as a user experience specialist, working across ethnographic research, strategic design, information architecture, and usability testing for organisations including Boeing, Nike, Adidas, Carrier, Infosys, and Honeywell — most recently as Senior User Experience Consultant and User Experience Architect at Infosys. He holds 4 innovation patents in human-centered design and is a Certified Usability Analyst (Human Factors International).',
-        'He is also a practicing sculptor known as "Gannu", co-founder and VP of the Telangana Sculptors and Artists Association (TSAA), founder of InnoMission (bridging academia, industry, and government), and creator of ABCD (AnyBody Can Draw™) — an initiative making art accessible to everyone.',
+        "Malthurkar Ganesh Kumar's doctoral research examines assessment practices in art and design education in Indian schools. It looks at how these practices can align with STEAM and STEM education and support the development of 21st-century skills.",
+        'Ganesh built more than two decades of professional experience in user experience design. He has worked across advertising agencies, design studios, corporate teams, IT services firms, and product companies. His project portfolio includes work with Fortune 500 global organisations such as Infosys, WongDoody, Boeing, Nike, Adidas, Carrier, and Honeywell. It spans enterprise, banking, e-commerce, utilities, manufacturing, agriculture, and fire and security. His expertise covers UX research, AI-enabled design, strategic design and innovation, design thinking, UI design, visual storytelling, and design education. He holds four utility patents and one granted US patent.',
+        'Alongside his research and design practice, Ganesh is a professional sculptor working under the art name "Gannu". He has participated in national-level exhibitions and competitions. He is co-founder and Vice President of the Telangana Sculptors and Artists Association (TSAA) and President of the ADI Hyderabad chapter. He also founded InnoMission, an initiative that connects academia, industry, and government to make art accessible to everyone.',
       ],
       tags: ['Art & Design Education', 'User Experience Design', 'STEM/STEAM Education', 'Sculpture'],
       researchAreas: [
         'Art and Design Education',
-        'STEM Education in Indian Schools',
-        'STEAM Education in Indian Schools',
+        'AI-enabled Design',
+        'STEM and STEAM Education in Indian Schools',
         'User Experience & Human-Centered Design',
         'Design Pedagogy',
       ],
@@ -535,7 +535,8 @@ export const MEMBERS = {
       // are deliberately excluded since both run concurrently with the PhD
       // from Jan 2024 onward.
       experience: [
-        { role: 'PhD Scholar, Art and Design Education', org: 'IIT Hyderabad', duration: 'Jan 2024 – present', desc: 'Supervised by Prof. Deepak John Mathew.' },
+        { role: 'PhD Scholar (MoE Fellowship), Art and Design Education', org: 'IIT Hyderabad', duration: 'Jan 2024 – present', desc: 'Supervised by Prof. Deepak John Mathew.' },
+        { role: 'Advanced Technology User Experience Specialist', org: 'Infosys', duration: 'Aug 2020 – Jan 2024' },
         { role: 'Senior User Experience Consultant', org: 'Infosys', duration: 'Jun 2016 – Aug 2020' },
         { role: 'User Experience Architect', org: 'Infosys', duration: 'May 2012 – Jun 2016' },
         { role: 'Asst. Web Manager', org: 'KSK Energy Ventures Ltd.', duration: 'Dec 2009 – May 2012' },
@@ -547,9 +548,9 @@ export const MEMBERS = {
         '4 innovation patents in human-centered design',
         'Founder of InnoMission — bridging academia, industry, and government',
         'Co-founder & VP of the Telangana Sculptors and Artists Association (TSAA)',
-        'Creator of ABCD (AnyBody Can Draw™) — making art accessible to everyone',
-        'Board of Studies member, JANFA University',
-        'Practicing sculptor known as "Gannu"',
+        'Board of Studies member, JNAFA University',
+        'Young Research Award, ServDes, ICoD 2025',
+        'Winner of SAS Security Access Solution Global Hackathon',
       ],
       photo: '/images/people/ganesh.webp',
       email: 'md24resch01003@iith.ac.in',
