@@ -39,6 +39,7 @@ const BlogDetail = lazy(() => import('./pages/BlogDetail'));
 const WikiThesisBlog = lazy(() => import('./pages/WikiThesisBlog'));
 const NaturalIntelligenceBlog = lazy(() => import('./pages/NaturalIntelligenceBlog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
+const Practices = lazy(() => import('./pages/Practices'));
 
 // Once the first page has loaded and the browser is idle, quietly fetch the
 // main sections' code, so clicking through the navbar swaps pages instantly
@@ -77,6 +78,7 @@ const PAGE_TITLES = {
   // NAV_LINKS spread above, which only maps each top-level item's path.
   '/conferences': 'DIC Hosted Conferences — DIC · IITH',
   '/conferences/fourth-all-india-dic-meet': 'Fourth All India DIC Meet — DIC · IITH',
+  '/practices': 'DIC Practices — DIC · IITH',
   '/news': 'News & Updates — DIC · IITH',
   '/events': 'Events — DIC · IITH',
   '/workshops': 'Workshops — DIC · IITH',
@@ -128,6 +130,28 @@ function DocumentTitle() {
   return null;
 }
 
+// Scrolls to #section after a route change — react-router doesn't on its own,
+// and the target may not be on screen yet while a lazy page is still loading.
+function ScrollToHash() {
+  const { pathname, hash } = useLocation();
+  useEffect(() => {
+    if (!hash) return undefined;
+    const id = decodeURIComponent(hash.slice(1));
+    let tries = 0;
+    const timer = setInterval(() => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView();
+        clearInterval(timer);
+      } else if (++tries > 30) {
+        clearInterval(timer);
+      }
+    }, 100);
+    return () => clearInterval(timer);
+  }, [pathname, hash]);
+  return null;
+}
+
 function Loader() {
   return (
     <div className="dic-loader" role="status" aria-label="Loading">
@@ -144,6 +168,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <DocumentTitle />
+      <ScrollToHash />
       <a href="#main-content" className="skip-link">
         Skip to content
       </a>
@@ -164,6 +189,7 @@ export default function App() {
             <Route path="/projects/:slug" element={<ProjectDetail />} />
             <Route path="/education" element={<Education />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/practices" element={<Practices />} />
             <Route path="/news" element={<News />} />
             <Route path="/news/:slug" element={<NewsPost />} />
             <Route path="/nodal" element={<Nodal />} />

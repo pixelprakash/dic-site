@@ -327,6 +327,10 @@ export const NAV_LINKS = [
     // },
   },
   {
+    label: "Practices",
+    path: "/practices",
+  },
+  {
     label: "DIC Nodal",
     path: "/nodal",
   },
@@ -596,7 +600,7 @@ export function buildSearchIndex(live = {}) {
     title: c.name,
     desc: c.note,
     path: "/nodal",
-    hash: "#centres",
+    hash: "#network",
     category: "Nodal Network",
   })),
 

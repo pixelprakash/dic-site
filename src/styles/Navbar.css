@@ -500,3 +500,39 @@
     margin-left: auto;
   }
 }
+
+/* Eight top-level items no longer fit beside the logo, search and Contact
+   below roughly 1320px, so the links tighten first and then fold into the
+   menu button a little earlier than the old 768px. */
+@media (max-width: 1320px) {
+  .navbar__links {
+    gap: clamp(12px, 1.5vw, 22px);
+    margin-left: clamp(12px, 2vw, 28px);
+  }
+
+  .navbar__link {
+    font-size: var(--text-sm);
+  }
+}
+
+@media (max-width: 1120px) {
+  .navbar__links {
+    display: none;
+  }
+
+  .navbar__contact {
+    display: none;
+  }
+
+  .navbar__toggle {
+    display: flex;
+  }
+
+  .navbar__mobile-menu {
+    display: flex;
+  }
+
+  .search {
+    margin-left: auto;
+  }
+}

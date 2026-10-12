@@ -168,6 +168,16 @@ COLLABORATORS.forEach((c, i) => {
 // seed/partial.ndjson, so one new profile can be pushed without --replace-ing
 // (and so overwriting any Studio edits to) everything else.
 const onlyAt = process.argv.indexOf('--only')
+const typeAt = process.argv.indexOf('--type')
+if (typeAt !== -1) {
+  // `--type nodalCentre` writes every document of that type (e.g. after the
+  // site's list for it changes).
+  const type = process.argv[typeAt + 1]
+  const picked = docs.filter((d) => d._type === type)
+  writeFileSync(join(HERE, '..', 'seed', 'partial.ndjson'), picked.map((d) => JSON.stringify(d)).join('\n') + '\n')
+  console.log(`Wrote ${picked.length} ${type} documents to seed/partial.ndjson`)
+  process.exit(0)
+}
 if (onlyAt !== -1) {
   const ids = process.argv.slice(onlyAt + 1)
   const picked = docs.filter((d) => ids.includes(d._id))

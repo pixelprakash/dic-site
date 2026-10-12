@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useReveal } from '../hooks/useReveal';
 import { MARQUEE_IMAGES, ABOUT_STACK_IMAGES } from '../data/siteData';
 import { useNodalEvents, useNodalCentres } from '../lib/cms';
@@ -12,12 +13,23 @@ import {
   ROLE_LABEL,
   NODAL_ROLE_FILTERS,
   WHO_CAN_JOIN,
+  NODAL_HERO,
+  NODAL_ABOUT,
+  HUB_VS_SPOKE,
+  NODAL_PI,
+  NODAL_TIMELINE,
+  NODAL_APPLY,
+  NODAL_SOURCES,
+  SPOKE_TOTAL,
 } from '../data/nodalData';
 
-// Three of NODAL_SEALS' four figures — chosen for the hero specifically;
-// the full set of four still appears in NodalFull's own header lower down
-// the (parked) old page.
-const HERO_METRICS = NODAL_SEALS.slice(0, 3);
+// Three headline figures for the hero; the fuller set (NODAL_SEALS) sits
+// in the About section below.
+const HERO_METRICS = [
+  { value: '20', label: 'DIC hubs' },
+  { value: '64', label: 'Spoke institutions' },
+  { value: '2014', label: 'NIDI launched' },
+];
 
 const EVENT_FILTERS = [
   { key: 'all', label: 'All' },
@@ -89,15 +101,14 @@ function NodalHero() {
       <div className="nodal2-hero__inner">
         <div className="nodal2-hero__left">
           <p className="section-label" style={{ color: 'var(--color-terracotta-light)' }}>
-            National Design Innovation Network
+            {NODAL_HERO.eyebrow}
           </p>
-          <h1>The national node for design-led innovation in India.</h1>
-          <p className="nodal2-hero__para">
-            The Design Innovation Centre at IIT Hyderabad convenes a country-wide network of
-            Design Innovation Centres — bringing designers, engineers, industry and government
-            together to solve real problems at scale, in step with the national vision of
-            Viksit Bharat 2047.
-          </p>
+          <h1>{NODAL_HERO.title}</h1>
+          <p className="nodal2-hero__para">{NODAL_HERO.lede}</p>
+          <div className="nodal2-hero__ctas">
+            <a className="nodal2-btn nodal2-btn--primary" href="#apply">Apply to become a node</a>
+            <a className="nodal2-btn" href="#network">See the network</a>
+          </div>
           <div className="nodal2-metrics">
             {HERO_METRICS.map((m) => (
               <div className="nodal2-metric" key={m.label}>
@@ -176,11 +187,290 @@ function NodalPlaceholderSection({ id, eyebrow, title, note }) {
   );
 }
 
+// ── What is DIC ──────────────────────────────────────────────────────────
+function NodalAbout() {
+  return (
+    <section className="nodal2-section" id="about">
+      <div className="nodal2-split">
+        <div className="nodal2-split__head">
+          <p className="section-label">What is DIC</p>
+          <h2 className="section-title">A national initiative for design innovation</h2>
+        </div>
+        <div className="nodal2-split__body">
+          {NODAL_ABOUT.paragraphs.map((p) => (
+            <p key={p.slice(0, 24)}>{p}</p>
+          ))}
+          <div className="nodal2-objectives">
+            {NODAL_ABOUT.objectives.map((o) => (
+              <div key={o.title}>
+                <b>{o.title}</b>
+                {o.text}
+              </div>
+            ))}
+          </div>
+          <ul className="nodal2-pills" aria-label="NIDI components">
+            {NODAL_ABOUT.components.map((c) => (
+              <li key={c}>{c}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <div className="nodal2-stats">
+        {NODAL_SEALS.map((x) => (
+          <div className="nodal2-stat" key={x.label}>
+            <b>{x.value}</b>
+            <span>{x.label}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// ── Hub and spokes ───────────────────────────────────────────────────────
+function HubSpokeDiagram() {
+  return (
+    <svg className="nodal2-diagram" viewBox="0 0 760 210" role="img" aria-label="Hub and spoke: IIT Hyderabad hub connected to spokes and nodes, linked to industry, government and startups">
+      <g className="nodal2-diagram__lines">
+        <path d="M380 105 L150 50" /><path d="M380 105 L150 160" /><path d="M380 105 L610 50" /><path d="M380 105 L610 160" />
+        <path d="M380 105 L380 20" strokeDasharray="4 4" /><path d="M380 105 L380 190" strokeDasharray="4 4" />
+      </g>
+      <circle className="nodal2-diagram__hub" cx="380" cy="105" r="44" />
+      <text className="nodal2-diagram__mono" x="380" y="101" textAnchor="middle">DIC HUB</text>
+      <text className="nodal2-diagram__label nodal2-diagram__label--muted" x="380" y="118" textAnchor="middle">IIT Hyderabad</text>
+      <g className="nodal2-diagram__label">
+        <circle className="nodal2-diagram__node" cx="150" cy="50" r="7" /><text x="138" y="54" textAnchor="end">IIIT Hyderabad · spoke</text>
+        <circle className="nodal2-diagram__node" cx="150" cy="160" r="7" /><text x="138" y="164" textAnchor="end">Colleges &amp; universities</text>
+        <circle className="nodal2-diagram__node" cx="610" cy="50" r="7" /><text x="622" y="54">Schools · HCD Labs</text>
+        <circle className="nodal2-diagram__node" cx="610" cy="160" r="7" /><text x="622" y="164">Design institutes</text>
+      </g>
+      <g className="nodal2-diagram__mono nodal2-diagram__label--muted" textAnchor="middle">
+        <text x="380" y="14">INDUSTRY · GOVERNMENT</text>
+        <text x="380" y="206">INCUBATION · STARTUPS</text>
+      </g>
+    </svg>
+  );
+}
+
+function NodalHubSpoke() {
+  return (
+    <section className="nodal2-section" id="hub">
+      <div className="nodal2-split">
+        <div className="nodal2-split__head">
+          <p className="section-label">What is a hub</p>
+          <h2 className="section-title">One mentor institution, many partners</h2>
+          <p className="nodal2-muted">
+            DICs run on a hub-and-spoke model. The hub leads and mentors. Spokes bring their own
+            regional problems, people and strengths.
+          </p>
+        </div>
+        <div className="nodal2-split__body">
+          <div className="nodal2-hubrow">
+            {HUB_VS_SPOKE.map((c) => (
+              <div className="nodal2-card" key={c.kind}>
+                <span className={`nodal2-tag nodal2-tag--${c.kind}`}>{c.tag}</span>
+                <h3>{c.title}</h3>
+                <p>{c.text}</p>
+              </div>
+            ))}
+          </div>
+          <div className="nodal2-diagram-wrap">
+            <HubSpokeDiagram />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── Principal Investigator + milestones ──────────────────────────────────
+function NodalLeadership() {
+  return (
+    <section className="nodal2-section" id="pi">
+      <p className="section-label">Principal Investigator</p>
+      <div className="nodal2-pi">
+        <Link className="nodal2-pi__photo" to={`/people/${NODAL_PI.slug}`} aria-label={`${NODAL_PI.name}'s profile`}>
+          <img src={NODAL_PI.photo} alt={NODAL_PI.name} loading="lazy" />
+        </Link>
+        <div>
+          <h3 className="nodal2-pi__name">
+            <Link to={`/people/${NODAL_PI.slug}`}>{NODAL_PI.name}</Link>
+          </h3>
+          <p className="nodal2-pi__role">{NODAL_PI.role}</p>
+          <ul className="nodal2-cv">
+            {NODAL_PI.facts.map((f) => (
+              <li key={f.label}>
+                <span>{f.label}</span>
+                <span>{f.text}</span>
+              </li>
+            ))}
+          </ul>
+          <blockquote className="nodal2-quote">{NODAL_PI.quote}</blockquote>
+        </div>
+      </div>
+      <ol className="nodal2-timeline" aria-label="Milestones">
+        {NODAL_TIMELINE.map((t) => (
+          <li key={t.when + t.text}>
+            <b>{t.when}</b>
+            {t.text}
+          </li>
+        ))}
+      </ol>
+    </section>
+  );
+}
+
+// ── The network directory ────────────────────────────────────────────────
+function NodalNetwork() {
+  const { centres } = useNodalCentres();
+  const [filter, setFilter] = useState('all');
+  const [query, setQuery] = useState('');
+
+  const shown = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return centres.filter((c) => {
+      const roleOk =
+        filter === 'all' ? true : filter === 'hub' ? c.role === 'hub' || c.role === 'nodal' : c.role === filter;
+      return roleOk && (!q || `${c.name} ${c.loc} ${c.note}`.toLowerCase().includes(q));
+    });
+  }, [centres, filter, query]);
+
+  const hubCount = centres.filter((c) => c.role === 'hub' || c.role === 'nodal').length;
+  const spokeCount = centres.filter((c) => c.role === 'spoke').length;
+
+  return (
+    <section className="nodal2-section" id="network">
+      <div className="nodal2-dir-top">
+        <div>
+          <p className="section-label">The network</p>
+          <h2 className="section-title">80+ DIC nodes across India</h2>
+        </div>
+        <div className="nodal2-dir-controls">
+          <div className="nodal2-filters" role="group" aria-label="Filter nodes">
+            {[{ key: 'all', label: 'All' }, { key: 'hub', label: 'Hubs' }, { key: 'spoke', label: 'Spokes' }].map((f) => (
+              <button key={f.key} type="button" aria-pressed={filter === f.key} onClick={() => setFilter(f.key)}>
+                {f.label}
+              </button>
+            ))}
+          </div>
+          <input
+            className="nodal2-search"
+            type="search"
+            placeholder="Search institution or state"
+            aria-label="Search nodes"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+        </div>
+      </div>
+
+      {shown.length > 0 ? (
+        <ol className="nodal2-ledger">
+          {shown.map((c, i) => (
+            <li className={`nodal2-row${c.role === 'nodal' ? ' nodal2-row--self' : ''}`} key={c.code}>
+              <span className="nodal2-row__n">{String(i + 1).padStart(2, '0')}</span>
+              <div>
+                <b>{c.name}</b>
+                <small>
+                  <i className={c.role === 'spoke' ? 'is-spoke' : 'is-hub'}>{c.role === 'spoke' ? 'spoke' : 'hub'}</i>
+                  {c.loc}
+                  {c.note && c.role !== 'nodal' ? ` · ${c.note}` : ''}
+                </small>
+              </div>
+            </li>
+          ))}
+        </ol>
+      ) : (
+        <p className="nodal2-muted">No institutions match that search.</p>
+      )}
+      <p className="nodal2-dir-note" role="status">
+        Showing {shown.length} of {centres.length} listed nodes. All {hubCount} hubs are listed; {spokeCount} of{' '}
+        {SPOKE_TOTAL} spokes are listed so far, and the directory is being completed with each hub.
+      </p>
+    </section>
+  );
+}
+
+// ── Apply to become a node ───────────────────────────────────────────────
+// Email, not a form: there is no inbox wired to a form on this site, and a
+// form that says "submitted" with nowhere to go would be worse than a
+// plain, working mailto.
+function NodalApply() {
+  const subject = encodeURIComponent('DIC node application');
+  const body = encodeURIComponent(
+    `Institution name and type:\nCity and state:\nContact person and role:\nEmail and phone:\nWhat our node would work on:\n`,
+  );
+  return (
+    <section className="nodal2-apply" id="apply">
+      <div className="nodal2-apply__inner">
+        <div className="nodal2-split">
+          <div className="nodal2-split__head">
+            <p className="section-label" style={{ color: 'var(--color-terracotta-light)' }}>Apply to become a node</p>
+            <h2 className="section-title">{NODAL_APPLY.title}</h2>
+            <p className="nodal2-apply__intro">{NODAL_APPLY.intro}</p>
+          </div>
+          <div className="nodal2-split__body">
+            <div className="nodal2-benefits">
+              {NODAL_APPLY.benefits.map((b) => (
+                <div key={b.title}>
+                  <b>{b.title}</b>
+                  {b.text}
+                </div>
+              ))}
+            </div>
+            <ol className="nodal2-steps">
+              {NODAL_APPLY.steps.map((st) => (
+                <li key={st.title}>
+                  <b>{st.title}</b>
+                  {st.text}
+                </li>
+              ))}
+            </ol>
+            <div className="nodal2-apply__cta">
+              <div>
+                <p className="nodal2-apply__include-title">In your email, include</p>
+                <ul>
+                  {NODAL_APPLY.include.map((i) => (
+                    <li key={i}>{i}</li>
+                  ))}
+                </ul>
+              </div>
+              <a className="nodal2-btn nodal2-btn--primary" href={`mailto:${NODAL_APPLY.email}?subject=${subject}&body=${body}`}>
+                Email {NODAL_APPLY.email}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function NodalSources() {
+  return (
+    <section className="nodal2-sources" aria-label="Sources">
+      <p>Sources</p>
+      <ol>
+        {NODAL_SOURCES.map((x) => (
+          <li key={x.href}>
+            <a href={x.href} target="_blank" rel="noopener noreferrer">{x.label}</a>
+          </li>
+        ))}
+      </ol>
+    </section>
+  );
+}
+
 function NodalNew() {
   return (
     <>
       <NodalHero />
+      <NodalAbout />
+      <NodalHubSpoke />
       <UpcomingEventsSection />
+      <NodalLeadership />
+      <NodalNetwork />
+      <NodalApply />
       <NodalPlaceholderSection
         id="research"
         eyebrow="Research"
@@ -199,6 +489,7 @@ function NodalNew() {
         title="Education & capacity building"
         note="Structure pending — say what should go in this section and I'll build it next."
       />
+      <NodalSources />
     </>
   );
 }
