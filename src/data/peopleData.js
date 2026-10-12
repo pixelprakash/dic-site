@@ -707,7 +707,7 @@ export const MEMBERS = {
         { role: 'Engineer', org: 'GTRE, DRDO, Bangalore', duration: 'Nov 2001 – Mar 2004', desc: 'Design of wind-back seals and compressor discs for the LCA.' },
       ],
       interests: [],
-      photo: '',
+      photo: '/images/people/shovan.webp',
       email: 'md24resch04003@iith.ac.in',
       website: '',
       linkedin: 'https://www.linkedin.com/in/shovankar/',
