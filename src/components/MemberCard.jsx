@@ -38,73 +38,114 @@ function PersonIcon() {
   );
 }
 
-export default function MemberCard({ member }) {
+/* One person on the People page. `variant="spotlight"` lays the same card
+   out as a wide row (Principal Investigator, Design Head); otherwise it is
+   a column card for the grids.
+
+   The name is the card's one link (stretched over the whole card, so the
+   entire card is a target); the LinkedIn / Scholar icons sit above it in the
+   footer and keep their own links. Joined / Defence / Left years are plain
+   text under the role rather than badges floating on the photo. */
+export default function MemberCard({ member, variant = 'card' }) {
   const [imgError, setImgError] = useState(false);
   const { id, name, role, joinedYear, relievedYear, defenceYear, bio, tags = [], photo, linkedin, scholar, placeholder } = member;
   const showPhoto = Boolean(photo) && !imgError;
+  const spotlight = variant === 'spotlight';
+  const compact = variant === 'compact';
+  const shownTags = tags.slice(0, spotlight ? 5 : 3);
 
-  return (
-    <article className="member-card">
-      <div className="member-card__photo">
-        {showPhoto ? (
-          <img src={photo} alt={name} loading="lazy" onError={() => setImgError(true)} />
-        ) : (
-          <div className={`member-card__fallback ${placeholder ? 'member-card__fallback--placeholder' : ''}`}>
-            {placeholder ? <PersonIcon /> : <span>{initials(name)}</span>}
-          </div>
-        )}
+  const meta = [
+    joinedYear && `Joined ${joinedYear}`,
+    defenceYear && `Defence ${defenceYear}`,
+    relievedYear && `Left ${relievedYear}`,
+  ].filter(Boolean);
 
-        {(joinedYear || relievedYear || defenceYear) && (
-          <div className="member-card__pills">
-            {joinedYear && <span className="member-card__joined">Joined {joinedYear}</span>}
-            {defenceYear && <span className="member-card__joined member-card__joined--defence">Defence {defenceYear}</span>}
-            {relievedYear && <span className="member-card__joined member-card__joined--left">Left {relievedYear}</span>}
-          </div>
-        )}
-
+  // Compact row for long lists where most people have no photo (Past
+  // Members): a small avatar, name, role and years — scannable at a glance.
+  if (compact) {
+    return (
+      <article className="member-row">
+        <div className="member-row__avatar">
+          {showPhoto ? (
+            <img src={photo} alt="" loading="lazy" onError={() => setImgError(true)} />
+          ) : (
+            <span>{initials(name)}</span>
+          )}
+        </div>
+        <div className="member-row__text">
+          <h3 className="member-row__name">
+            {placeholder ? name : <Link to={`/people/${id}`}>{name}</Link>}
+          </h3>
+          <p className="member-row__role">{role}</p>
+          {meta.length > 0 && <p className="member-row__meta">{meta.join(' · ')}</p>}
+        </div>
         {(linkedin || scholar) && (
-          <div className="member-card__socials">
+          <div className="member-card__socials member-row__socials">
             {linkedin && (
-              <a
-                className="member-card__social"
-                href={linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${name} on LinkedIn`}
-              >
+              <a className="member-card__social" href={linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${name} on LinkedIn`}>
                 <LinkedInIcon />
               </a>
             )}
             {scholar && (
-              <a
-                className="member-card__social"
-                href={scholar}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${name} on Google Scholar`}
-              >
+              <a className="member-card__social" href={scholar} target="_blank" rel="noopener noreferrer" aria-label={`${name} on Google Scholar`}>
                 <ScholarIcon />
               </a>
             )}
           </div>
         )}
+      </article>
+    );
+  }
+
+  return (
+    <article className={`member-card${spotlight ? ' member-card--spotlight' : ''}`}>
+      <div className="member-card__photo">
+        {showPhoto ? (
+          <img src={photo} alt="" loading="lazy" onError={() => setImgError(true)} />
+        ) : (
+          <div className={`member-card__fallback ${placeholder ? 'member-card__fallback--placeholder' : ''}`}>
+            {placeholder ? <PersonIcon /> : <span>{initials(name)}</span>}
+          </div>
+        )}
       </div>
 
       <div className="member-card__info">
-        <h3 className="member-card__name">{name}</h3>
+        <h3 className="member-card__name">
+          {placeholder ? name : <Link to={`/people/${id}`}>{name}</Link>}
+        </h3>
         <p className="member-card__role">{role}</p>
+        {meta.length > 0 && <p className="member-card__meta">{meta.join(' · ')}</p>}
         {bio && <p className="member-card__bio">{bio}</p>}
-        {tags.length > 0 && (
-          <div className="member-card__tags">
-            {tags.map((t) => (
-              <span className="member-card__tag" key={t}>{t}</span>
+        {shownTags.length > 0 && (
+          <ul className="member-card__tags" aria-label="Topics">
+            {shownTags.map((t) => (
+              <li className="member-card__tag" key={t}>{t}</li>
             ))}
-          </div>
+          </ul>
         )}
-        {!placeholder && (
-          <Link className="member-card__link" to={`/people/${id}`}>
-            view full profile
-          </Link>
+
+        {(!placeholder || linkedin || scholar) && (
+          <div className="member-card__footer">
+            {!placeholder && (
+              <span className="member-card__more" aria-hidden="true">
+                View profile <span>&rarr;</span>
+              </span>
+            )}
+            {(linkedin || scholar) && (
+              <div className="member-card__socials">
+                {linkedin && (
+                  <a className="member-card__social" href={linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${name} on LinkedIn`}>
+                    <LinkedInIcon />
+                  </a>
+                )}
+                {scholar && (
+                  <a className="member-card__social" href={scholar} target="_blank" rel="noopener noreferrer" aria-label={`${name} on Google Scholar`}>
+                    <ScholarIcon />
+                  </a>
+                )}
+              </div>
+            )}
+          </div>
         )}
       </div>
     </article>

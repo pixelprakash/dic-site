@@ -14,6 +14,13 @@ import MemberCard from '../components/MemberCard';
 import MemberSpotlight from '../components/MemberSpotlight';
 import '../styles/People.css';
 
+// Past members, latest first: by the year they defended their PhD, or — for
+// staff with no defence — the year they left. Same year: alphabetical, so
+// the order is stable. Anyone with neither year goes last.
+const leaveYear = (m) => Number(m.defenceYear || m.relievedYear) || 0;
+const sortPastMembers = (list) =>
+  [...list].sort((a, b) => leaveYear(b) - leaveYear(a) || a.name.localeCompare(b.name));
+
 export default function People() {
   const location = useLocation();
   const { members: MEMBERS } = useMembers();
@@ -22,6 +29,7 @@ export default function People() {
   const [offset, setOffset] = useState(160);
   const [activeId, setActiveId] = useState(MEMBER_CATEGORIES[0].id);
   const [revealedIds, setRevealedIds] = useState(() => new Set());
+  const total = MEMBER_CATEGORIES.reduce((n, c) => n + (MEMBERS[c.id] || []).length, 0);
 
   // Sticky header sits directly under the navbar, and each section needs to
   // stop scrolling right where the sticky header's bottom edge is — both
@@ -126,8 +134,16 @@ export default function People() {
 
   return (
     <>
+      <header className="people-intro">
+        <p className="people-intro__eyebrow">Design Innovation Centre · IIT Hyderabad</p>
+        <h1 className="people-intro__title">Members of DIC</h1>
+        <p className="people-intro__lede">
+          The faculty, researchers, designers and students of the Centre
+          {total > 0 && <> — {total} people across {MEMBER_CATEGORIES.length} groups</>}.
+        </p>
+      </header>
+
       <div className="people-header" ref={headerRef} style={{ top: navH }}>
-        <h1 className="people-header__title">Members of DIC</h1>
         <nav className="people-tags" aria-label="Member categories">
           {MEMBER_CATEGORIES.map((c) => (
             <a
@@ -137,6 +153,7 @@ export default function People() {
               aria-current={activeId === c.id ? 'true' : undefined}
             >
               {c.label}
+              <span className="people-tag__count" aria-hidden="true">{(MEMBERS[c.id] || []).length}</span>
             </a>
           ))}
         </nav>
@@ -144,7 +161,7 @@ export default function People() {
 
       <div className="people-body">
         {MEMBER_CATEGORIES.map((c) => {
-          const members = MEMBERS[c.id] || [];
+          const members = c.id === 'past-members' ? sortPastMembers(MEMBERS[c.id] || []) : MEMBERS[c.id] || [];
           const revealed = revealedIds.has(c.id);
           return (
             <section
@@ -153,7 +170,10 @@ export default function People() {
               className={`people-section reveal ${revealed ? 'visible' : ''}`}
               style={{ scrollMarginTop: offset }}
             >
-              <h2 className="people-section__title">{c.label}</h2>
+              <h2 className="people-section__title">
+                {c.label}
+                {members.length > 0 && <span className="people-section__count">{members.length}</span>}
+              </h2>
               {members.length === 1 ? (
                 <MemberSpotlight member={members[0]} />
               ) : members.length > 0 ? (
@@ -169,9 +189,9 @@ export default function People() {
                     </div>
                   ))
                 ) : (
-                  <div className={`people-grid reveal-stagger ${revealed ? 'visible' : ''}`}>
+                  <div className={`people-grid reveal-stagger ${c.id === 'past-members' ? 'people-grid--compact' : ''} ${revealed ? 'visible' : ''}`}>
                     {members.map((m) => (
-                      <MemberCard key={m.id} member={m} />
+                      <MemberCard key={m.id} member={m} variant={c.id === 'past-members' ? 'compact' : 'card'} />
                     ))}
                   </div>
                 )
