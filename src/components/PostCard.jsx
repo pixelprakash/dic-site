@@ -25,7 +25,14 @@ export default function PostCard({ post, wide = false }) {
               // of itself, so every card's picture area is the same shape.
               style={shown.length === 1 ? { '--pc-fill': `url("${img.thumb}")` } : undefined}
             >
-              <img src={img.thumb} alt={img.alt} loading="lazy" decoding="async" />
+              <img
+                src={img.thumb}
+                srcSet={img.srcSet}
+                sizes={wide ? '(min-width: 1000px) 40vw, 100vw' : '(min-width: 1000px) 33vw, (min-width: 680px) 50vw, 100vw'}
+                alt={img.alt}
+                loading="lazy"
+                decoding="async"
+              />
               {extra > 0 && i === shown.length - 1 && (
                 <span className="pc-extra" aria-hidden="true">+{extra}</span>
               )}

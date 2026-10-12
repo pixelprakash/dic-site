@@ -44,7 +44,13 @@ export default function NewsSection() {
               aria-hidden="true"
               style={{ '--ns-fill': `url("${cover.thumb}")` }}
             >
-              <img src={cover.thumb} alt="" loading="lazy" decoding="async" />
+              <img
+                src={cover.src}
+                srcSet={cover.srcSet}
+                sizes={rows.length ? '(min-width: 1000px) 55vw, 100vw' : '(min-width: 1000px) 60vw, 100vw'}
+                alt=""
+                decoding="async"
+              />
             </Link>
           )}
           <div className="ns-lead-body">

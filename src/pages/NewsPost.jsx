@@ -77,7 +77,13 @@ export default function NewsPost() {
                 onClick={() => setLightbox(0)}
                 aria-label={`Open photo 1 of ${post.images.length}`}
               >
-                <img src={cover.src} alt={cover.alt} decoding="async" />
+                <img
+                  src={cover.src}
+                  srcSet={cover.srcSet}
+                  sizes="(min-width: 1000px) 60vw, 100vw"
+                  alt={cover.alt}
+                  decoding="async"
+                />
               </button>
               {rest.length > 0 && (
                 <div className="np-thumbs">

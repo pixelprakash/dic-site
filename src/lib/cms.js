@@ -34,7 +34,7 @@ const cache = new Map(); // key -> { data, promise }
 // visitor sees their content immediately and it is refreshed in the
 // background (stale-while-revalidate). Bump STORE's version if the shape the
 // mappers produce ever changes.
-const STORE = 'dic-cms:v1:';
+const STORE = 'dic-cms:v2:';
 const readStored = (key) => {
   try {
     const raw = localStorage.getItem(STORE + key);
@@ -105,7 +105,13 @@ export function useCms(key, groq, map, fallback) {
 /* ── Shaping what Sanity returns into what the pages already expect ── */
 
 // Sanity's image CDN resizes and re-encodes on the fly via URL parameters.
-export const sized = (url, w) => (url ? `${url}?w=${w}&auto=format&q=82` : url);
+export const sized = (url, w, q = 82) => (url ? `${url}?w=${w}&auto=format&q=${q}` : url);
+
+// A responsive set of widths for one photo, so the browser fetches the size
+// it actually needs (and a sharp one on high-density screens) instead of a
+// single fixed rendition stretched to fit.
+export const srcSetFor = (url, widths = [600, 900, 1300, 1800, 2400]) =>
+  url ? widths.map((w) => `${sized(url, w, 90)} ${w}w`).join(', ') : '';
 
 // Drops null/empty fields so a mapped object looks like the hand-written
 // ones in src/data (absent, not null).
@@ -386,7 +392,8 @@ export const mapFeed = (rows) =>
     images: (r.images || [])
       .filter((i) => i.url)
       .map((i) => ({
-        src: sized(i.url, 1600),
+        src: sized(i.url, 1800, 90),
+        srcSet: srcSetFor(i.url),
         thumb: sized(i.url, 800),
         alt: i.alt || '',
       })),
