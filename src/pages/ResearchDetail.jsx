@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { getResearchProjectBySlug } from '../data/researchProjectsData';
+import { useResearchProjects } from '../lib/cms';
 import GalleryLightbox from '../components/GalleryLightbox';
 import '../styles/ProjectDetail.css';
 
 export default function ResearchDetail() {
   const { slug } = useParams();
-  const project = getResearchProjectBySlug(slug);
+  const { researchProjects, loading } = useResearchProjects();
+  const project = researchProjects.find((r) => r.slug === slug);
   const [lightboxIndex, setLightboxIndex] = useState(null);
 
   if (!project) {
+    if (loading) return <div aria-busy="true" />;
     return (
       <div className="page-header" style={{ textAlign: 'center' }}>
         <div className="page-header__accent" />

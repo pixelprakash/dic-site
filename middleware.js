@@ -20,13 +20,30 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
+// The person's own record in Sanity (the CMS the site reads from), so a
+// profile added or edited in the Studio gets the right link preview too.
+// Falls back to the built-in data if the CMS can't be reached.
+const SANITY_API = 'https://u4p2oauj.apicdn.sanity.io/v2025-01-01/data/query/production';
+async function cmsMember(slug) {
+  try {
+    const groq = '*[_type=="member" && slug.current==$slug][0]{name, role, bio, "photo": photo.asset->url}';
+    const url = `${SANITY_API}?query=${encodeURIComponent(groq)}&$slug=${encodeURIComponent(JSON.stringify(slug))}`;
+    const res = await fetch(url);
+    if (!res.ok) return null;
+    const { result } = await res.json();
+    return result ? { ...result, photo: result.photo ? `${result.photo}?w=1200&h=630&fit=crop&auto=format` : '' } : null;
+  } catch {
+    return null;
+  }
+}
+
 export default async function middleware(request) {
   const url = new URL(request.url);
   const match = url.pathname.match(/^\/people\/([^/]+)\/?$/);
   if (!match) return;
 
   const slug = decodeURIComponent(match[1]);
-  const member = getMemberBySlug(slug);
+  const member = (await cmsMember(slug)) || getMemberBySlug(slug);
   if (!member) return;
 
   const indexRes = await fetch(new URL('/index.html', request.url));

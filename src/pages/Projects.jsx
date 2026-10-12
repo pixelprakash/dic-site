@@ -1,10 +1,11 @@
 import YouTubeEmbed from '../components/YouTubeEmbed';
 import ProjectCard from '../components/ProjectCard';
 import { VIDEOS, MARQUEE_IMAGES, DIC_SELECTED_WORKS } from '../data/siteData';
-import { PROJECTS } from '../data/projectsData';
+import { useProjects } from '../lib/cms';
 import { useReveal } from '../hooks/useReveal';
 
 export default function Projects() {
+  const { projects: PROJECTS } = useProjects();
   const [vidRef, vidVis] = useReveal();
   const [listRef, listVis] = useReveal();
   const [worksRef, worksVis] = useReveal();

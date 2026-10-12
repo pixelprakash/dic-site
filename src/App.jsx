@@ -11,7 +11,7 @@ import Footer from './components/Footer';
 // still reachable — it's now a regular navbar item instead.
 // import SiteSwitcher from './components/SiteSwitcher';
 import { NAV_LINKS, CONTACT_LINK } from './data/siteData';
-import { getMemberBySlug } from './data/peopleData';
+import { useMembers, useFeed } from './lib/cms';
 import './styles/global.css';
 import './styles/sections.css';
 import './styles/Loader.css';
@@ -28,7 +28,8 @@ const Nodal = lazy(() => import('./pages/Nodal'));
 const AllIndiaDicMeet26 = lazy(() => import('./pages/AllIndiaDicMeet26'));
 const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
 const ResearchDetail = lazy(() => import('./pages/ResearchDetail'));
-const NewsDetail = lazy(() => import('./pages/NewsDetail'));
+const News = lazy(() => import('./pages/News'));
+const NewsPost = lazy(() => import('./pages/NewsPost'));
 const Conferences = lazy(() => import('./pages/Conferences'));
 const FourthDicMeet = lazy(() => import('./pages/FourthDicMeet'));
 const Events = lazy(() => import('./pages/Events'));
@@ -37,6 +38,7 @@ const Blogs = lazy(() => import('./pages/Blogs'));
 const BlogDetail = lazy(() => import('./pages/BlogDetail'));
 const WikiThesisBlog = lazy(() => import('./pages/WikiThesisBlog'));
 const NaturalIntelligenceBlog = lazy(() => import('./pages/NaturalIntelligenceBlog'));
+const BlogPost = lazy(() => import('./pages/BlogPost'));
 
 const DEFAULT_TITLE = 'DIC · IITH — Design Innovation Centre, IIT Hyderabad';
 
@@ -51,6 +53,7 @@ const PAGE_TITLES = {
   // NAV_LINKS spread above, which only maps each top-level item's path.
   '/conferences': 'DIC Hosted Conferences — DIC · IITH',
   '/conferences/fourth-all-india-dic-meet': 'Fourth All India DIC Meet — DIC · IITH',
+  '/news': 'News & Updates — DIC · IITH',
   '/events': 'Events — DIC · IITH',
   '/workshops': 'Workshops — DIC · IITH',
   '/blogs': 'Blogs & Articles — DIC · IITH',
@@ -63,6 +66,7 @@ const PAGE_TITLES = {
 };
 
 const PEOPLE_PREFIX = '/people/';
+const NEWS_PREFIX = '/news/';
 
 /* Keeps the browser tab title in sync with which of the two sites —
    DIC · IITH or DIC Nodal — is currently on screen. A person's profile
@@ -70,14 +74,22 @@ const PEOPLE_PREFIX = '/people/';
    up from the same slug the route and the card link use. */
 function DocumentTitle() {
   const location = useLocation();
+  const { all: members } = useMembers();
+  const { data: feed } = useFeed();
   useEffect(() => {
     if (location.pathname.startsWith(PEOPLE_PREFIX)) {
-      const member = getMemberBySlug(location.pathname.slice(PEOPLE_PREFIX.length));
+      const slug = location.pathname.slice(PEOPLE_PREFIX.length);
+      const member = members.find((m) => m.id === slug && !m.placeholder);
       document.title = member ? `${member.name} — DIC · IITH` : PAGE_TITLES['/people'];
       return;
     }
+    if (location.pathname.startsWith(NEWS_PREFIX)) {
+      const post = feed.find((p) => p.slug === location.pathname.slice(NEWS_PREFIX.length));
+      document.title = post ? `${post.title || post.text.split('\n')[0]} — DIC · IITH` : PAGE_TITLES['/news'];
+      return;
+    }
     document.title = PAGE_TITLES[location.pathname] || DEFAULT_TITLE;
-  }, [location.pathname]);
+  }, [location.pathname, members, feed]);
   return null;
 }
 
@@ -116,7 +128,8 @@ export default function App() {
             <Route path="/projects/:slug" element={<ProjectDetail />} />
             <Route path="/education" element={<Education />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/news/:id" element={<NewsDetail />} />
+            <Route path="/news" element={<News />} />
+            <Route path="/news/:slug" element={<NewsPost />} />
             <Route path="/nodal" element={<Nodal />} />
             <Route path="/all-india-dic-meet-26" element={<AllIndiaDicMeet26 />} />
             <Route path="/conferences" element={<Conferences />} />
@@ -127,6 +140,7 @@ export default function App() {
             <Route path="/blogs/reimagining-formative-assessment-art-education" element={<BlogDetail />} />
             <Route path="/blogs/wiki-thesis-research-assessment-ai" element={<WikiThesisBlog />} />
             <Route path="/blogs/how-intelligent-are-we-about-natural-intelligence" element={<NaturalIntelligenceBlog />} />
+            <Route path="/blogs/:slug" element={<BlogPost />} />
           </Routes>
         </Suspense>
       </main>

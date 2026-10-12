@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
-import { CONFERENCES } from '../data/conferencesData';
+import { useConferences } from '../lib/cms';
 import '../styles/Conferences.css';
 
 export default function Conferences() {
+  const { conferences: CONFERENCES } = useConferences();
   return (
     <>
       <div className="page-header">

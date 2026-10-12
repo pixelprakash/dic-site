@@ -1,4 +1,4 @@
-import { COLLABORATORS } from '../data/siteData';
+import { useCollaborators } from '../lib/cms';
 import '../styles/Collaborators.css';
 
 export default function Collaborators() {

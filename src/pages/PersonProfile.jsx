@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { getMemberBySlug, getMemberCategory } from '../data/peopleData';
+import { MEMBER_CATEGORIES } from '../data/peopleData';
+import { useMembers } from '../lib/cms';
 import '../styles/PersonProfile.css';
 
 // Known research/portfolio portals get their own recognisable name on the
@@ -95,7 +96,8 @@ function CheckIcon() {
 
 export default function PersonProfile() {
   const { slug } = useParams();
-  const member = getMemberBySlug(slug);
+  const { members, all, loading } = useMembers();
+  const member = all.find((m) => m.id === slug && !m.placeholder);
   const [imgError, setImgError] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -132,6 +134,9 @@ export default function PersonProfile() {
   };
 
   if (!member) {
+    // A person who exists only in the CMS isn't known until its answer
+    // arrives — don't flash "not found" before then.
+    if (loading) return <div className="profile-missing" aria-busy="true" />;
     return (
       <div className="profile-missing">
         <ol className="profile__breadcrumb">
@@ -170,7 +175,8 @@ export default function PersonProfile() {
   const showPhoto = Boolean(photo) && !imgError;
   const bioParagraphs = (fullBio ? [].concat(fullBio) : [bio]).filter(Boolean);
   const researchChips = researchAreas.length > 0 ? researchAreas : interests.length > 0 ? interests : tags;
-  const category = getMemberCategory(slug);
+  const categoryId = Object.keys(members).find((id) => members[id].some((m) => m.id === slug));
+  const category = MEMBER_CATEGORIES.find((c) => c.id === categoryId) || null;
   const hasProfiles = Boolean(linkedin || scholar || website || email);
 
   return (

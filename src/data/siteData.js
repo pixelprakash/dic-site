@@ -2,12 +2,14 @@
 // in the actual per-item data (people, projects, blog posts, ...) rather
 // than just the top-level nav menu, so search can jump straight to any
 // individual page on the site, not only its section.
-import { ALL_MEMBERS, getMemberCategory } from './peopleData';
-import { PROJECTS } from './projectsData';
-import { RESEARCH_PROJECTS } from './researchProjectsData';
-import { BLOG_POSTS } from './blogsData';
-import { CONFERENCES } from './conferencesData';
-import { CENTRES, EVENTS as NODAL_EVENTS } from './nodalData';
+import { MEMBERS, MEMBER_CATEGORIES } from './peopleData.js';
+import { PROJECTS } from './projectsData.js';
+import { RESEARCH_PROJECTS } from './researchProjectsData.js';
+import { BLOG_POSTS } from './blogsData.js';
+import { CONFERENCES } from './conferencesData.js';
+import { CENTRES, EVENTS as NODAL_EVENTS } from './nodalData.js';
+
+const MEMBER_CATEGORY_LABELS = Object.fromEntries(MEMBER_CATEGORIES.map((c) => [c.id, c.label]));
 
 // `channel` is hardcoded (verified against YouTube's own oEmbed response)
 // rather than left for YouTubeEmbed to fetch live — without it, every one
@@ -340,6 +342,7 @@ export const NAV_LINKS = [
         {
           heading: "Gatherings",
           items: [
+            { label: "News & Updates", desc: "Announcements, admissions, openings, talks, and recent work.", path: "/news" },
             { label: "DIC Hosted Conferences", desc: "National and international conferences organised by DIC.", path: "/conferences" },
             { label: "Events", desc: "Talks, exhibitions, and gatherings from across the Centre.", path: "/events" },
             { label: "Workshops", desc: "Hands-on sessions in design, fabrication, and emerging tech.", path: "/workshops" },
@@ -479,7 +482,23 @@ export const FAQS = [
 ];
 
 /* ─── Search index — aggregated for the navbar search ─── */
-export const SEARCH_INDEX = [
+/* `live` carries the CMS's current content (see lib/cms.js); anything left out
+   falls back to the built-in data, so SEARCH_INDEX below still works with no
+   network. Placeholder stand-in members, hidden research projects and the
+   lorem-ipsum NEWS cards are never indexed. */
+export function buildSearchIndex(live = {}) {
+  const {
+    members = MEMBERS,
+    projects = PROJECTS,
+    researchProjects = RESEARCH_PROJECTS,
+    blogs = BLOG_POSTS,
+    conferences = CONFERENCES,
+    centres = CENTRES,
+    events = NODAL_EVENTS,
+    feed = [],
+  } = live;
+
+  return [
   ...NAV_LINKS.flatMap((link) => [
     { id: `nav-${link.path}`, title: link.label, desc: "Section", path: link.path, category: "Menu" },
     ...(link.menu
@@ -509,12 +528,11 @@ export const SEARCH_INDEX = [
     path: "/research",
     category: "Research",
   })),
-  ...NEWS.map((n) => ({
+  ...feed.map((n) => ({
     id: `news-${n.id}`,
-    title: n.title,
-    desc: n.excerpt,
-    path: "/",
-    hash: "#news",
+    title: n.title || n.text.split("\n")[0],
+    desc: n.text,
+    path: `/news/${n.slug}`,
     category: "News",
   })),
   ...FAQS.map((f, i) => ({
@@ -529,15 +547,19 @@ export const SEARCH_INDEX = [
 
   // Placeholder stand-in cards (no confirmed person yet) are excluded —
   // they have no real /people/:slug page to link to.
-  ...ALL_MEMBERS.filter((m) => !m.placeholder).map((m) => ({
-    id: `person-${m.id}`,
-    title: m.name,
-    desc: m.bio || m.role,
-    path: `/people/${m.id}`,
-    category: getMemberCategory(m.id)?.label || "People",
-  })),
+  ...Object.entries(members).flatMap(([categoryId, list]) =>
+    list
+      .filter((m) => !m.placeholder)
+      .map((m) => ({
+        id: `person-${m.id}`,
+        title: m.name,
+        desc: m.bio || m.role,
+        path: `/people/${m.id}`,
+        category: MEMBER_CATEGORY_LABELS[categoryId] || "People",
+      })),
+  ),
 
-  ...PROJECTS.map((p) => ({
+  ...projects.map((p) => ({
     id: `project-${p.slug}`,
     title: p.title,
     desc: p.tagline,
@@ -545,7 +567,7 @@ export const SEARCH_INDEX = [
     category: "Project",
   })),
 
-  ...RESEARCH_PROJECTS.filter((r) => !r.hidden).map((r) => ({
+  ...researchProjects.filter((r) => !r.hidden).map((r) => ({
     id: `research-project-${r.slug}`,
     title: r.title,
     desc: r.tagline,
@@ -553,7 +575,7 @@ export const SEARCH_INDEX = [
     category: "Research Project",
   })),
 
-  ...BLOG_POSTS.map((b) => ({
+  ...blogs.map((b) => ({
     id: `blog-${b.id}`,
     title: b.title,
     desc: b.excerpt,
@@ -561,7 +583,7 @@ export const SEARCH_INDEX = [
     category: "Blog",
   })),
 
-  ...CONFERENCES.map((c) => ({
+  ...conferences.map((c) => ({
     id: `conference-${c.id}`,
     title: c.title,
     desc: c.tagline,
@@ -569,7 +591,7 @@ export const SEARCH_INDEX = [
     category: "Conference",
   })),
 
-  ...CENTRES.map((c) => ({
+  ...centres.map((c) => ({
     id: `centre-${c.code}`,
     title: c.name,
     desc: c.note,
@@ -578,7 +600,7 @@ export const SEARCH_INDEX = [
     category: "Nodal Network",
   })),
 
-  ...NODAL_EVENTS.map((e, i) => ({
+  ...events.map((e, i) => ({
     id: `nodal-event-${i}`,
     title: e.title,
     desc: e.desc,
@@ -586,4 +608,7 @@ export const SEARCH_INDEX = [
     hash: "#events",
     category: "Nodal Event",
   })),
-];
+  ];
+}
+
+export const SEARCH_INDEX = buildSearchIndex();

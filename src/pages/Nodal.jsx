@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useReveal } from '../hooks/useReveal';
 import { MARQUEE_IMAGES, ABOUT_STACK_IMAGES } from '../data/siteData';
+import { useNodalEvents, useNodalCentres } from '../lib/cms';
 import '../styles/Nodal.css';
 import {
   NODAL_SEALS,
@@ -8,10 +9,8 @@ import {
   PILLARS,
   HUB_SPOKE,
   PROGRAMME_PARTNERS,
-  CENTRES,
   ROLE_LABEL,
   NODAL_ROLE_FILTERS,
-  EVENTS,
   WHO_CAN_JOIN,
 } from '../data/nodalData';
 
@@ -123,6 +122,7 @@ function NodalHero() {
 // Upcoming events — full-width rows stacked one after another (not the
 // grid-of-cards NodalFull used for the same EVENTS data).
 function UpcomingEventsSection() {
+  const { events: EVENTS } = useNodalEvents();
   return (
     <section className="nodal2-events">
       <p className="section-label">Upcoming</p>
@@ -214,6 +214,8 @@ function NodalFull() {
   const [leadRef, leadVis] = useReveal();
   const [joinRef, joinVis] = useReveal();
 
+  const { events: EVENTS } = useNodalEvents();
+  const { centres: CENTRES } = useNodalCentres();
   const [centreQuery, setCentreQuery] = useState('');
   const [centreFilter, setCentreFilter] = useState('all');
   const [eventQuery, setEventQuery] = useState('');
@@ -231,7 +233,7 @@ function NodalFull() {
       const text = `${c.name} ${c.note} ${c.loc} ${ROLE_LABEL[c.role]}`.toLowerCase();
       return roleOk && (q === '' || text.includes(q));
     });
-  }, [centreQuery, centreFilter]);
+  }, [CENTRES, centreQuery, centreFilter]);
 
   const filteredEvents = useMemo(() => {
     const q = eventQuery.trim().toLowerCase();
@@ -254,7 +256,7 @@ function NodalFull() {
           ? -1
           : 1,
       );
-  }, [eventQuery, eventFilter]);
+  }, [EVENTS, eventQuery, eventFilter]);
 
   return (
     <>

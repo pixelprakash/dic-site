@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { MEMBER_CATEGORIES, MEMBERS } from '../data/peopleData';
+import { MEMBER_CATEGORIES } from '../data/peopleData';
+import { useMembers } from '../lib/cms';
 
 // A category's members render as one flat grid by default. If any member
 // carries a `track`, the category instead splits into these labeled
@@ -15,6 +16,7 @@ import '../styles/People.css';
 
 export default function People() {
   const location = useLocation();
+  const { members: MEMBERS } = useMembers();
   const headerRef = useRef(null);
   const [navH, setNavH] = useState(84);
   const [offset, setOffset] = useState(160);

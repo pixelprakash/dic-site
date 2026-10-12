@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { SEARCH_INDEX } from '../data/siteData';
+import { buildSearchIndex } from '../data/siteData';
+import { useMembers, useProjects, useResearchProjects, useBlogPosts, useConferences, useNodalEvents, useNodalCentres, useFeed } from '../lib/cms';
 import '../styles/SearchBar.css';
 
 function highlight(text, query) {
@@ -24,15 +25,28 @@ export default function SearchBar() {
   const inputRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const { members } = useMembers();
+  const { projects } = useProjects();
+  const { researchProjects } = useResearchProjects();
+  const { posts: blogs } = useBlogPosts();
+  const { conferences } = useConferences();
+  const { events } = useNodalEvents();
+  const { centres } = useNodalCentres();
+  const { data: feed } = useFeed();
+
+  const searchIndex = useMemo(
+    () => buildSearchIndex({ members, projects, researchProjects, blogs, conferences, centres, events, feed }),
+    [members, projects, researchProjects, blogs, conferences, centres, events, feed],
+  );
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return [];
-    return SEARCH_INDEX.filter(
+    return searchIndex.filter(
       (item) =>
         item.title.toLowerCase().includes(q) || item.desc?.toLowerCase().includes(q),
     ).slice(0, 7);
-  }, [query]);
+  }, [query, searchIndex]);
 
   useEffect(() => {
     if (open) {

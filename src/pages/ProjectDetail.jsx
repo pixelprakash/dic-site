@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { getProjectBySlug } from '../data/projectsData';
+import { useProjects } from '../lib/cms';
 import Model3DViewer from '../components/Model3DViewer';
 import Model3DModal from '../components/Model3DModal';
 import GalleryLightbox from '../components/GalleryLightbox';
@@ -8,7 +8,8 @@ import '../styles/ProjectDetail.css';
 
 export default function ProjectDetail() {
   const { slug } = useParams();
-  const project = getProjectBySlug(slug);
+  const { projects, loading } = useProjects();
+  const project = projects.find((p) => p.slug === slug);
   // Three-step reveal, all gated behind the visitor's own click so the
   // 23MB model never touches page-load performance: photo + "View 3D
   // Model" pill -> click loads it inline, right in the same header slot
@@ -21,6 +22,9 @@ export default function ProjectDetail() {
   const [lightboxIndex, setLightboxIndex] = useState(null);
 
   if (!project) {
+    // A project that exists only in the CMS isn't known until its answer
+    // arrives — don't flash "not found" before then.
+    if (loading) return <div aria-busy="true" />;
     return (
       <div className="page-header" style={{ textAlign: 'center' }}>
         <div className="page-header__accent" />

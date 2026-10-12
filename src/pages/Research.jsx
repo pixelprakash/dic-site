@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useReveal } from '../hooks/useReveal';
 import { RESEARCH_AREAS, PATENTS, DIC_LAB_FACILITIES } from '../data/siteData';
-import { RESEARCH_PROJECTS } from '../data/researchProjectsData';
+import { useResearchProjects } from '../lib/cms';
 import ProjectCard from '../components/ProjectCard';
 
 // Lab & Facilities "Capabilities" copy — from the same Fifth All India DIC
@@ -51,6 +51,7 @@ function ResearchItem({ item, index }) {
 }
 
 export default function Research() {
+  const { researchProjects: RESEARCH_PROJECTS } = useResearchProjects();
   const [rpRef, rpVis] = useReveal();
   const [labRef, labVis] = useReveal();
   const [patRef, patVis] = useReveal();

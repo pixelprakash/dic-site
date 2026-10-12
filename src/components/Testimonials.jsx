@@ -1,13 +1,14 @@
 import { useState } from 'react';
-import { TESTIMONIALS } from '../data/siteData';
+import { useTestimonials } from '../lib/cms';
 import { useReveal } from '../hooks/useReveal';
 import '../styles/Testimonials.css';
 
 export default function Testimonials() {
   const [ref, visible] = useReveal();
+  const TESTIMONIALS = useTestimonials();
   const [index, setIndex] = useState(0);
   const maxIndex = TESTIMONIALS.length - 1;
-  const t = TESTIMONIALS[index];
+  const t = TESTIMONIALS[Math.min(index, maxIndex)];
 
   const prev = () => setIndex((i) => (i === 0 ? maxIndex : i - 1));
   const next = () => setIndex((i) => (i === maxIndex ? 0 : i + 1));

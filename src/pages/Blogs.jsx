@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
-import { BLOG_POSTS } from '../data/blogsData';
+import { useBlogPosts } from '../lib/cms';
 import '../styles/Blogs.css';
 
 export default function Blogs() {
+  const { posts: BLOG_POSTS } = useBlogPosts();
   return (
     <>
       <div className="page-header">

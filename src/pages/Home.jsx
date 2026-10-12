@@ -5,7 +5,8 @@ import { useState } from 'react';
 import GondMuseumModal from '../components/GondMuseumModal';
 import Testimonials from '../components/Testimonials';
 import ParticleAnimation from '../components/ParticleAnimation';
-import { COLLABORATORS } from '../data/siteData';
+import NewsSection from '../components/NewsSection';
+import { useCollaborators } from '../lib/cms';
 import '../styles/Home.css';
 
 // DIC's own brand palette (see variables.css) — the wordmark's red/blue,
@@ -20,11 +21,12 @@ const HERO_PARTICLE_COLORS = ['#F0301B', '#EF7621', '#D4906B', '#2F3192'];
 // for the dark story-section it used to sit inside, which doesn't apply
 // here on the plain page background.
 function CollaboratorsSection() {
+  const collaborators = useCollaborators();
   return (
     <section className="home-collaborators" aria-label="Collaborators">
       <p className="home-collaborators__label">Collaborators</p>
       <div className="home-collaborators__grid">
-        {COLLABORATORS.map((c) => (
+        {collaborators.map((c) => (
           <div className="home-collaborators__tile" key={c.id} title={c.name}>
             {c.logo ? (
               <img src={c.logo} alt={c.name} loading="lazy" />
@@ -120,6 +122,7 @@ export default function Home() {
         </div> */}
       </section>
 
+      <NewsSection />
       <CollaboratorsSection />
       <GondMuseumSection />
       <Testimonials />
