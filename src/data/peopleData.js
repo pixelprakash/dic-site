@@ -347,7 +347,7 @@ export const MEMBERS = {
         },
       ],
       interests: [],
-      photo: '',
+      photo: '/images/people/ramesh.webp',
       email: '',
       website: '',
       linkedin: '',
