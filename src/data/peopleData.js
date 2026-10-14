@@ -284,8 +284,8 @@ export const MEMBERS = {
       scholar: '',
     },
     {
-      id: 'ramesh-balasubrahmanyam',
-      name: 'Ramesh Balasubrahmanyam',
+      id: 'ramesh-balasubramanian',
+      name: 'Ramesh Balasubramanian',
       role: 'PhD Student',
       track: 'external',
       // Left at '2025' as it was already on file; his own profile text gives
