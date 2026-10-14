@@ -32,14 +32,17 @@ export default function Education() {
       {/* About DIC courses — from the Academic exhibition poster. First
           line pulled out as a lede so the section opens with one clear
           statement instead of dropping straight into a wall of body text. */}
-      <section className={`about reveal ${aboutVis ? 'visible' : ''}`} ref={aboutRef}>
-        <div className="about__intro">
-          <h2 className="section-title">Design Innovation Centre (DIC) Courses</h2>
-          <p className="about__lede">
-            The Design Innovation Centre (DIC) offers a diverse and interdisciplinary range of
-            design courses that foster creativity, innovation, and design thinking among students
-            from multiple disciplines.
-          </p>
+      <section className={`section edu-about reveal ${aboutVis ? 'visible' : ''}`} ref={aboutRef}>
+        <div className="edu-split">
+          <div className="edu-split__head">
+            <h2 className="section-title">Design Innovation Centre (DIC) Courses</h2>
+            <p className="lede">
+              The Design Innovation Centre (DIC) offers a diverse and interdisciplinary range of
+              design courses that foster creativity, innovation, and design thinking among students
+              from multiple disciplines.
+            </p>
+          </div>
+          <div className="prose">
           <p>
             These courses are designed to merge design and technology, nurturing future-ready
             professionals capable of solving real-world challenges through creativity,
@@ -72,6 +75,7 @@ export default function Education() {
             Digital Fabrication, UI/UX, Creative Coding, and Typography, promoting creativity and
             collaborative learning.
           </p>
+          </div>
         </div>
       </section>
 
@@ -81,7 +85,7 @@ export default function Education() {
           fixed elsewhere on this page and on Research. A tag list reads
           as a catalogue, not a feature grid, and matches the pill
           language used for tags elsewhere on the site. */}
-      <section className="courses">
+      <section className="section section--tint courses">
         <div
           className={`courses__group reveal ${catalogueVis ? 'visible' : ''}`}
           ref={catalogueRef}
@@ -116,7 +120,7 @@ export default function Education() {
       </section>
 
       {/* Roadmap */}
-      <section className={`courses reveal ${roadVis ? 'visible' : ''}`} ref={roadRef}>
+      <section className={`section courses reveal ${roadVis ? 'visible' : ''}`} ref={roadRef}>
         <h2 className="section-title">Future Programs</h2>
         <ol className="roadmap-list">
           {FUTURE_PROGRAMS.map((item, i) => (

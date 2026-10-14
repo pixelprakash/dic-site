@@ -948,14 +948,17 @@
 }
 
 .nodal2-hero__bg {
+  display: none;
+}
+
+.nodal2-hero::after {
+  content: '';
   position: absolute;
-  top: -30%;
-  right: -15%;
-  width: 600px;
-  height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(196, 112, 75, 0.18) 0%, transparent 70%);
-  pointer-events: none;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: var(--brand-gradient);
 }
 
 .nodal2-hero__inner {
@@ -1369,7 +1372,7 @@ text.nodal2-diagram__label--muted, g.nodal2-diagram__label--muted { fill: var(--
   display: inline-flex;
   align-items: center;
   padding: 13px 24px;
-  border-radius: 100px;
+  border-radius: var(--radius-sm);
   border: 1px solid rgba(255, 255, 255, 0.4);
   font-family: var(--font-body);
   font-size: var(--text-md);

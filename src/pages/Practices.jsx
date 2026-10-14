@@ -102,30 +102,24 @@ export default function Practices() {
 
   return (
     <div className="pr">
-      <header className="pr-hero">
-        <div>
-          <p className="pr-eyebrow">Practices · DIC Hub, IIT Hyderabad</p>
-          <h1>
-            Design thinking, taken from the IIT campus into <em>every classroom.</em>
-          </h1>
-        </div>
-        <div>
-          <p className="pr-lede">
-            Five practices through which the DIC hub works with schools, colleges and governments:
-            immersions at IIT Hyderabad, DICs in government schools, HCD Labs, design education
-            centres, and universal design.
-          </p>
-          <div className="pr-delivered">
-            <span className="pr-delivered__mk" aria-hidden="true">HCD</span>
-            <p>
-              <b>Delivered through The Institute of Human-Centred Design.</b> HCD Institute (est.
-              2011) designs the curricula, trains facilitators and runs the programmes for the DIC hub.
-            </p>
-          </div>
-        </div>
+      <header className="page-header page-header--wide">
+        <div className="page-header__accent" />
+        <h1>Design thinking, taken from the IIT campus into every classroom.</h1>
+        <p>
+          Five practices through which the DIC hub works with schools, colleges and governments:
+          immersions at IIT Hyderabad, DICs in government schools, HCD Labs, design education
+          centres, and universal design.
+        </p>
       </header>
 
       <div className="pr-matrix-block">
+        <div className="pr-delivered">
+          <span className="pr-delivered__mk" aria-hidden="true">HCD</span>
+          <p>
+            <b>Delivered through The Institute of Human-Centred Design.</b> HCD Institute (est.
+            2011) designs the curricula, trains facilitators and runs the programmes for the DIC hub.
+          </p>
+        </div>
         <div className="pr-matrix-wrap">
           <table className="pr-matrix" aria-label="Which practice fits which institution">
             <thead>
@@ -234,7 +228,7 @@ export default function Practices() {
           the projects.
         </p>
         <div>
-          <p className="pr-eyebrow pr-eyebrow--tight">Each semester</p>
+          <h3 className="pr-block-title">Each semester</h3>
           <div className="pr-rhythm">
             <div><span>Week 1</span><strong>5-day workshop</strong>Design thinking and innovation, hands-on.</div>
             <div><span>Next 3 weeks</span><strong>Classroom project</strong>20 hours of guided project work, the standard NID project time.</div>
@@ -315,7 +309,7 @@ export default function Practices() {
           <div className="pr-card"><h3>International</h3><p>Readiness audits against the Dubai Universal Design Code and other national standards.</p></div>
         </div>
         <div>
-          <p className="pr-eyebrow pr-eyebrow--tight">Certification tiers</p>
+          <h3 className="pr-block-title">Certification tiers</h3>
           <div className="pr-tiers">
             {[
               [1, 'Compliant', 'Meets the legal floor in India: RPwD Act 2016 and the Harmonised Guidelines.'],
@@ -343,7 +337,6 @@ export default function Practices() {
       <section className="pr-enquire" id="enquire">
         <div className="pr-enquire__inner pr-split">
           <div className="pr-split__head">
-            <p className="pr-eyebrow pr-eyebrow--light">Work with DIC</p>
             <h2>Start with a <em>conversation</em></h2>
             <p className="pr-enquire__muted">
               Tell us which practice interests you. The HCD Institute team replies on behalf of the DIC hub.

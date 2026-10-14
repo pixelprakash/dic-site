@@ -100,9 +100,59 @@
      stays the raw minimum edge gutter that navbar/footer use directly. */
   --content-max: 1360px;
   --page-gutter: max(var(--margin-x), calc((100% - var(--content-max)) / 2));
-  --section-gap: 160px;
+  /* Legacy name for the page-section rhythm — now the same fluid value as
+     --section-y so every section on the site shares one vertical rhythm. */
+  --section-gap: clamp(72px, 9vw, 128px);
   --border-radius: 20px;
   --border-radius-sm: 10px;
+
+  /* ─── Design-system tokens (see DESIGN_SYSTEM.md) ─── */
+
+  /* Spacing scale, 4px base. Use these for gaps/padding instead of one-offs. */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+
+  /* One vertical rhythm for every page section. */
+  --section-y: clamp(72px, 9vw, 128px);
+
+  /* Fluid type roles. Headings and hero titles take these so the whole site
+     scales the same way. */
+  --fs-display: clamp(2.75rem, 6.2vw, 5rem);
+  --fs-title: clamp(2rem, 3.8vw, 3rem);
+  --fs-heading: clamp(1.4rem, 2.2vw, 1.75rem);
+  --fs-lede: clamp(1.125rem, 1.4vw, 1.3rem);
+
+  /* Radii */
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* Hairlines */
+  --line: rgba(26, 23, 20, 0.1);
+  --line-strong: rgba(26, 23, 20, 0.2);
+
+  /* Elevation — three levels, always warm-tinted */
+  --shadow-sm: 0 1px 2px rgba(26, 23, 20, 0.05), 0 6px 16px -10px rgba(26, 23, 20, 0.16);
+  --shadow-md: 0 14px 34px -16px rgba(26, 23, 20, 0.28);
+  --shadow-lg: 0 30px 64px -26px rgba(26, 23, 20, 0.4);
+
+  /* The brand signature: the three logo colours as one crisp three-part rule
+     (hard stops, not a blend). Used sparingly: under page headers. */
+  --brand-gradient: linear-gradient(90deg, var(--color-dic-red) 0 33.34%, var(--color-dic-orange) 33.34% 66.67%, var(--color-dic-blue) 66.67% 100%);
+
+  /* Flat, muted tints for placeholders (no gradients) */
+  --wash-warm: #EFE3D3;
+  --wash-cool: #DDE0EE;
+  --wash-teal: #D9E8E4;
 
   /* Transitions */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -113,20 +163,17 @@
 @media (max-width: 1024px) {
   :root {
     --margin-x: 56px;
-    --section-gap: 112px;
   }
 }
 
 @media (max-width: 768px) {
   :root {
     --margin-x: 28px;
-    --section-gap: 80px;
   }
 }
 
 @media (max-width: 480px) {
   :root {
     --margin-x: 20px;
-    --section-gap: 60px;
   }
 }

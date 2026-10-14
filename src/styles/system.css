@@ -1,0 +1,178 @@
+/* ─── DIC design system: shared primitives ───
+   Tokens live in variables.css; this file is the small set of building
+   blocks every page assembles from, so the whole site reads as one piece:
+     eyebrow · section head · lede · button · chip · card · prose
+   Page-specific CSS should compose these rather than restyle them. */
+
+/* Section heading + optional lede. */
+.section-title {
+  font-size: var(--fs-title);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+  margin-bottom: var(--space-5);
+}
+
+.lede {
+  font-size: var(--fs-lede);
+  line-height: var(--lh-normal);
+  color: var(--color-stone);
+  max-width: 56ch;
+  text-wrap: pretty;
+}
+
+/* A standard section: full-width band with the page gutter. */
+.section {
+  padding: var(--section-y) var(--page-gutter);
+}
+
+.section--tint {
+  background: var(--color-sand);
+}
+
+.section--ink {
+  background: var(--color-ink);
+  color: var(--color-white);
+}
+
+.section--ink .section-title {
+  color: var(--color-white);
+}
+
+.section--ink .lede,
+.section--ink p {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* Buttons: one family. */
+.btn,
+.pill-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--color-dic-red-text-safe);
+  background: var(--color-dic-red-text-safe);
+  color: var(--color-white);
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  font-weight: 600;
+  line-height: 1.1;
+  cursor: pointer;
+  transition: background 0.2s var(--ease-smooth), border-color 0.2s var(--ease-smooth), color 0.2s var(--ease-smooth), transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+}
+
+.btn:hover,
+.btn:focus-visible,
+.pill-cta:hover,
+.pill-cta:focus-visible {
+  background: var(--color-dic-red);
+  border-color: var(--color-dic-red);
+  color: var(--color-white);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn--ghost {
+  background: transparent;
+  border-color: var(--color-ink);
+  color: var(--color-ink);
+}
+
+.btn--ghost:hover,
+.btn--ghost:focus-visible {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: var(--color-white);
+  box-shadow: var(--shadow-md);
+}
+
+.btn--light {
+  background: var(--color-white);
+  border-color: var(--color-white);
+  color: var(--color-ink);
+}
+
+.btn--light:hover,
+.btn--light:focus-visible {
+  background: var(--color-terracotta-light);
+  border-color: var(--color-terracotta-light);
+  color: var(--color-ink);
+  box-shadow: none;
+}
+
+/* Text link with an arrow that nudges on hover. */
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--color-dic-blue);
+}
+
+.link-arrow::after {
+  content: '→';
+  transition: transform 0.2s var(--ease-out);
+}
+
+.link-arrow:hover::after,
+.link-arrow:focus-visible::after {
+  transform: translateX(4px);
+}
+
+/* Chips / tags. */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--color-white);
+  border: 1px solid var(--color-sand);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--color-stone);
+}
+
+.chip--accent {
+  background: #FBE9D7;
+  border-color: transparent;
+  color: #A24E0C;
+}
+
+.chip--cool {
+  background: #E4E5F6;
+  border-color: transparent;
+  color: var(--color-dic-blue);
+}
+
+/* Card: white surface, hairline, soft lift. */
+.card {
+  background: var(--color-white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out), border-color 0.25s var(--ease-smooth);
+}
+
+.card--interactive:hover,
+.card--interactive:focus-within {
+  transform: translateY(-4px);
+  border-color: var(--line-strong);
+  box-shadow: var(--shadow-md);
+}
+
+/* Long-form text: comfortable measure and rhythm. */
+.prose p {
+  font-size: var(--text-lg);
+  line-height: var(--lh-relaxed);
+  color: var(--color-charcoal);
+  max-width: 64ch;
+}
+
+.prose p + p {
+  margin-top: var(--space-4);
+}

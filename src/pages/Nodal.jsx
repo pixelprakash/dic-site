@@ -100,9 +100,6 @@ function NodalHero() {
       <div className="nodal2-hero__bg" aria-hidden="true" />
       <div className="nodal2-hero__inner">
         <div className="nodal2-hero__left">
-          <p className="section-label" style={{ color: 'var(--color-terracotta-light)' }}>
-            {NODAL_HERO.eyebrow}
-          </p>
           <h1>{NODAL_HERO.title}</h1>
           <p className="nodal2-hero__para">{NODAL_HERO.lede}</p>
           <div className="nodal2-hero__ctas">
@@ -136,7 +133,6 @@ function UpcomingEventsSection() {
   const { events: EVENTS } = useNodalEvents();
   return (
     <section className="nodal2-events">
-      <p className="section-label">Upcoming</p>
       <h2 className="section-title">Events across the network</h2>
       <div className="nodal2-events__list">
         {EVENTS.map((e) => {
@@ -177,10 +173,9 @@ function UpcomingEventsSection() {
 // Research / Outreach / Education — no layout spec yet beyond "a section
 // named X goes here", so these are honest placeholders (heading + note)
 // rather than guessed-at content, ready to fill in next.
-function NodalPlaceholderSection({ id, eyebrow, title, note }) {
+function NodalPlaceholderSection({ id, title, note }) {
   return (
     <section className="nodal2-placeholder" id={id}>
-      <p className="section-label">{eyebrow}</p>
       <h2 className="section-title">{title}</h2>
       <p className="nodal2-placeholder__note">{note}</p>
     </section>
@@ -193,7 +188,6 @@ function NodalAbout() {
     <section className="nodal2-section" id="about">
       <div className="nodal2-split">
         <div className="nodal2-split__head">
-          <p className="section-label">What is DIC</p>
           <h2 className="section-title">A national initiative for design innovation</h2>
         </div>
         <div className="nodal2-split__body">
@@ -257,7 +251,6 @@ function NodalHubSpoke() {
     <section className="nodal2-section" id="hub">
       <div className="nodal2-split">
         <div className="nodal2-split__head">
-          <p className="section-label">What is a hub</p>
           <h2 className="section-title">One mentor institution, many partners</h2>
           <p className="nodal2-muted">
             DICs run on a hub-and-spoke model. The hub leads and mentors. Spokes bring their own
@@ -287,7 +280,7 @@ function NodalHubSpoke() {
 function NodalLeadership() {
   return (
     <section className="nodal2-section" id="pi">
-      <p className="section-label">Principal Investigator</p>
+      <h2 className="section-title">Principal Investigator</h2>
       <div className="nodal2-pi">
         <Link className="nodal2-pi__photo" to={`/people/${NODAL_PI.slug}`} aria-label={`${NODAL_PI.name}'s profile`}>
           <img src={NODAL_PI.photo} alt={NODAL_PI.name} loading="lazy" />
@@ -342,7 +335,6 @@ function NodalNetwork() {
     <section className="nodal2-section" id="network">
       <div className="nodal2-dir-top">
         <div>
-          <p className="section-label">The network</p>
           <h2 className="section-title">80+ DIC nodes across India</h2>
         </div>
         <div className="nodal2-dir-controls">
@@ -405,7 +397,6 @@ function NodalApply() {
       <div className="nodal2-apply__inner">
         <div className="nodal2-split">
           <div className="nodal2-split__head">
-            <p className="section-label" style={{ color: 'var(--color-terracotta-light)' }}>Apply to become a node</p>
             <h2 className="section-title">{NODAL_APPLY.title}</h2>
             <p className="nodal2-apply__intro">{NODAL_APPLY.intro}</p>
           </div>
@@ -473,19 +464,16 @@ function NodalNew() {
       <NodalApply />
       <NodalPlaceholderSection
         id="research"
-        eyebrow="Research"
         title="Research across the network"
         note="Structure pending — say what should go in this section and I'll build it next."
       />
       <NodalPlaceholderSection
         id="outreach"
-        eyebrow="Outreach"
         title="Outreach & impact"
         note="Structure pending — say what should go in this section and I'll build it next."
       />
       <NodalPlaceholderSection
         id="education"
-        eyebrow="Education"
         title="Education & capacity building"
         note="Structure pending — say what should go in this section and I'll build it next."
       />

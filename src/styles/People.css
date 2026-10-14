@@ -1,43 +1,5 @@
 /* ─── People — Members of DIC ─── */
 
-/* Page intro: a real heading and one line of context above the sticky
-   category bar, instead of the page opening straight on the bar. */
-.people-intro {
-  padding: clamp(56px, 8vw, 104px) var(--page-gutter) clamp(36px, 5vw, 56px);
-  background:
-    radial-gradient(900px 320px at 8% 0%, rgba(239, 118, 33, 0.1), transparent 70%),
-    var(--color-cream);
-}
-
-.people-intro__eyebrow {
-  font-family: var(--font-body);
-  font-size: var(--text-xs);
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-terracotta);
-  margin: 0 0 16px;
-}
-
-.people-intro__title {
-  font-family: var(--font-heading);
-  font-style: normal;
-  font-weight: 700;
-  font-size: clamp(2.4rem, 5.6vw, 4.25rem);
-  line-height: 1.04;
-  letter-spacing: -0.02em;
-  color: var(--color-ink);
-  margin: 0 0 18px;
-}
-
-.people-intro__lede {
-  font-size: var(--text-lg);
-  line-height: var(--lh-normal);
-  color: var(--color-stone);
-  max-width: 52ch;
-  margin: 0;
-}
-
 .people-header {
   position: sticky;
   z-index: 40;

@@ -11,6 +11,58 @@ The short version: **reach for a token, not a raw number.** If nothing here
 fits, that's a sign to add a new named token rather than hardcode a value —
 keeps the system growing intentionally instead of drifting.
 
+
+## Design principles (read this first)
+
+This is the website of an academic research centre funded by the Ministry of
+Education, Government of India, and government officials visit it. The look
+should read as **credible, calm and institutional** — not as a startup or
+agency landing page.
+
+Do:
+
+- Let typography, whitespace and a clear grid carry the design.
+- Use colour for meaning and sparingly: ink/cream surfaces, the logo colours
+  as small accents.
+- Keep one rhythm: every section uses `--section-y`; every page opens with the
+  same `.page-header`.
+
+Don't:
+
+- Add decorative effects: glowing blobs, grid overlays, gradient text, animated
+  gradients, glassmorphism on content.
+- Put a small uppercase "eyebrow" label above a heading. (They were tried and
+  removed — they read as template-generated.) A heading stands on its own.
+- Mix button shapes. Buttons are rounded rectangles (`--radius-sm`); pills are
+  only for chips/filters.
+
+## Shared building blocks (`src/styles/system.css`)
+
+Pages assemble from these rather than restyling their own:
+
+| Class | What it is |
+|---|---|
+| `.page-header` | The one page hero: solid ink band, white `h1`, lede, and a thin three-part rule in the logo colours along the bottom. Wide titles add `.page-header--wide`. |
+| `.section`, `.section--tint`, `.section--ink` | A full-width band using `--section-y` and the page gutter; sand tint or ink variants. |
+| `.section-title`, `.lede` | Section heading and its supporting sentence. |
+| `.btn`, `.btn--ghost`, `.btn--light`, `.pill-cta` | The button family (rounded rectangle). |
+| `.link-arrow` | Text link with a nudging arrow. |
+| `.chip`, `.chip--accent`, `.chip--cool` | Tags and filters (pill-shaped). |
+| `.card`, `.card--interactive` | White surface, hairline border, soft shadow. |
+| `.prose` | Long-form text at a comfortable measure. |
+
+### Tokens added in the refresh (`variables.css`)
+
+- Spacing scale `--space-1` … `--space-10` (4px base).
+- `--section-y` (fluid page-section padding). `--section-gap` is now an alias
+  with the same value, so older components share the rhythm.
+- Type roles `--fs-display`, `--fs-title`, `--fs-heading`, `--fs-lede`; `h1`,
+  `h2`, `h3` use them.
+- Radii `--radius-sm/md/lg/pill`, hairlines `--line` / `--line-strong`,
+  elevation `--shadow-sm/md/lg`.
+- `--brand-gradient` is a three-part rule with hard colour stops (not a blend);
+  `--wash-*` are flat muted tints for image placeholders.
+
 ## Typography
 
 ### Fonts

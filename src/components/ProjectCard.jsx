@@ -13,6 +13,11 @@ function initials(title) {
     .toUpperCase();
 }
 
+// Cards without a photo get one of three soft brand washes (picked from the
+// title, so a card keeps the same colour between visits) instead of a flat
+// dark box.
+const FALLBACK_TONES = ['warm', 'cool', 'teal'];
+
 // Respect the user's motion preference once, not per-event — checked at
 // module scope rather than inside the handler so a rapid flurry of
 // pointermove events doesn't re-query matchMedia every time.
@@ -105,7 +110,7 @@ export default function ProjectCard({ project, basePath = '/projects', ctaLabel 
         {image ? (
           <img src={image} alt="" loading="lazy" />
         ) : (
-          <div className="project-card__fallback" aria-hidden="true">
+          <div className={`project-card__fallback project-card__fallback--${FALLBACK_TONES[title.length % FALLBACK_TONES.length]}`} aria-hidden="true">
             <span>{initials(title)}</span>
           </div>
         )}
@@ -120,12 +125,12 @@ export default function ProjectCard({ project, basePath = '/projects', ctaLabel 
         )}
       </Link>
       <div className="project-card__content">
-        <p className="section-label">{domain}</p>
         <h3><Link to={`${basePath}/${slug}`} className="project-card__title-link">{title}</Link></h3>
         <p>{tagline || abstract}</p>
-        {tags.length > 0 && (
+        {(domain || tags.length > 0) && (
           <div className="project-card__tags">
-            {tags.slice(0, 4).map((t) => (
+            {domain && <span className="tag tag--accent">{domain}</span>}
+            {tags.slice(0, domain ? 3 : 4).map((t) => (
               <span className="tag" key={t}>{t}</span>
             ))}
           </div>

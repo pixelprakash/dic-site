@@ -1,4 +1,5 @@
 @import './variables.css';
+@import './system.css';
 
 *,
 *::before,
@@ -38,9 +39,9 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-ink);
 }
 
-h1 { font-size: clamp(3rem, 8vw, 7rem); }
-h2 { font-size: clamp(2rem, 4.5vw, 3.5rem); }
-h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
+h1 { font-size: var(--fs-display); letter-spacing: -0.02em; }
+h2 { font-size: var(--fs-title); letter-spacing: -0.015em; }
+h3 { font-size: var(--fs-heading); }
 h4 { font-size: clamp(1.1rem, 2vw, 1.4rem); }
 
 p {
@@ -78,6 +79,7 @@ ul, ol {
   padding-right: var(--margin-x);
 }
 
+/* Small label (only the parked full Nodal page still uses it). */
 .section-label {
   font-family: var(--font-body);
   font-size: var(--text-xs);
@@ -86,10 +88,6 @@ ul, ol {
   text-transform: uppercase;
   color: var(--color-terracotta);
   margin-bottom: 20px;
-}
-
-.section-title {
-  margin-bottom: 32px;
 }
 
 /* ─── Reveal animation ─── */

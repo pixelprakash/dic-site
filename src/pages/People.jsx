@@ -133,12 +133,10 @@ export default function People() {
 
   return (
     <>
-      <header className="people-intro">
-        <p className="people-intro__eyebrow">Design Innovation Centre · IIT Hyderabad</p>
-        <h1 className="people-intro__title">Members of DIC</h1>
-        <p className="people-intro__lede">
-          The faculty, researchers, designers and students of the Centre.
-        </p>
+      <header className="page-header">
+        <div className="page-header__accent" />
+        <h1>Members of DIC</h1>
+        <p>The faculty, researchers, designers and students of the Centre.</p>
       </header>
 
       <div className="people-header" ref={headerRef} style={{ top: navH }}>

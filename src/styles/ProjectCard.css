@@ -20,9 +20,10 @@
 .project-card__image {
   position: relative;
   display: block;
-  border-radius: var(--border-radius);
+  border-radius: var(--radius-lg);
   overflow: hidden;
   aspect-ratio: 16 / 10;
+  box-shadow: var(--shadow-md);
   /* Perspective lives on the container so the child's rotateX/Y (set via
      JS as the pointer moves — see ProjectCard.jsx) reads as a believable
      tilt toward the cursor rather than a flat skew. Custom properties
@@ -83,28 +84,37 @@
   pointer-events: none;
 }
 
-/* Placeholder until a real photo is uploaded — same navy/teal gradient
-   treatment used for the People page's missing-photo fallback, so an
-   unfilled project card reads as "photo pending" rather than broken. */
+/* Placeholder until a real photo is uploaded: a soft brand wash with the
+   title's initials set large in the heading font and a few quiet rings, so
+   an unfilled card reads as designed rather than empty. */
 .project-card__fallback {
+  position: relative;
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(150deg, var(--color-navy), var(--color-teal-dark));
+  overflow: hidden;
+  background: var(--wash-warm);
 }
 
+.project-card__fallback--cool { background: var(--wash-cool); }
+.project-card__fallback--teal { background: var(--wash-teal); }
+
 .project-card__fallback span {
+  position: relative;
   font-family: var(--font-heading);
   font-weight: 600;
-  font-size: 3rem;
-  color: rgba(255, 255, 255, 0.85);
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  letter-spacing: 0.02em;
+  color: rgba(26, 23, 20, 0.5);
 }
 
 .project-card__content h3 {
   margin-bottom: 20px;
-  font-size: clamp(1.5rem, 2.8vw, 2.1rem);
+  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+  line-height: 1.2;
+  text-wrap: balance;
   transition: color 0.35s var(--ease-smooth);
 }
 
@@ -138,9 +148,9 @@
   align-items: center;
   gap: 8px;
   font-family: var(--font-body);
-  font-size: var(--text-sm);
+  font-size: var(--text-md);
   font-weight: 600;
-  color: var(--color-dic-red);
+  color: var(--color-dic-blue);
 }
 
 .project-card__cta svg {

@@ -61,7 +61,6 @@ function GondMuseumSection() {
   return (
     <section className="home-gond" aria-labelledby="gond-heading">
       <div className="home-gond__copy">
-        <p className="home-gond__eyebrow">New · WebXR preview</p>
         <h2 className="home-heading" id="gond-heading">Step into the Gond Virtual Museum</h2>
         <p className="home-gond__body">
           A room of Gond folk art — tiger, horse, bird, and dancer motifs rendered as a walkable
@@ -98,7 +97,6 @@ export default function Home() {
       <section className="home-construction">
         <ParticleAnimation colors={HERO_PARTICLE_COLORS} particleCount={160} />
         <div className="home-hero">
-          <p className="home-hero__eyebrow">IIT Hyderabad</p>
           <h1 className="home-hero__title">Design Innovation Centre</h1>
           <p className="home-hero__sub">
             Interdisciplinary design research across cultural heritage, autonomous mobility,

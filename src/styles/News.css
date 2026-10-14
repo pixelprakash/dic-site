@@ -19,7 +19,7 @@
   align-items: center;
   gap: 8px;
   padding: 10px 20px;
-  border-radius: 100px;
+  border-radius: var(--radius-sm);
   background: var(--color-dic-red-text-safe);
   color: var(--color-white);
   font-family: var(--font-body);

@@ -1,34 +1,40 @@
 .conferences-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 24px;
-  padding: var(--section-gap) var(--page-gutter);
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: var(--space-5);
+  padding: var(--section-y) var(--page-gutter);
 }
 
 .conference-card {
   display: flex;
   flex-direction: column;
-  padding: 32px;
-  border: 1px solid rgba(26, 23, 20, 0.12);
-  border-radius: var(--border-radius);
-  transition: border-color 0.3s var(--ease-smooth), transform 0.3s var(--ease-smooth), box-shadow 0.3s var(--ease-smooth);
+  padding: clamp(24px, 3vw, 36px);
+  background: var(--color-white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.3s var(--ease-smooth), transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
 }
 
-.conference-card:hover {
-  border-color: var(--color-terracotta);
-  transform: translateY(-2px);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+.conference-card:hover,
+.conference-card:focus-visible {
+  border-color: var(--line-strong);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
 }
 
 .conference-card h3 {
   font-size: var(--text-xl);
-  margin-bottom: 10px;
+  line-height: 1.25;
+  margin-bottom: var(--space-3);
+  text-wrap: balance;
 }
 
 .conference-card p {
   font-size: var(--text-md);
+  line-height: var(--lh-normal);
   color: var(--color-stone);
-  margin-bottom: 24px;
+  margin-bottom: var(--space-5);
   flex: 1;
 }
 
@@ -36,9 +42,9 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: var(--text-sm);
+  font-size: var(--text-md);
   font-weight: 600;
-  color: var(--color-terracotta);
+  color: var(--color-dic-blue);
 }
 
 .conference-card:hover .conference-card__cta svg {

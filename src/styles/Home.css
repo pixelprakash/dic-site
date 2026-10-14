@@ -43,17 +43,6 @@
   pointer-events: none;
 }
 
-.home-hero__eyebrow {
-  font-family: var(--font-body);
-  font-size: var(--text-xs);
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: #F2B48F;
-  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.8);
-  margin-bottom: 20px;
-}
-
 .home-hero__title {
   font-family: var(--font-heading);
   font-style: normal;
@@ -85,7 +74,7 @@
 
 .home-hero__btn {
   padding: 13px 26px;
-  border-radius: 100px;
+  border-radius: var(--radius-sm);
   border: 1px solid rgba(255, 255, 255, 0.35);
   background: rgba(26, 23, 20, 0.35);
   font-family: var(--font-body);
@@ -307,16 +296,6 @@
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
   gap: clamp(32px, 5vw, 72px);
   align-items: center;
-}
-
-.home-gond__eyebrow {
-  font-family: var(--font-body);
-  font-size: var(--text-xs);
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-terracotta);
-  margin-bottom: 16px;
 }
 
 .home-gond__body {
