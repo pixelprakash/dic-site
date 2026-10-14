@@ -176,3 +176,65 @@
 .prose p + p {
   margin-top: var(--space-4);
 }
+
+/* Two-column section: sticky heading on the left, content on the right.
+   The standard layout for an explanatory section on every page. */
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(32px, 6vw, 96px);
+}
+
+.split__head {
+  align-self: start;
+  position: sticky;
+  top: 112px;
+}
+
+.split__head .section-title {
+  margin-bottom: var(--space-4);
+}
+
+.split__head .lede {
+  margin-top: var(--space-2);
+}
+
+.split__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .split {
+    grid-template-columns: 1fr;
+  }
+
+  .split__head {
+    position: static;
+  }
+}
+
+/* Secondary button on a dark band. */
+.btn--on-dark {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.55);
+  color: var(--color-white);
+}
+
+.btn--on-dark:hover,
+.btn--on-dark:focus-visible {
+  background: var(--color-white);
+  border-color: var(--color-white);
+  color: var(--color-ink);
+  box-shadow: none;
+}
+
+/* Buttons under a page header's lede. */
+.page-header__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}

@@ -33,8 +33,8 @@ export default function Education() {
           line pulled out as a lede so the section opens with one clear
           statement instead of dropping straight into a wall of body text. */}
       <section className={`section edu-about reveal ${aboutVis ? 'visible' : ''}`} ref={aboutRef}>
-        <div className="edu-split">
-          <div className="edu-split__head">
+        <div className="split">
+          <div className="split__head">
             <h2 className="section-title">Design Innovation Centre (DIC) Courses</h2>
             <p className="lede">
               The Design Innovation Centre (DIC) offers a diverse and interdisciplinary range of

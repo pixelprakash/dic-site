@@ -64,16 +64,15 @@ function Cards({ items, cols = 3 }) {
   );
 }
 
-function Section({ id, tone = 'blue', code, title, sub, children }) {
+function Section({ id, tint = false, title, sub, children }) {
   return (
-    <section className="pr-section" id={id}>
-      <div className="pr-split">
-        <div className="pr-split__head">
-          <span className={`pr-code pr-code--${tone}`}>{code}</span>
-          <h2>{title}</h2>
-          <p className="pr-sub">{sub}</p>
+    <section className={`section${tint ? ' section--tint' : ''}`} id={id}>
+      <div className="split">
+        <div className="split__head">
+          <h2 className="section-title">{title}</h2>
+          <p className="lede">{sub}</p>
         </div>
-        <div className="pr-split__body">{children}</div>
+        <div className="split__body">{children}</div>
       </div>
     </section>
   );
@@ -148,7 +147,6 @@ export default function Practices() {
 
       <Section
         id="immersion"
-        code="Immersion"
         title="Immersion programmes at DIC, IIT Hyderabad"
         sub="Five residential days on the IIT campus, in the labs, with the people who build things."
       >
@@ -180,14 +178,13 @@ export default function Practices() {
           seats at DIC workshops.
         </p>
         <div className="pr-cta-row">
-          <a className="pr-btn" href="#enquire" onClick={enquireAbout('Immersion programmes at IIT Hyderabad')}>Enquire about immersions</a>
+          <a className="btn" href="#enquire" onClick={enquireAbout('Immersion programmes at IIT Hyderabad')}>Enquire about immersions</a>
         </div>
       </Section>
 
       <Section
         id="gov-schools"
-        tone="gold"
-        code="Public schools"
+        tint
         title="Start a DIC in government schools"
         sub="A design innovation node inside the public school system, built on labs schools already have."
       >
@@ -210,14 +207,13 @@ export default function Practices() {
           </p>
         </div>
         <div className="pr-cta-row">
-          <a className="pr-btn pr-btn--ghost" href="#enquire" onClick={enquireAbout('Start a DIC in government schools')}>Talk to us as a department</a>
+          <a className="btn btn--ghost" href="#enquire" onClick={enquireAbout('Start a DIC in government schools')}>Talk to us as a department</a>
           <span className="pr-cta-note">Engagements start with an MoU between the department and HCD-DIC.</span>
         </div>
       </Section>
 
       <Section
         id="hcd-lab"
-        code="HCD Labs"
         title="HCD Lab in schools"
         sub="A year-long design thinking and innovation programme that runs inside the school, for every student."
       >
@@ -243,15 +239,14 @@ export default function Practices() {
           <li>Students mentored toward IITs and premier design and business schools</li>
         </ul>
         <div className="pr-cta-row">
-          <a className="pr-btn pr-btn--ghost" href="#enquire" onClick={enquireAbout('HCD Lab in schools')}>Bring HCD Lab to your school</a>
+          <a className="btn btn--ghost" href="#enquire" onClick={enquireAbout('HCD Lab in schools')}>Bring HCD Lab to your school</a>
           <span className="pr-cta-note">Fees are agreed per school, based on enrolment and faculty needed.</span>
         </div>
       </Section>
 
       <Section
         id="design-centres"
-        tone="teal"
-        code="Institution building"
+        tint
         title="Help in creating design education centres"
         sub="For colleges and universities that want to teach design, step by step, with the IIT hub behind them."
       >
@@ -277,15 +272,13 @@ export default function Practices() {
           { title: 'Network', text: 'Entry into the DIC network as a node, with access to the IIT Hyderabad hub.' },
         ]} />
         <div className="pr-cta-row">
-          <a className="pr-btn pr-btn--ghost" href="#enquire" onClick={enquireAbout('Design education centres')}>Plan a centre with us</a>
+          <a className="btn btn--ghost" href="#enquire" onClick={enquireAbout('Design education centres')}>Plan a centre with us</a>
           <Link className="pr-cta-link" to="/nodal#apply">Or apply to become a DIC node</Link>
         </div>
       </Section>
 
       <Section
         id="universal-design"
-        tone="teal"
-        code="Universal design"
         title="Universal design practices"
         sub="Places, services and digital products that work for everyone, including persons with disabilities."
       >
@@ -330,19 +323,19 @@ export default function Practices() {
           {['RPwD Act 2016', 'Harmonised Guidelines 2021', 'WCAG 2.2', 'EN 301 549', 'ISO 21542'].map((p) => <span key={p}>{p}</span>)}
         </div>
         <div className="pr-cta-row">
-          <a className="pr-btn pr-btn--ghost" href="#enquire" onClick={enquireAbout('Universal design practices')}>Request an accessibility audit</a>
+          <a className="btn btn--ghost" href="#enquire" onClick={enquireAbout('Universal design practices')}>Request an accessibility audit</a>
         </div>
       </Section>
 
-      <section className="pr-enquire" id="enquire">
-        <div className="pr-enquire__inner pr-split">
-          <div className="pr-split__head">
-            <h2>Start with a <em>conversation</em></h2>
+      <section className="section section--ink pr-enquire" id="enquire">
+        <div className="split">
+          <div className="split__head">
+            <h2 className="section-title">Start with a conversation</h2>
             <p className="pr-enquire__muted">
               Tell us which practice interests you. The HCD Institute team replies on behalf of the DIC hub.
             </p>
           </div>
-          <div className="pr-split__body">
+          <div className="split__body">
             <div className="pr-enquire__panel">
               <label>
                 Practice
@@ -355,7 +348,7 @@ export default function Practices() {
                 you're looking for: number of students or schools, timelines, and labs you already have.
               </p>
               <div className="pr-enquire__actions">
-                <a className="pr-btn pr-btn--light" href={mailto}>Email {EMAIL}</a>
+                <a className="btn" href={mailto}>Email {EMAIL}</a>
                 <button type="button" className="pr-copy" onClick={copyEmail}>{copied ? 'Copied' : 'Copy email'}</button>
               </div>
             </div>

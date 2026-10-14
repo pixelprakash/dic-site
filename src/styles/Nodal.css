@@ -939,128 +939,36 @@
    above that belong to the parked NodalFull, so the two designs' styles
    never collide while both live in this file. ─── */
 
-.nodal2-hero {
-  position: relative;
-  background: var(--color-ink);
-  color: var(--color-white);
+/* Photo strip under the page header */
+.nodal2-photos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+  padding-top: var(--space-8);
+  padding-bottom: 0;
+}
+
+.nodal2-photos__item {
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  padding: clamp(120px, 14vw, 180px) 0 clamp(64px, 8vw, 96px);
+  background: var(--color-sand);
+  box-shadow: var(--shadow-sm);
 }
 
-.nodal2-hero__bg {
-  display: none;
-}
-
-.nodal2-hero::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 3px;
-  background: var(--brand-gradient);
-}
-
-.nodal2-hero__inner {
-  position: relative;
-  max-width: var(--content-max, 1360px);
-  margin: 0 auto;
-  padding: 0 var(--page-gutter);
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: clamp(40px, 6vw, 80px);
-  align-items: center;
-}
-
-.nodal2-hero__left h1 {
-  color: var(--color-white);
-  font-size: clamp(2.25rem, 4.2vw, 3.5rem);
-  line-height: 1.15;
-  margin: 12px 0 24px;
-  max-width: 16ch;
-}
-
-.nodal2-hero__para {
-  color: rgba(255, 255, 255, 0.65);
-  font-size: var(--text-lg);
-  line-height: 1.7;
-  max-width: 54ch;
-  margin-bottom: 40px;
-}
-
-.nodal2-metrics {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  max-width: 480px;
-}
-
-.nodal2-metric {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.nodal2-metric b {
-  font-family: var(--font-heading);
-  font-style: normal;
-  font-size: clamp(1.5rem, 2.6vw, 2rem);
-  color: var(--color-white);
-  line-height: 1;
-}
-
-.nodal2-metric span {
-  font-family: var(--font-body);
-  font-size: var(--text-xs);
-  color: rgba(255, 255, 255, 0.6);
-  line-height: 1.4;
-}
-
-.nodal2-hero__right {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-}
-
-.nodal2-hero__image {
-  aspect-ratio: 1;
-  border-radius: var(--border-radius-sm);
-  overflow: hidden;
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.nodal2-hero__image img {
+.nodal2-photos__item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-@media (max-width: 900px) {
-  .nodal2-hero__inner {
-    grid-template-columns: 1fr;
-  }
-
-  .nodal2-hero__right {
-    max-width: 420px;
+@media (max-width: 800px) {
+  .nodal2-photos {
+    grid-template-columns: 1fr 1fr;
+    padding-top: var(--space-6);
   }
 }
 
-@media (max-width: 480px) {
-  .nodal2-metrics {
-    grid-template-columns: 1fr;
-    gap: 16px;
-    max-width: none;
-  }
-}
-
-/* ─── Upcoming events: full-width rows, stacked ─── */
-.nodal2-events {
-  padding: var(--section-gap) var(--page-gutter);
-  max-width: var(--content-max, 1360px);
-  margin: 0 auto;
-}
 
 .nodal2-events__list {
   display: flex;
@@ -1157,37 +1065,7 @@
 }
 
 /* ─── Research / Outreach / Education placeholders ─── */
-.nodal2-placeholder {
-  padding: var(--section-gap) var(--page-gutter);
-  max-width: var(--content-max, 1360px);
-  margin: 0 auto;
-  border-top: 1px solid rgba(26, 23, 20, 0.08);
-}
-
-.nodal2-placeholder__note {
-  color: var(--color-stone);
-  font-size: var(--text-md);
-  max-width: 60ch;
-}
-
 /* ─── Nodal page: About, hub & spokes, PI, network directory, apply ─── */
-.nodal2-section {
-  padding: clamp(64px, 8vw, 112px) var(--page-gutter);
-  max-width: var(--content-max, 1360px);
-  margin: 0 auto;
-  border-top: 1px solid rgba(26, 23, 20, 0.08);
-}
-
-.nodal2-split {
-  display: grid;
-  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
-  gap: clamp(28px, 4vw, 64px);
-}
-
-.nodal2-split__head { display: flex; flex-direction: column; gap: 14px; }
-.nodal2-split__head .section-title { margin-bottom: 0; }
-.nodal2-split__body { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
-.nodal2-split__body > p { font-size: var(--text-lg); line-height: var(--lh-relaxed); max-width: 65ch; margin: 0; }
 .nodal2-muted { color: var(--color-stone); font-size: var(--text-md); line-height: var(--lh-normal); max-width: 40ch; margin: 0; }
 
 .nodal2-objectives { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 8px; }
@@ -1368,26 +1246,7 @@ text.nodal2-diagram__label--muted, g.nodal2-diagram__label--muted { fill: var(--
 .nodal2-dir-note { margin: 18px 0 0; font-size: var(--text-sm); color: var(--color-stone); max-width: none; }
 
 /* Apply */
-.nodal2-btn {
-  display: inline-flex;
-  align-items: center;
-  padding: 13px 24px;
-  border-radius: var(--radius-sm);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  font-family: var(--font-body);
-  font-size: var(--text-md);
-  font-weight: 600;
-  color: var(--color-white);
-  transition: background 0.2s var(--ease-smooth), color 0.2s var(--ease-smooth), border-color 0.2s var(--ease-smooth);
-}
-.nodal2-btn:hover, .nodal2-btn:focus-visible { background: var(--color-white); border-color: var(--color-white); color: var(--color-ink); }
-.nodal2-btn--primary { background: var(--color-dic-red-text-safe); border-color: var(--color-dic-red-text-safe); }
-.nodal2-btn--primary:hover, .nodal2-btn--primary:focus-visible { background: var(--color-dic-red); border-color: var(--color-dic-red); color: var(--color-white); }
-.nodal2-hero__ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
 
-.nodal2-apply { background: var(--color-ink); color: var(--color-white); }
-.nodal2-apply__inner { max-width: var(--content-max, 1360px); margin: 0 auto; padding: clamp(64px, 8vw, 112px) var(--page-gutter); }
-.nodal2-apply .section-title { color: var(--color-white); }
 .nodal2-apply__intro { color: rgba(255, 255, 255, 0.7); font-size: var(--text-md); line-height: var(--lh-normal); max-width: 40ch; margin: 0; }
 .nodal2-benefits { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px 28px; }
 .nodal2-benefits div { border-top: 1px solid rgba(255, 255, 255, 0.25); padding-top: 14px; font-size: var(--text-sm); line-height: var(--lh-normal); color: rgba(255, 255, 255, 0.78); }
@@ -1406,7 +1265,6 @@ text.nodal2-diagram__label--muted, g.nodal2-diagram__label--muted { fill: var(--
 .nodal2-sources a { color: var(--color-dic-blue); text-decoration: underline; text-underline-offset: 2px; }
 
 @media (max-width: 1000px) {
-  .nodal2-split { grid-template-columns: 1fr; }
   .nodal2-pi { grid-template-columns: 1fr; }
   .nodal2-pi__photo { max-width: 200px; }
   .nodal2-steps, .nodal2-timeline { grid-template-columns: repeat(2, 1fr); row-gap: 16px; }

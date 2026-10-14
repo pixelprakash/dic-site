@@ -75,28 +75,6 @@
   .stat { padding: var(--space-5); }
 }
 
-/* ─── Education: course intro ─── */
-.edu-split {
-  display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-  gap: clamp(32px, 6vw, 96px);
-}
-
-.edu-split__head {
-  align-self: start;
-  position: sticky;
-  top: 112px;
-}
-
-.edu-split__head .lede {
-  margin-top: var(--space-2);
-}
-
-@media (max-width: 900px) {
-  .edu-split { grid-template-columns: 1fr; }
-  .edu-split__head { position: static; }
-}
-
 /* ─── About Section ─── */
 .about {
   padding: var(--section-gap) var(--page-gutter);

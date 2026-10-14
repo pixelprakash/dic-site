@@ -23,14 +23,6 @@ import {
   SPOKE_TOTAL,
 } from '../data/nodalData';
 
-// Three headline figures for the hero; the fuller set (NODAL_SEALS) sits
-// in the About section below.
-const HERO_METRICS = [
-  { value: '20', label: 'DIC hubs' },
-  { value: '64', label: 'Spoke institutions' },
-  { value: '2014', label: 'NIDI launched' },
-];
-
 const EVENT_FILTERS = [
   { key: 'all', label: 'All' },
   { key: 'upcoming', label: 'Upcoming' },
@@ -96,34 +88,25 @@ function initials(name) {
 // Home.jsx About section, rather than stock/placeholder images).
 function NodalHero() {
   return (
-    <section className="nodal2-hero">
-      <div className="nodal2-hero__bg" aria-hidden="true" />
-      <div className="nodal2-hero__inner">
-        <div className="nodal2-hero__left">
-          <h1>{NODAL_HERO.title}</h1>
-          <p className="nodal2-hero__para">{NODAL_HERO.lede}</p>
-          <div className="nodal2-hero__ctas">
-            <a className="nodal2-btn nodal2-btn--primary" href="#apply">Apply to become a node</a>
-            <a className="nodal2-btn" href="#network">See the network</a>
-          </div>
-          <div className="nodal2-metrics">
-            {HERO_METRICS.map((m) => (
-              <div className="nodal2-metric" key={m.label}>
-                <b>{m.value}</b>
-                <span>{m.label}</span>
-              </div>
-            ))}
-          </div>
+    <>
+      <header className="page-header">
+        <div className="page-header__accent" />
+        <h1>{NODAL_HERO.title}</h1>
+        <p>{NODAL_HERO.lede}</p>
+        <div className="page-header__actions">
+          <a className="btn" href="#apply">Apply to become a node</a>
+          <a className="btn btn--on-dark" href="#network">See the network</a>
         </div>
-        <div className="nodal2-hero__right">
-          {ABOUT_STACK_IMAGES.map((img) => (
-            <div className="nodal2-hero__image" key={img.src}>
-              <img src={img.src} alt={img.alt} loading="lazy" />
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+      </header>
+
+      <section className="section nodal2-photos" aria-label="DIC projects">
+        {ABOUT_STACK_IMAGES.map((img) => (
+          <div className="nodal2-photos__item" key={img.src}>
+            <img src={img.src} alt={img.alt} loading="lazy" />
+          </div>
+        ))}
+      </section>
+    </>
   );
 }
 
@@ -132,7 +115,7 @@ function NodalHero() {
 function UpcomingEventsSection() {
   const { events: EVENTS } = useNodalEvents();
   return (
-    <section className="nodal2-events">
+    <section className="section nodal2-events">
       <h2 className="section-title">Events across the network</h2>
       <div className="nodal2-events__list">
         {EVENTS.map((e) => {
@@ -185,12 +168,12 @@ function NodalPlaceholderSection({ id, title, note }) {
 // ── What is DIC ──────────────────────────────────────────────────────────
 function NodalAbout() {
   return (
-    <section className="nodal2-section" id="about">
-      <div className="nodal2-split">
-        <div className="nodal2-split__head">
+    <section className="section" id="about">
+      <div className="split">
+        <div className="split__head">
           <h2 className="section-title">A national initiative for design innovation</h2>
         </div>
-        <div className="nodal2-split__body">
+        <div className="split__body">
           {NODAL_ABOUT.paragraphs.map((p) => (
             <p key={p.slice(0, 24)}>{p}</p>
           ))}
@@ -248,16 +231,16 @@ function HubSpokeDiagram() {
 
 function NodalHubSpoke() {
   return (
-    <section className="nodal2-section" id="hub">
-      <div className="nodal2-split">
-        <div className="nodal2-split__head">
+    <section className="section section--tint" id="hub">
+      <div className="split">
+        <div className="split__head">
           <h2 className="section-title">One mentor institution, many partners</h2>
           <p className="nodal2-muted">
             DICs run on a hub-and-spoke model. The hub leads and mentors. Spokes bring their own
             regional problems, people and strengths.
           </p>
         </div>
-        <div className="nodal2-split__body">
+        <div className="split__body">
           <div className="nodal2-hubrow">
             {HUB_VS_SPOKE.map((c) => (
               <div className="nodal2-card" key={c.kind}>
@@ -279,7 +262,7 @@ function NodalHubSpoke() {
 // ── Principal Investigator + milestones ──────────────────────────────────
 function NodalLeadership() {
   return (
-    <section className="nodal2-section" id="pi">
+    <section className="section section--tint" id="pi">
       <h2 className="section-title">Principal Investigator</h2>
       <div className="nodal2-pi">
         <Link className="nodal2-pi__photo" to={`/people/${NODAL_PI.slug}`} aria-label={`${NODAL_PI.name}'s profile`}>
@@ -332,7 +315,7 @@ function NodalNetwork() {
   const spokeCount = centres.filter((c) => c.role === 'spoke').length;
 
   return (
-    <section className="nodal2-section" id="network">
+    <section className="section" id="network">
       <div className="nodal2-dir-top">
         <div>
           <h2 className="section-title">80+ DIC nodes across India</h2>
@@ -393,14 +376,14 @@ function NodalApply() {
     `Institution name and type:\nCity and state:\nContact person and role:\nEmail and phone:\nWhat our node would work on:\n`,
   );
   return (
-    <section className="nodal2-apply" id="apply">
-      <div className="nodal2-apply__inner">
-        <div className="nodal2-split">
-          <div className="nodal2-split__head">
+    <section className="section section--ink nodal2-apply" id="apply">
+      <div>
+        <div className="split">
+          <div className="split__head">
             <h2 className="section-title">{NODAL_APPLY.title}</h2>
             <p className="nodal2-apply__intro">{NODAL_APPLY.intro}</p>
           </div>
-          <div className="nodal2-split__body">
+          <div className="split__body">
             <div className="nodal2-benefits">
               {NODAL_APPLY.benefits.map((b) => (
                 <div key={b.title}>
@@ -426,7 +409,7 @@ function NodalApply() {
                   ))}
                 </ul>
               </div>
-              <a className="nodal2-btn nodal2-btn--primary" href={`mailto:${NODAL_APPLY.email}?subject=${subject}&body=${body}`}>
+              <a className="btn" href={`mailto:${NODAL_APPLY.email}?subject=${subject}&body=${body}`}>
                 Email {NODAL_APPLY.email}
               </a>
             </div>
@@ -462,6 +445,9 @@ function NodalNew() {
       <NodalLeadership />
       <NodalNetwork />
       <NodalApply />
+      {/* Research / Outreach / Education stub sections — parked until their
+          content is supplied; a "structure pending" note shouldn't be
+          visible to visitors.
       <NodalPlaceholderSection
         id="research"
         title="Research across the network"
@@ -477,6 +463,7 @@ function NodalNew() {
         title="Education & capacity building"
         note="Structure pending — say what should go in this section and I'll build it next."
       />
+      */}
       <NodalSources />
     </>
   );

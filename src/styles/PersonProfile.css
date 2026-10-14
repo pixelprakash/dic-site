@@ -53,7 +53,9 @@
 .profile__photo {
   position: relative;
   aspect-ratio: 4 / 5;
-  background: var(--color-white);
+  /* The same shared backdrop as the People page cards, so every portrait on
+     the site sits on one background (see MemberCard.css). */
+  background: linear-gradient(160deg, #F1F4FB 0%, #F6F7FA 50%, #FBF3E8 100%);
   border: 1px solid rgba(26, 23, 20, 0.12);
   border-radius: var(--border-radius);
   overflow: hidden;
@@ -64,6 +66,10 @@
   height: 100%;
   object-fit: cover;
   object-position: top center;
+  /* Blended over the gradient so white and transparent areas take it on;
+     the brightness lift offsets the slight dimming (same as MemberCard). */
+  mix-blend-mode: multiply;
+  filter: brightness(1.05);
 }
 
 .profile__joined {
