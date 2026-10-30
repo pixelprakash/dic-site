@@ -95,9 +95,12 @@
   --margin-x: 72px;
   /* Content is capped and centred on wide screens rather than stretching
      edge to edge — text measures stay readable and the pages get real
-     breathing room in the gutters. --page-gutter is what the page
-     templates pad with (page-header, section wrappers, cards); --margin-x
-     stays the raw minimum edge gutter that navbar/footer use directly. */
+     breathing room in the gutters. --page-gutter is the ONE side padding
+     for every full-width band — page headers, sections, navbar, footer,
+     home — so all edges line up at every screen width. --margin-x is only
+     the minimum that --page-gutter falls back to; don't pad with it
+     directly. Use --page-gutter on full-width elements only (it's a % of
+     its container), and never alongside max-width + margin:auto. */
   --content-max: 1360px;
   --page-gutter: max(var(--margin-x), calc((100% - var(--content-max)) / 2));
   /* Legacy name for the page-section rhythm — now the same fluid value as

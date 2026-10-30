@@ -75,8 +75,8 @@ ul, ol {
 
 /* ─── Utility ─── */
 .container {
-  padding-left: var(--margin-x);
-  padding-right: var(--margin-x);
+  padding-left: var(--page-gutter);
+  padding-right: var(--page-gutter);
 }
 
 /* Small label (only the parked full Nodal page still uses it). */

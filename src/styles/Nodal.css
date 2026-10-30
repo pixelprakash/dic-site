@@ -1259,7 +1259,7 @@ text.nodal2-diagram__label--muted, g.nodal2-diagram__label--muted { fill: var(--
 .nodal2-apply__include-title { margin: 0 0 8px; font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-terracotta-light); }
 .nodal2-apply__cta ul { margin: 0; padding-left: 18px; font-size: var(--text-sm); line-height: var(--lh-normal); color: rgba(255, 255, 255, 0.8); }
 
-.nodal2-sources { max-width: var(--content-max, 1360px); margin: 0 auto; padding: 40px var(--page-gutter); display: flex; flex-wrap: wrap; gap: 8px 32px; font-size: var(--text-sm); color: var(--color-stone); }
+.nodal2-sources { padding: 40px var(--page-gutter); display: flex; flex-wrap: wrap; gap: 8px 32px; font-size: var(--text-sm); color: var(--color-stone); }
 .nodal2-sources p { margin: 0; font-weight: 600; color: var(--color-ink); max-width: none; }
 .nodal2-sources ol { margin: 0; padding-left: 18px; }
 .nodal2-sources a { color: var(--color-dic-blue); text-decoration: underline; text-underline-offset: 2px; }

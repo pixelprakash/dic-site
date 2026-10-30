@@ -229,9 +229,7 @@
 
 /* ─── Collaborators strip ─── */
 .home-collaborators {
-  max-width: var(--content-max, 1360px);
-  margin: 0 auto;
-  padding: var(--home-section-gap) var(--margin-x) 0;
+  padding: var(--home-section-gap) var(--page-gutter) 0;
 }
 
 .home-collaborators__grid {
@@ -289,9 +287,7 @@
 
 /* ─── Gond Virtual Museum WebXR section ─── */
 .home-gond {
-  max-width: var(--content-max, 1360px);
-  margin: 0 auto;
-  padding: var(--home-section-gap) var(--margin-x);
+  padding: var(--home-section-gap) var(--page-gutter);
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
   gap: clamp(32px, 5vw, 72px);

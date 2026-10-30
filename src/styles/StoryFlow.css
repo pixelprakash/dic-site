@@ -19,7 +19,7 @@
   flex-direction: column;
   justify-content: space-between;
   gap: clamp(24px, 4vw, 40px);
-  padding: clamp(96px, 12vw, 140px) var(--margin-x) 64px;
+  padding: clamp(96px, 12vw, 140px) var(--page-gutter) 64px;
   will-change: transform;
   transform-origin: bottom left;
 }
@@ -118,7 +118,7 @@
 
   .story-section__inner {
     min-height: auto;
-    padding: 96px var(--margin-x) 56px;
+    padding: 96px var(--page-gutter) 56px;
   }
 
   .story-about__grid {

@@ -36,9 +36,7 @@
 
 /* ─── Home: News & Updates ─── */
 .ns {
-  max-width: var(--content-max);
-  margin: 0 auto;
-  padding: var(--home-section-gap, 88px) var(--margin-x) 0;
+  padding: var(--home-section-gap, 88px) var(--page-gutter) 0;
 }
 .ns-head {
   display: flex;
@@ -229,7 +227,7 @@
 .pc--wide .pc-text { -webkit-line-clamp: 7; }
 
 /* ─── /news archive ─── */
-.nw-sheet { max-width: var(--content-max); margin: 0 auto; padding: 0 var(--margin-x) 120px; }
+.nw-sheet { padding: 0 var(--page-gutter) 120px; }
 .nw-open {
   margin-bottom: 40px;
   padding: 24px 28px;

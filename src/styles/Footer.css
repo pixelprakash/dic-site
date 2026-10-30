@@ -10,7 +10,7 @@
 .footer__inner {
   position: relative;
   z-index: 1;
-  padding: clamp(48px, 7vw, 80px) var(--margin-x) 0;
+  padding: clamp(48px, 7vw, 80px) var(--page-gutter) 0;
   /* Let clicks/hovers fall through the empty space of this content layer to
      the swimming fish behind it — only real controls opt back in below. */
   pointer-events: none;
@@ -524,14 +524,28 @@ a.footer__logo-chip:focus-visible {
   justify-content: space-between;
   gap: 16px;
   flex-wrap: wrap;
-  margin: 0 calc(-1 * var(--margin-x));
-  padding: 20px var(--margin-x);
+  padding: 20px 0;
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* The bar's tinted band runs edge to edge while its text stays on the page
+   gutter — drawn as a full-viewport pseudo-element because a negative
+   margin can't express the gutter (it's a % of the parent, not the page). */
+.footer__bottom::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  z-index: -1;
   border-top: 1px solid rgba(255, 255, 255, 0.14);
   background: rgba(6, 18, 24, 0.4);
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
-  font-size: var(--text-sm);
-  color: rgba(255, 255, 255, 0.7);
+  pointer-events: none;
 }
 
 .footer__legal {

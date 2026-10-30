@@ -1,5 +1,5 @@
 .faq {
-  padding: var(--section-gap) var(--margin-x);
+  padding: var(--section-gap) var(--page-gutter);
   background: var(--color-ink);
 }
 

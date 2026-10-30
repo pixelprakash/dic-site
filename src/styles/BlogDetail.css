@@ -45,9 +45,15 @@
 }
 
 .blog-detail__section {
-  padding: var(--section-gap) var(--margin-x);
+  /* Sits on the same page gutter as the header above it; the prose itself
+     is capped at a readable measure rather than centring the whole block,
+     so the article's left edge lines up with the title and the rest of
+     the site. */
+  padding: var(--section-gap) var(--page-gutter);
+}
+
+.blog-detail__section > * {
   max-width: 760px;
-  margin-inline: auto;
 }
 
 .blog-detail__body {

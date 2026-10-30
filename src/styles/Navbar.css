@@ -4,7 +4,7 @@
   left: 0;
   right: 0;
   z-index: 100;
-  padding: 0 var(--margin-x);
+  padding: 0 var(--page-gutter);
   height: 68px;
   display: flex;
   align-items: center;
@@ -149,9 +149,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr 320px;
   gap: 56px;
-  padding: 48px var(--margin-x);
-  max-width: 1440px;
-  margin: 0 auto;
+  padding: 48px var(--page-gutter);
 }
 
 .navbar__mega-col {

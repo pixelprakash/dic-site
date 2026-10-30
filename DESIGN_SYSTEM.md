@@ -175,29 +175,49 @@ back without rechecking.
 
 ## Layout
 
+One horizontal-margin system governs every page, the navbar and the footer.
+
 | Token | Value | Use |
 |---|---|---|
-| `--margin-x` | 60px (responsive, see below) | Horizontal page padding |
-| `--section-gap` | 140px (responsive, see below) | Vertical spacing between major page sections |
-| `--border-radius` | 16px | Cards, photos, large containers |
-| `--border-radius-sm` | 8px | Buttons, tags, form fields, small chips |
+| `--margin-x` | 72px (responsive, see below) | The *minimum* edge margin — only ever read by `--page-gutter` |
+| `--content-max` | 1360px | Width of the centred content column on wide screens |
+| `--page-gutter` | `max(--margin-x, (100% − --content-max) / 2)` | **The** side padding. Use this on every full-width band |
+| `--section-y` / `--section-gap` | fluid, 72–128px | Vertical spacing between major sections |
+| `--border-radius` | 20px | Cards, photos, large containers |
+| `--border-radius-sm` | 10px | Buttons, tags, form fields, small chips |
+
+### The rule
+
+- Every full-width band — page header, section, navbar, footer, home
+  sections — sets `padding-inline: var(--page-gutter)` and nothing else.
+  That alone puts every left and right edge on the same line at every
+  screen width: `--margin-x` on laptops and below, a centred
+  `--content-max` column on monitors.
+- Never pad with `--margin-x` directly, and never combine `--page-gutter`
+  with `max-width` + `margin: auto` on the same element (the gutter already
+  centres; doing both insets the content a second time).
+- `--page-gutter` is a percentage of its container, so use it only on
+  elements that span the full page width — not on children of an
+  already-padded wrapper. For a narrower reading measure (e.g. article
+  prose) cap the *children* with `max-width`; keep the band on the gutter.
+- Full-bleed backgrounds inside a padded band (e.g. the footer's bottom
+  bar) use a full-viewport pseudo-element, not a negative margin.
 
 ### Breakpoints
 
 The whole site scales down through the same three breakpoints — use these,
 not one-off values, when a component needs its own responsive behavior:
 
-| Breakpoint | `--margin-x` | `--section-gap` |
-|---|---|---|
-| `max-width: 1024px` | 48px | 100px |
-| `max-width: 768px` | 24px | 72px |
-| `max-width: 480px` | 16px | 56px |
+| Breakpoint | `--margin-x` |
+|---|---|
+| default | 72px |
+| `max-width: 1024px` | 56px |
+| `max-width: 768px` | 28px |
+| `max-width: 480px` | 20px |
 
-There's no fixed max-width container anywhere on the site — every section
-is full-bleed with `--margin-x` side padding, scaling with viewport width
-rather than capping at a fixed pixel width on large monitors. That's an
-intentional, consistent choice across every page; don't introduce a
-max-width wrapper on just one page without applying it everywhere.
+Verified edges (left/right) after the unification: 72 / 72 at 1440px,
+277 / 277 at 1920px, 597 / 597 at 2560px, 20 / 20 at 390px — identical for
+navbar, page content and footer.
 
 ## Motion
 
