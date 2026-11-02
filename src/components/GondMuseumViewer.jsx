@@ -2,6 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import '../styles/GondMuseumViewer.css'
 
 const EYE_HEIGHT = 1.6
+const MODEL_SCALE = 2
+// Entrance end of the hall (the tiger panels are the far wall), centred on the walkway.
+const SPAWN = { x: -0.4, z: -16.2 }
 const WALK_SPEED = 2.4 // m/s
 const RUN_SPEED = 4.6 // m/s, Shift held
 const LOOK_SENSITIVITY = 0.0035 // radians per pixel of drag
@@ -25,31 +28,34 @@ const PITCH_LIMIT = Math.PI / 2 - 0.05
 // casting technique) rather than invented specifics about any one piece.
 const EXHIBITS = [
   {
-    node: 'Horse_LOD0',
+    node: '07_Hourse_01',
     file: '/audio/gond/ghoda.mp3',
     title: 'Horse (Ghoda)',
     description: 'A cast bronze horse in the Dhokra tradition — the lost-wax metal-casting craft practiced by Gond and other tribal communities of central India.',
   },
+  { node: '08_Hourse_02', file: '/audio/gond/ghoda.mp3', title: 'Horse (Ghoda)', description: 'A second cast horse, in the same Dhokra lost-wax tradition.' },
   {
-    node: 'Elephant_LOD0',
+    node: '13_Elephant',
     file: '/audio/gond/hathi.mp3',
     title: 'Elephant (Hathi)',
     description: 'The elephant is a recurring figure in Gond folk art, often associated with strength and prosperity.',
   },
   {
-    node: 'Deer_LOD0',
+    node: '10_Deer_01',
     file: '/audio/gond/hiran.mp3',
     title: 'Deer (Hiran)',
     description: 'Forest animals like the deer are central to Gond visual storytelling, reflecting a close relationship with the surrounding woodland.',
   },
+  { node: '12_Dear_02', file: '/audio/gond/hiran.mp3', title: 'Deer (Hiran)', description: 'A second deer figure, cast in the same Dhokra tradition.' },
   {
-    node: 'Fish_LOD0',
+    node: '14_Fish',
     file: '/audio/gond/machali.mp3',
     title: 'Fish (Machali)',
     description: 'A motif tied to rivers and water bodies significant to Gond settlements, common across the region’s folk and tribal art.',
   },
+  { node: '16_Fish', file: '/audio/gond/machali.mp3', title: 'Fish (Machali)', description: 'A second fish figure from the collection.' },
   {
-    node: 'Bird_LOD0',
+    node: '06_Bird',
     file: '/audio/gond/morpakshi.mp3',
     title: 'Peacock (Mor)',
     description: 'The peacock appears widely across Gond art as a decorative and symbolic motif.',
@@ -61,19 +67,21 @@ const EXHIBITS = [
     description: 'Waghoba, the tiger deity, is worshipped across Gond and neighbouring tribal communities as a guardian spirit of the forest.',
   },
   {
-    node: 'KasoPen_LOD0',
+    node: '02_KasoPen',
     file: '/audio/gond/kachoba.mp3',
     title: 'Kaso Pen',
     description: 'A totemic figure from Gond ancestral/clan-deity (Pen) tradition — the exact identity of this particular piece wasn’t recoverable from the source material.',
   },
+  { node: '01_RajulPen', title: 'Rajul Pen', description: 'A figure from the Gond Pen (clan-deity) tradition.' },
+  { node: '03_Nagoba', title: 'Nagoba', description: 'Nagoba is the snake deity of the Mesram clan of the Gonds, honoured at the annual Nagoba Jatra festival.' },
   {
-    node: 'Medicall_LOD0',
+    node: '17_Medicall',
     file: '/audio/gond/tavij.mp3',
     title: 'Healing Figure',
     description: 'Associated with traditional Gond medicinal and protective practice — this piece’s specific narrative wasn’t recoverable from the source material.',
   },
   {
-    node: 'Diya_LOD0',
+    node: '11_Diya',
     file: '/audio/gond/dhupli_lamp.mp3',
     title: 'Diya (Lamp)',
     description: 'An oil lamp, used across Indian traditions in ritual and everyday lighting alike.',
@@ -83,6 +91,14 @@ const EXHIBITS = [
     title: 'Dog',
     description: 'A cast figure recovered from the project’s Blender source file — absent from the original Unity/Oculus build, added here for the first time.',
   },
+  { node: '04_Pipeblower', title: 'Pipe and Pipe-blower', description: 'A blowing pipe used in the metal-casting craft.' },
+  { node: '05_More', title: 'More' },
+  { node: '15_Jar', title: 'Measuring Jar' },
+  { node: '18_Bell', title: 'Bell' },
+  { node: '19_Dec_01', title: 'Decorative Motif' },
+  { node: '20_Dec_02', title: 'Decorative Motif' },
+  ...[1, 2, 3, 4].map((n) => ({ node: `Bell_0${n}`, title: 'Hand Bell', description: 'A cast bell hung on chains — Dhokra bell-metal casting is one of the craft’s best-known products.' })),
+  ...[1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => ({ node: `RoundBell_0${n}`, title: 'Round Bell', description: 'A small cast bell hung on chains.' })),
 ]
 const TRIGGER_RADIUS = 2.4 // metres — walking this close plays the clip
 const RETRIGGER_RADIUS = 4 // must back off this far before it can fire again
@@ -330,6 +346,10 @@ export default function GondMuseumViewer({ src, fill = false, duckAudio = false,
         // this scene is a walkable room, not a single inspectable object, so
         // its real-world scale is exactly what a "stand inside it" VR view
         // needs.
+        // The source file is at half the scale the museum was built to (the
+        // elephant is exactly 0.5x its size in the original Unity build), so
+        // artefacts would sit on 0.6m pedestals under a 1.6m-tall visitor.
+        model.scale.setScalar(MODEL_SCALE)
         scene.add(model)
         // A freshly-added object's matrixWorld isn't computed until the
         // renderer's next render pass — calling getWorldPosition() on any of
@@ -405,11 +425,11 @@ export default function GondMuseumViewer({ src, fill = false, duckAudio = false,
             texture.colorSpace = THREE.SRGBColorSpace
 
             const screenMesh = new THREE.Mesh(
-              new THREE.PlaneGeometry(1.6, 0.9),
+              new THREE.PlaneGeometry(2.4, 1.35),
               new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide })
             )
             const bezel = new THREE.Mesh(
-              new THREE.PlaneGeometry(1.8, 1.06),
+              new THREE.PlaneGeometry(2.7, 1.6),
               new THREE.MeshStandardMaterial({ color: 0x0a0a0a, roughness: 0.7, side: THREE.DoubleSide })
             )
             bezel.position.z = -0.02
@@ -440,7 +460,7 @@ export default function GondMuseumViewer({ src, fill = false, duckAudio = false,
         // spawn point) sits at the world origin facing +Z — using that
         // instead of a bounding-box guess opens the same way the original
         // headset experience did.
-        camera.position.set(0, EYE_HEIGHT, 0)
+        camera.position.set(SPAWN.x, EYE_HEIGHT, SPAWN.z)
         let yaw = Math.PI // faces +Z
         let pitch = 0
         camera.rotation.set(pitch, yaw, 0)
@@ -712,7 +732,9 @@ export default function GondMuseumViewer({ src, fill = false, duckAudio = false,
           if (reticleEl && !renderer.xr.isPresenting) {
             raycaster.setFromCamera(CENTER_NDC, camera)
             const hit = screenMeshes.length ? raycaster.intersectObjects(screenMeshes, true)[0] : null
-            const hovering = hit && camera.position.distanceTo(hit.point) <= VIDEO_INTERACT_RADIUS
+            // Boolean(): with no hit this was `undefined`, and classList.toggle(x, undefined)
+            // flips the class instead of forcing it — leaving the crosshair red when aimed at nothing.
+            const hovering = Boolean(hit && camera.position.distanceTo(hit.point) <= VIDEO_INTERACT_RADIUS)
             if (hovering !== lastHovering) {
               lastHovering = hovering
               reticleEl.classList.toggle('is-active', hovering)
@@ -809,7 +831,7 @@ export default function GondMuseumViewer({ src, fill = false, duckAudio = false,
         {activeExhibit && (
           <div className="gond-viewer__info-card" role="status">
             <h4>{activeExhibit.title}</h4>
-            <p>{activeExhibit.description}</p>
+            {activeExhibit.description && <p>{activeExhibit.description}</p>}
           </div>
         )}
       </div>
