@@ -334,10 +334,12 @@ export const NAV_LINKS = [
     label: "DIC Nodal",
     path: "/nodal",
   },
-  {
-    label: "All India DIC Meet 26",
-    path: "/all-india-dic-meet-26",
-  },
+  // "All India DIC Meet 26" nav item — parked for now (route + page are parked
+  // too, see App.jsx). Un-comment to bring it back.
+  // {
+  //   label: "All India DIC Meet 26",
+  //   path: "/all-india-dic-meet-26",
+  // },
   {
     label: "Updates",
     path: "/events",

@@ -25,7 +25,10 @@ const Projects = lazy(() => import('./pages/Projects'));
 const Education = lazy(() => import('./pages/Education'));
 const Contact = lazy(() => import('./pages/Contact'));
 const Nodal = lazy(() => import('./pages/Nodal'));
-const AllIndiaDicMeet26 = lazy(() => import('./pages/AllIndiaDicMeet26'));
+// All India DIC Meet '26 page — parked for now (pages/AllIndiaDicMeet26.jsx is
+// kept). Un-comment this import, the <Route> below and the nav item in
+// data/siteData.js to bring it back.
+// const AllIndiaDicMeet26 = lazy(() => import('./pages/AllIndiaDicMeet26'));
 const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
 const ResearchDetail = lazy(() => import('./pages/ResearchDetail'));
 const News = lazy(() => import('./pages/News'));
@@ -193,7 +196,7 @@ export default function App() {
             <Route path="/news" element={<News />} />
             <Route path="/news/:slug" element={<NewsPost />} />
             <Route path="/nodal" element={<Nodal />} />
-            <Route path="/all-india-dic-meet-26" element={<AllIndiaDicMeet26 />} />
+            {/* <Route path="/all-india-dic-meet-26" element={<AllIndiaDicMeet26 />} /> — parked, see import note above */}
             <Route path="/conferences" element={<Conferences />} />
             <Route path="/conferences/fourth-all-india-dic-meet" element={<FourthDicMeet />} />
             <Route path="/events" element={<Events />} />
