@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import GlassReveal from './components/GlassReveal';
 // Custom cursor — parked for now. Not deleted: uncomment this import and
 // the <CustomCursor /> below to bring it back.
 // import CustomCursor from './components/CustomCursor';
@@ -158,10 +159,16 @@ function ScrollToHash() {
 function Loader() {
   return (
     <div className="dic-loader" role="status" aria-label="Loading">
-      <img src="/images/diclogo.webp" alt="" aria-hidden="true" className="dic-loader__logo" />
-      <div className="dic-loader__track" aria-hidden="true">
-        <span className="dic-loader__bar" />
-      </div>
+      <GlassReveal
+        logo="/images/diclogo.webp"
+        originalColors
+        background="#FFF9F3"
+        logoScale={0.95}
+        finalScale={0.9}
+        className="dic-loader__glass"
+        aria-hidden="true"
+        role="presentation"
+      />
     </div>
   );
 }
