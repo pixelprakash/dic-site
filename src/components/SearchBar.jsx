@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { SEARCH_INDEX, buildSearchIndex } from '../data/siteData';
+import { NAV_LINKS, SEARCH_INDEX, buildSearchIndex } from '../data/siteData';
 import { useMembers, useProjects, useResearchProjects, useBlogPosts, useConferences, useNodalEvents, useNodalCentres, useFeed } from '../lib/cms';
 import '../styles/SearchBar.css';
 
@@ -35,12 +35,16 @@ function SearchIndexLoader({ onReady }) {
   return null;
 }
 
+// Search opens as a bar that covers the whole navbar (so it can never run
+// over the logo or the links, at any width) with the results hanging beneath
+// it, full width, over a dimmed page. Empty, it offers the main sections.
 export default function SearchBar() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [activeIndex, setActiveIndex] = useState(-1);
   const wrapperRef = useRef(null);
   const inputRef = useRef(null);
+  const toggleRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
   // Live content is only fetched once the search box is actually opened;
@@ -54,7 +58,7 @@ export default function SearchBar() {
     return searchIndex.filter(
       (item) =>
         item.title.toLowerCase().includes(q) || item.desc?.toLowerCase().includes(q),
-    ).slice(0, 7);
+    ).slice(0, 8);
   }, [query, searchIndex]);
 
   useEffect(() => {
@@ -79,6 +83,21 @@ export default function SearchBar() {
     document.addEventListener('mousedown', onClickOutside);
     return () => document.removeEventListener('mousedown', onClickOutside);
   }, []);
+
+  // Keep the page from scrolling away behind the results while searching.
+  useEffect(() => {
+    if (!open) return undefined;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
+
+  const close = (returnFocus = false) => {
+    setOpen(false);
+    if (returnFocus) toggleRef.current?.focus();
+  };
 
   const goTo = (item) => {
     if (!item) return;
@@ -107,10 +126,11 @@ export default function SearchBar() {
 
   const onKeyDown = (e) => {
     if (e.key === 'Escape') {
-      setOpen(false);
-      inputRef.current?.blur();
+      e.preventDefault();
+      close(true);
       return;
     }
+    if (!results.length) return;
     if (e.key === 'ArrowDown') {
       e.preventDefault();
       setActiveIndex((i) => (i + 1) % results.length);
@@ -127,10 +147,13 @@ export default function SearchBar() {
     }
   };
 
+  const showPanel = open;
+
   return (
     <div className={`search ${open ? 'search--open' : ''}`} ref={wrapperRef}>
       {open && <SearchIndexLoader onReady={setLiveIndex} />}
       <button
+        ref={toggleRef}
         type="button"
         className="search__toggle"
         onClick={() => setOpen((v) => !v)}
@@ -144,7 +167,13 @@ export default function SearchBar() {
         </svg>
       </button>
 
-      <div className="search__field" role="search">
+      <div className="search__backdrop" onClick={() => close()} aria-hidden="true" />
+
+      <div className="search__bar" role="search">
+        <svg className="search__icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" />
+          <line x1="21" y1="21" x2="16.65" y2="16.65" />
+        </svg>
         <input
           ref={inputRef}
           type="text"
@@ -153,54 +182,101 @@ export default function SearchBar() {
           aria-controls="site-search-listbox"
           aria-autocomplete="list"
           aria-activedescendant={activeIndex >= 0 ? `search-option-${activeIndex}` : undefined}
-          placeholder="Search this site"
+          placeholder="Search people, projects, research, news…"
+          autoComplete="off"
+          spellCheck="false"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => setOpen(true)}
           onKeyDown={onKeyDown}
+          tabIndex={open ? 0 : -1}
         />
         {query && (
           <button
             type="button"
             className="search__clear"
             aria-label="Clear search"
+            tabIndex={open ? 0 : -1}
             onClick={() => {
               setQuery('');
               inputRef.current?.focus();
             }}
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-              <path d="M18 6 6 18M6 6l12 12" />
-            </svg>
+            Clear
           </button>
         )}
+        <button
+          type="button"
+          className="search__close"
+          aria-label="Close search"
+          tabIndex={open ? 0 : -1}
+          onClick={() => close(true)}
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+            <path d="M18 6 6 18M6 6l12 12" />
+          </svg>
+        </button>
       </div>
 
-      <div className={`search__panel ${open && query ? 'open' : ''}`}>
-        {query && (
-          results.length > 0 ? (
-            <ul className="search__list" role="listbox" id="site-search-listbox">
-              {results.map((item, i) => (
-                <li
-                  key={item.id}
-                  id={`search-option-${i}`}
-                  role="option"
-                  aria-selected={activeIndex === i}
-                  className={`search__item ${activeIndex === i ? 'active' : ''}`}
-                  onMouseDown={(e) => e.preventDefault()}
-                  onClick={() => goTo(item)}
-                  onMouseEnter={() => setActiveIndex(i)}
-                >
-                  <span className="search__item-tag">{item.category}</span>
-                  <span className="search__item-title">{highlight(item.title, query)}</span>
-                  {item.desc && <span className="search__item-desc">{item.desc}</span>}
-                </li>
-              ))}
-            </ul>
+      <div className={`search__panel ${showPanel ? 'open' : ''}`}>
+        <div className="search__inner">
+          {query ? (
+            results.length > 0 ? (
+              <>
+                <p className="search__label" aria-live="polite">
+                  {results.length} {results.length === 1 ? 'result' : 'results'}
+                </p>
+                <ul className="search__list" role="listbox" id="site-search-listbox">
+                  {results.map((item, i) => (
+                    <li
+                      key={item.id}
+                      id={`search-option-${i}`}
+                      role="option"
+                      aria-selected={activeIndex === i}
+                      className={`search__item ${activeIndex === i ? 'active' : ''}`}
+                      onMouseDown={(e) => e.preventDefault()}
+                      onClick={() => goTo(item)}
+                      onMouseEnter={() => setActiveIndex(i)}
+                    >
+                      <span className="search__item-tag">{item.category}</span>
+                      <span className="search__item-body">
+                        <span className="search__item-title">{highlight(item.title, query)}</span>
+                        {item.desc && <span className="search__item-desc">{item.desc}</span>}
+                      </span>
+                      <span className="search__item-go" aria-hidden="true">&rarr;</span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="search__hint" aria-hidden="true">
+                  <kbd>&uarr;</kbd> <kbd>&darr;</kbd> to move &nbsp;·&nbsp; <kbd>Enter</kbd> to open &nbsp;·&nbsp; <kbd>Esc</kbd> to close
+                </p>
+              </>
+            ) : (
+              <p className="search__empty" aria-live="polite">
+                No results for &ldquo;{query}&rdquo;. Try a name, a project, or a topic such as heritage or VR.
+              </p>
+            )
           ) : (
-            <p className="search__empty">No results for &ldquo;{query}&rdquo;</p>
-          )
-        )}
+            <>
+              <p className="search__label">Go to</p>
+              <ul className="search__quick" id="site-search-listbox">
+                {NAV_LINKS.map((link) => (
+                  <li key={link.path}>
+                    <button
+                      type="button"
+                      className="search__quick-link"
+                      tabIndex={open ? 0 : -1}
+                      onMouseDown={(e) => e.preventDefault()}
+                      onClick={() => goTo({ path: link.path })}
+                    >
+                      {link.label}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
