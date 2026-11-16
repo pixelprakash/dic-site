@@ -23,6 +23,7 @@ import './styles/redesign-pages.css';
 
 /* Code-split pages for fast initial load */
 const Home = lazy(() => import('./pages/Home'));
+const About = lazy(() => import('./pages/About'));
 const People = lazy(() => import('./pages/People'));
 const PersonProfile = lazy(() => import('./pages/PersonProfile'));
 const Research = lazy(() => import('./pages/Research'));
@@ -211,7 +212,7 @@ export default function App() {
             <Route path="/people" element={<People />} />
             <Route path="/people/:slug" element={<PersonProfile />} />
             {/* Old path, kept working in case it's bookmarked or linked anywhere */}
-            <Route path="/about" element={<Navigate to="/people" replace />} />
+            <Route path="/about" element={<About />} />
             <Route path="/research" element={<Research />} />
             <Route path="/research/:slug" element={<ResearchDetail />} />
             <Route path="/projects" element={<Projects />} />

@@ -1,0 +1,115 @@
+/* About page: "The Centre" intro with onward links, the lab facilities (the
+   shared .lab-* styles in sections.css), and a visit band. */
+
+.about-explore {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-5) var(--space-6);
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.about-explore a {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: var(--space-4) 44px var(--space-4) 0;
+  border-top: 2px solid var(--color-ink);
+}
+
+.about-explore strong {
+  font-family: var(--font-heading);
+  font-size: var(--fs-heading);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--color-ink);
+}
+
+.about-explore span {
+  font-size: var(--text-md);
+  line-height: 1.5;
+  color: var(--color-stone);
+}
+
+.about-explore i {
+  position: absolute;
+  top: var(--space-4);
+  right: 0;
+  font-style: normal;
+  font-size: var(--text-xl);
+  color: var(--color-dic-red);
+  transition: transform 0.25s var(--ease-out);
+}
+
+.about-explore a:hover i,
+.about-explore a:focus-visible i {
+  transform: translateX(4px);
+}
+
+.about-explore a:hover strong {
+  color: var(--color-dic-red-text-safe);
+}
+
+.about-address {
+  font-style: normal;
+  font-size: var(--text-lg);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.about-visit__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.research-lab-note {
+  padding-top: clamp(40px, 5vw, 64px);
+  padding-bottom: clamp(40px, 5vw, 64px);
+}
+
+.research-lab-note .lede {
+  max-width: none;
+}
+
+.research-lab-note a {
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 700px) {
+  .about-explore {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Design 1 */
+html[data-design='a'] .about-explore a {
+  border-top-width: 3px;
+}
+
+html[data-design='a'] .about-explore strong {
+  font-weight: 800;
+  font-stretch: 85%;
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+}
+
+html[data-design='a'] .about-explore span {
+  color: var(--color-charcoal);
+}
+
+html[data-design='a'] .research-lab-note .lede {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-stretch: 85%;
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  line-height: 1.15;
+  color: var(--color-ink);
+}
+
+html[data-design='a'] .research-lab-note a {
+  color: var(--color-dic-red-text-safe);
+}

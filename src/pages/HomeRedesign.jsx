@@ -161,7 +161,8 @@ function WhoWeAre() {
           learning and sustainability.
         </p>
         <div className="hx-who__actions">
-          <Link className="hx-btn hx-btn--light" to="/people">Meet the team <span aria-hidden="true">&rarr;</span></Link>
+          <Link className="hx-btn hx-btn--light" to="/about">About the Centre <span aria-hidden="true">&rarr;</span></Link>
+          <Link className="hx-btn hx-btn--ghost" to="/people">Meet the team <span aria-hidden="true">&rarr;</span></Link>
           <Link className="hx-btn hx-btn--ghost" to="/contact">Get in touch <span aria-hidden="true">&rarr;</span></Link>
         </div>
       </div>

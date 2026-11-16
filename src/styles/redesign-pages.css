@@ -873,3 +873,44 @@ html[data-design='a'] .split__body > p:not(:first-child) {
   line-height: 1.65;
   color: var(--color-charcoal);
 }
+
+/* ═════════════ Lab facilities (About page) ═════════════ */
+html[data-design='a'] .lab-facilities .section-title {
+  font-size: clamp(2.75rem, 6.4vw, 6rem);
+  line-height: 0.92;
+  color: var(--color-dic-red);
+}
+
+html[data-design='a'] .lab-facilities__intro p {
+  font-size: var(--text-lg);
+  color: var(--a-ink);
+}
+
+html[data-design='a'] .lab-facilities__group-title {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  line-height: 1;
+}
+
+html[data-design='a'] :is(.lab-equipment__item, .lab-capabilities__item) {
+  border: 0;
+  border-top: 3px solid var(--a-ink);
+  box-shadow: none;
+}
+
+html[data-design='a'] :is(.lab-equipment__item, .lab-capabilities__item) h4 {
+  font-weight: 800;
+  font-stretch: 85%;
+}
+
+html[data-design='a'] :is(.lab-equipment__item, .lab-capabilities__item) p {
+  font-size: var(--text-md);
+  color: var(--color-charcoal);
+}
+
+html[data-design='a'] .lab-capabilities__index {
+  font-weight: 800;
+  font-stretch: 75%;
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  line-height: 0.9;
+  color: var(--color-dic-red);
+}

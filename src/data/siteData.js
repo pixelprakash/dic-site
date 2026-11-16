@@ -250,6 +250,10 @@ export const MARQUEE_IMAGES = [
 
 export const NAV_LINKS = [
   {
+    label: "About",
+    path: "/about",
+  },
+  {
     label: "Research",
     path: "/research",
     // Mega-menu parked — was still the unfinished Lorem Ipsum placeholder
