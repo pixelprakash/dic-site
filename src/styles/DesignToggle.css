@@ -1,0 +1,56 @@
+/* Temporary switch between the two site designs. */
+.dtg {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  z-index: 1000;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 4px 4px 14px;
+  background: rgba(20, 18, 15, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+}
+
+.dtg__label {
+  margin-right: 6px;
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
+.dtg__btn {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  color: inherit;
+  font-weight: 700;
+  transition: background 0.2s var(--ease-smooth), color 0.2s var(--ease-smooth);
+}
+
+.dtg__btn span {
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+.dtg__btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.dtg__btn[aria-pressed='true'] {
+  background: #fff;
+  color: #1a1714;
+}
+
+@media (max-width: 520px) {
+  .dtg__label {
+    display: none;
+  }
+}

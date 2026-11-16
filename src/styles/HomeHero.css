@@ -1,0 +1,168 @@
+/* Home hero — modelled on lfs.org.uk.
+   The hero is position: fixed behind everything (z-index -1, so the body
+   background, the page sheet and the footer all paint over it). The page
+   sheet that follows carries margin-top = one viewport minus the (sticky,
+   in-flow) navbar, so at scroll 0 the whole viewport is video and scrolling
+   slides the sheet up over it. */
+:root {
+  --hh-nav-h: 68px;
+}
+
+.hh {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 0 var(--page-gutter) clamp(24px, 4.9vh, 50px);
+  background: #0b0d14;
+  color: var(--color-white);
+}
+
+.hh__media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.hh__video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Darkening: a light veil over the whole frame for legibility, a stronger
+   fall-off into the page colour at the bottom (the headline sits there) and a
+   short shade at the top for the transparent navbar. */
+.hh__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.5) 0, rgba(0, 0, 0, 0) 22%),
+    linear-gradient(rgba(0, 0, 0, 0.18) 0, rgba(0, 0, 0, 0.18) 100%),
+    linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.78) 100%);
+  pointer-events: none;
+}
+
+.hh__title {
+  position: relative;
+  margin: 0;
+  max-width: 9ch;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 75%;
+  font-style: normal;
+  font-size: clamp(3.5rem, 11.7vw, 11rem);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  color: var(--color-white);
+}
+
+/* Featured card: image, headline, arrow, one-word CTA — in DIC red. */
+.hh__notice {
+  position: relative;
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: 25% 1fr;
+  width: clamp(280px, 29.6vw, 430px);
+  min-height: 160px;
+  background: var(--color-dic-red);
+  color: var(--color-white);
+  transition: background 0.25s var(--ease-smooth);
+}
+
+.hh__notice:hover,
+.hh__notice:focus-visible {
+  background: var(--color-dic-red-text-safe);
+}
+
+.hh__notice-media {
+  display: block;
+  overflow: hidden;
+}
+
+.hh__notice-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hh__notice-text {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 56px 12px 10px;
+}
+
+.hh__notice-heading {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.0625rem, 1.7vw, 1.3rem);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+}
+
+.hh__notice-arrow {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--color-white);
+  color: var(--color-ink);
+}
+
+.hh__notice-cta {
+  padding: 3px 8px;
+  background: #e6e6e6;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.8125rem;
+  line-height: 1.2;
+}
+
+/* The page that scrolls over the fixed hero. */
+.home-sheet {
+  position: relative;
+  margin-top: calc(100vh - var(--hh-nav-h));
+  margin-top: calc(100svh - var(--hh-nav-h));
+  background: var(--color-cream);
+}
+
+@media (max-width: 720px) {
+  .hh {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-end;
+    gap: 20px;
+  }
+
+  .hh__title {
+    max-width: none;
+  }
+
+  .hh__notice {
+    width: 100%;
+    min-height: 150px;
+    grid-template-columns: 30% 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hh__notice {
+    transition: none;
+  }
+}

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { NAV_LINKS, CONTACT_LINK } from '../data/siteData';
 import SearchBar from './SearchBar';
+import { useDesign } from '../lib/designVariant';
 // Page scroll-progress bar — parked for now, undecided whether to keep it.
 // Not deleted: uncomment this import and the <ScrollProgress /> below to
 // bring it back.
@@ -15,6 +16,7 @@ export default function Navbar() {
   const [mobileExpanded, setMobileExpanded] = useState(null);
   const closeTimer = useRef(null);
   const location = useLocation();
+  const design = useDesign();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -62,10 +64,15 @@ export default function Navbar() {
 
   const activeLink = NAV_LINKS.find((link) => link.path === openMenu);
 
+  // On the home page the bar floats transparent over the full-viewport hero
+  // video (HomeHero) until the page is scrolled or a menu opens — the mega menu
+  // and mobile menu are white panels, so they need the normal solid bar.
+  const overHero = location.pathname === '/' && design === 'a' && !scrolled && !openMenu && !menuOpen;
+
   return (
     <>
     {/* <ScrollProgress /> */}
-    <nav className={`navbar ${scrolled ? 'scrolled' : ''} ${openMenu ? 'mega-open' : ''}`}>
+    <nav className={`navbar ${scrolled ? 'scrolled' : ''} ${openMenu ? 'mega-open' : ''} ${overHero ? 'navbar--hero' : ''}`}>
       <Link to="/" className="navbar__logo">
         <img src="/images/diclogo.webp" alt="DIC — Design Innovation Centre, IIT Hyderabad" />
       </Link>

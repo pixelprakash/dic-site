@@ -20,6 +20,8 @@
   /* Typography */
   --font-heading: 'Zilla Slab', serif;
   --font-body: 'DM Sans', sans-serif;
+  /* Condensed heavy grotesque for the home hero headline only. */
+  --font-display: 'Archivo', 'Arial Narrow', 'Helvetica Neue', sans-serif;
 
   /* Type scale — use these instead of one-off rem values. Named by role,
      not just size, so components stay consistent as the site grows.

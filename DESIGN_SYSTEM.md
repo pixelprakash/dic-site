@@ -36,6 +36,38 @@ Don't:
 - Mix button shapes. Buttons are rounded rectangles (`--radius-sm`); pills are
   only for chips/filters.
 
+## Two site designs (under review)
+
+The site currently ships two complete designs, switchable with the small
+**Design 1 / 2** pill at the bottom of every page (`?design=a|b` also works;
+the choice is kept in localStorage and written to `<html data-design="…">`).
+
+- **Design 1 — Redesign** (default). After lfs.org.uk: on Home a fixed
+  full-viewport video hero with the page sliding over it, a transparent
+  navbar, giant condensed headline and one featured card; everywhere else a
+  black navbar (logo on a light tile), a tall black `.page-header` with a huge
+  title bottom-left, heavy condensed headings (`--font-display`, Archivo at
+  75% width), warm-grey panels (`--color-sand` → `#dbdad7`), square corners
+  and flat surfaces. The two-column sticky "heading beside scrolling text"
+  section (`.split`, used on Education, Practices and DIC Nodal) becomes a
+  stacked section: a giant heading with its one-line summary beside it, then the
+  content full width, on alternating cream / grey / black bands. Red is the
+  single accent: the logo blue, terracotta and navy tokens are re-pointed to
+  red-on-light and ink, and the surfaces are one neutral family (off-white
+  `#f4f3f0`, warm grey `#dbdad7`, pure black), so Home and every inner page
+  share the same palette, header pairing (title left, one-line summary right),
+  controls, focus ring and page-arrival fade. It is implemented as `src/styles/redesign.css` (tokens,
+  navbar, page header, primitives) and `redesign-pages.css` (per-page blocks),
+  both scoped to `html[data-design='a']`, plus `pages/HomeRedesign.jsx`,
+  `HomeHero.jsx` and `HomeRedesign.css`. The principles above still apply except where a rule is
+  explicitly replaced (heading font, corner radius, the three-part header rule).
+- **Design 2 — Current.** The site as it was: this document's tokens and
+  primitives unchanged, with `pages/HomeClassic.jsx` as its home page.
+
+When one is chosen, delete the other's files, `lib/designVariant.js`,
+`components/DesignToggle.jsx` and `styles/DesignToggle.css`, and fold the
+winner into the base styles.
+
 ## Shared building blocks (`src/styles/system.css`)
 
 Pages assemble from these rather than restyling their own:

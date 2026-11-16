@@ -1,0 +1,492 @@
+/* ─── Site design 1 — the redesign (after lfs.org.uk) ───
+   Everything here is scoped to <html data-design="a"> (see lib/designVariant.js),
+   so design 2 — the site as it was — is simply this file not applying.
+
+   The site is token-driven, so most of the change is re-pointing tokens:
+   condensed display type for headings, a warm grey for tinted panels, square
+   corners, flat surfaces. The rest are the few shared primitives that carry
+   the look: the navbar (black bar, logo on a light tile), the page header
+   (tall black band, giant title bottom-left), buttons, chips and cards.
+   The Home page has its own layout (pages/HomeRedesign.jsx, HomeHero.jsx). */
+
+html[data-design='a'] {
+  --font-heading: var(--font-display);
+
+  /* One neutral family: off-white, warm grey, black. (The site's cream, brown
+     stone and warm-black were a different family from the grey panels and the
+     black bars, which is what made pages feel like they came from different
+     sites.) */
+  --color-cream: #f4f3f0;
+  --color-sand: #dbdad7;
+  --color-warm-gray: #c9c8c4;
+  --color-ink: #000;
+  --color-charcoal: #222;
+  --color-stone: #5a5754;
+  --color-terracotta-light: var(--color-dic-red);
+  --line: rgba(0, 0, 0, 0.12);
+  --line-strong: rgba(0, 0, 0, 0.28);
+
+  --fs-display: clamp(3.5rem, 10vw, 9rem);
+  --fs-title: clamp(2.5rem, 5.5vw, 4.75rem);
+  --fs-heading: clamp(1.5rem, 2.6vw, 2.125rem);
+
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-pill: 0;
+  --border-radius: 0;
+  --border-radius-sm: 0;
+
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+
+  /* One accent. The logo's blue, the terracotta and the navy/teal darks all
+     collapse to red-on-light and ink, so links, markers and rules across every
+     page speak the same colour. (--color-dic-red itself, and the logo image,
+     are unchanged.) */
+  --color-dic-blue: var(--color-dic-red-text-safe);
+  --color-terracotta: var(--color-dic-red-text-safe);
+  --color-navy: #1c1717;
+  --color-teal-dark: #1c1717;
+  --wash-warm: #dbdad7;
+  --wash-cool: #e6e6e6;
+  --wash-teal: #dbdad7;
+}
+
+/* ── Type: heavy condensed headings ── */
+html[data-design='a'] :is(h1, h2) {
+  font-weight: 800;
+  font-stretch: 75%;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+}
+
+html[data-design='a'] :is(h3, h4, h5, h6) {
+  font-weight: 700;
+  font-stretch: 85%;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+}
+
+html[data-design='a'] .section-title {
+  line-height: 0.95;
+}
+
+/* ── Navbar: black bar; transparent over the Home video ── */
+html[data-design='a'] .navbar {
+  background: #000;
+  border-bottom-color: transparent;
+  box-shadow: none;
+  transition: background 0.3s var(--ease-smooth);
+}
+
+html[data-design='a'] .navbar--hero {
+  background: transparent;
+}
+
+html[data-design='a'] .navbar__logo {
+  align-self: flex-start;
+  margin-top: 14px;
+  padding: 10px 16px;
+  background: var(--color-cream);
+}
+
+html[data-design='a'] .navbar__links .navbar__link {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-stretch: 90%;
+  letter-spacing: -0.01em;
+}
+
+html[data-design='a'] .navbar__links .navbar__link,
+html[data-design='a'] .navbar__links .navbar__link:hover,
+html[data-design='a'] .navbar__links .navbar__link.active,
+html[data-design='a'] .navbar__links .navbar__link.menu-open {
+  color: var(--color-white);
+}
+
+html[data-design='a'] .navbar__links .navbar__link::after {
+  background: var(--color-white);
+}
+
+html[data-design='a'] .navbar__contact {
+  color: var(--color-white);
+  border-color: rgba(255, 255, 255, 0.55);
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+html[data-design='a'] .search__toggle {
+  color: var(--color-white);
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+html[data-design='a'] .navbar__toggle span {
+  background: var(--color-white);
+}
+
+/* The mobile menu panel stays light, so its close icon must be dark. */
+html[data-design='a'] .navbar__toggle.open span {
+  background: var(--color-ink);
+}
+
+/* ── Page header: tall black band, huge title bottom-left ── */
+html[data-design='a'] .page-header {
+  min-height: clamp(320px, 50vh, 540px);
+  background: #000;
+}
+
+/* Plain headers: the title bottom-left, its one-line summary beside it, the
+   same pairing as every section heading below (and the Home panels). The ones
+   with their own grid (project media, Nodal) keep their layout. */
+html[data-design='a'] .page-header:not(.project-detail__header--media):not(.nodal-header) {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  align-content: end;
+  align-items: end;
+  gap: var(--space-4) clamp(32px, 6vw, 96px);
+}
+
+html[data-design='a'] .page-header:not(.project-detail__header--media):not(.nodal-header) > h1 {
+  grid-column: 1;
+}
+
+html[data-design='a'] .page-header:not(.project-detail__header--media):not(.nodal-header) > p {
+  grid-column: 2;
+  margin: 0 0 0.35em;
+  max-width: 34ch;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-stretch: 85%;
+  font-size: clamp(1.25rem, 1.9vw, 1.75rem);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+html[data-design='a'] .page-header > .page-header__actions {
+  grid-column: 1 / -1;
+}
+
+html[data-design='a'] .page-header--wide h1 {
+  font-size: clamp(2.5rem, 6vw, 5.25rem);
+}
+
+@media (max-width: 900px) {
+  html[data-design='a'] .page-header:not(.project-detail__header--media):not(.nodal-header) {
+    grid-template-columns: 1fr;
+  }
+
+  html[data-design='a'] .page-header:not(.project-detail__header--media):not(.nodal-header) > p {
+    grid-column: 1;
+  }
+}
+
+html[data-design='a'] .page-header h1 {
+  line-height: 0.9;
+  max-width: 14ch;
+}
+
+html[data-design='a'] .page-header p {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+/* ── Buttons, chips, cards ── */
+html[data-design='a'] :is(.btn, .pill-cta) {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+html[data-design='a'] .chip {
+  background: #e6e6e6;
+  border-color: transparent;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+html[data-design='a'] .chip--accent {
+  background: var(--color-dic-red);
+  color: var(--color-white);
+}
+
+html[data-design='a'] .chip--cool {
+  background: var(--color-ink);
+  color: var(--color-white);
+}
+
+html[data-design='a'] .card {
+  border-color: var(--line-strong);
+}
+
+html[data-design='a'] .card--interactive:hover,
+html[data-design='a'] .card--interactive:focus-within {
+  transform: none;
+  border-color: var(--color-ink);
+}
+
+/* ── Pill-shaped bits that hardcode their radius rather than use the token ── */
+html[data-design='a'] :is(
+  .people-tag, .member-card__tag, .view-on-map__pill, .view-on-map__label,
+  .footer__submit, .footer__project-link, .search__field,
+  .nw-chip, .np-ghost, .conference-detail__status, .project-detail__status,
+  .project-detail__tags span, .project-detail__model-cta, .pr-pills span,
+  .partners__logos span, .contact-cta__link,
+  .nodal-chip, .nodal-join__ghost, .nodal-who, .nodal-partner-tile,
+  .nodal-search input, .nodal2-pills li, .nodal2-tag, .nodal2-filters button, .nodal2-search
+) {
+  border-radius: 0;
+}
+
+/* ── Sections: stacked headline, not a sticky side column ──
+   The two-column "sticky heading + scrolling body" section (.split) becomes
+   the reference's pattern: a giant heading with its one-line summary beside
+   it, then the content full width underneath. Alternating cream / grey
+   bands; the heading turns red on grey and white on black. */
+html[data-design='a'] .split {
+  display: block;
+}
+
+html[data-design='a'] .split__head {
+  position: static;
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  align-items: end;
+  gap: var(--space-5) clamp(32px, 6vw, 96px);
+  margin-bottom: clamp(32px, 4.5vw, 64px);
+}
+
+html[data-design='a'] .split__head .section-title {
+  margin: 0;
+  font-size: clamp(2.75rem, 6.4vw, 6rem);
+  line-height: 0.92;
+  text-wrap: balance;
+}
+
+html[data-design='a'] .split__head :is(.lede, p) {
+  margin: 0;
+  max-width: 36ch;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-stretch: 85%;
+  font-size: clamp(1.25rem, 1.9vw, 1.75rem);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+}
+
+html[data-design='a'] .section--tint .section-title {
+  color: var(--color-dic-red);
+}
+
+html[data-design='a'] .section--ink .split__head :is(.lede, p) {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+html[data-design='a'] .split__body {
+  gap: clamp(28px, 3.5vw, 48px);
+}
+
+@media (max-width: 900px) {
+  html[data-design='a'] .split__head {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Search: black bar and panel to match the navbar ── */
+html[data-design='a'] .search {
+  --s-bg: #000;
+  --s-fg: var(--color-white);
+  --s-muted: rgba(255, 255, 255, 0.62);
+  --s-line: rgba(255, 255, 255, 0.22);
+  --s-hover: #1c1717;
+  --s-chip-bg: #e6e6e6;
+  --s-chip-fg: var(--color-ink);
+}
+
+html[data-design='a'] .search__item-tag {
+  color: var(--color-dic-red);
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+}
+
+html[data-design='a'] .search__item-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-stretch: 90%;
+  font-size: var(--text-xl);
+  letter-spacing: -0.01em;
+}
+
+html[data-design='a'] .search__quick-link {
+  border-radius: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+html[data-design='a'] .search__hint kbd {
+  border-radius: 0;
+}
+
+html[data-design='a'] .search__item-title mark {
+  background: var(--color-dic-red);
+  color: var(--color-white);
+  border-radius: 0;
+}
+
+/* ── One set of controls, links and states ── */
+html[data-design='a'] :is(.btn, .pill-cta) {
+  min-height: 48px;
+  padding: 0 22px;
+  border-color: var(--color-dic-red-text-safe);
+  background: var(--color-dic-red-text-safe);
+  font-size: 1rem;
+}
+
+html[data-design='a'] :is(.btn, .pill-cta):hover,
+html[data-design='a'] :is(.btn, .pill-cta):focus-visible {
+  border-color: var(--color-dic-red);
+  background: var(--color-dic-red);
+}
+
+html[data-design='a'] .btn--ghost {
+  background: transparent;
+  border-color: var(--color-ink);
+  color: var(--color-ink);
+}
+
+html[data-design='a'] .btn--ghost:hover,
+html[data-design='a'] .btn--ghost:focus-visible {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: var(--color-white);
+}
+
+html[data-design='a'] .navbar__contact {
+  border-radius: 0;
+}
+
+html[data-design='a'] .link-arrow {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+html[data-design='a'] :focus-visible {
+  outline: 2px solid var(--color-dic-red);
+  outline-offset: 3px;
+}
+
+html[data-design='a'] ::selection {
+  background: var(--color-dic-red);
+  color: var(--color-white);
+}
+
+html[data-design='a'] {
+  scroll-padding-top: 88px;
+}
+
+/* A short fade when a page arrives, instead of it appearing all at once. */
+html[data-design='a'] #main-content > :not(.dic-loader):not(.hh) {
+  animation: a-page-in 0.5s var(--ease-out) both;
+}
+
+@keyframes a-page-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-design='a'] #main-content > :not(.dic-loader):not(.hh) {
+    animation: none;
+  }
+}
+
+/* ── Footer: same black, same headline, same controls ── */
+html[data-design='a'] .footer {
+  background: #000;
+}
+
+html[data-design='a'] .footer__top {
+  gap: clamp(32px, 6vw, 96px);
+  padding-bottom: clamp(48px, 6vw, 80px);
+}
+
+html[data-design='a'] .footer__brand,
+html[data-design='a'] .footer__form {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+
+html[data-design='a'] .footer__form-title {
+  margin: 0 0 8px;
+  font-weight: 800;
+  font-stretch: 75%;
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: var(--color-dic-red);
+}
+
+html[data-design='a'] .footer__field label,
+html[data-design='a'] .footer__contact-group h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-stretch: 90%;
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: var(--text-md);
+  color: rgba(255, 255, 255, 0.82);
+}
+
+html[data-design='a'] .footer__field :is(select, input, textarea) {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: transparent;
+}
+
+html[data-design='a'] .footer__field :is(select, input, textarea):focus {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+html[data-design='a'] .footer__submit {
+  min-height: 48px;
+  padding: 0 28px;
+  background: var(--color-dic-red-text-safe);
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+html[data-design='a'] .footer__submit:hover:not(:disabled) {
+  background: var(--color-dic-red);
+  transform: none;
+}
+
+html[data-design='a'] .footer__socials a {
+  border-radius: 0;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+html[data-design='a'] .footer__socials a:hover {
+  transform: none;
+}
+
+html[data-design='a'] .footer__logo-chip {
+  border-radius: 0;
+}
+
+/* Sections arrive by fading in, not by sliding up: a sliding full-width band
+   shows a seam of the page behind it while it moves. */
+html[data-design='a'] .reveal {
+  transform: none;
+  transition: opacity 0.7s var(--ease-out);
+}
+
+/* No three-colour rule under the header: red is the single accent. */
+html[data-design='a'] .page-header::after {
+  display: none;
+}

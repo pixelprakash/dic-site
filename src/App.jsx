@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-route
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import GlassReveal from './components/GlassReveal';
+import DesignToggle from './components/DesignToggle';
+import { useDesign } from './lib/designVariant';
 // Custom cursor — parked for now. Not deleted: uncomment this import and
 // the <CustomCursor /> below to bring it back.
 // import CustomCursor from './components/CustomCursor';
@@ -16,6 +18,8 @@ import { useMembers, useFeed } from './lib/cms';
 import './styles/global.css';
 import './styles/sections.css';
 import './styles/Loader.css';
+import './styles/redesign.css';
+import './styles/redesign-pages.css';
 
 /* Code-split pages for fast initial load */
 const Home = lazy(() => import('./pages/Home'));
@@ -156,7 +160,22 @@ function ScrollToHash() {
   return null;
 }
 
+// Page-transition loader, one per site design (see lib/designVariant.js):
+// design 1 — a black panel with a giant "DIC" that fills red from the bottom,
+// then wipes away, under a thin red progress line; design 2 — the glass reveal.
 function Loader() {
+  const design = useDesign();
+
+  if (design === 'a') {
+    return (
+      <div className="dic-loader dic-loader--a" role="status" aria-label="Loading">
+        <span className="dic-loader__line" aria-hidden="true" />
+        <span className="dic-loader__word" data-text="DIC" aria-hidden="true">DIC</span>
+        <span className="dic-loader__caption" aria-hidden="true">Design Innovation Centre · IIT Hyderabad</span>
+      </div>
+    );
+  }
+
   return (
     <div className="dic-loader" role="status" aria-label="Loading">
       <GlassReveal
@@ -217,6 +236,7 @@ export default function App() {
         </Suspense>
       </main>
       <Footer />
+      <DesignToggle />
     </BrowserRouter>
   );
 }
