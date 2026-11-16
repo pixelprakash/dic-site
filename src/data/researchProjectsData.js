@@ -134,7 +134,7 @@ export const RESEARCH_PROJECTS = [
     title: 'Transforming Education through Virtual Reality in Indian Middle Schools in Telangana: Development and Testing Their Effectiveness',
     domain: 'VR/AR Education',
     tagline: 'A quasi-experimental study evaluating VR and mixed reality for critical thinking and problem-solving in Telangana’s middle schools, with iHED and DAAD.',
-    image: '',
+    image: '/images/research/vr-education-middle-schools.webp',
     researchers: [
       { name: 'Ushakiran Mangalagiri', slug: 'usha-kiran-mangalgiri', role: 'Indian Institute of Technology Hyderabad' },
     ],
@@ -261,7 +261,7 @@ export const RESEARCH_PROJECTS = [
     title: 'Tangible and Intangible Heritage of Telangana: A Visual Documentation and Design Intervention',
     domain: 'Cultural Heritage',
     tagline: 'Documenting and safeguarding the traditions, crafts, and oral histories of the Gond tribe of Adilabad and Asifabad, Telangana.',
-    image: '',
+    image: '/images/research/tangible-intangible-heritage-gonds.webp',
     venue: 'Fourth All India DIC Meet 2024, IIT Hyderabad',
     researchers: [
       { name: 'Krishna Trivedi', slug: 'krishna-jayeshbhai-trivedi', role: 'PhD Alumnus, Indian Institute of Technology Hyderabad' },
@@ -295,7 +295,7 @@ export const RESEARCH_PROJECTS = [
     title: 'Autonomous Urban Air Mobility: Investigating the Visual Safety Preferences of Urban Air Mobility (UAM) Exterior Design for Indian Passengers',
     domain: 'Air Mobility',
     tagline: 'A digital design and VR validation study of how Indian passengers perceive the visual safety of autonomous air-taxi exteriors.',
-    image: '',
+    image: '/images/research/urban-air-mobility-visual-safety.webp',
     researchers: [
       { name: 'Ketan Madan Chaturmutha', slug: 'ketan-madan-chaturmutha', role: 'PhD Alumnus — PMRF ID 2002199' },
     ],
@@ -368,7 +368,7 @@ export const RESEARCH_PROJECTS = [
     title: 'Digital Preservation of the Cultural Heritage of Telangana through 3D Printing and Virtual Reality',
     domain: 'Cultural Heritage',
     tagline: 'Using 3D scanning, printing, and VR/AR to preserve Telangana’s built heritage without altering the physical structures.',
-    image: '',
+    image: '/images/research/digital-preservation-telangana-3d-vr.webp',
     pi: { name: 'Prof. Deepak John Mathew', slug: 'deepak-john-mathew' },
     sections: [
       {
@@ -396,7 +396,7 @@ export const RESEARCH_PROJECTS = [
     title: 'Virtual Museum Design Experience: Digital Heritage & Preservation of Gond Artefacts through 3D Printing',
     domain: 'Cultural Heritage',
     tagline: 'Photogrammetry-documented Dhokra artefacts of the Gond community, rebuilt as a walkthrough virtual museum and 3D-printed replicas.',
-    image: '',
+    image: '/images/research/virtual-museum-gond-artefacts.webp',
     researchers: [
       { name: 'Krishna Trivedi', slug: 'krishna-jayeshbhai-trivedi', role: 'PhD Alumnus, Indian Institute of Technology Hyderabad' },
     ],
