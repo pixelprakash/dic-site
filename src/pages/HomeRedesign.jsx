@@ -1,6 +1,9 @@
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import HomeHero from '../components/HomeHero';
+// First-visit intro — parked for now (components/Splash.jsx + styles/Splash.css are
+// kept). Un-comment this import and the <Splash /> below to bring it back.
+// import Splash from '../components/Splash';
 import GondMuseumModal from '../components/GondMuseumModal';
 import { useProjects, useFeed, useCollaborators } from '../lib/cms';
 import { fmtDate, newsPath, isOpen } from '../lib/news';
@@ -195,6 +198,7 @@ export default function HomeRedesign() {
   return (
     <>
       <HomeHero />
+      {/* <Splash /> — parked, see the import note above */}
       <div className="home-sheet hx">
         <ProjectsPanel />
         <Spotlight />

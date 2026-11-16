@@ -35,6 +35,14 @@
   background: #000;
   color: var(--color-white);
   overflow: hidden;
+  /* Quick page loads never show it at all: it only fades in if the wait is
+     longer than a blink, so fast navigation doesn't flash a black panel. */
+  opacity: 0;
+  animation: dicLoaderIn 0.3s 0.18s ease-out forwards;
+}
+
+@keyframes dicLoaderIn {
+  to { opacity: 1; }
 }
 
 .dic-loader__line {
@@ -93,6 +101,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .dic-loader--a {
+    animation-duration: 0.01s;
+  }
+
   .dic-loader__line {
     animation: none;
     transform: scaleX(0.4);

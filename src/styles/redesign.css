@@ -390,7 +390,7 @@ html[data-design='a'] {
 }
 
 /* A short fade when a page arrives, instead of it appearing all at once. */
-html[data-design='a'] #main-content > :not(.dic-loader):not(.hh) {
+html[data-design='a'] #main-content > :not(.dic-loader):not(.hh):not(.splash) {
   animation: a-page-in 0.5s var(--ease-out) both;
 }
 
@@ -400,7 +400,7 @@ html[data-design='a'] #main-content > :not(.dic-loader):not(.hh) {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html[data-design='a'] #main-content > :not(.dic-loader):not(.hh) {
+  html[data-design='a'] #main-content > :not(.dic-loader):not(.hh):not(.splash) {
     animation: none;
   }
 }
