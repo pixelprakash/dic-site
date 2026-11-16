@@ -1,6 +1,8 @@
 /* Home hero — modelled on lfs.org.uk.
-   The hero is position: fixed behind everything (z-index -1, so the body
-   background, the page sheet and the footer all paint over it). The page
+   The hero is position: fixed behind the page sheet and the footer. It sits at
+   z-index 0 (the sheet and footer at 1), NOT below the page: a negative z-index
+   puts it under <body> itself, which then swallows every click meant for the
+   hero's card. The page
    sheet that follows carries margin-top = one viewport minus the (sticky,
    in-flow) navbar, so at scroll 0 the whole viewport is video and scrolling
    slides the sheet up over it. */
@@ -11,7 +13,7 @@
 .hh {
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
@@ -137,6 +139,7 @@
 /* The page that scrolls over the fixed hero. */
 .home-sheet {
   position: relative;
+  z-index: 1;
   margin-top: calc(100vh - var(--hh-nav-h));
   margin-top: calc(100svh - var(--hh-nav-h));
   background: var(--color-cream);

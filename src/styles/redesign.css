@@ -490,3 +490,9 @@ html[data-design='a'] .reveal {
 html[data-design='a'] .page-header::after {
   display: none;
 }
+
+/* Above the fixed Home hero while the page scrolls over it. */
+html[data-design='a'] .footer {
+  position: relative;
+  z-index: 1;
+}
