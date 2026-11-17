@@ -5,7 +5,7 @@ import HomeHero from '../components/HomeHero';
 // kept). Un-comment this import and the <Splash /> below to bring it back.
 // import Splash from '../components/Splash';
 import GondMuseumModal from '../components/GondMuseumModal';
-import { useProjects, useFeed, useCollaborators } from '../lib/cms';
+import { useProjects, useFeed, useCollaborators, useTestimonials } from '../lib/cms';
 import { fmtDate, newsPath, isOpen } from '../lib/news';
 import { useReveal } from '../hooks/useReveal';
 import '../styles/HomeRedesign.css';
@@ -151,6 +151,65 @@ function NewsRow() {
   );
 }
 
+/* Testimonials — a grey panel: giant heading, one large quote, the person beside it. */
+function TestimonialsPanel() {
+  const testimonials = useTestimonials();
+  const [index, setIndex] = useState(0);
+  const [revealRef, shown] = useReveal();
+  if (!testimonials.length) return null;
+
+  const last = testimonials.length - 1;
+  const t = testimonials[Math.min(index, last)];
+  const prev = () => setIndex((i) => (i === 0 ? last : i - 1));
+  const next = () => setIndex((i) => (i === last ? 0 : i + 1));
+  const initials = t.name.split(' ').map((w) => w[0]).slice(0, 2).join('');
+
+  return (
+    <section
+      className={`hx-panel hx-panel--quote reveal ${shown ? 'visible' : ''}`}
+      ref={revealRef}
+      id="testimonials"
+      aria-labelledby="hx-quote-heading"
+    >
+      <div className="hx-panel__head">
+        <h2 className="hx-display hx-display--red" id="hx-quote-heading">Testimonials</h2>
+        {testimonials.length > 1 && (
+          <div className="hx-panel__nav">
+            <button type="button" className="hx-arrow" onClick={prev} aria-label="Previous testimonial">
+              <ChevronLeft />
+            </button>
+            <button type="button" className="hx-arrow" onClick={next} aria-label="Next testimonial">
+              <ChevronRight />
+            </button>
+          </div>
+        )}
+      </div>
+
+      <figure className="hx-quote" key={t.id}>
+        <div className="hx-quote__main">
+          <span className="hx-quote__mark" aria-hidden="true">&ldquo;</span>
+          <blockquote className="hx-quote__text">
+            {(Array.isArray(t.quote) ? t.quote : [t.quote]).map((para, i) => (
+              <p key={i}>{para}</p>
+            ))}
+          </blockquote>
+          <figcaption className="hx-quote__by">
+            <strong>{t.name}</strong>
+            <span>{t.role}</span>
+          </figcaption>
+        </div>
+        <div className="hx-quote__photo">
+          {t.avatar ? (
+            <img src={t.avatar} alt="" loading="lazy" decoding="async" />
+          ) : (
+            <span aria-hidden="true">{initials}</span>
+          )}
+        </div>
+      </figure>
+    </section>
+  );
+}
+
 /* Statement block — red, giant type, two destinations. */
 function WhoWeAre() {
   const [revealRef, shown] = useReveal();
@@ -203,6 +262,7 @@ export default function HomeRedesign() {
         <ProjectsPanel />
         <Spotlight />
         <NewsRow />
+        <TestimonialsPanel />
         <WhoWeAre />
         <Collaborators />
       </div>
