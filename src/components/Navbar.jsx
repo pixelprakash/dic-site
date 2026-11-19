@@ -65,9 +65,9 @@ export default function Navbar() {
   const activeLink = NAV_LINKS.find((link) => link.path === openMenu);
 
   // On the home page the bar floats transparent over the full-viewport hero
-  // video (HomeHero) until the page is scrolled or a menu opens — the mega menu
+  // video (HomeHero; Design 1 only — Design 3's hero is a framed video block) until the page is scrolled or a menu opens — the mega menu
   // and mobile menu are white panels, so they need the normal solid bar.
-  const overHero = location.pathname === '/' && (design === 'a' || design === 'c') && !scrolled && !openMenu && !menuOpen;
+  const overHero = location.pathname === '/' && design === 'a' && !scrolled && !openMenu && !menuOpen;
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import GondMuseumModal from '../components/GondMuseumModal';
 import { useProjects, useFeed, useCollaborators, useTestimonials } from '../lib/cms';
@@ -31,39 +31,132 @@ function Section({ className = '', labelledBy, id, children }) {
   );
 }
 
+const HERO_FILM = '/videos/hero-c.mp4';
+const HERO_POSTER = '/images/hero-c-poster.webp';
+
+// The hero film plays silently on a loop. It starts paused for anyone who
+// prefers reduced motion or has asked their browser to save data, stops by
+// itself while off screen, and always has a visible pause/play control
+// (WCAG 2.2.2). "Watch with full controls" opens the same film in a dialog.
 function Hero() {
+  const videoRef = useRef(null);
+  const dialogRef = useRef(null);
+  const [playing, setPlaying] = useState(false);
+  const [userPaused, setUserPaused] = useState(false);
+  const [calm] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    const saveData = navigator.connection?.saveData;
+    return Boolean(reduce || saveData);
+  });
+
+  // Play when visible, pause when scrolled away or the tab is hidden.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return undefined;
+    if (calm) {
+      v.pause();
+      return undefined;
+    }
+    let visible = true;
+    const sync = () => {
+      if (visible && !userPaused && !document.hidden) v.play().catch(() => {});
+      else v.pause();
+    };
+    const io = 'IntersectionObserver' in window
+      ? new IntersectionObserver(([e]) => { visible = e.isIntersecting; sync(); }, { threshold: 0.15 })
+      : null;
+    io?.observe(v);
+    document.addEventListener('visibilitychange', sync);
+    sync();
+    return () => {
+      io?.disconnect();
+      document.removeEventListener('visibilitychange', sync);
+    };
+  }, [calm, userPaused]);
+
+  const toggle = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (v.paused) {
+      setUserPaused(false);
+      v.play().catch(() => {});
+    } else {
+      setUserPaused(true);
+      v.pause();
+    }
+  };
+
+  const openFilm = () => {
+    videoRef.current?.pause();
+    dialogRef.current?.showModal();
+  };
+  const closeFilm = () => dialogRef.current?.close();
+  const onFilmClosed = () => {
+    dialogRef.current?.querySelector('video')?.pause();
+    if (!calm && !userPaused) videoRef.current?.play().catch(() => {});
+  };
+
   return (
     <section className="hc-hero" aria-labelledby="hc-title">
-      <img
-        className="hc-hero__img"
-        {...responsive('/images/image7.webp')}
-        sizes="100vw"
-        alt=""
-        width="1600"
-        height="1200"
-        fetchPriority="high"
-        decoding="async"
-      />
-      <div className="hc-hero__inner">
+      <div className="hc-hero__head">
         <h1 id="hc-title">
           <span className="hc-hero__l1">Design Innovation</span>{' '}
           <span className="hc-hero__l2">Centre</span>
         </h1>
-        <p className="hc-hero__lede">
-          Interdisciplinary design research across cultural heritage, autonomous mobility,
-          immersive education and sustainable innovation.
-        </p>
-        <div className="hc-hero__actions">
-          <Link className="btn btn--light" to="/research">Explore our research</Link>
-          <Link className="btn btn--on-dark" to="/about">About the Centre</Link>
+        <div className="hc-hero__side">
+          <p className="hc-hero__lede">
+            Interdisciplinary design research across cultural heritage, autonomous mobility,
+            immersive education and sustainable innovation.
+          </p>
+          <div className="hc-hero__actions">
+            <Link className="btn" to="/research">Explore our research</Link>
+            <Link className="btn btn--ghost" to="/about">About the Centre</Link>
+          </div>
         </div>
       </div>
-      <a className="hc-hero__scroll" href="#hc-statement">
-        Scroll to explore
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d="M12 5v14M5 12l7 7 7-7" />
-        </svg>
-      </a>
+
+      <div className="hc-film" role="group" aria-roledescription="film" aria-label="Film of the Centre's work" aria-describedby="hc-film-desc">
+        <video
+          ref={videoRef}
+          className="hc-film__video"
+          src={HERO_FILM}
+          poster={HERO_POSTER}
+          width="960"
+          height="540"
+          muted
+          loop
+          playsInline
+          preload={calm ? 'none' : 'auto'}
+          onPlay={() => setPlaying(true)}
+          onPause={() => setPlaying(false)}
+          aria-hidden="true"
+          tabIndex={-1}
+        />
+        <p className="sr-only" id="hc-film-desc">
+          A silent film with no spoken words: slow movements across photographs of the
+          Centre&rsquo;s lab, its Gond heritage research and its community workshops.
+        </p>
+        <div className="hc-film__bar">
+          <button type="button" className="hc-film__btn" onClick={toggle}>
+            {playing ? (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1" /><rect x="14" y="5" width="4" height="14" rx="1" /></svg>
+            ) : (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z" /></svg>
+            )}
+            <span>{playing ? 'Pause film' : 'Play film'}</span>
+          </button>
+          <button type="button" className="hc-film__btn" onClick={openFilm}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" /></svg>
+            <span>Open full screen</span>
+          </button>
+        </div>
+      </div>
+
+      <dialog ref={dialogRef} className="hc-dialog" aria-label="Film of the Centre's work" onClose={onFilmClosed} onClick={(e) => { if (e.target === dialogRef.current) closeFilm(); }}>
+        <button type="button" className="hc-dialog__close" onClick={closeFilm}>Close</button>
+        <video src={HERO_FILM} poster={HERO_POSTER} controls loop playsInline preload="none" />
+      </dialog>
     </section>
   );
 }

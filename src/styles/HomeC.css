@@ -2,49 +2,18 @@
    phone layout; wider screens add columns with min-width queries. */
 
 /* ── Hero ──
-   A full-bleed photograph under a soft grade, the name set very large in a
-   light serif (the last word in the palette's butter), one line below, two buttons; the page's cream sheet rises over its lower
-   edge like every other section. The photo eases in and the type rises a line
-   at a time, once, and not at all for anyone who prefers reduced motion. */
+   A butter sheet: the name set very large in a light serif with one line and
+   two buttons beside it, then a framed film of the Centre's work. The next
+   section's cream sheet rises over the film's lower edge. The film frame eases
+   in once; reduced-motion visitors get a still frame and no entrance. */
 .hc-hero {
   position: relative;
-  isolation: isolate;
-  display: flex;
-  align-items: flex-end;
+  padding: clamp(28px, 5vw, 64px) var(--page-gutter) calc(var(--c-sheet) + clamp(28px, 5vw, 64px));
+  background: var(--c-butter);
+  color: var(--c-ink);
   overflow: hidden;
-  /* The navbar is in the flow above; pull the photo up behind it. */
-  margin-top: -68px;
-  min-height: min(94svh, 58rem);
-  padding: 120px var(--page-gutter) calc(var(--c-sheet) + clamp(40px, 8vw, 88px));
-  color: #fff;
-  background: #1c1c1c;
 }
 
-.hc-hero__img {
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 62% center;
-  animation: hcHeroImg 1.8s var(--ease-out) both;
-}
-
-/* The grade: warm at the top, deep at the bottom where the type sits. Keeps
-   white text at 4.5:1 or better over any part of this photograph. */
-.hc-hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background:
-    linear-gradient(to top, rgba(14, 12, 8, 0.86) 0%, rgba(14, 12, 8, 0.56) 42%, rgba(14, 12, 8, 0.14) 72%),
-    linear-gradient(to bottom, rgba(14, 12, 8, 0.6) 0, rgba(14, 12, 8, 0) 180px),
-    linear-gradient(120deg, rgba(255, 220, 126, 0.14), rgba(255, 220, 126, 0) 55%);
-}
-
-/* The cream sheet of the next section, rising over the photo. */
 .hc-hero::after {
   content: '';
   position: absolute;
@@ -56,18 +25,20 @@
   background: var(--c-cream);
 }
 
-.hc-hero__inner {
-  width: 100%;
-  max-width: 64rem;
+.hc-hero__head {
+  display: grid;
+  gap: clamp(20px, 3vw, 32px);
+  align-items: end;
+  margin-bottom: clamp(28px, 4.5vw, 56px);
 }
 
 .hc-hero h1 {
   margin: 0;
-  font-size: var(--c-hero);
+  font-size: clamp(3rem, 1rem + 9vw, 8.5rem);
   font-weight: var(--c-w-display);
   line-height: 0.86;
-  letter-spacing: -0.01em;
-  color: #fff;
+  letter-spacing: -0.015em;
+  color: var(--c-ink);
   text-wrap: balance;
 }
 
@@ -76,70 +47,144 @@
   display: inline-block;
 }
 
-.hc-hero__l1 {
-  animation: hcRise 0.9s 0.2s var(--ease-out) both;
-}
+.hc-hero__l1 { animation: hcRise 0.9s 0.1s var(--ease-out) both; }
+.hc-hero__l2 { animation: hcRise 0.9s 0.24s var(--ease-out) both; }
 
-.hc-hero__l2 {
-  color: var(--c-butter);
-  animation: hcRise 0.9s 0.34s var(--ease-out) both;
+.hc-hero__side {
+  animation: hcRise 0.9s 0.4s var(--ease-out) both;
 }
 
 .hc-hero__lede {
   max-width: 34ch;
-  margin: clamp(18px, 3vw, 30px) 0 0;
-  font-size: clamp(1.125rem, 1.7vw, 1.375rem);
+  margin: 0;
+  font-size: clamp(1.0625rem, 1.5vw, 1.25rem);
   line-height: 1.5;
-  color: #fff;
-  animation: hcRise 0.9s 0.5s var(--ease-out) both;
+  color: var(--c-ink);
 }
 
 .hc-hero__actions {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin-top: clamp(24px, 4vw, 40px);
-  animation: hcRise 0.9s 0.62s var(--ease-out) both;
+  margin-top: clamp(20px, 3vw, 28px);
 }
 
-.hc-hero__scroll {
+/* The film frame. */
+.hc-film {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  border-radius: clamp(20px, 3vw, 36px);
+  background: #1c1c1c;
+  isolation: isolate;
+  animation: hcFilm 1.2s 0.2s var(--ease-out) both;
+}
+
+.hc-film__video {
   position: absolute;
-  right: var(--page-gutter);
-  bottom: calc(var(--c-sheet) + 28px);
-  display: none;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 55% center;
+}
+
+/* A soft shade along the bottom keeps the controls legible on any frame. */
+.hc-film::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 1;
+  height: 38%;
+  background: linear-gradient(to top, rgba(14, 12, 8, 0.55), rgba(14, 12, 8, 0));
+  pointer-events: none;
+}
+
+.hc-film__bar {
+  position: absolute;
+  left: clamp(12px, 2vw, 24px);
+  right: clamp(12px, 2vw, 24px);
+  bottom: clamp(12px, 2vw, 24px);
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.hc-film__btn {
+  display: inline-flex;
   align-items: center;
   gap: 10px;
   min-height: 44px;
-  color: #fff;
-  font-size: 0.9375rem;
-  font-weight: 500;
-  text-decoration: none;
-}
-
-.hc-hero__scroll svg {
-  padding: 13px;
-  box-sizing: content-box;
-  width: 18px;
-  height: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.75);
-  border-radius: 50%;
-  transition: transform 0.3s var(--ease-out), background 0.3s var(--ease-smooth), color 0.3s var(--ease-smooth);
-}
-
-.hc-hero__scroll:hover svg,
-.hc-hero__scroll:focus-visible svg {
-  background: #fff;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--c-cream);
   color: var(--c-ink);
-  transform: translateY(3px);
+  font-family: var(--font-heading);
+  font-size: var(--c-ui);
+  font-weight: var(--c-w-medium);
+  letter-spacing: 0.012em;
+  cursor: pointer;
+  transition: background 0.25s var(--ease-smooth), color 0.25s var(--ease-smooth);
 }
 
-.hc-hero :focus-visible {
-  outline-color: #fff;
+.hc-film__btn:hover,
+.hc-film__btn:focus-visible {
+  background: var(--c-ink);
+  color: var(--c-cream);
 }
 
-@keyframes hcHeroImg {
-  from { transform: scale(1.07); }
-  to { transform: scale(1); }
+.hc-film__btn:focus-visible,
+.hc-dialog__close:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px var(--c-ink);
+}
+
+/* Full-screen film dialog. */
+.hc-dialog {
+  width: min(96vw, 1200px);
+  max-height: 92vh;
+  padding: 0;
+  border: 0;
+  border-radius: clamp(14px, 2vw, 24px);
+  background: #000;
+  overflow: hidden;
+}
+
+.hc-dialog::backdrop {
+  background: rgba(14, 12, 8, 0.82);
+}
+
+.hc-dialog video {
+  display: block;
+  width: 100%;
+  max-height: 92vh;
+  background: #000;
+}
+
+.hc-dialog__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  min-height: 44px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--c-cream);
+  color: var(--c-ink);
+  font-family: var(--font-heading);
+  font-size: var(--c-ui);
+  font-weight: var(--c-w-medium);
+  cursor: pointer;
+}
+
+@keyframes hcFilm {
+  from { opacity: 0; transform: translateY(28px) scale(0.97); }
+  to { opacity: 1; transform: none; }
 }
 
 @keyframes hcRise {
@@ -147,18 +192,26 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+@media (min-width: 640px) {
+  .hc-film { aspect-ratio: 16 / 9; }
+}
+
 @media (min-width: 900px) {
-  .hc-hero__scroll {
-    display: inline-flex;
+  .hc-hero__head {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+    gap: clamp(32px, 5vw, 80px);
   }
 }
 
+@media (min-width: 1100px) {
+  .hc-film { aspect-ratio: 21 / 9; }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .hc-hero__img,
+  .hc-film,
   .hc-hero__l1,
   .hc-hero__l2,
-  .hc-hero__lede,
-  .hc-hero__actions {
+  .hc-hero__side {
     animation: none;
   }
 }

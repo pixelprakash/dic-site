@@ -69,13 +69,11 @@
           l.href = '/fonts/' + f + '.woff2';
           document.head.appendChild(l);
         });
-        // Design 3's home page opens on a photograph: start fetching it now.
+        // Design 3's home page opens on a film: start fetching its poster now.
         if (d === 'c' && location.pathname === '/') {
           var p = document.createElement('link');
-          p.rel = 'preload'; p.as = 'image'; p.href = '/images/image7-1000.webp';
+          p.rel = 'preload'; p.as = 'image'; p.href = '/images/hero-c-poster.webp';
           p.setAttribute('fetchpriority', 'high');
-          p.setAttribute('imagesrcset', '/images/image7-600.webp 600w, /images/image7-1000.webp 1000w, /images/image7.webp 1600w');
-          p.setAttribute('imagesizes', '100vw');
           document.head.appendChild(p);
         }
       })();

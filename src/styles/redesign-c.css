@@ -228,41 +228,6 @@ html[data-design='c'] .navbar__toggle span {
   height: 2px;
 }
 
-/* Over the Home photo: transparent bar, light text. */
-html[data-design='c'] .navbar--hero {
-  background: transparent;
-}
-
-html[data-design='c'] .navbar--hero .navbar__links .navbar__link,
-html[data-design='c'] .navbar--hero .navbar__links .navbar__link:hover,
-html[data-design='c'] .navbar--hero .navbar__links .navbar__link.active {
-  color: #fff;
-}
-
-html[data-design='c'] .navbar--hero .navbar__links .navbar__link::after {
-  background: #fff;
-}
-
-html[data-design='c'] .navbar--hero .navbar__logo {
-  padding: 6px 12px;
-  border-radius: 12px;
-  background: var(--c-cream);
-}
-
-html[data-design='c'] .navbar--hero .search__toggle {
-  color: #fff;
-  border-color: rgba(255, 255, 255, 0.7);
-}
-
-html[data-design='c'] .navbar--hero .navbar__toggle span {
-  background: #fff;
-}
-
-html[data-design='c'] .navbar--hero .navbar__contact {
-  background: var(--c-cream);
-  color: var(--c-ink);
-}
-
 /* Menus */
 html[data-design='c'] .navbar__mega {
   border-radius: 0 0 var(--radius-lg) var(--radius-lg);
