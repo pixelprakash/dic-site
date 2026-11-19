@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dic-site.vercel.app/sitemap.xml
