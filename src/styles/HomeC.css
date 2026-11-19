@@ -2,27 +2,15 @@
    phone layout; wider screens add columns with min-width queries. */
 
 /* ── Hero ──
-   A butter sheet: the name set very large in a light serif with one line and
-   two buttons beside it, then a framed film of the Centre's work. The next
-   section's cream sheet rises over the film's lower edge. The film frame eases
-   in once; reduced-motion visitors get a still frame and no entrance. */
+   On the page's own cream (the site's white): the name set very large in a light serif with one line and
+   two buttons beside it, then a framed film of the Centre's work. The film
+   frame eases in once; reduced-motion visitors get a still frame and no entrance. */
 .hc-hero {
   position: relative;
-  padding: clamp(28px, 5vw, 64px) var(--page-gutter) calc(var(--c-sheet) + clamp(28px, 5vw, 64px));
-  background: var(--c-butter);
+  padding: clamp(28px, 5vw, 64px) var(--page-gutter) clamp(8px, 2vw, 24px);
+  background: var(--c-cream);
   color: var(--c-ink);
   overflow: hidden;
-}
-
-.hc-hero::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -1px;
-  height: var(--c-sheet);
-  border-radius: var(--c-sheet) var(--c-sheet) 0 0;
-  background: var(--c-cream);
 }
 
 .hc-hero__head {
