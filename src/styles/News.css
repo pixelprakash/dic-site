@@ -277,7 +277,7 @@
 .np-back:hover { text-decoration: underline; text-underline-offset: 3px; }
 .np {
   display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(280px, 1fr);
+  grid-template-columns: minmax(0, 1.5fr) minmax(min(280px, 100%), 1fr);
   grid-template-areas: 'media aside' 'text aside';
   gap: 28px 48px;
   align-items: start;

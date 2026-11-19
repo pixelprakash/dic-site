@@ -254,7 +254,7 @@ function NodalHubSpoke() {
               </div>
             ))}
           </div>
-          <div className="nodal2-diagram-wrap">
+          <div className="nodal2-diagram-wrap" role="region" aria-label="Hub and spoke diagram" tabIndex={0}>
             <HubSpokeDiagram />
           </div>
         </div>

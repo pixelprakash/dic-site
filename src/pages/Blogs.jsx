@@ -20,7 +20,7 @@ export default function Blogs() {
               <span aria-hidden="true">&middot;</span>
               <span>{post.date}</span>
             </div>
-            <h3>{post.title}</h3>
+            <h2>{post.title}</h2>
             <p>{post.excerpt}</p>
             <span className="blog-card__cta">
               Read post

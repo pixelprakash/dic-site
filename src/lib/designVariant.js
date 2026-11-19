@@ -1,18 +1,21 @@
 import { useSyncExternalStore } from 'react';
 
-// Two complete designs for the whole site, switchable for review:
+// Three complete designs for the whole site, switchable for review:
 //   'a' — the redesign (after lfs.org.uk): fixed video hero on Home, condensed
 //         display type, black bars, grey panels, square corners
 //         (see styles/redesign.css, pages/HomeRedesign.jsx)
-//   'b' — the site as it was before the redesign (Option 2)
+//   'b' — the site as it was before the redesign
+//   'c' — design 3 (after quakerschool.org): warm cream page, soft serif
+//         display type, pastel rounded sheets, pill buttons — mobile first,
+//         built for accessibility (see styles/redesign-c.css, pages/HomeC.jsx)
 // The choice is stored on <html data-design="…"> so CSS can key off it, kept
-// in localStorage, and can be forced with ?design=a|b. Once one is chosen,
+// in localStorage, and can be forced with ?design=a|b|c. Once one is chosen,
 // delete this file, DesignToggle, redesign.css and the losing Home page.
 const KEY = 'dic-design';
 const DEFAULT = 'a';
 const listeners = new Set();
 
-const valid = (v) => (v === 'a' || v === 'b' ? v : null);
+const valid = (v) => (v === 'a' || v === 'b' || v === 'c' ? v : null);
 
 function read() {
   try {

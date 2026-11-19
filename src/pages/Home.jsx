@@ -1,10 +1,15 @@
 import HomeClassic from './HomeClassic';
 import HomeRedesign from './HomeRedesign';
+import HomeC from './HomeC';
 import { useDesign } from '../lib/designVariant';
 
 // The home page for each site design (see lib/designVariant.js):
 //   a — HomeRedesign: the LFS-style redesign
 //   b — HomeClassic:  the home page as it was before the redesign (unchanged)
+//   c — HomeC:        the soft, cream-and-pastel design after quakerschool.org
 export default function Home() {
-  return useDesign() === 'a' ? <HomeRedesign /> : <HomeClassic />;
+  const design = useDesign();
+  if (design === 'a') return <HomeRedesign />;
+  if (design === 'c') return <HomeC />;
+  return <HomeClassic />;
 }

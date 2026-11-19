@@ -1,4 +1,6 @@
+import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { setPageMeta } from '../lib/seo';
 import { PortableText } from '@portabletext/react';
 import { useBlogPosts } from '../lib/cms';
 import '../styles/BlogDetail.css';
@@ -30,6 +32,14 @@ export default function BlogPost() {
   const { slug } = useParams();
   const { cmsPosts, loading } = useBlogPosts();
   const post = cmsPosts.find((p) => p.slug === slug);
+  useEffect(() => {
+    if (!post) return;
+    setPageMeta({
+      title: `${post.title} — DIC · IITH`,
+      description: post.excerpt || '',
+      path: `/blogs/${slug}`,
+    });
+  }, [post, slug]);
 
   if (!post) {
     if (loading) return <div className="blog-detail" aria-busy="true" />;

@@ -844,7 +844,7 @@ html[data-design='a'] .conference-card:focus-visible {
   border-top-color: var(--color-dic-red);
 }
 
-html[data-design='a'] .conference-card h3 {
+html[data-design='a'] .conference-card h2 {
   font-weight: 800;
   font-stretch: 85%;
   font-size: clamp(1.375rem, 2vw, 1.75rem);

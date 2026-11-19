@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useProjects } from '../lib/cms';
+import { setPageMeta } from '../lib/seo';
 import Model3DViewer from '../components/Model3DViewer';
 import Model3DModal from '../components/Model3DModal';
 import GalleryLightbox from '../components/GalleryLightbox';
@@ -10,6 +11,15 @@ export default function ProjectDetail() {
   const { slug } = useParams();
   const { projects, loading } = useProjects();
   const project = projects.find((p) => p.slug === slug);
+  useEffect(() => {
+    if (!project) return;
+    setPageMeta({
+      title: `${project.title} — DIC · IITH`,
+      description: project.tagline || project.subtitle || (project.description?.[0] ?? '').slice(0, 200),
+      path: `/projects/${slug}`,
+      image: project.image || undefined,
+    });
+  }, [project, slug]);
   // Three-step reveal, all gated behind the visitor's own click so the
   // 23MB model never touches page-load performance: photo + "View 3D
   // Model" pill -> click loads it inline, right in the same header slot
@@ -81,7 +91,7 @@ export default function ProjectDetail() {
             type="button"
             className="project-detail__header-media project-detail__header-media--model"
             onClick={() => setModelLoaded(true)}
-            aria-label={`View interactive 3D model — ${modelLabel || title}`}
+            aria-label={`View 3D Model: ${modelLabel || title}`}
           >
             {image && <img src={image} alt="" loading="lazy" />}
             <span className="project-detail__model-cta">

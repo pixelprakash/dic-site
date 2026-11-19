@@ -145,12 +145,12 @@
 
 .people-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(500px, 100%), 1fr));
   gap: 36px;
 }
 
 .people-grid--compact {
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
   gap: 0 40px;
   border-top: 1px solid rgba(26, 23, 20, 0.1);
 }

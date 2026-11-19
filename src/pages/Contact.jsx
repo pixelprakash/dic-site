@@ -12,10 +12,10 @@ export default function Contact() {
 
       <section className="contact-content">
         <div className="contact-info">
-          <h3>Contact details</h3>
+          <h2>Contact details</h2>
 
           <div className="contact-info__item">
-            <h4>Email</h4>
+            <h3>Email</h3>
             <p>
               <a href="mailto:dic@des.iith.ac.in" style={{ color: 'var(--color-terracotta)' }}>
                 dic@des.iith.ac.in
@@ -24,7 +24,7 @@ export default function Contact() {
           </div>
 
           <div className="contact-info__item">
-            <h4>Website</h4>
+            <h3>Website</h3>
             <p>
               <a href="https://dic.iith.ac.in" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-terracotta)' }}>
                 dic.iith.ac.in
@@ -33,12 +33,12 @@ export default function Contact() {
           </div>
 
           <div className="contact-info__item">
-            <h4>Principal Investigator</h4>
+            <h3>Principal Investigator</h3>
             <p>Prof. Deepak John Mathew</p>
           </div>
 
           <div className="contact-info__item">
-            <h4>Location</h4>
+            <h3>Location</h3>
             <p>
               Design Innovation Centre<br />
               Department of Design<br />
@@ -49,7 +49,7 @@ export default function Contact() {
           </div>
 
           <div className="contact-info__item">
-            <h4>Visit the Lab</h4>
+            <h3>Visit the Lab</h3>
             <p>
               To arrange a visit or appointment at the DIC lab, write to us with your preferred
               dates and the purpose of your visit.{' '}
@@ -63,7 +63,7 @@ export default function Contact() {
           </div>
 
           <div className="contact-info__item">
-            <h4>Hub &amp; Spoke Network</h4>
+            <h3>Hub &amp; Spoke Network</h3>
             <p>
               IIT Hyderabad (Hub)<br />
               IITDM Kancheepuram (Spoke)<br />

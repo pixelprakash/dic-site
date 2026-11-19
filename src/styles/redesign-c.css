@@ -1,0 +1,875 @@
+/* ─── Site design 3 — soft, cream and pastel (after quakerschool.org) ───
+   Scoped to <html data-design="c"> (see lib/designVariant.js). Mobile first:
+   every rule here starts from the phone layout and widens with min-width.
+
+   The system, in one paragraph: a warm cream page; one soft serif (Fraunces,
+   light) for headings and DM Sans for everything else; large pastel "sheets"
+   (butter, sage, coral, sky, lilac) with rounded tops that overlap the
+   section above; black pill buttons; hairline dividers; lots of air. Colour
+   is for blocks, never for text: all text is near-black on cream or pastel,
+   all links are underlined, and every control has a visible focus ring, so
+   the whole thing clears WCAG 2.2 AA (contrast ≥ 4.5:1 for text, ≥ 3:1 for
+   focus rings and controls, targets ≥ 44px). */
+
+html[data-design='c'] {
+  /* Palette */
+  --c-cream: #f9f9f0;
+  --c-butter: #ffdc7e;
+  --c-sage: #d6deb9;
+  --c-coral: #de8a74;
+  --c-sky: #b0cbe3;
+  --c-lilac: #bba0d2;
+  --c-navy: #1e2b5e;
+  --c-ink: #1c1c1c;
+  --c-line: rgba(28, 28, 28, 0.16);
+  /* The colour a page header takes (set per route below). */
+  --c-page: var(--c-butter);
+
+  /* Re-point the site's tokens */
+  --font-heading: 'Fraunces', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+  --color-cream: var(--c-cream);
+  --color-sand: #ecead9;
+  --color-warm-gray: #cdcbb6;
+  --color-ink: var(--c-ink);
+  --color-charcoal: #2a2a26;
+  --color-stone: #4f4f47;
+  --line: var(--c-line);
+  --line-strong: rgba(28, 28, 28, 0.32);
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+  --border-radius: 24px;
+  --border-radius-sm: 12px;
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+
+  --section-y: clamp(64px, 11vw, 150px);
+
+  /* Type scale, fitted to the reference's own fluid scale (measured at 390px
+     and 1440px wide; sizes interpolate between them). Two families, two
+     weights: the display serif at Regular for headings and at Medium for small
+     labels, buttons and navigation; the sans at Regular for reading text. */
+  --c-hero: clamp(3rem, 1rem + 11vw, 10.5rem);
+  --c-giant: clamp(2.75rem, 1.2rem + 6.8vw, 8rem);
+  --c-h2: clamp(2rem, 1.26rem + 4.01vw, 5rem);
+  --c-statement: clamp(1.9rem, 1.2rem + 3.05vw, 4rem);
+  --c-h3: clamp(1.4rem, 1.15rem + 0.9vw, 2rem);
+  --c-label: clamp(0.95rem, 0.8rem + 0.42vw, 1.25rem);
+  --c-body: clamp(1rem, 0.86rem + 0.42vw, 1.25rem);
+  --c-ui: 1.0625rem;
+  --c-w-display: 360;   /* Regular, for a variable serif that is a touch heavier than the reference's */
+  --c-w-medium: 500;
+
+  --fs-display: var(--c-hero);
+  --fs-title: var(--c-h2);
+  --fs-heading: var(--c-h3);
+  --fs-lede: clamp(1.125rem, 1.6vw, 1.375rem);
+
+  --c-sheet: clamp(24px, 4vw, 40px);
+}
+
+/* A colour per section of the site, for page headers and accents. */
+html[data-design='c'][data-route='research'] { --c-page: var(--c-sage); }
+html[data-design='c'][data-route='projects'] { --c-page: var(--c-coral); }
+html[data-design='c'][data-route='people'] { --c-page: var(--c-sky); }
+html[data-design='c'][data-route='education'] { --c-page: var(--c-butter); }
+html[data-design='c'][data-route='practices'] { --c-page: var(--c-lilac); }
+html[data-design='c'][data-route='nodal'] { --c-page: var(--c-sage); }
+html[data-design='c'][data-route='about'] { --c-page: var(--c-butter); }
+html[data-design='c'][data-route='contact'] { --c-page: var(--c-sky); }
+html[data-design='c'][data-route='news'],
+html[data-design='c'][data-route='events'],
+html[data-design='c'][data-route='workshops'] { --c-page: var(--c-lilac); }
+html[data-design='c'][data-route='conferences'],
+html[data-design='c'][data-route='blogs'] { --c-page: var(--c-coral); }
+
+/* ── Base ── */
+html[data-design='c'] body {
+  background: var(--c-cream);
+  color: var(--color-charcoal);
+}
+
+/* Defaults only (zero-specificity prefix) so any component's own rule wins. */
+:where(html[data-design='c']) :is(h1, h2, h3, h4, h5, h6) {
+  font-weight: var(--c-w-display);
+  letter-spacing: -0.01em;
+  line-height: 1.06;
+  color: var(--c-ink);
+  text-wrap: balance;
+}
+
+:where(html[data-design='c']) h1 { line-height: 0.9; letter-spacing: -0.01em; }
+
+:where(html[data-design='c']) :is(h4, h5, h6) {
+  font-family: var(--font-heading);
+  font-weight: var(--c-w-medium);
+  font-size: var(--c-label);
+  letter-spacing: -0.01em;
+}
+
+:where(html[data-design='c']) p {
+  color: rgba(28, 28, 28, 0.82);
+  font-size: var(--c-body);
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+}
+
+/* Links inside running text are underlined (not distinguished by colour alone). */
+html[data-design='c'] :where(p, li, dd, blockquote) a:not([class*='btn']):not([class*='card']):not([class*='cta']):not([class*='link-arrow']):not([class*='navbar']):not([class*='footer']):not([class*='pill']):not([class*='tag']):not([class*='chip']) {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+  color: var(--c-ink);
+}
+
+html[data-design='c'] :where(p, li, dd, blockquote) a:not([class*='btn']):hover {
+  text-decoration-thickness: 2px;
+}
+
+/* One strong, visible focus ring everywhere (3:1 against cream and pastels). */
+html[data-design='c'] :focus-visible {
+  outline: 3px solid var(--c-navy);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+html[data-design='c'] ::selection {
+  background: var(--c-butter);
+  color: var(--c-ink);
+}
+
+html[data-design='c'] .skip-link {
+  background: var(--c-ink);
+  color: var(--c-cream);
+  border-radius: 999px;
+  min-height: 44px;
+}
+
+/* ── Header / navigation ── */
+html[data-design='c'] .navbar {
+  height: 68px;
+  background: var(--c-cream);
+  border-bottom: 1px solid transparent;
+  box-shadow: none;
+  transition: background 0.3s var(--ease-smooth), border-color 0.3s var(--ease-smooth);
+}
+
+html[data-design='c'] .navbar.scrolled {
+  border-bottom-color: var(--c-line);
+}
+
+html[data-design='c'] .navbar__logo img {
+  height: 40px;
+}
+
+html[data-design='c'] .navbar__links .navbar__link {
+  font-family: var(--font-heading);
+  font-size: var(--c-ui);
+  font-weight: var(--c-w-medium);
+  letter-spacing: 0.012em;
+  color: var(--c-ink);
+}
+
+html[data-design='c'] .navbar__links .navbar__link::after {
+  background: var(--c-ink);
+  height: 2px;
+}
+
+html[data-design='c'] .navbar__links .navbar__link:hover,
+html[data-design='c'] .navbar__links .navbar__link.active,
+html[data-design='c'] .navbar__links .navbar__link.menu-open {
+  color: var(--c-ink);
+}
+
+html[data-design='c'] .navbar__contact {
+  height: 44px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--c-ink);
+  color: var(--c-cream);
+  font-family: var(--font-heading);
+  font-size: var(--c-ui);
+  font-weight: var(--c-w-medium);
+  letter-spacing: 0.012em;
+}
+
+html[data-design='c'] .navbar__contact:hover {
+  background: #3a3a34;
+  color: var(--c-cream);
+}
+
+html[data-design='c'] .search__toggle {
+  width: 44px;
+  height: 44px;
+  border-color: var(--line-strong);
+  color: var(--c-ink);
+}
+
+html[data-design='c'] .search__toggle:hover,
+html[data-design='c'] .search__toggle:focus-visible {
+  background: var(--c-ink);
+  border-color: var(--c-ink);
+  color: var(--c-cream);
+}
+
+html[data-design='c'] .navbar__toggle {
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+}
+
+html[data-design='c'] .navbar__toggle span {
+  background: var(--c-ink);
+  height: 2px;
+}
+
+/* Over the Home photo: transparent bar, light text. */
+html[data-design='c'] .navbar--hero {
+  background: transparent;
+}
+
+html[data-design='c'] .navbar--hero .navbar__links .navbar__link,
+html[data-design='c'] .navbar--hero .navbar__links .navbar__link:hover,
+html[data-design='c'] .navbar--hero .navbar__links .navbar__link.active {
+  color: #fff;
+}
+
+html[data-design='c'] .navbar--hero .navbar__links .navbar__link::after {
+  background: #fff;
+}
+
+html[data-design='c'] .navbar--hero .navbar__logo {
+  padding: 6px 12px;
+  border-radius: 12px;
+  background: var(--c-cream);
+}
+
+html[data-design='c'] .navbar--hero .search__toggle {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+html[data-design='c'] .navbar--hero .navbar__toggle span {
+  background: #fff;
+}
+
+html[data-design='c'] .navbar--hero .navbar__contact {
+  background: var(--c-cream);
+  color: var(--c-ink);
+}
+
+/* Menus */
+html[data-design='c'] .navbar__mega {
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  border-top: 0;
+  box-shadow: none;
+  background: var(--c-cream);
+}
+
+html[data-design='c'] .navbar__mega-heading {
+  color: var(--color-stone);
+  opacity: 1;
+}
+
+html[data-design='c'] .navbar__mega-item:hover {
+  background: var(--color-sand);
+}
+
+html[data-design='c'] .navbar__mega-item:hover .navbar__mega-item-label {
+  color: var(--c-ink);
+}
+
+html[data-design='c'] .navbar__mobile-menu {
+  background: var(--c-cream);
+}
+
+html[data-design='c'] .navbar__mobile-list .navbar__link {
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(1.75rem, 7vw, 2.5rem);
+  letter-spacing: -0.01em;
+  color: var(--c-ink);
+}
+
+html[data-design='c'] .navbar__mobile-contact {
+  color: var(--c-ink);
+}
+
+/* Search: a pill bar and a soft panel */
+html[data-design='c'] .search {
+  --s-bg: var(--c-cream);
+  --s-fg: var(--c-ink);
+  --s-muted: var(--color-stone);
+  --s-line: var(--c-line);
+  --s-hover: var(--color-sand);
+  --s-chip-bg: var(--c-butter);
+  --s-chip-fg: var(--c-ink);
+}
+
+html[data-design='c'] .search__bar {
+  border-bottom: 1px solid var(--c-line);
+}
+
+html[data-design='c'] .search__icon {
+  color: var(--c-ink);
+}
+
+html[data-design='c'] .search__panel {
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+}
+
+html[data-design='c'] .search__item-tag {
+  color: var(--color-stone);
+}
+
+html[data-design='c'] .search__item-title mark {
+  background: var(--c-butter);
+  color: var(--c-ink);
+}
+
+html[data-design='c'] .search__quick-link {
+  min-height: 44px;
+  padding: 0 18px;
+}
+
+html[data-design='c'] .search__quick-link:hover,
+html[data-design='c'] .search__quick-link:focus-visible {
+  background: var(--c-ink);
+  color: var(--c-cream);
+}
+
+html[data-design='c'] .search__close:hover,
+html[data-design='c'] .search__close:focus-visible {
+  background: var(--c-ink);
+  border-color: var(--c-ink);
+}
+
+/* ── Buttons, chips, links ── */
+html[data-design='c'] :is(.btn, .pill-cta) {
+  min-height: 48px;
+  padding: 0 26px;
+  border: 1.5px solid var(--c-ink);
+  border-radius: 999px;
+  background: var(--c-ink);
+  color: var(--c-cream);
+  font-family: var(--font-heading);
+  font-size: var(--c-ui);
+  font-weight: var(--c-w-medium);
+  letter-spacing: 0.012em;
+}
+
+html[data-design='c'] :is(.btn, .pill-cta):hover,
+html[data-design='c'] :is(.btn, .pill-cta):focus-visible {
+  background: #3a3a34;
+  border-color: #3a3a34;
+  color: var(--c-cream);
+  box-shadow: none;
+}
+
+html[data-design='c'] .btn--ghost {
+  background: transparent;
+  color: var(--c-ink);
+}
+
+html[data-design='c'] .btn--ghost:hover,
+html[data-design='c'] .btn--ghost:focus-visible {
+  background: var(--c-ink);
+  color: var(--c-cream);
+}
+
+html[data-design='c'] .btn--light {
+  background: var(--c-cream);
+  border-color: var(--c-cream);
+  color: var(--c-ink);
+}
+
+html[data-design='c'] .btn--on-dark {
+  background: transparent;
+  border-color: var(--c-cream);
+  color: var(--c-cream);
+}
+
+html[data-design='c'] .link-arrow {
+  min-height: 44px;
+  color: var(--c-ink);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+html[data-design='c'] :is(.chip, .tag, .people-tag, .member-card__tag, .nw-chip, .pr-pills span, .conference-detail__status, .project-detail__status, .project-detail__tags span, .nodal2-tag, .nodal-chip, .profile__tag) {
+  border: 0;
+  border-radius: 999px;
+  background: var(--color-sand);
+  color: var(--c-ink);
+  font-family: var(--font-heading);
+  font-weight: var(--c-w-medium);
+  letter-spacing: -0.005em;
+}
+
+html[data-design='c'] .chip--accent,
+html[data-design='c'] .tag--accent {
+  background: var(--c-butter);
+  color: var(--c-ink);
+}
+
+html[data-design='c'] .chip--cool {
+  background: var(--c-sky);
+  color: var(--c-ink);
+}
+
+html[data-design='c'] :is(.people-tag, .nw-chip, .nodal2-filters button):hover {
+  background: var(--c-ink);
+  color: var(--c-cream);
+}
+
+html[data-design='c'] :is(.people-tag, .nw-chip, .nodal2-filters button) {
+  min-height: 44px;
+}
+
+/* ── Page header: a pastel sheet with the title, the next section rises over it ── */
+html[data-design='c'] .page-header {
+  position: relative;
+  padding: clamp(56px, 12vw, 140px) var(--page-gutter) calc(var(--c-sheet) + clamp(40px, 8vw, 96px));
+  background: var(--c-page);
+  color: var(--c-ink);
+}
+
+html[data-design='c'] .page-header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: var(--c-sheet);
+  border-radius: var(--c-sheet) var(--c-sheet) 0 0;
+  background: var(--c-cream);
+}
+
+html[data-design='c'] .page-header h1 {
+  color: var(--c-ink);
+  font-size: var(--fs-display);
+  max-width: 16ch;
+}
+
+html[data-design='c'] .page-header p {
+  margin-top: var(--space-5);
+  color: var(--c-ink);
+  font-size: var(--c-body);
+  line-height: 1.6;
+  max-width: 44ch;
+}
+
+@media (min-width: 900px) {
+  html[data-design='c'] .page-header:not(.project-detail__header--media):not(.nodal-header) {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+    align-items: end;
+    gap: var(--space-5) clamp(32px, 6vw, 96px);
+  }
+
+  html[data-design='c'] .page-header:not(.project-detail__header--media):not(.nodal-header) > h1 {
+    grid-column: 1;
+  }
+
+  html[data-design='c'] .page-header:not(.project-detail__header--media):not(.nodal-header) > p {
+    grid-column: 2;
+    margin: 0 0 0.6em;
+  }
+
+  html[data-design='c'] .page-header > .page-header__actions {
+    grid-column: 1 / -1;
+  }
+}
+
+html[data-design='c'] .page-header--wide h1 {
+  font-size: clamp(2.25rem, 6.4vw, 5.25rem);
+  max-width: 20ch;
+}
+
+/* ── Sections: air, hairlines, pastel sheets ── */
+html[data-design='c'] .section-title {
+  font-size: var(--c-h2);
+  line-height: 1.06;
+}
+
+html[data-design='c'] .lede {
+  color: var(--color-charcoal);
+  font-size: var(--fs-lede);
+}
+
+/* Stacked heading + summary (the sticky split is a single column on phones and
+   a calm two-column row on wide screens, never sticky). */
+html[data-design='c'] .split {
+  display: block;
+}
+
+html[data-design='c'] .split__head {
+  position: static;
+  display: grid;
+  gap: var(--space-4);
+  margin-bottom: clamp(32px, 5vw, 64px);
+  padding-bottom: var(--space-5);
+  border-bottom: 1px solid var(--c-line);
+}
+
+html[data-design='c'] .split__head .section-title {
+  margin: 0;
+}
+
+html[data-design='c'] .split__head :is(.lede, p) {
+  margin: 0;
+  max-width: 46ch;
+  color: var(--color-charcoal);
+}
+
+@media (min-width: 900px) {
+  html[data-design='c'] .split__head {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    align-items: end;
+    gap: var(--space-5) clamp(32px, 6vw, 96px);
+  }
+}
+
+html[data-design='c'] .section--tint {
+  background: var(--c-sage);
+}
+
+html[data-design='c'] .section--ink {
+  background: var(--c-navy);
+  color: var(--c-cream);
+}
+
+html[data-design='c'] .section--ink :is(h1, h2, h3, h4, .section-title) {
+  color: var(--c-cream);
+}
+
+html[data-design='c'] .section--ink :is(p, .lede) {
+  color: rgba(249, 249, 240, 0.88);
+}
+
+html[data-design='c'] .section--tint,
+html[data-design='c'] .section--ink,
+html[data-design='c'] :is(.stats, .lab-facilities, .courses.section--tint) {
+  border-radius: var(--c-sheet) var(--c-sheet) 0 0;
+  margin-top: calc(var(--c-sheet) * -1);
+  position: relative;
+  padding-top: calc(var(--section-y) + var(--c-sheet));
+}
+
+html[data-design='c'] .stats {
+  background: var(--c-butter);
+}
+
+html[data-design='c'] .stats__title {
+  color: var(--c-ink);
+}
+
+html[data-design='c'] .stat {
+  border: 0;
+  border-top: 1px solid var(--line-strong);
+  border-radius: 0;
+  background: none;
+  padding: var(--space-4) 0 0;
+}
+
+html[data-design='c'] .stat__number {
+  font-weight: 300;
+  color: var(--c-ink);
+}
+
+html[data-design='c'] .stat__label {
+  color: var(--c-ink);
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: var(--text-md);
+}
+
+html[data-design='c'] .stats__closing {
+  color: var(--c-ink);
+  border-top-color: var(--line-strong);
+}
+
+html[data-design='c'] .lab-facilities {
+  background: var(--c-sky);
+}
+
+/* ── Cards ── */
+html[data-design='c'] .card,
+html[data-design='c'] :is(.pr-card, .conference-card, .project-detail__team-card, .lab-equipment__item, .lab-capabilities__item, .member-card, .nodal2-card, .coming-soon) {
+  border: 0;
+  border-radius: var(--radius-lg);
+  background: #fff;
+  box-shadow: none;
+}
+
+html[data-design='c'] .section--tint :is(.pr-card, .lab-equipment__item, .lab-capabilities__item) {
+  background: var(--c-cream);
+}
+
+html[data-design='c'] .card--interactive:hover {
+  transform: none;
+}
+
+/* ── Forms ── */
+html[data-design='c'] :is(input, select, textarea) {
+  border-radius: var(--radius-md);
+}
+
+/* ── Footer: navy sheet with a big soft mark ── */
+html[data-design='c'] .footer {
+  position: relative;
+  background: var(--c-navy);
+  border-radius: var(--c-sheet) var(--c-sheet) 0 0;
+  margin-top: calc(var(--c-sheet) * -1);
+  color: rgba(249, 249, 240, 0.88);
+}
+
+html[data-design='c'] .footer :is(h4, p, a, span, label) {
+  color: inherit;
+}
+
+html[data-design='c'] .footer__top {
+  gap: clamp(40px, 6vw, 96px);
+}
+
+html[data-design='c'] .footer__brand,
+html[data-design='c'] .footer__form {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+
+html[data-design='c'] .footer__form-title {
+  font-family: var(--font-heading);
+  font-weight: var(--c-w-display);
+  font-size: clamp(1.4rem, 1rem + 1.5vw, 2.1rem);
+  line-height: 1.25;
+  color: var(--c-cream);
+}
+
+html[data-design='c'] .footer__field label,
+html[data-design='c'] .footer__contact-group .footer__contact-title {
+  font-family: var(--font-heading);
+  font-weight: var(--c-w-medium);
+  font-size: var(--text-md);
+  letter-spacing: 0;
+  text-transform: none;
+  color: rgba(249, 249, 240, 0.92);
+}
+
+html[data-design='c'] .footer__field :is(select, input, textarea) {
+  min-height: 48px;
+  border: 0;
+  border-bottom: 1px solid rgba(249, 249, 240, 0.5);
+  border-radius: 0;
+  background: transparent;
+  color: var(--c-cream);
+}
+
+html[data-design='c'] .footer__field :is(select, input, textarea):focus {
+  outline: 3px solid var(--c-cream);
+  outline-offset: 2px;
+  background: rgba(249, 249, 240, 0.06);
+}
+
+html[data-design='c'] .footer__field :is(input, textarea)::placeholder {
+  color: rgba(249, 249, 240, 0.7);
+}
+
+html[data-design='c'] .footer__submit {
+  min-height: 48px;
+  padding: 0 30px;
+  border-radius: 999px;
+  background: var(--c-butter);
+  color: var(--c-ink);
+  font-family: var(--font-body);
+  font-weight: 600;
+}
+
+html[data-design='c'] .footer__submit:hover:not(:disabled) {
+  background: #ffe9a8;
+  transform: none;
+}
+
+html[data-design='c'] .footer__submit:disabled {
+  background: rgba(249, 249, 240, 0.18);
+  color: rgba(249, 249, 240, 0.8);
+}
+
+html[data-design='c'] .footer__socials a {
+  width: 44px;
+  height: 44px;
+  border-color: rgba(249, 249, 240, 0.5);
+  color: var(--c-cream);
+}
+
+html[data-design='c'] .footer__socials a:hover {
+  background: var(--c-cream);
+  color: var(--c-navy);
+  transform: none;
+}
+
+html[data-design='c'] .footer :focus-visible {
+  outline-color: var(--c-cream);
+}
+
+html[data-design='c'] .footer__logo-chip {
+  border-radius: var(--radius-md);
+}
+
+html[data-design='c'] .footer__bottom {
+  color: rgba(249, 249, 240, 0.85);
+}
+
+/* ── Motion: gentle, and off for anyone who asks ── */
+html[data-design='c'] .reveal {
+  transform: none;
+  transition: opacity 0.6s var(--ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-design='c'] * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Page-level polish ── */
+
+/* The first section after a page header needs less run-up. */
+html[data-design='c'] .page-header + :is(section, div) {
+  padding-top: clamp(32px, 5vw, 72px);
+}
+
+/* Whatever comes last gives the footer sheet room to rise over it. */
+html[data-design='c'] #main-content > :last-child {
+  padding-bottom: calc(var(--section-y) * 0.5 + var(--c-sheet));
+}
+
+/* Photos on listing cards: in colour, still, softly rounded. */
+html[data-design='c'] .project-card__image img,
+html[data-design='c'] .project-card__image .project-card__fallback,
+html[data-design='c'] .project-card:hover .project-card__image img,
+html[data-design='c'] .project-card:hover .project-card__image .project-card__fallback {
+  transform: none !important;
+  filter: none;
+}
+
+html[data-design='c'] .project-card__image {
+  border-radius: var(--radius-lg);
+  box-shadow: none;
+}
+
+html[data-design='c'] .project-card__magnet {
+  border-radius: 999px;
+  background: var(--c-ink);
+  color: var(--c-cream);
+}
+
+html[data-design='c'] .project-card__fallback,
+html[data-design='c'] .project-card__fallback--cool,
+html[data-design='c'] .project-card__fallback--teal {
+  background: var(--c-sage);
+}
+
+html[data-design='c'] .project-card__fallback span {
+  color: var(--c-ink);
+}
+
+html[data-design='c'] .project-card__content h3 {
+  font-weight: 300;
+}
+
+html[data-design='c'] .project-card__cta,
+html[data-design='c'] .project-card:hover .project-card__content h3 {
+  color: var(--c-ink);
+}
+
+html[data-design='c'] .project-card__cta {
+  min-height: 44px;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+/* Practices: the teal / gold accents become the soft palette. */
+html[data-design='c'] .pr {
+  --pr-teal: var(--c-navy);
+  --pr-teal-soft: var(--c-sage);
+  --pr-gold: #6b3f00;
+  --pr-gold-soft: var(--c-butter);
+  --pr-blue-soft: var(--c-sky);
+}
+
+html[data-design='c'] .pr-card,
+html[data-design='c'] .pr-tiers div {
+  background: #fff;
+}
+
+/* About: the visit band must not run into the navy footer. */
+html[data-design='c'] .about-visit {
+  background: var(--c-lilac);
+  color: var(--c-ink);
+}
+
+html[data-design='c'] .about-visit :is(h2, .section-title, p, .lede, .about-address) {
+  color: var(--c-ink);
+}
+
+html[data-design='c'] .about-visit .btn--on-dark {
+  border-color: var(--c-ink);
+  color: var(--c-ink);
+}
+
+html[data-design='c'] .about-visit .btn:not(.btn--on-dark) {
+  background: var(--c-ink);
+  color: var(--c-cream);
+}
+
+html[data-design='c'] .about-explore a {
+  border-top: 1px solid var(--line-strong);
+}
+
+html[data-design='c'] .about-explore strong {
+  font-weight: 300;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+html[data-design='c'] .about-explore span {
+  color: var(--color-stone);
+}
+
+/* White panels inside dark bands keep dark text. */
+html[data-design='c'] .section--ink :is(.pr-enquire__panel, [class*='panel']) :is(p, label, span) {
+  color: var(--color-stone);
+}
+
+html[data-design='c'] .section--ink .pr-enquire__panel label {
+  color: var(--c-ink);
+}
+
+/* The "Optional" hint beside a footer field label. */
+html[data-design='c'] .footer__field-optional {
+  color: rgba(249, 249, 240, 0.85);
+}
+
+/* ── Using the reference's own typefaces ──
+   The site this design follows sets its headings, labels, buttons and
+   navigation in "Season Mix" and its reading text in "Season Sans" (Regular and
+   Medium of each). They are commercial fonts, so they are not bundled here.
+   The stacks below already put them first; with licensed files in
+   public/fonts/season/, uncomment the @font-face block in index.html and they
+   take over with no other change (the weights map to Regular and Medium).
+   Until then the open-licence Fraunces and DM Sans stand in. */
+html[data-design='c'] {
+  --font-heading: 'Season Mix', 'Fraunces', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+  --font-body: 'Season Sans', 'DM Sans', system-ui, sans-serif;
+}

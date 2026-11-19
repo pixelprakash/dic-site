@@ -6,7 +6,10 @@
    falls back to the plain logo; with prefers-reduced-motion it holds a
    single still frame. */
 .dic-loader {
-  min-height: 60vh;
+  /* A full screen, so the footer is never on screen while a page loads (and
+     then jumps away when it arrives). */
+  min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,7 +33,8 @@
   align-items: flex-start;
   justify-content: flex-end;
   gap: 18px;
-  min-height: 70vh;
+  min-height: 100vh;
+  min-height: 100svh;
   padding: 0 var(--page-gutter) clamp(32px, 5vw, 64px);
   background: #000;
   color: var(--color-white);

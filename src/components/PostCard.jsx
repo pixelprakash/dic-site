@@ -48,9 +48,9 @@ export default function PostCard({ post, wide = false }) {
           <time className="pc-date" dateTime={post.date}>{fmtDate(post.date)}</time>
           <Deadline closesOn={post.closesOn} />
         </div>
-        <h3 className="pc-title">
+        <h2 className="pc-title">
           <Link to={newsPath(post)}>{post.title || post.text.split('\n')[0]}</Link>
-        </h3>
+        </h2>
 
         <p className="pc-text">{post.text.replace(/\s+/g, ' ')}</p>
 

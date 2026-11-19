@@ -24,8 +24,9 @@ const FALLBACK_TONES = ['warm', 'cool', 'teal'];
 const prefersReducedMotion =
   typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-export default function ProjectCard({ project, basePath = '/projects', ctaLabel = 'View Project' }) {
+export default function ProjectCard({ project, basePath = '/projects', ctaLabel = 'View Project', headingLevel = 3 }) {
   const { slug, title, tagline, abstract, domain, tags = [], image } = project;
+  const Heading = `h${headingLevel}`;
   const imageRef = useRef(null);
   const rafRef = useRef(null);
   const magnetRef = useRef(null);
@@ -105,7 +106,8 @@ export default function ProjectCard({ project, basePath = '/projects', ctaLabel 
         onMouseMove={handleMouseMove}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        aria-label={`View ${title}`}
+        aria-hidden="true"
+        tabIndex={-1}
       >
         {image ? (
           <img src={image} alt="" loading="lazy" />
@@ -125,7 +127,7 @@ export default function ProjectCard({ project, basePath = '/projects', ctaLabel 
         )}
       </Link>
       <div className="project-card__content">
-        <h3><Link to={`${basePath}/${slug}`} className="project-card__title-link">{title}</Link></h3>
+        <Heading><Link to={`${basePath}/${slug}`} className="project-card__title-link">{title}</Link></Heading>
         <p>{tagline || abstract}</p>
         {(domain || tags.length > 0) && (
           <div className="project-card__tags">

@@ -67,7 +67,7 @@ export default function Navbar() {
   // On the home page the bar floats transparent over the full-viewport hero
   // video (HomeHero) until the page is scrolled or a menu opens — the mega menu
   // and mobile menu are white panels, so they need the normal solid bar.
-  const overHero = location.pathname === '/' && design === 'a' && !scrolled && !openMenu && !menuOpen;
+  const overHero = location.pathname === '/' && (design === 'a' || design === 'c') && !scrolled && !openMenu && !menuOpen;
 
   return (
     <>

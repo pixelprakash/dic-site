@@ -5,6 +5,8 @@ import Footer from './components/Footer';
 import GlassReveal from './components/GlassReveal';
 import DesignToggle from './components/DesignToggle';
 import { useDesign } from './lib/designVariant';
+import { setPageMeta } from './lib/seo';
+import { ROUTE_META } from './data/seoData';
 // Custom cursor — parked for now. Not deleted: uncomment this import and
 // the <CustomCursor /> below to bring it back.
 // import CustomCursor from './components/CustomCursor';
@@ -20,10 +22,12 @@ import './styles/sections.css';
 import './styles/Loader.css';
 import './styles/redesign.css';
 import './styles/redesign-pages.css';
+import './styles/redesign-c.css';
 
 /* Code-split pages for fast initial load */
 const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 const People = lazy(() => import('./pages/People'));
 const PersonProfile = lazy(() => import('./pages/PersonProfile'));
 const Research = lazy(() => import('./pages/Research'));
@@ -114,7 +118,16 @@ function PersonTitle({ slug }) {
   const { all: members } = useMembers();
   useEffect(() => {
     const member = members.find((m) => m.id === slug && !m.placeholder);
-    document.title = member ? `${member.name} — DIC · IITH` : PAGE_TITLES['/people'];
+    if (member) {
+      setPageMeta({
+        title: `${member.name} — DIC · IITH`,
+        description: member.bio || `${member.role} at the Design Innovation Centre, IIT Hyderabad.`,
+        path: `${PEOPLE_PREFIX}${slug}`,
+        image: member.photo || undefined,
+      });
+    } else {
+      setPageMeta({ title: PAGE_TITLES['/people'], path: '/people' });
+    }
   }, [members, slug]);
   return null;
 }
@@ -123,16 +136,33 @@ function NewsTitle({ slug }) {
   const { data: feed } = useFeed();
   useEffect(() => {
     const post = feed.find((p) => p.slug === slug);
-    document.title = post ? `${post.title || post.text.split('\n')[0]} — DIC · IITH` : PAGE_TITLES['/news'];
+    if (post) {
+      const heading = post.title || post.text.split('\n')[0];
+      setPageMeta({
+        title: `${heading} — DIC · IITH`,
+        description: post.text.replace(/\s+/g, ' ').slice(0, 200),
+        path: `${NEWS_PREFIX}${slug}`,
+        image: post.images?.[0]?.src,
+      });
+    } else {
+      setPageMeta({ title: PAGE_TITLES['/news'], path: '/news' });
+    }
   }, [feed, slug]);
   return null;
 }
 
 function DocumentTitle() {
   const { pathname } = useLocation();
+  // The first path segment (home, research, people…), so a design can colour
+  // each page's header differently (Design 3 does).
+  useEffect(() => {
+    document.documentElement.dataset.route = pathname.split('/')[1] || 'home';
+  }, [pathname]);
   useEffect(() => {
     if (pathname.startsWith(PEOPLE_PREFIX) || pathname.startsWith(NEWS_PREFIX)) return;
-    document.title = PAGE_TITLES[pathname] || DEFAULT_TITLE;
+    // Known pages: their own title and description. Detail pages set theirs
+    // when their content loads (a project, a research study, a blog post).
+    setPageMeta({ title: ROUTE_META[pathname]?.title || PAGE_TITLES[pathname] || DEFAULT_TITLE, path: pathname });
   }, [pathname]);
   if (pathname.startsWith(PEOPLE_PREFIX)) return <PersonTitle slug={pathname.slice(PEOPLE_PREFIX.length)} />;
   if (pathname.startsWith(NEWS_PREFIX)) return <NewsTitle slug={pathname.slice(NEWS_PREFIX.length)} />;
@@ -233,6 +263,7 @@ export default function App() {
             <Route path="/blogs/wiki-thesis-research-assessment-ai" element={<WikiThesisBlog />} />
             <Route path="/blogs/how-intelligent-are-we-about-natural-intelligence" element={<NaturalIntelligenceBlog />} />
             <Route path="/blogs/:slug" element={<BlogPost />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
       </main>

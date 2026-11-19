@@ -136,19 +136,20 @@ ul, ol {
 
 .skip-link {
   position: fixed;
-  top: -60px;
+  top: 0;
   left: 16px;
+  transform: translateY(-200%);
   z-index: 1000;
   padding: 12px 20px;
   background: var(--color-dic-red);
   color: var(--color-white);
   font-weight: 600;
   border-radius: var(--border-radius-sm);
-  transition: top 0.25s var(--ease-out);
+  transition: transform 0.25s var(--ease-out);
 }
 
 .skip-link:focus {
-  top: 16px;
+  transform: translateY(16px);
 }
 
 :focus-visible {

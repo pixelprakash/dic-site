@@ -68,6 +68,41 @@ When one is chosen, delete the other's files, `lib/designVariant.js`,
 `components/DesignToggle.jsx` and `styles/DesignToggle.css`, and fold the
 winner into the base styles.
 
+### Design 3 (soft) — added
+
+A third design, `data-design="c"`, after quakerschool.org: warm cream page,
+pastel rounded sheets (butter, sage, coral, sky, lilac) that rise over the
+section above, black pill buttons, hairline dividers. Files: `styles/redesign-c.css`
+(tokens, header, buttons, sheets, footer), `pages/HomeC.jsx` + `styles/HomeC.css`.
+Every page picks up a colour for its header from `<html data-route>`.
+
+**Type** follows the reference's measured scale (fluid between 390px and 1440px):
+a display serif at Regular for headings (hero ≈ 60→170px, h2 37→79px, line-height
+about 1.06, tracking −0.01em), the same serif at Medium for small labels, buttons
+and navigation, and a sans at Regular for reading text (16→21px, line-height 1.6,
+text at 82% ink). The reference uses the commercial families *Season Mix* and
+*Season Sans*; they are not bundled. The stacks name them first, so with licensed
+files in `public/fonts/season/` and the commented `@font-face` block in `index.html`
+enabled they take over unchanged. Until then Fraunces and DM Sans stand in.
+
+**Accessibility (WCAG 2.2 AA):** automated axe-core runs (WCAG 2.0/2.1/2.2 A and AA
+plus best practices) on 15 routes at 320, 390 and 1440px report no violations and
+no horizontal overflow. Text is near-black on cream or pastel, links in running text
+are underlined, controls are at least 44px, one focus ring (3px navy, white on the
+footer) everywhere, reduced motion is honoured, cards are single links.
+
+**SEO:** per-route title, description, canonical, Open Graph / Twitter and a
+BreadcrumbList (`lib/seo.js`, copy in `data/seoData.js`); the same copy is served to
+crawlers that don't run JavaScript by `middleware.js`; JSON-LD for the organisation and
+site is injected at build; `public/robots.txt`, a generated `public/sitemap.xml`
+(`scripts/generate-sitemap.mjs`, run before each build), a 404 page marked noindex.
+`SITE.url` in `data/seoData.js` is the published address.
+
+**Speed:** fonts are self-hosted, subset to Latin and preloaded (no third-party
+request); only the design in use is preloaded; responsive image sizes
+(`lib/img.js`); the Home photo is preloaded. Lighthouse (mobile, throttled), design 3:
+performance 83–86, accessibility 100, SEO 100, layout shift 0–0.08.
+
 ## Shared building blocks (`src/styles/system.css`)
 
 Pages assemble from these rather than restyling their own:

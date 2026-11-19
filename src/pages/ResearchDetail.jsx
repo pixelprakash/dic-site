@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useResearchProjects } from '../lib/cms';
+import { setPageMeta } from '../lib/seo';
 import GalleryLightbox from '../components/GalleryLightbox';
 import '../styles/ProjectDetail.css';
 
@@ -8,6 +9,15 @@ export default function ResearchDetail() {
   const { slug } = useParams();
   const { researchProjects, loading } = useResearchProjects();
   const project = researchProjects.find((r) => r.slug === slug);
+  useEffect(() => {
+    if (!project) return;
+    setPageMeta({
+      title: `${project.title} — DIC · IITH`,
+      description: project.tagline || '',
+      path: `/research/${slug}`,
+      image: project.image || undefined,
+    });
+  }, [project, slug]);
   const [lightboxIndex, setLightboxIndex] = useState(null);
 
   if (!project) {

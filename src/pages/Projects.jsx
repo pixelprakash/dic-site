@@ -23,7 +23,7 @@ export default function Projects() {
 
       <section className={`project-list reveal ${listVis ? 'visible' : ''}`} ref={listRef}>
         {PROJECTS.map((project) => (
-          <ProjectCard key={project.slug} project={project} />
+          <ProjectCard key={project.slug} project={project} headingLevel={2} />
         ))}
       </section>
 

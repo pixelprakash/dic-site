@@ -434,7 +434,7 @@ html[data-design='a'] .footer__form-title {
 }
 
 html[data-design='a'] .footer__field label,
-html[data-design='a'] .footer__contact-group h4 {
+html[data-design='a'] .footer__contact-group .footer__contact-title {
   font-family: var(--font-display);
   font-weight: 700;
   font-stretch: 90%;

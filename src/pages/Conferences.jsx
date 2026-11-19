@@ -16,7 +16,7 @@ export default function Conferences() {
         {CONFERENCES.map((c) =>
           c.internal ? (
             <Link className="conference-card" to={c.path} key={c.id}>
-              <h3>{c.title}</h3>
+              <h2>{c.title}</h2>
               <p>{c.tagline}</p>
               <span className="conference-card__cta">
                 View conference
@@ -27,7 +27,7 @@ export default function Conferences() {
             </Link>
           ) : (
             <a className="conference-card" href={c.path} target="_blank" rel="noopener noreferrer" key={c.id}>
-              <h3>{c.title}</h3>
+              <h2>{c.title}</h2>
               <p>{c.tagline}</p>
               <span className="conference-card__cta">
                 Visit website

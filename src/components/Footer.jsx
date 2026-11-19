@@ -204,7 +204,7 @@ export default function Footer() {
 
               {CONTACT_GROUPS.map((group) => (
                 <div className="footer__contact-group" key={group.heading}>
-                  <h4>{group.heading}</h4>
+                  <h2 className="footer__contact-title">{group.heading}</h2>
                   {group.lines.map((line) => (
                     <CopyLine key={line} text={line} />
                   ))}
@@ -220,24 +220,26 @@ export default function Footer() {
                       className="footer__logo-item"
                       loading="lazy"
                       decoding="async"
-                      onError={(e) => { e.currentTarget.closest('.footer__logo-chip').style.display = 'none'; }}
+                      onError={(e) => { e.currentTarget.closest('[role="listitem"]').style.display = 'none'; }}
                     />
                   );
-                  return logo.href ? (
-                    <a
-                      className="footer__logo-chip"
-                      role="listitem"
-                      key={logo.key}
-                      href={logo.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {img}
-                    </a>
-                  ) : (
-                    <span className="footer__logo-chip" role="listitem" key={logo.key}>
-                      {img}
-                    </span>
+                  return (
+                    <div className="footer__logo-item-wrap" role="listitem" key={logo.key}>
+                      {logo.href ? (
+                        <a
+                          className="footer__logo-chip"
+                          href={logo.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {img}
+                        </a>
+                      ) : (
+                        <span className="footer__logo-chip">
+                          {img}
+                        </span>
+                      )}
+                    </div>
                   );
                 })}
               </div>
@@ -258,7 +260,7 @@ export default function Footer() {
         </div>
 
         <form className="footer__form" onSubmit={onSubmit} noValidate>
-          <h4 className="footer__form-title">Get in touch</h4>
+          <h2 className="footer__form-title">Get in touch</h2>
 
           <div className="footer__field">
             <label htmlFor="footer-type">Type of request</label>
