@@ -190,6 +190,10 @@ function NodalAbout() {
               <li key={c}>{c}</li>
             ))}
           </ul>
+          <p className="nodal2-aboutlink">
+            This page is about the national network. For the Centre at IIT Hyderabad itself, its
+            lab and how to visit, see <Link to="/about">About DIC</Link>.
+          </p>
         </div>
       </div>
       <div className="nodal2-stats">

@@ -1277,3 +1277,19 @@ text.nodal2-diagram__label--muted, g.nodal2-diagram__label--muted { fill: var(--
   .nodal2-cv li { grid-template-columns: 1fr; gap: 2px; }
   .nodal2-search { width: 100%; }
 }
+
+/* Pointer from the network page to the Centre's own About page. */
+.nodal2-aboutlink {
+  max-width: 64ch;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line-strong);
+  font-size: var(--text-md);
+  color: var(--color-stone);
+}
+
+.nodal2-aboutlink a {
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: var(--color-ink);
+}

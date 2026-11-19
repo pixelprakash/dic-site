@@ -113,3 +113,16 @@ html[data-design='a'] .research-lab-note .lede {
 html[data-design='a'] .research-lab-note a {
   color: var(--color-dic-red-text-safe);
 }
+
+/* "Explore the DIC network →" inside the Centre paragraph. */
+.about-netlink {
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: var(--color-ink);
+}
+
+html[data-design='a'] .about-netlink {
+  color: var(--color-dic-red-text-safe);
+}

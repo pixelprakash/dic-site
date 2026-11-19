@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useReveal } from '../hooks/useReveal';
 import { DIC_LAB_FACILITIES } from '../data/siteData';
-import { NODAL_ABOUT } from '../data/nodalData';
+import { NODAL_SEALS } from '../data/nodalData';
 import '../styles/About.css';
 
 // Lab & Facilities "Capabilities" copy — from the Fifth All India DIC Meet 2025
@@ -31,7 +31,7 @@ const EXPLORE = [
   { to: '/research', label: 'Research', text: 'Studies and publications from the Centre.' },
   { to: '/projects', label: 'Projects', text: 'Products and programmes delivered across heritage, mobility and education.' },
   { to: '/people', label: 'People', text: 'Faculty, scholars, project staff and alumni.' },
-  { to: '/nodal', label: 'DIC Nodal', text: 'The national network of Design Innovation Centres.' },
+  { to: '/nodal', label: 'DIC Nodal', text: 'The national network: nodes, events, and how to join.' },
 ];
 
 export default function About() {
@@ -50,8 +50,10 @@ export default function About() {
         </p>
       </div>
 
-      {/* Who we are — the Centre in two paragraphs (the same text as the DIC
-          Nodal page), then the main places to go next. */}
+      {/* The Centre — what it is and does, in three short paragraphs (the
+          facts are the lab and network figures already used on the Education,
+          Nodal and lab copy), then the main places to go next. The network
+          itself — directory, events, how to join — lives on the DIC Nodal page. */}
       <section className={`section about-intro reveal ${aboutVis ? 'visible' : ''}`} ref={aboutRef}>
         <div className="split">
           <div className="split__head">
@@ -62,9 +64,22 @@ export default function About() {
             </p>
           </div>
           <div className="split__body">
-            {NODAL_ABOUT.paragraphs.map((p) => (
-              <p key={p}>{p}</p>
-            ))}
+            <p>
+              The Design Innovation Centre is part of the Department of Design at IIT Hyderabad.
+              It works as a design lab and a teaching space at once: research projects and
+              products on one side, courses and workshops on the other.
+            </p>
+            <p>
+              Its lab, over 3,000 square feet of fabrication, mixed-reality, prototyping and
+              preservation facilities, builds its projects in-house, from first prototype to
+              full-scale exhibit.
+            </p>
+            <p>
+              The Centre is also the Nodal Centre for the National DIC Network:{' '}
+              {NODAL_SEALS[0].value} DIC hubs at IITs, IISc, SPA and universities, linked to{' '}
+              {NODAL_SEALS[1].value} spoke institutions across India.{' '}
+              <Link className="about-netlink" to="/nodal">Explore the DIC network &rarr;</Link>
+            </p>
             <ul className="about-explore">
               {EXPLORE.map((e) => (
                 <li key={e.to}>

@@ -914,3 +914,8 @@ html[data-design='a'] .lab-capabilities__index {
   line-height: 0.9;
   color: var(--color-dic-red);
 }
+
+/* Nodal page -> About pointer */
+html[data-design='a'] .nodal2-aboutlink a {
+  color: var(--color-dic-red-text-safe);
+}
