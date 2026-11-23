@@ -2,7 +2,12 @@
 // redesign (Design 1) only, and is skipped for visitors who prefer reduced
 // motion — they just get the new page. Navbar uses this too, so it doesn't
 // scroll the old page to the top while the sheet is still covering it.
+// PARKED for now: set to true to bring the page-switch sheet back (the whole
+// component, the per-page drawings and their styles are still in place).
+export const PAGE_TRANSITIONS = false;
+
 export function curtainEnabled(design) {
+  if (!PAGE_TRANSITIONS) return false;
   if (design !== 'a') return false;
   if (typeof window === 'undefined') return false;
   return !window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;

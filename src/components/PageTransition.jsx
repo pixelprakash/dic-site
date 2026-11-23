@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDesign } from '../lib/designVariant';
-import { curtainEnabled, curtainLabel, curtainSheet } from '../lib/pageTransition';
+import { PAGE_TRANSITIONS, curtainEnabled, curtainLabel, curtainSheet } from '../lib/pageTransition';
 import Figure, { figureKey } from './PageTransitionFigures';
 import '../styles/PageTransition.css';
 
@@ -75,6 +75,7 @@ export default function PageTransition({ children }) {
   return (
     <>
       {children(shown)}
+      {PAGE_TRANSITIONS && (
       <div className={`ptr ptr--${phase}${phase === 'idle' ? '' : ' ptr--live'}`} aria-hidden="true">
         <span className="ptr__edge ptr__edge--top" />
         <span className="ptr__edge ptr__edge--right" />
@@ -97,6 +98,7 @@ export default function PageTransition({ children }) {
           <span className="ptr__rule" />
         </div>
       </div>
+      )}
     </>
   );
 }
