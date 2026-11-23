@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { NAV_LINKS, CONTACT_LINK } from '../data/siteData';
 import SearchBar from './SearchBar';
 import { useDesign } from '../lib/designVariant';
+import { curtainEnabled } from '../lib/pageTransition';
 // Page scroll-progress bar — parked for now, undecided whether to keep it.
 // Not deleted: uncomment this import and the <ScrollProgress /> below to
 // bring it back.
@@ -32,7 +33,9 @@ export default function Navbar() {
     // anchors, a profile page's breadcrumb) means something else on the
     // page is about to scroll to a specific spot — resetting to the top
     // here would immediately fight that.
-    if (!location.hash) {
+    // (With the page-switch curtain, PageTransition scrolls to the top once the
+    // screen is covered, so the old page doesn't jump while it is closing.)
+    if (!location.hash && !curtainEnabled(design)) {
       // Explicit 'instant' — the site sets html{scroll-behavior:smooth}
       // globally, which also hijacks plain scrollTo(0,0) calls. Without
       // this override, switching pages while scrolled down animates a

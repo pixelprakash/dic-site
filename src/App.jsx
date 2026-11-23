@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-route
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import GlassReveal from './components/GlassReveal';
+import PageTransition from './components/PageTransition';
 // Design switcher (1 Redesign / 2 Current / 3 Soft) — hidden while the site is
 // locked to one design (see lib/designVariant.js). To bring it back: un-comment
 // this import and the <DesignToggle /> below, and unlock the design.
@@ -238,38 +239,42 @@ export default function App() {
       {/* <SiteSwitcher /> */}
       {/* <CustomCursor /> */}
       <Navbar />
-      <main id="main-content">
-        <Suspense fallback={<Loader />}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/people" element={<People />} />
-            <Route path="/people/:slug" element={<PersonProfile />} />
-            {/* Old path, kept working in case it's bookmarked or linked anywhere */}
-            <Route path="/about" element={<About />} />
-            <Route path="/research" element={<Research />} />
-            <Route path="/research/:slug" element={<ResearchDetail />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/projects/:slug" element={<ProjectDetail />} />
-            <Route path="/education" element={<Education />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/practices" element={<Practices />} />
-            <Route path="/news" element={<News />} />
-            <Route path="/news/:slug" element={<NewsPost />} />
-            <Route path="/nodal" element={<Nodal />} />
-            {/* <Route path="/all-india-dic-meet-26" element={<AllIndiaDicMeet26 />} /> — parked, see import note above */}
-            <Route path="/conferences" element={<Conferences />} />
-            <Route path="/conferences/fourth-all-india-dic-meet" element={<FourthDicMeet />} />
-            <Route path="/events" element={<Events />} />
-            <Route path="/workshops" element={<Workshops />} />
-            <Route path="/blogs" element={<Blogs />} />
-            <Route path="/blogs/reimagining-formative-assessment-art-education" element={<BlogDetail />} />
-            <Route path="/blogs/wiki-thesis-research-assessment-ai" element={<WikiThesisBlog />} />
-            <Route path="/blogs/how-intelligent-are-we-about-natural-intelligence" element={<NaturalIntelligenceBlog />} />
-            <Route path="/blogs/:slug" element={<BlogPost />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
-      </main>
+      <PageTransition>
+        {(loc) => (
+          <main id="main-content">
+            <Suspense fallback={<Loader />}>
+              <Routes location={loc}>
+                <Route path="/" element={<Home />} />
+                <Route path="/people" element={<People />} />
+                <Route path="/people/:slug" element={<PersonProfile />} />
+                {/* Old path, kept working in case it's bookmarked or linked anywhere */}
+                <Route path="/about" element={<About />} />
+                <Route path="/research" element={<Research />} />
+                <Route path="/research/:slug" element={<ResearchDetail />} />
+                <Route path="/projects" element={<Projects />} />
+                <Route path="/projects/:slug" element={<ProjectDetail />} />
+                <Route path="/education" element={<Education />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/practices" element={<Practices />} />
+                <Route path="/news" element={<News />} />
+                <Route path="/news/:slug" element={<NewsPost />} />
+                <Route path="/nodal" element={<Nodal />} />
+                {/* <Route path="/all-india-dic-meet-26" element={<AllIndiaDicMeet26 />} /> — parked, see import note above */}
+                <Route path="/conferences" element={<Conferences />} />
+                <Route path="/conferences/fourth-all-india-dic-meet" element={<FourthDicMeet />} />
+                <Route path="/events" element={<Events />} />
+                <Route path="/workshops" element={<Workshops />} />
+                <Route path="/blogs" element={<Blogs />} />
+                <Route path="/blogs/reimagining-formative-assessment-art-education" element={<BlogDetail />} />
+                <Route path="/blogs/wiki-thesis-research-assessment-ai" element={<WikiThesisBlog />} />
+                <Route path="/blogs/how-intelligent-are-we-about-natural-intelligence" element={<NaturalIntelligenceBlog />} />
+                <Route path="/blogs/:slug" element={<BlogPost />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
+          </main>
+        )}
+      </PageTransition>
       <Footer />
       {/* <DesignToggle /> */}
     </BrowserRouter>

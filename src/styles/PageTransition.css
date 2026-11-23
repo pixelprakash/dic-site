@@ -1,0 +1,117 @@
+/* Page-switch curtain (see components/PageTransition.jsx). */
+.ptr {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 0 var(--page-gutter) clamp(28px, 5vw, 64px);
+  background: #000;
+  color: var(--color-white, #fff);
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+  clip-path: inset(100% 0 0 0);
+}
+
+.ptr--in,
+.ptr--hold,
+.ptr--out {
+  visibility: visible;
+  pointer-events: auto; /* swallow clicks while the page is changing */
+}
+
+.ptr--in { animation: ptrIn 440ms cubic-bezier(0.7, 0, 0.2, 1) forwards; }
+.ptr--hold { clip-path: inset(0); }
+.ptr--out { animation: ptrOut 560ms cubic-bezier(0.7, 0, 0.2, 1) forwards; }
+
+/* The red rule along the top edge: draws in, then leaves to the right. */
+.ptr__line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--color-dic-red, #e03a2f);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.ptr--in .ptr__line { animation: ptrLineIn 440ms cubic-bezier(0.7, 0, 0.2, 1) forwards; }
+.ptr--hold .ptr__line { transform: scaleX(1); }
+.ptr--out .ptr__line {
+  transform-origin: right center;
+  animation: ptrLineOut 560ms cubic-bezier(0.7, 0, 0.2, 1) forwards;
+}
+
+.ptr__label,
+.ptr__word {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 75%;
+  text-transform: uppercase;
+  line-height: 0.82;
+  letter-spacing: -0.02em;
+  user-select: none;
+}
+
+/* The section being opened. */
+.ptr__label {
+  font-size: clamp(3.5rem, 14vw, 13rem);
+  color: #fff;
+  opacity: 0;
+  transform: translateY(40%);
+}
+
+.ptr--in .ptr__label { animation: ptrLabelIn 440ms 90ms cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
+.ptr--hold .ptr__label { opacity: 1; transform: none; }
+.ptr--out .ptr__label { animation: ptrLabelOut 460ms cubic-bezier(0.7, 0, 0.9, 0.4) forwards; }
+
+/* A faint DIC outline-weight mark, bottom right. */
+.ptr__word {
+  display: none;
+  font-size: clamp(5rem, 16vw, 15rem);
+  color: rgba(255, 255, 255, 0.1);
+}
+
+@media (min-width: 900px) {
+  .ptr__word { display: block; }
+}
+
+@keyframes ptrIn {
+  from { clip-path: inset(100% 0 0 0); }
+  to { clip-path: inset(0); }
+}
+
+@keyframes ptrOut {
+  from { clip-path: inset(0); }
+  to { clip-path: inset(0 0 100% 0); }
+}
+
+@keyframes ptrLineIn {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes ptrLineOut {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0); }
+}
+
+@keyframes ptrLabelIn {
+  from { opacity: 0; transform: translateY(40%); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes ptrLabelOut {
+  from { opacity: 1; transform: none; }
+  to { opacity: 0; transform: translateY(-30%); }
+}
+
+/* Reduced motion never mounts a visible curtain (curtainEnabled), but keep
+   the stylesheet safe if the preference changes mid-visit. */
+@media (prefers-reduced-motion: reduce) {
+  .ptr { display: none; }
+}
