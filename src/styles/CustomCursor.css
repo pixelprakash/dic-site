@@ -1,63 +1,54 @@
-/* Native cursor only hidden once we know a custom one is actually mounted
-   (.has-custom-cursor, set by CustomCursor.jsx) — never blindly, so a
-   touch device or reduced-motion visitor always keeps a real cursor. */
-.has-custom-cursor,
-.has-custom-cursor * {
-  cursor: none !important;
-}
-
-/* Position-only wrapper — JS writes a plain translate3d() here every
-   frame (the dot on mousemove directly, the ring via a rAF lerp toward
-   the pointer — see CustomCursor.jsx). No CSS transition on `transform`
-   here: this environment's engine gets stuck at the identity matrix when
-   a transform transition and a per-frame JS-driven transform write both
-   target the same property, so the ring's lag is done in JS instead. */
-.custom-cursor__pos {
+/* Cursor dot and pen trail (see components/CustomCursor.jsx). Above the page
+   and the page-switch sheet; never captures the pointer. */
+.dic-cursor {
   position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 10000;
+  inset: 0;
+  z-index: 10001;
   pointer-events: none;
-  transition: opacity 0.2s var(--ease-smooth);
 }
 
-.custom-cursor__pos.is-hidden {
-  opacity: 0;
+.dic-cursor__trail {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
 
-/* Visual elements — statically centered on their wrapper's anchor point
-   via negative margins (both are fixed pixel sizes, so this needs no
-   percentage transform trick). Only `scale` animates here. */
-.custom-cursor__dot,
-.custom-cursor__ring {
+.dic-cursor__dot {
   position: absolute;
   top: 0;
   left: 0;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.dic-cursor__dot.is-on { opacity: 1; }
+
+.dic-cursor__dot span {
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
-  transition: transform 0.2s var(--ease-out), background 0.2s var(--ease-smooth), border-color 0.2s var(--ease-smooth);
+  background: var(--color-dic-red, #e03a2f);
+  /* a pale keyline keeps the dot visible on black bars and red buttons too */
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.9);
+  transition: transform 0.22s cubic-bezier(0.2, 0.7, 0.2, 1), background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.custom-cursor__dot {
-  width: 6px;
-  height: 6px;
-  margin: -3px 0 0 -3px;
-  background: var(--color-dic-red);
+/* over anything clickable: grows into a ring */
+.dic-cursor__dot.is-link span {
+  transform: scale(3.2);
+  background: rgba(224, 58, 47, 0.14);
+  box-shadow: 0 0 0 0.9px var(--color-dic-red, #e03a2f);
 }
 
-.custom-cursor__ring {
-  width: 34px;
-  height: 34px;
-  margin: -17px 0 0 -17px;
-  border: 1.5px solid rgba(240, 48, 27, 0.5);
-  background: transparent;
-}
+.dic-cursor__dot.is-down span { transform: scale(0.7); }
+.dic-cursor__dot.is-link.is-down span { transform: scale(2.4); }
 
-.custom-cursor__dot.is-hovering {
-  transform: scale(0);
-}
-
-.custom-cursor__ring.is-hovering {
-  transform: scale(1.65);
-  background: rgba(240, 48, 27, 0.08);
-  border-color: var(--color-dic-red);
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .dic-cursor { display: none; }
 }

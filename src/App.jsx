@@ -11,9 +11,8 @@ import PageTransition from './components/PageTransition';
 import { useDesign } from './lib/designVariant';
 import { setPageMeta } from './lib/seo';
 import { ROUTE_META } from './data/seoData';
-// Custom cursor — parked for now. Not deleted: uncomment this import and
-// the <CustomCursor /> below to bring it back.
-// import CustomCursor from './components/CustomCursor';
+// Cursor dot with a fading pen trail (after dschool.stanford.edu) — redesign only.
+import CustomCursor from './components/CustomCursor';
 // Site switcher (DIC Nodal / DIC · IITH toggle bar) — parked for now, it
 // read as an odd extra bar above the navbar. Not deleted: uncomment this
 // import and the <SiteSwitcher /> below to bring it back. DIC Nodal is
@@ -227,6 +226,11 @@ function Loader() {
   );
 }
 
+// The cursor is part of the redesign (Design 1) only.
+function Cursor() {
+  return useDesign() === 'a' ? <CustomCursor /> : null;
+}
+
 export default function App() {
   usePrefetchRoutes();
   return (
@@ -237,7 +241,7 @@ export default function App() {
         Skip to content
       </a>
       {/* <SiteSwitcher /> */}
-      {/* <CustomCursor /> */}
+      <Cursor />
       <Navbar />
       <PageTransition>
         {(loc) => (

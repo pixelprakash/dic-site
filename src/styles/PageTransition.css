@@ -90,7 +90,8 @@
 .ptr--live .ptr__ruler--x { animation: ptrRulerX 380ms 120ms cubic-bezier(0.4, 0, 0.2, 1) forwards; }
 .ptr--live .ptr__ruler--y { animation: ptrRulerY 380ms 200ms cubic-bezier(0.4, 0, 0.2, 1) forwards; }
 
-/* ── The figure: Double Diamond, drafted ── */
+/* ── The figure: a technical drawing of the page being opened ──
+   (drawn by PageTransitionFigures.jsx; --d is each element's start delay) */
 .ptr__fig {
   position: absolute;
   left: 50%;
@@ -103,69 +104,94 @@
   stroke: currentColor;
   stroke-width: 2;
   stroke-linecap: square;
+  stroke-linejoin: miter;
 }
 
-.ptr__draw {
+/* a stroke that draws itself (pathLength is 1) */
+.f-d {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
 }
 
-.ptr--live .ptr__draw--1 { animation: ptrStroke 520ms 160ms cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-.ptr--live .ptr__draw--2 { animation: ptrStroke 520ms 300ms cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.ptr--live .f-d {
+  animation: ptrStroke var(--t, 520ms) var(--d, 0ms) cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
 
-/* construction axes and the dimension line under the figure */
-.ptr__axis,
-.ptr__dim {
-  stroke-width: 1;
+/* something that fades in */
+.f-a { opacity: 0; }
+
+.ptr--live .f-a {
+  animation: ptrFadeTo 320ms var(--d, 0ms) ease-out forwards;
+}
+
+.f-dash { stroke-width: 1; stroke-dasharray: 6 8; }
+.f-thin { stroke-width: 1; }
+.f-bold { stroke-width: 4; }
+.f-solid { fill: var(--color-cream, #f4f3f0); }
+.f-fill { fill: currentColor; stroke: none; }
+.f-r { stroke: var(--color-dic-red, #e03a2f); }
+.f-bold.f-r { stroke-width: 4; }
+
+/* auditorium seat rows: dotted arcs, each fading in on its own delay */
+.f-seatrow {
+  stroke-width: 7;
+  stroke-dasharray: 0.1 14;
+  stroke-linecap: round;
   opacity: 0;
 }
 
-.ptr__axis { stroke-dasharray: 6 8; }
-.ptr--live .ptr__axis { animation: ptrFadeTo 300ms 420ms ease-out forwards; --ptr-o: 0.4; }
-.ptr--live .ptr__dim { animation: ptrFadeTo 300ms 560ms ease-out forwards; --ptr-o: 0.7; }
+.ptr--live .f-seatrow { animation: ptrFadeTo 320ms var(--d, 0ms) ease-out forwards; }
 
-/* the red progress marker: a line along the axis and a dot running ahead of it */
-.ptr__red {
-  stroke: var(--color-dic-red, #e03a2f);
-  stroke-width: 3;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-}
-
-.ptr--live .ptr__red { animation: ptrStroke 620ms 140ms cubic-bezier(0.55, 0, 0.35, 1) forwards; }
-
-.ptr__dot {
-  fill: var(--color-dic-red, #e03a2f);
-  stroke: none;
-}
-
-.ptr--live .ptr__dot { animation: ptrDot 620ms 140ms cubic-bezier(0.55, 0, 0.35, 1) forwards; }
-
-.ptr__labels text {
+.f-l {
   fill: currentColor;
   stroke: none;
   font-family: var(--font-body, 'DM Sans', sans-serif);
   font-size: 14px;
   font-weight: 500;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  text-anchor: middle;
   opacity: 0;
 }
 
-.ptr--live .ptr__labels text { animation: ptrFadeTo 260ms ease-out forwards; --ptr-o: 0.85; }
-.ptr--live .ptr__labels text:nth-child(1) { animation-delay: 380ms; }
-.ptr--live .ptr__labels text:nth-child(2) { animation-delay: 460ms; }
-.ptr--live .ptr__labels text:nth-child(3) { animation-delay: 540ms; }
-.ptr--live .ptr__labels text:nth-child(4) { animation-delay: 620ms; }
+.ptr--live .f-l { animation: ptrFadeTo 280ms var(--d, 0ms) ease-out forwards; --ptr-o: 0.85; }
+
+/* red markers */
+.f-run,
+.f-spin,
+.f-pulse {
+  fill: var(--color-dic-red, #e03a2f);
+  stroke: none;
+  opacity: 0;
+}
+
+.ptr--live .f-run { animation: ptrRunX 620ms var(--d, 0ms) cubic-bezier(0.55, 0, 0.35, 1) forwards; }
+.ptr--live .f-run--end { animation: ptrFadeTo 300ms var(--d, 0ms) ease-out forwards; }
+.ptr--live .f-run--plan { animation: ptrRunPlan 640ms var(--d, 0ms) cubic-bezier(0.55, 0, 0.35, 1) forwards; }
+.ptr--live .f-run--pencil { animation: ptrRunPencil 460ms var(--d, 0ms) cubic-bezier(0.55, 0, 0.35, 1) forwards; }
+
+.f-spin {
+  transform-box: view-box;
+  transform-origin: 440px 172px;
+}
+
+.ptr--live .f-spin { animation: ptrSpin 760ms var(--d, 0ms) cubic-bezier(0.55, 0, 0.35, 1) forwards; }
+
+.f-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.ptr--live .f-pulse { animation: ptrPulse 900ms var(--d, 0ms) ease-out forwards; }
+.f-pulse--solid { fill: var(--color-dic-red, #e03a2f); }
 
 @media (max-width: 719px) {
   .ptr__fig { stroke-width: 3.2; }
-  .ptr__axis,
-  .ptr__dim { stroke-width: 2; }
-  .ptr__red { stroke-width: 5; }
-  .ptr__dot { r: 10px; }
-  .ptr__labels text { font-size: 28px; letter-spacing: 0.08em; }
+  .f-dash,
+  .f-thin { stroke-width: 2; }
+  .f-bold,
+  .f-bold.f-r { stroke-width: 6; }
+  .f-l { font-size: 28px; letter-spacing: 0.06em; }
+  .f-l[style*="font-size"] { font-size: 26px !important; }
 }
 
 /* ── Title block, lower right of the frame (full width on a phone) ── */
@@ -218,13 +244,50 @@
   font-weight: 600;
 }
 
+/* The red progress rule along the base of the title block. */
+.ptr__rule {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: var(--color-dic-red, #e03a2f);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.ptr--live .ptr__rule { animation: ptrDrawX 800ms 120ms cubic-bezier(0.55, 0, 0.35, 1) forwards; }
+
 @keyframes ptrFadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes ptrFadeOut { from { opacity: 1; } to { opacity: 0; } }
 @keyframes ptrDrawX { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes ptrDrawY { from { transform: scaleY(0); } to { transform: scaleY(1); } }
 @keyframes ptrStroke { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
 @keyframes ptrFadeTo { from { opacity: 0; } to { opacity: var(--ptr-o, 1); } }
-@keyframes ptrDot { from { transform: translateX(0); } to { transform: translateX(800px); } }
+@keyframes ptrRunX {
+  0% { opacity: 1; transform: translateX(0); }
+  100% { opacity: 1; transform: translateX(800px); }
+}
+@keyframes ptrRunPlan {
+  0% { opacity: 1; transform: translate(0, 0); }
+  25% { opacity: 1; transform: translate(110px, 0); }
+  50% { opacity: 1; transform: translate(110px, -130px); }
+  75% { opacity: 1; transform: translate(470px, -130px); }
+  100% { opacity: 1; transform: translate(590px, 0); }
+}
+@keyframes ptrRunPencil {
+  0% { opacity: 1; transform: translateX(0); }
+  100% { opacity: 1; transform: translateX(310px); }
+}
+@keyframes ptrSpin {
+  0% { opacity: 1; transform: rotate(0deg); }
+  100% { opacity: 1; transform: rotate(360deg); }
+}
+@keyframes ptrPulse {
+  0% { opacity: 0; transform: scale(0.4); }
+  30% { opacity: 1; transform: scale(1); }
+  100% { opacity: 1; transform: scale(1); }
+}
 @keyframes ptrRulerX { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0); } }
 @keyframes ptrRulerY { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0); } }
 @keyframes ptrBlockIn {
