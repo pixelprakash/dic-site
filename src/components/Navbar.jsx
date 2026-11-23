@@ -33,8 +33,8 @@ export default function Navbar() {
     // anchors, a profile page's breadcrumb) means something else on the
     // page is about to scroll to a specific spot — resetting to the top
     // here would immediately fight that.
-    // (With the page-switch curtain, PageTransition scrolls to the top once the
-    // screen is covered, so the old page doesn't jump while it is closing.)
+    // (With the page-switch sheet, PageTransition scrolls to the top once the
+    // screen is covered, so the old page doesn't jump while it is covered.)
     if (!location.hash && !curtainEnabled(design)) {
       // Explicit 'instant' — the site sets html{scroll-behavior:smooth}
       // globally, which also hijacks plain scrollTo(0,0) calls. Without

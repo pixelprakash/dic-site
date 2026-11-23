@@ -1,14 +1,14 @@
-// The page-switch curtain (components/PageTransition.jsx) is part of the
+// The page-switch sheet (components/PageTransition.jsx) is part of the
 // redesign (Design 1) only, and is skipped for visitors who prefer reduced
 // motion — they just get the new page. Navbar uses this too, so it doesn't
-// scroll the old page to the top while the curtain is still closing.
+// scroll the old page to the top while the sheet is still covering it.
 export function curtainEnabled(design) {
   if (design !== 'a') return false;
   if (typeof window === 'undefined') return false;
   return !window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 }
 
-// What the curtain says while it covers the screen: the section being opened.
+// What the title block says while the sheet covers the screen: the section being opened.
 const NAMES = {
   '': 'Home',
   about: 'About',

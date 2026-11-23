@@ -4,15 +4,17 @@ import { useDesign } from '../lib/designVariant';
 import { curtainEnabled, curtainLabel } from '../lib/pageTransition';
 import '../styles/PageTransition.css';
 
-// Page-switch curtain (Design 1). A black panel wipes up over the screen with
-// the name of the section being opened and a red rule drawing across it; the
-// page underneath is swapped while it is fully covered, then the panel wipes
-// away upward to reveal the new page already at the top. The route renders
-// from `shown`, which trails the real location by the closing wipe.
+// Page-switch "drawing sheet" (Design 1). The page is covered by a plain paper
+// sheet; a hairline frame draws around it clockwise and a drawing-style title
+// block in the lower corner names the section being opened, with a red rule
+// filling along its base as the progress mark. The page underneath is swapped
+// while the sheet is fully opaque, then the sheet fades away on the new page,
+// already at the top. The route renders from `shown`, which trails the real
+// location by the cover-up.
 //   children: (location) => node   — render the routes for this location
-const IN = 440; // ms: curtain closes
-const HOLD = 140; // ms: held shut while the new page mounts
-const OUT = 560; // ms: curtain opens
+const IN = 420; // ms: sheet covers the page and the frame draws
+const HOLD = 140; // ms: held while the new page mounts
+const OUT = 380; // ms: sheet fades away
 
 export default function PageTransition({ children }) {
   const location = useLocation();
@@ -68,9 +70,19 @@ export default function PageTransition({ children }) {
     <>
       {children(shown)}
       <div className={`ptr ptr--${phase}`} aria-hidden="true">
-        <span className="ptr__line" />
-        <span className="ptr__word">DIC</span>
-        <span className="ptr__label">{label}</span>
+        <span className="ptr__edge ptr__edge--top" />
+        <span className="ptr__edge ptr__edge--right" />
+        <span className="ptr__edge ptr__edge--bottom" />
+        <span className="ptr__edge ptr__edge--left" />
+        <div className="ptr__block">
+          <span className="ptr__name">{label}</span>
+          <span className="ptr__org">
+            Design Innovation Centre
+            <br />
+            IIT Hyderabad
+          </span>
+          <span className="ptr__rule" />
+        </div>
       </div>
     </>
   );
