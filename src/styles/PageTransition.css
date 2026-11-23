@@ -1,6 +1,10 @@
 /* Page-switch drawing sheet (see components/PageTransition.jsx): a paper sheet
-   with a hairline frame and a title block, in the redesign's own palette —
-   off-white, ink hairlines, one red rule. Flat, square-cornered, no effects. */
+   with a hairline frame, drafting rulers, the Double Diamond design-process
+   diagram drawn line by line, and a title block — in the redesign's own palette
+   (off-white, ink hairlines, one red accent). Flat, square-cornered, no glow.
+   Everything animates from one class (.ptr--live, on for the whole visit of the
+   sheet), so nothing snaps when the phase changes; the sheet itself fades in
+   and out. */
 .ptr {
   --ptr-inset: clamp(12px, 2vw, 24px);
   position: fixed;
@@ -24,7 +28,7 @@
 .ptr--hold { opacity: 1; }
 .ptr--out { animation: ptrFadeOut 380ms ease-in-out forwards; }
 
-/* The frame: four hairlines drawn clockwise from the top-left corner. */
+/* ── Frame: four hairlines drawn clockwise from the top-left corner ── */
 .ptr__edge {
   position: absolute;
   background: currentColor;
@@ -50,14 +54,121 @@
 .ptr__edge--bottom { bottom: var(--ptr-inset); transform-origin: right center; }
 .ptr__edge--left { left: var(--ptr-inset); transform-origin: center bottom; }
 
-.ptr--in .ptr__edge--top { animation: ptrDrawX 220ms 40ms cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-.ptr--in .ptr__edge--right { animation: ptrDrawY 180ms 150ms cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-.ptr--in .ptr__edge--bottom { animation: ptrDrawX 220ms 240ms cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-.ptr--in .ptr__edge--left { animation: ptrDrawY 180ms 330ms cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-.ptr--hold .ptr__edge,
-.ptr--out .ptr__edge { transform: none; }
+.ptr--live .ptr__edge--top { animation: ptrDrawX 220ms 40ms cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.ptr--live .ptr__edge--right { animation: ptrDrawY 180ms 150ms cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.ptr--live .ptr__edge--bottom { animation: ptrDrawX 220ms 240ms cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.ptr--live .ptr__edge--left { animation: ptrDrawY 180ms 330ms cubic-bezier(0.4, 0, 0.2, 1) forwards; }
 
-/* The title block, lower right of the frame (full width on a phone). */
+/* ── Drafting rulers along the top and left of the frame ── */
+.ptr__ruler {
+  position: absolute;
+  opacity: 0.5;
+}
+
+.ptr__ruler--x {
+  top: calc(var(--ptr-inset) + 1px);
+  left: calc(var(--ptr-inset) + 1px);
+  right: calc(var(--ptr-inset) + 1px);
+  height: 10px;
+  background:
+    repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 12px) top left / 100% 5px no-repeat,
+    repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 60px) top left / 100% 10px no-repeat;
+  clip-path: inset(0 100% 0 0);
+}
+
+.ptr__ruler--y {
+  top: calc(var(--ptr-inset) + 1px);
+  bottom: calc(var(--ptr-inset) + 1px);
+  left: calc(var(--ptr-inset) + 1px);
+  width: 10px;
+  background:
+    repeating-linear-gradient(180deg, currentColor 0 1px, transparent 1px 12px) top left / 5px 100% no-repeat,
+    repeating-linear-gradient(180deg, currentColor 0 1px, transparent 1px 60px) top left / 10px 100% no-repeat;
+  clip-path: inset(0 0 100% 0);
+}
+
+.ptr--live .ptr__ruler--x { animation: ptrRulerX 380ms 120ms cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.ptr--live .ptr__ruler--y { animation: ptrRulerY 380ms 200ms cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+
+/* ── The figure: Double Diamond, drafted ── */
+.ptr__fig {
+  position: absolute;
+  left: 50%;
+  top: 44%;
+  width: min(calc(100vw - 72px), 900px);
+  height: auto;
+  transform: translate(-50%, -50%);
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: square;
+}
+
+.ptr__draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.ptr--live .ptr__draw--1 { animation: ptrStroke 520ms 160ms cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.ptr--live .ptr__draw--2 { animation: ptrStroke 520ms 300ms cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+
+/* construction axes and the dimension line under the figure */
+.ptr__axis,
+.ptr__dim {
+  stroke-width: 1;
+  opacity: 0;
+}
+
+.ptr__axis { stroke-dasharray: 6 8; }
+.ptr--live .ptr__axis { animation: ptrFadeTo 300ms 420ms ease-out forwards; --ptr-o: 0.4; }
+.ptr--live .ptr__dim { animation: ptrFadeTo 300ms 560ms ease-out forwards; --ptr-o: 0.7; }
+
+/* the red progress marker: a line along the axis and a dot running ahead of it */
+.ptr__red {
+  stroke: var(--color-dic-red, #e03a2f);
+  stroke-width: 3;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.ptr--live .ptr__red { animation: ptrStroke 620ms 140ms cubic-bezier(0.55, 0, 0.35, 1) forwards; }
+
+.ptr__dot {
+  fill: var(--color-dic-red, #e03a2f);
+  stroke: none;
+}
+
+.ptr--live .ptr__dot { animation: ptrDot 620ms 140ms cubic-bezier(0.55, 0, 0.35, 1) forwards; }
+
+.ptr__labels text {
+  fill: currentColor;
+  stroke: none;
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-anchor: middle;
+  opacity: 0;
+}
+
+.ptr--live .ptr__labels text { animation: ptrFadeTo 260ms ease-out forwards; --ptr-o: 0.85; }
+.ptr--live .ptr__labels text:nth-child(1) { animation-delay: 380ms; }
+.ptr--live .ptr__labels text:nth-child(2) { animation-delay: 460ms; }
+.ptr--live .ptr__labels text:nth-child(3) { animation-delay: 540ms; }
+.ptr--live .ptr__labels text:nth-child(4) { animation-delay: 620ms; }
+
+@media (max-width: 719px) {
+  .ptr__fig { stroke-width: 3.2; }
+  .ptr__axis,
+  .ptr__dim { stroke-width: 2; }
+  .ptr__red { stroke-width: 5; }
+  .ptr__dot { r: 10px; }
+  .ptr__labels text { font-size: 28px; letter-spacing: 0.08em; }
+}
+
+/* ── Title block, lower right of the frame (full width on a phone) ── */
 .ptr__block {
   position: absolute;
   left: calc(var(--ptr-inset) + 1px);
@@ -72,9 +183,7 @@
   opacity: 0;
 }
 
-.ptr--in .ptr__block { animation: ptrBlockIn 240ms 190ms ease-out forwards; }
-.ptr--hold .ptr__block,
-.ptr--out .ptr__block { opacity: 1; }
+.ptr--live .ptr__block { animation: ptrBlockIn 260ms 190ms ease-out forwards; }
 
 @media (min-width: 720px) {
   .ptr__block {
@@ -102,26 +211,22 @@
   color: rgba(17, 17, 17, 0.72);
 }
 
-/* The one red thing: the progress rule along the base of the title block. */
-.ptr__rule {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 3px;
-  background: var(--color-dic-red, #e03a2f);
-  transform: scaleX(0);
-  transform-origin: left center;
+.ptr__sheet {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+  color: var(--color-dic-red, #e03a2f);
+  font-weight: 600;
 }
-
-.ptr--in .ptr__rule { animation: ptrDrawX 420ms ease-in-out forwards; }
-.ptr--hold .ptr__rule,
-.ptr--out .ptr__rule { transform: none; }
 
 @keyframes ptrFadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes ptrFadeOut { from { opacity: 1; } to { opacity: 0; } }
 @keyframes ptrDrawX { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes ptrDrawY { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes ptrStroke { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes ptrFadeTo { from { opacity: 0; } to { opacity: var(--ptr-o, 1); } }
+@keyframes ptrDot { from { transform: translateX(0); } to { transform: translateX(800px); } }
+@keyframes ptrRulerX { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0); } }
+@keyframes ptrRulerY { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0); } }
 @keyframes ptrBlockIn {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: none; }

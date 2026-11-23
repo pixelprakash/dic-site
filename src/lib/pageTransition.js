@@ -32,3 +32,10 @@ export function curtainLabel(pathname) {
   const words = seg.replace(/-/g, ' ');
   return words ? words.charAt(0).toUpperCase() + words.slice(1) : '';
 }
+
+// "Sheet 03" in the title block: the section's place in the order above.
+export function curtainSheet(pathname) {
+  const seg = pathname.split('/')[1] || '';
+  const i = Object.keys(NAMES).indexOf(seg);
+  return String((i < 0 ? 0 : i) + 1).padStart(2, '0');
+}
