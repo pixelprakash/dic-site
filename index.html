@@ -58,10 +58,12 @@
     <script>
       (function () {
         var d = 'a';
+        var LOCKED = 'a'; // keep in step with LOCKED in src/lib/designVariant.js (null = review mode)
         try {
           var q = new URLSearchParams(location.search).get('design');
           d = /^[abc]$/.test(q) ? q : localStorage.getItem('dic-design') || 'a';
         } catch (e) {}
+        if (LOCKED) d = LOCKED;
         var display = { a: 'archivo-latin', b: 'zilla-slab-latin-600', c: 'fraunces-latin' }[d] || 'archivo-latin';
         ['dm-sans-latin', display].forEach(function (f) {
           var l = document.createElement('link');

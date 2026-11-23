@@ -3,7 +3,10 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-route
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import GlassReveal from './components/GlassReveal';
-import DesignToggle from './components/DesignToggle';
+// Design switcher (1 Redesign / 2 Current / 3 Soft) — hidden while the site is
+// locked to one design (see lib/designVariant.js). To bring it back: un-comment
+// this import and the <DesignToggle /> below, and unlock the design.
+// import DesignToggle from './components/DesignToggle';
 import { useDesign } from './lib/designVariant';
 import { setPageMeta } from './lib/seo';
 import { ROUTE_META } from './data/seoData';
@@ -268,7 +271,7 @@ export default function App() {
         </Suspense>
       </main>
       <Footer />
-      <DesignToggle />
+      {/* <DesignToggle /> */}
     </BrowserRouter>
   );
 }

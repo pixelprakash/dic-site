@@ -11,13 +11,20 @@ import { useSyncExternalStore } from 'react';
 // The choice is stored on <html data-design="…"> so CSS can key off it, kept
 // in localStorage, and can be forced with ?design=a|b|c. Once one is chosen,
 // delete this file, DesignToggle, redesign.css and the losing Home page.
+//
+// FOR NOW the site is locked to one design (the redesign, 'a') and the switcher
+// is hidden. To bring review mode back, set LOCKED to null here, set the same
+// in the inline script in index.html, and un-comment <DesignToggle /> in
+// App.jsx. Nothing for designs b and c has been removed.
+export const LOCKED = 'a';
 const KEY = 'dic-design';
-const DEFAULT = 'a';
+const DEFAULT = LOCKED || 'a';
 const listeners = new Set();
 
 const valid = (v) => (v === 'a' || v === 'b' || v === 'c' ? v : null);
 
 function read() {
+  if (LOCKED) return LOCKED;
   try {
     const fromUrl = valid(new URLSearchParams(window.location.search).get('design'));
     if (fromUrl) {
@@ -34,7 +41,7 @@ let current = typeof window === 'undefined' ? DEFAULT : read();
 if (typeof document !== 'undefined') document.documentElement.dataset.design = current;
 
 export function setDesign(next) {
-  if (!valid(next) || next === current) return;
+  if (LOCKED || !valid(next) || next === current) return;
   current = next;
   document.documentElement.dataset.design = next;
   try {
