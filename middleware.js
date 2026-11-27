@@ -1,21 +1,14 @@
-import { getMemberBySlug } from './src/data/peopleData.js';
-import { ROUTE_META, SITE } from './src/data/seoData.js';
+import { SITE } from './src/data/seoData.js';
 
-// Runs at the edge, before Vercel's SPA rewrite serves index.html for
-// every path. Social-media crawlers (WhatsApp, Instagram, Facebook,
-// Slack, ...) fetch a URL's HTML directly and read its <meta> tags —
-// they never execute the React app's JS, so anything set client-side
-// (document.title, etc.) is invisible to them. This intercepts just
-// /people/:slug, swaps the site-wide OG tags for that person's own
-// name/bio/photo, and serves that — real visitors still get the exact
-// same index.html and the SPA takes over normally once it hydrates.
-//
-// The same is done for every other known page (see src/data/seoData.js), so
-// search engines and link previews that don't run JavaScript get each page's
-// own title, description and canonical address instead of the home page's.
-// Static files (assets, images, sitemap, robots) are left alone.
+// Every page the site knows about is built to its own HTML file, with its own
+// title, description and content (scripts/prerender.mjs), and the host serves
+// those files directly. That leaves one case for the edge: a person who exists
+// only in the CMS, added since the last build. Link previews and crawlers
+// don't run the app, so this puts that person's name, bio and photo into the
+// empty app shell before sending it. Real visitors get the same shell and the
+// app takes over as usual.
 export const config = {
-  matcher: ['/((?!assets/|images/|fonts/|videos/|models/|audio/|sitemap\\.xml|robots\\.txt|favicon).*)'],
+  matcher: ['/people/:slug'],
 };
 
 function escapeHtml(str) {
@@ -69,34 +62,25 @@ export default async function middleware(request) {
   const path = url.pathname.replace(/\/+$/, '') || '/';
 
   const match = path.match(/^\/people\/([^/]+)$/);
-  if (match) {
-    const slug = decodeURIComponent(match[1]);
-    const member = (await cmsMember(slug)) || getMemberBySlug(slug);
-    if (!member) return;
-
-    const indexRes = await fetch(new URL('/index.html', request.url));
-    const image = member.photo
-      ? new URL(member.photo, url.origin).toString()
-      : `${SITE.url}${SITE.image}`;
-    return htmlResponse(
-      withHead(await indexRes.text(), {
-        title: `${member.name} — DIC · IITH`,
-        description: member.bio || `${member.role} at the Design Innovation Centre, IIT Hyderabad.`,
-        url: `${SITE.url}${path}`,
-        image,
-      }),
-    );
-  }
-
-  const meta = ROUTE_META[path];
-  if (!meta) return;
-  const indexRes = await fetch(new URL('/index.html', request.url));
+  if (!match) return;
+  const slug = decodeURIComponent(match[1]);
+  // Most people have a built page, which is served as it is. Asking for an
+  // address with none gets the empty app shell, recognised by its empty root.
+  const shell = await fetch(new URL(`/people/${encodeURIComponent(slug)}/index.html`, request.url));
+  if (!shell.ok) return;
+  const html = await shell.text();
+  if (!html.includes('<div id="root"></div>')) return;
+  const member = await cmsMember(slug);
+  if (!member) return;
+  const image = member.photo
+    ? new URL(member.photo, url.origin).toString()
+    : `${SITE.url}${SITE.image}`;
   return htmlResponse(
-    withHead(await indexRes.text(), {
-      title: meta.title,
-      description: meta.description,
-      url: `${SITE.url}${path === '/' ? '/' : path}`,
-      image: `${SITE.url}${SITE.image}`,
+    withHead(html, {
+      title: `${member.name} — DIC · IITH`,
+      description: member.bio || `${member.role} at the Design Innovation Centre, IIT Hyderabad.`,
+      url: `${SITE.url}${path}`,
+      image,
     }),
   );
 }

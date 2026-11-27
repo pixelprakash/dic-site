@@ -1,5 +1,6 @@
-import { lazy, Suspense, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Suspense, useEffect, useRef } from 'react';
+import { BrowserRouter, Routes, Route, matchPath, useLocation } from 'react-router-dom';
+import { lazyPage } from './lib/lazyPage';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import GlassReveal from './components/GlassReveal';
@@ -28,50 +29,80 @@ import './styles/redesign-pages.css';
 import './styles/redesign-c.css';
 
 /* Code-split pages for fast initial load */
-const Home = lazy(() => import('./pages/Home'));
-const About = lazy(() => import('./pages/About'));
-const NotFound = lazy(() => import('./pages/NotFound'));
-const People = lazy(() => import('./pages/People'));
-const PersonProfile = lazy(() => import('./pages/PersonProfile'));
-const Research = lazy(() => import('./pages/Research'));
-const Projects = lazy(() => import('./pages/Projects'));
-const Education = lazy(() => import('./pages/Education'));
-const Contact = lazy(() => import('./pages/Contact'));
-const Nodal = lazy(() => import('./pages/Nodal'));
+const Home = lazyPage(() => import('./pages/Home'));
+const About = lazyPage(() => import('./pages/About'));
+const NotFound = lazyPage(() => import('./pages/NotFound'));
+const People = lazyPage(() => import('./pages/People'));
+const PersonProfile = lazyPage(() => import('./pages/PersonProfile'));
+const Research = lazyPage(() => import('./pages/Research'));
+const Projects = lazyPage(() => import('./pages/Projects'));
+const Education = lazyPage(() => import('./pages/Education'));
+const Contact = lazyPage(() => import('./pages/Contact'));
+const Nodal = lazyPage(() => import('./pages/Nodal'));
 // All India DIC Meet '26 page — parked for now (pages/AllIndiaDicMeet26.jsx is
 // kept). Un-comment this import, the <Route> below and the nav item in
 // data/siteData.js to bring it back.
 // const AllIndiaDicMeet26 = lazy(() => import('./pages/AllIndiaDicMeet26'));
-const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
-const ResearchDetail = lazy(() => import('./pages/ResearchDetail'));
-const News = lazy(() => import('./pages/News'));
-const NewsPost = lazy(() => import('./pages/NewsPost'));
-const Conferences = lazy(() => import('./pages/Conferences'));
-const FourthDicMeet = lazy(() => import('./pages/FourthDicMeet'));
-const Events = lazy(() => import('./pages/Events'));
-const Workshops = lazy(() => import('./pages/Workshops'));
-const Blogs = lazy(() => import('./pages/Blogs'));
-const BlogDetail = lazy(() => import('./pages/BlogDetail'));
-const WikiThesisBlog = lazy(() => import('./pages/WikiThesisBlog'));
-const NaturalIntelligenceBlog = lazy(() => import('./pages/NaturalIntelligenceBlog'));
-const BlogPost = lazy(() => import('./pages/BlogPost'));
-const Practices = lazy(() => import('./pages/Practices'));
+const ProjectDetail = lazyPage(() => import('./pages/ProjectDetail'));
+const ResearchDetail = lazyPage(() => import('./pages/ResearchDetail'));
+const News = lazyPage(() => import('./pages/News'));
+const NewsPost = lazyPage(() => import('./pages/NewsPost'));
+const Conferences = lazyPage(() => import('./pages/Conferences'));
+const FourthDicMeet = lazyPage(() => import('./pages/FourthDicMeet'));
+const Events = lazyPage(() => import('./pages/Events'));
+const Workshops = lazyPage(() => import('./pages/Workshops'));
+const Blogs = lazyPage(() => import('./pages/Blogs'));
+const BlogDetail = lazyPage(() => import('./pages/BlogDetail'));
+const WikiThesisBlog = lazyPage(() => import('./pages/WikiThesisBlog'));
+const NaturalIntelligenceBlog = lazyPage(() => import('./pages/NaturalIntelligenceBlog'));
+const BlogPost = lazyPage(() => import('./pages/BlogPost'));
+const Practices = lazyPage(() => import('./pages/Practices'));
+
+// Every address on the site. The DIC Meet '26 page is parked (see its import
+// above): add ['/all-india-dic-meet-26', AllIndiaDicMeet26] to bring it back.
+const PAGE_ROUTES = [
+  ['/', Home],
+  ['/people', People],
+  ['/people/:slug', PersonProfile],
+  ['/about', About],
+  ['/research', Research],
+  ['/research/:slug', ResearchDetail],
+  ['/projects', Projects],
+  ['/projects/:slug', ProjectDetail],
+  ['/education', Education],
+  ['/contact', Contact],
+  ['/practices', Practices],
+  ['/news', News],
+  ['/news/:slug', NewsPost],
+  ['/nodal', Nodal],
+  ['/conferences', Conferences],
+  ['/conferences/fourth-all-india-dic-meet', FourthDicMeet],
+  ['/events', Events],
+  ['/workshops', Workshops],
+  ['/blogs', Blogs],
+  ['/blogs/reimagining-formative-assessment-art-education', BlogDetail],
+  ['/blogs/wiki-thesis-research-assessment-ai', WikiThesisBlog],
+  ['/blogs/how-intelligent-are-we-about-natural-intelligence', NaturalIntelligenceBlog],
+  ['/blogs/:slug', BlogPost],
+  ['*', NotFound],
+];
+
+/* Loads the code for one address, ahead of showing it. */
+export function preloadRoute(pathname) {
+  const path = pathname.replace(/(.)\/+$/, '$1');
+  // exact addresses win over the ones with a :slug
+  const exact = PAGE_ROUTES.find(([p]) => p === path);
+  const [, Page] = exact || PAGE_ROUTES.find(([p]) => p !== '*' && matchPath(p, path)) || PAGE_ROUTES.at(-1);
+  return Page.preload();
+}
 
 // Once the first page has loaded and the browser is idle, quietly fetch the
 // main sections' code, so clicking through the navbar swaps pages instantly
 // instead of showing the loader while each one downloads.
-const PREFETCH = [
-  () => import('./pages/People'),
-  () => import('./pages/Research'),
-  () => import('./pages/Projects'),
-  () => import('./pages/Education'),
-  () => import('./pages/Nodal'),
-  () => import('./pages/News'),
-  () => import('./pages/Contact'),
-];
+const PREFETCH = [People, Research, Projects, Education, Nodal, News, Contact];
 function usePrefetchRoutes() {
   useEffect(() => {
-    const run = () => PREFETCH.forEach((load) => load().catch(() => {}));
+    const run = () => PREFETCH.forEach((Page) => Page.preload().catch(() => {}));
     if ('requestIdleCallback' in window) {
       const id = window.requestIdleCallback(run, { timeout: 4000 });
       return () => window.cancelIdleCallback(id);
@@ -156,6 +187,12 @@ function NewsTitle({ slug }) {
 
 function DocumentTitle() {
   const { pathname } = useLocation();
+  // Entrance fades are for moving between pages. The page a visitor lands on
+  // is already on screen as HTML, so fading it would only blink it.
+  const landedOn = useRef(pathname);
+  useEffect(() => {
+    if (pathname !== landedOn.current) document.documentElement.dataset.navigated = '';
+  }, [pathname]);
   // The first path segment (home, research, people…), so a design can colour
   // each page's header differently (Design 3 does).
   useEffect(() => {
@@ -231,10 +268,12 @@ function Cursor() {
   return useDesign() === 'a' ? <CustomCursor /> : null;
 }
 
-export default function App() {
+/* Everything inside the router. The build renders this too, with a router
+   that is given the address instead of reading it from the browser. */
+export function AppShell() {
   usePrefetchRoutes();
   return (
-    <BrowserRouter>
+    <>
       <DocumentTitle />
       <ScrollToHash />
       <a href="#main-content" className="skip-link">
@@ -248,32 +287,9 @@ export default function App() {
           <main id="main-content">
             <Suspense fallback={<Loader />}>
               <Routes location={loc}>
-                <Route path="/" element={<Home />} />
-                <Route path="/people" element={<People />} />
-                <Route path="/people/:slug" element={<PersonProfile />} />
-                {/* Old path, kept working in case it's bookmarked or linked anywhere */}
-                <Route path="/about" element={<About />} />
-                <Route path="/research" element={<Research />} />
-                <Route path="/research/:slug" element={<ResearchDetail />} />
-                <Route path="/projects" element={<Projects />} />
-                <Route path="/projects/:slug" element={<ProjectDetail />} />
-                <Route path="/education" element={<Education />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/practices" element={<Practices />} />
-                <Route path="/news" element={<News />} />
-                <Route path="/news/:slug" element={<NewsPost />} />
-                <Route path="/nodal" element={<Nodal />} />
-                {/* <Route path="/all-india-dic-meet-26" element={<AllIndiaDicMeet26 />} /> — parked, see import note above */}
-                <Route path="/conferences" element={<Conferences />} />
-                <Route path="/conferences/fourth-all-india-dic-meet" element={<FourthDicMeet />} />
-                <Route path="/events" element={<Events />} />
-                <Route path="/workshops" element={<Workshops />} />
-                <Route path="/blogs" element={<Blogs />} />
-                <Route path="/blogs/reimagining-formative-assessment-art-education" element={<BlogDetail />} />
-                <Route path="/blogs/wiki-thesis-research-assessment-ai" element={<WikiThesisBlog />} />
-                <Route path="/blogs/how-intelligent-are-we-about-natural-intelligence" element={<NaturalIntelligenceBlog />} />
-                <Route path="/blogs/:slug" element={<BlogPost />} />
-                <Route path="*" element={<NotFound />} />
+                {PAGE_ROUTES.map(([path, Page]) => (
+                  <Route key={path} path={path} element={<Page />} />
+                ))}
               </Routes>
             </Suspense>
           </main>
@@ -281,6 +297,14 @@ export default function App() {
       </PageTransition>
       <Footer />
       {/* <DesignToggle /> */}
+    </>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AppShell />
     </BrowserRouter>
   );
 }

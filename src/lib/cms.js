@@ -52,11 +52,26 @@ const writeStored = (key, data) => {
   }
 };
 
+const onServer = typeof window === 'undefined';
+
+// A built page carries the CMS content it was built with, so the app starts
+// from the same words that are already on screen.
+const builtWith = (!onServer && window.__DIC_CMS__) || {};
+
+// Build only: which content the page being rendered asked for.
+export const requested = new Set();
+
 function load(key, groq, map) {
+  // While the build renders pages to HTML nothing is fetched here: it has
+  // already loaded everything with fetchAll(), below.
+  if (onServer) {
+    requested.add(key);
+    return cache.get(key) || { promise: Promise.resolve(null) };
+  }
   let entry = cache.get(key);
   if (!entry) {
     entry = {};
-    const stored = readStored(key);
+    const stored = readStored(key) || builtWith[key];
     if (stored) entry.data = stored; // usable at once
     entry.promise = query(groq)
       .then((rows) => {
@@ -400,3 +415,37 @@ export const mapFeed = (rows) =>
   }));
 
 export const useFeed = () => useCms('feed', FEED_QUERY, mapFeed, []);
+
+/* ── For the build (scripts/prerender.mjs) ── */
+const SOURCES = {
+  members: [MEMBERS_QUERY, mapMembers],
+  projects: [PROJECTS_QUERY, mapProjects],
+  research: [RESEARCH_QUERY, mapResearch],
+  posts: [POSTS_QUERY, mapPosts],
+  conferences: [CONFERENCES_QUERY, mapConferences],
+  'nodal-events': [NODAL_EVENTS_QUERY, mapNodalEvents],
+  'nodal-centres': [NODAL_CENTRES_QUERY, mapNodalCentres],
+  testimonials: [TESTIMONIALS_QUERY, mapTestimonials],
+  collaborators: [COLLABORATORS_QUERY, mapCollaborators],
+  feed: [FEED_QUERY, mapFeed],
+};
+
+/* Loads all published content once and holds it for the pages being rendered.
+   A query that fails leaves that section on its built-in copy. */
+export async function fetchAll() {
+  const content = {};
+  const failed = [];
+  await Promise.all(
+    Object.entries(SOURCES).map(async ([key, [groq, map]]) => {
+      try {
+        const rows = await query(groq);
+        if (!Array.isArray(rows) || !rows.length) return;
+        content[key] = map(rows);
+        cache.set(key, { data: content[key], promise: Promise.resolve(content[key]) });
+      } catch (error) {
+        failed.push(`${key} (${error.message})`);
+      }
+    }),
+  );
+  return { content, failed };
+}

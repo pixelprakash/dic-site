@@ -2,13 +2,15 @@ import { useEffect, useRef } from 'react';
 import '../styles/CustomCursor.css';
 
 // Cursor for the redesign, after dschool.stanford.edu: a small dot rides the
-// pointer and every movement draws a thin line behind it that fades away, like
-// a pen being dragged across a drawing sheet. The dot grows into a ring over
+// pointer (it can also draw a fading pen line; see TRAIL below). The dot grows into a ring over
 // anything clickable and presses in on click. The real pointer stays visible
 // (nothing is hidden), so it never costs anyone usability; the whole thing is
 // skipped on touch screens and for visitors who prefer reduced motion.
 const INTERACTIVE =
   'a[href], button, input, textarea, select, summary, label[for], [role="button"], [role="link"], [tabindex]:not([tabindex="-1"]), video';
+// The pen line is decoration, which the site otherwise avoids, so it is off.
+// Set to true to bring it back; the dot works either way.
+const TRAIL = false;
 const LIFE = 700; // ms a trail segment stays visible
 const MAX_POINTS = 90;
 
@@ -70,7 +72,7 @@ export default function CustomCursor() {
       dot.classList.toggle('is-link', Boolean(e.target.closest?.(INTERACTIVE)));
       // No pen line across areas marked quiet (the films): it would draw
       // over the picture being watched.
-      if (e.target.closest?.('[data-cursor="quiet"]')) {
+      if (!TRAIL || e.target.closest?.('[data-cursor="quiet"]')) {
         gap = true;
         return;
       }

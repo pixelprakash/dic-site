@@ -348,26 +348,21 @@ export const NAV_LINKS = [
   // },
   {
     label: "Updates",
-    path: "/events",
+    path: "/news",
     menu: {
       columns: [
         {
-          heading: "Gatherings",
           items: [
-            { label: "News & Updates", desc: "Announcements, admissions, openings, talks, and recent work.", path: "/news" },
+            { label: "News & Updates", desc: "Announcements, openings, talks and recent work.", path: "/news" },
             { label: "DIC Hosted Conferences", desc: "National and international conferences organised by DIC.", path: "/conferences" },
-            { label: "Events", desc: "Talks, exhibitions, and gatherings from across the Centre.", path: "/events" },
-            { label: "Workshops", desc: "Hands-on sessions in design, fabrication, and emerging tech.", path: "/workshops" },
+            { label: "Blogs & Articles", desc: "Research notes and articles from the DIC community.", path: "/blogs" },
+            // Events and Workshops have no content yet. Their pages and routes
+            // are kept; un-comment these once there is something to show.
+            // { label: "Events", desc: "Talks, exhibitions, and gatherings from across the Centre.", path: "/events" },
+            // { label: "Workshops", desc: "Hands-on sessions in design, fabrication, and emerging tech.", path: "/workshops" },
           ],
         },
       ],
-      featured: {
-        image: "/images/image56.webp",
-        label: "Blogs & Articles",
-        desc: "Insights, research notes, and stories from the DIC community.",
-        path: "/blogs",
-        cta: "Read more",
-      },
     },
   },
 ];
@@ -556,6 +551,7 @@ export function buildSearchIndex(live = {}) {
     category: "FAQ",
   })),
   { id: "page-contact", title: "Contact DIC", desc: "Get in touch with the team", path: "/contact", category: "Menu" },
+  { id: "page-courses", title: "Courses and admission enquiries", desc: "To apply or enrol in a DIC course, ask the Centre about eligibility and dates", path: "/education", hash: "#enquire", category: "Education" },
 
   // Placeholder stand-in cards (no confirmed person yet) are excluded —
   // they have no real /people/:slug page to link to.

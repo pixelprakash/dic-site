@@ -10,6 +10,10 @@ import PageFilms from '../components/PageFilms';
 // rather than showing broken images.
 const GALLERY = [];
 
+const HIGHLIGHTS = [
+  { id: 'FBoarrQ3CT0', title: 'Fourth All India DIC Meet: event highlights', channel: 'Design IITH Films' },
+];
+
 const SPEAKERS = [
   { name: 'Mr. K. Sanjay Murthy', role: 'Secretary, Ministry of Education, Government of India', note: 'Chief Guest' },
   { name: 'Dr. B S Murthy', role: 'Director, IIT Hyderabad' },
@@ -62,21 +66,12 @@ export default function FourthDicMeet() {
         </div>
       </section>
 
-      <section className="conference-detail__section">
-        <h2 className="section-title">Event Highlights</h2>
-        <div className="video-embed">
-          <iframe
-            src="https://www.youtube.com/embed/FBoarrQ3CT0"
-            title="Fourth All India DIC Meet — Event Highlights"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerPolicy="strict-origin-when-cross-origin"
-            allowFullScreen
-            loading="lazy"
-          />
-        </div>
-      </section>
-
-      <PageFilms path="/conferences/fourth-all-india-dic-meet" sectionClass="conference-detail__section" />
+      <PageFilms
+        path="/conferences/fourth-all-india-dic-meet"
+        sectionClass="conference-detail__section"
+        heading="Event Highlights"
+        extra={HIGHLIGHTS}
+      />
 
       {GALLERY.length > 0 && (
         <section className="conference-detail__section">

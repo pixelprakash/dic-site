@@ -516,18 +516,21 @@ html[data-design='a'] .project-card__fallback--teal {
 html[data-design='a'] .project-card__fallback span {
   font-weight: 800;
   font-stretch: 75%;
-  font-size: clamp(4rem, 9vw, 8rem);
+  font-size: clamp(2.5rem, 5vw, 4rem);
   letter-spacing: -0.02em;
-  color: var(--a-ink);
+  color: var(--color-stone);
 }
 
-html[data-design='a'] .project-card__content h3 {
-  font-size: clamp(2rem, 3.6vw, 3.25rem);
-  line-height: 0.98;
+/* Titles here are often a full academic sentence: sized to be scanned in a
+   list, not shouted. (h2 on Projects, h3 on Research.) */
+html[data-design='a'] .project-card__content :is(h2, h3) {
+  font-size: clamp(1.5rem, 2.2vw, 2.125rem);
+  line-height: 1.08;
+  text-wrap: balance;
 }
 
-html[data-design='a'] .project-card:hover .project-card__content h3 {
-  color: var(--color-dic-red);
+html[data-design='a'] .project-card:hover .project-card__content :is(h2, h3) {
+  color: var(--color-dic-red-text-safe);
 }
 
 html[data-design='a'] .project-card__content p {
@@ -856,11 +859,6 @@ html[data-design='a'] .coming-soon {
   background: var(--color-white);
 }
 
-/* ═════════════ Footer ═════════════ */
-html[data-design='a'] .footer__form {
-  border-radius: 0;
-}
-
 /* ═════════════ Forms, everywhere ═════════════ */
 html[data-design='a'] :is(input, select, textarea) {
   border-radius: 0;
@@ -918,4 +916,103 @@ html[data-design='a'] .lab-capabilities__index {
 /* Nodal page -> About pointer */
 html[data-design='a'] .nodal2-aboutlink a {
   color: var(--color-dic-red-text-safe);
+}
+
+/* ═════════════ Touch screens: 44px targets ═════════════ */
+@media (max-width: 1120px) {
+  html .navbar__toggle,
+  html .search__toggle,
+  html .navbar__mobile-chevron {
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  html .member-card__social {
+    width: 44px;
+    height: 44px;
+  }
+
+  html .project-card__cta,
+  html .page-header + * .link-arrow {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  html :is(.project-detail__breadcrumb, .conference-detail__breadcrumb, .profile__breadcrumb) a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}
+
+/* ═════════════ WCAG AA contrast ═════════════
+   Brand red (#F0301B) reads 4.08:1 behind white text and 2.92:1 as a heading on
+   the grey panels, both under the AA minimums. Wherever text is involved, the
+   darker brand red is used instead; the logo and decorative rules keep the
+   original. */
+html .skip-link,
+html .fs__btn--red,
+html[data-design='a'] .tag--accent,
+html[data-design='a'] .chip--accent,
+html[data-design='a'] .project-detail__status,
+html[data-design='a'] .conference-detail__status {
+  background: var(--color-dic-red-text-safe);
+  border-color: var(--color-dic-red-text-safe);
+  color: var(--color-white);
+}
+
+html[data-design='a'] .home-sheet .hx-who {
+  background: var(--color-dic-red-text-safe);
+}
+
+html[data-design='a'] .home-sheet .hx-display--red,
+html[data-design='a'] :is(.section--tint, .lab-facilities, .courses, .collaborators) .section-title,
+html[data-design='a'] .lab-facilities .section-title {
+  color: var(--color-dic-red-text-safe);
+}
+
+/* Small red text sitting on a grey panel needs a shade darker again (4.8:1). */
+html[data-design='a'] .section--tint :is(a:not(.btn):not(.pill-cta), small),
+html[data-design='a'] .section--tint .pr-ladder small,
+html[data-design='a'] .section--tint .pr-cta-link,
+html[data-design='a'] .research-lab-note a {
+  color: #a8190a;
+}
+
+/* Breadcrumb links: at least 24px tall (WCAG 2.5.8). */
+html :is(.project-detail__breadcrumb, .conference-detail__breadcrumb, .profile__breadcrumb, .blog-detail__breadcrumb) a,
+html [class*='breadcrumb'] a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 25px;
+}
+
+@media (max-width: 768px) {
+  html [class*='breadcrumb'] a {
+    min-height: 44px;
+  }
+}
+
+/* Narrow screens and widened text spacing (WCAG 1.4.10, 1.4.12): a long word in
+   a very large heading breaks instead of pushing the page sideways. */
+@media (max-width: 480px) {
+  html main :is(h1, h2, h3, h4),
+  html footer :is(h2, h3),
+  html main :is(a, p, li, span, th, td, button, .btn) {
+    overflow-wrap: anywhere;
+  }
+}
+
+/* On the page a visitor lands on, nothing waits to fade in: its content is
+   already in the HTML and should be readable the moment it paints. */
+html:not([data-navigated]) .reveal,
+html:not([data-navigated]) .reveal-stagger > * {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
 }

@@ -22,8 +22,8 @@ const LAB_CAPABILITIES = [
     body: 'Beyond fabrication, the DIC Lab also serves as a learning and research environment for students and researchers. It hosts specialized DIC courses, workshops, and design innovation programs, enabling hands-on learning in areas like digital fabrication, immersive design, and design thinking. The space encourages experimentation and fosters an entrepreneurial mindset among students and innovators.',
   },
   {
-    title: 'India’s Finest Design Innovation Facility',
-    body: 'The DIC IIT Hyderabad Nodal Centre Lab stands as one of India’s finest design laboratories, bridging creativity, technology, and innovation. It not only supports national-level projects and academic collaborations but also sets a benchmark for how design infrastructure can catalyze a new generation of problem solvers and creative thinkers for the nation.',
+    title: 'National Projects and Collaboration',
+    body: 'As the Nodal Centre Lab, DIC IIT Hyderabad supports national-level projects and academic collaborations, bringing together creativity, technology and innovation to develop a new generation of problem solvers and creative thinkers.',
   },
 ];
 
@@ -70,9 +70,8 @@ export default function About() {
               products on one side, courses and workshops on the other.
             </p>
             <p>
-              Its lab, over 3,000 square feet of fabrication, mixed-reality, prototyping and
-              preservation facilities, builds its projects in-house, from first prototype to
-              full-scale exhibit.
+              The Centre builds its projects in-house, from first prototype to full-scale exhibit,
+              in its own <a className="about-netlink" href="#lab">fabrication and mixed-reality lab</a>.
             </p>
             <p>
               The Centre is also the Nodal Centre for the National DIC Network:{' '}
@@ -103,12 +102,9 @@ export default function About() {
 
         <div className="lab-facilities__intro">
           <p>
-            The Design Innovation Centre (DIC) Lab at IIT Hyderabad, designated as the Nodal
-            Centre for the National DIC Network, is one of India&rsquo;s most advanced design and
-            innovation facilities. Spanning over 3,000+ square feet, the lab embodies a perfect
-            blend of design thinking, technological excellence, and interdisciplinary research,
-            fostering innovation across domains such as digital preservation, mixed reality,
-            product design, and rapid prototyping.
+            The Design Innovation Centre (DIC) Lab at IIT Hyderabad spans over 3,000 square feet.
+            It brings design thinking, technology and interdisciplinary research together across
+            digital preservation, mixed reality, product design and rapid prototyping.
           </p>
           <p style={{ fontStyle: 'italic' }}>
             The lab is equipped with cutting-edge tools and technologies that support ideation,

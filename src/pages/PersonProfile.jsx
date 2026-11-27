@@ -94,6 +94,23 @@ function CheckIcon() {
   );
 }
 
+// Newest first, whatever order the entries arrived in: by the year something
+// ended (still running counts as latest), then the year it began. Entries with
+// no year at all keep their place at the end.
+function byLatest(field) {
+  const span = (entry) => {
+    const text = String(entry[field] ?? '');
+    const years = (text.match(/(19|20)\d{2}/g) || []).map(Number);
+    if (/present|ongoing|current|in progress/i.test(text)) return [9999, years[0] || 0];
+    return years.length ? [Math.max(...years), Math.min(...years)] : [0, 0];
+  };
+  return (a, b) => {
+    const [aEnd, aStart] = span(a);
+    const [bEnd, bStart] = span(b);
+    return bEnd - aEnd || bStart - aStart;
+  };
+}
+
 export default function PersonProfile() {
   const { slug } = useParams();
   const { members, all, loading } = useMembers();
@@ -213,7 +230,7 @@ export default function PersonProfile() {
             <section className="profile__section">
               <h2 className="profile__section-title">Education</h2>
               <ul className="profile__timeline">
-                {education.map((e, i) => (
+                {[...education].sort(byLatest('year')).map((e, i) => (
                   <li className="profile__timeline-item" key={i}>
                     <span className="profile__timeline-period">{e.year}</span>
                     <div>
@@ -230,7 +247,7 @@ export default function PersonProfile() {
             <section className="profile__section">
               <h2 className="profile__section-title">Experience</h2>
               <ul className="profile__timeline">
-                {experience.map((e, i) => (
+                {[...experience].sort(byLatest('duration')).map((e, i) => (
                   <li className="profile__timeline-item" key={i}>
                     <span className="profile__timeline-period">{e.duration}</span>
                     <div>

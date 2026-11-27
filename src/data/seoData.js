@@ -1,7 +1,8 @@
 // What search engines and link previews are told about each page. Plain data
 // (no JSX, no browser APIs) so the same copy serves the page itself
 // (lib/seo.js), the edge middleware for crawlers that don't run JavaScript
-// (middleware.js) and the sitemap script (scripts/generate-sitemap.mjs).
+// (middleware.js) and the build step that writes each page and the sitemap
+// (scripts/prerender.mjs).
 //
 // SITE.url is the address the site is published at; change it here if the
 // domain changes and the canonical links, Open Graph URLs and sitemap follow.
@@ -84,12 +85,31 @@ export const ROUTE_META = {
     description:
       'The Fourth All India DIC Meet, hosted by IIT Hyderabad on 2–3 May 2024, showcasing work from Design Innovation Centres across the country.',
   },
+  '/blogs/reimagining-formative-assessment-art-education': {
+    title: 'Reimagining Formative Assessment in Art Education — DIC · IITH',
+    description:
+      'Ganesh Kumar Malthurkar on a mobile-first approach to formative assessment in government school art education, presented at the 6th Mobile Studies Congress.',
+  },
+  '/blogs/wiki-thesis-research-assessment-ai': {
+    title: "Time for the 'Wiki-Thesis' — DIC · IITH",
+    description:
+      'Salil S and Prof. Deepak John Mathew, writing in Careers360, on why AI writing tools call for new thesis formats, with three alternatives worth considering.',
+  },
+  '/blogs/how-intelligent-are-we-about-natural-intelligence': {
+    title: 'How Intelligent Are We About Our Natural Intelligence? — DIC · IITH',
+    description:
+      'Salil Sahadevan and Prof. Deepak John Mathew, writing in The Hindu, on pea plants, slime moulds and the many modes of intelligence.',
+  },
   '/blogs': {
     title: 'Blogs & Articles — DIC · IITH',
     description:
       'Insights, research notes and stories from the Design Innovation Centre community at IIT Hyderabad.',
   },
 };
+
+// Pages that have no content yet: still reachable, but kept out of search
+// results, the sitemap and the AI guide. Remove an entry once it has content.
+export const UNLISTED = ['/events', '/workshops'];
 
 export const ORGANIZATION_LD = {
   '@context': 'https://schema.org',

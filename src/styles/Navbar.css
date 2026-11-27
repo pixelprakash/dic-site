@@ -272,6 +272,33 @@
   transform: translateX(4px);
 }
 
+/* A menu with no picture card: its links share the full width as equals. */
+.navbar__mega-inner--list,
+.navbar__mega-inner--list .navbar__mega-columns {
+  display: block;
+}
+
+.navbar__mega-inner--list {
+  padding-block: 32px;
+}
+
+.navbar__mega-inner--list .navbar__mega-col {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px 48px;
+}
+
+.navbar__mega-inner--list .navbar__mega-item {
+  margin: 0;
+  padding: 14px 0;
+  border-top: 2px solid var(--color-ink);
+  border-radius: 0;
+}
+
+.navbar__mega-inner--list .navbar__mega-item-label {
+  font-size: var(--text-lg);
+}
+
 @media (max-width: 1200px) {
   .navbar__mega-inner {
     grid-template-columns: 1fr 1fr 260px;
@@ -533,4 +560,26 @@
   .search {
     margin-left: auto;
   }
+}
+
+/* A closed menu is hidden from the keyboard and screen readers too, not just
+   made transparent. */
+.navbar__mobile-menu {
+  visibility: hidden;
+  transition: opacity 0.3s var(--ease-smooth), visibility 0s linear 0.3s;
+}
+
+.navbar__mobile-menu.open {
+  visibility: visible;
+  transition: opacity 0.3s var(--ease-smooth);
+}
+
+.navbar__mobile-submenu-inner {
+  visibility: hidden;
+  transition: visibility 0s linear 0.35s;
+}
+
+.navbar__mobile-submenu.open .navbar__mobile-submenu-inner {
+  visibility: visible;
+  transition: none;
 }

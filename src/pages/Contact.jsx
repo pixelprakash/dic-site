@@ -1,3 +1,5 @@
+import EnquiryForm from '../components/EnquiryForm';
+
 export default function Contact() {
   return (
     <>
@@ -9,6 +11,10 @@ export default function Contact() {
           about our work at the Design Innovation Centre?
         </p>
       </div>
+
+      <section className="contact-enquiry">
+        <EnquiryForm />
+      </section>
 
       <section className="contact-content">
         <div className="contact-info">

@@ -1,4 +1,4 @@
-import { ROUTE_META, SITE } from '../data/seoData';
+import { ROUTE_META, SITE, UNLISTED } from '../data/seoData.js';
 
 // Keeps the document's <head> in step with the page on screen: title,
 // description, canonical address, Open Graph / Twitter tags, robots, and a
@@ -29,7 +29,7 @@ const LABELS = {
   workshops: 'Workshops', conferences: 'Conferences', blogs: 'Blogs',
 };
 
-function breadcrumbs(path, title) {
+export function breadcrumbs(path, title) {
   const parts = path.split('/').filter(Boolean);
   const items = [{ name: 'Home', url: SITE.url + '/' }];
   let acc = '';
@@ -57,7 +57,8 @@ export function setPageMeta({ title, description, path, image, noindex = false }
 
   document.title = t;
   meta('name', 'description').setAttribute('content', d);
-  meta('name', 'robots').setAttribute('content', noindex ? 'noindex, nofollow' : 'index, follow');
+  const robots = noindex ? 'noindex, nofollow' : UNLISTED.includes(p) ? 'noindex, follow' : 'index, follow';
+  meta('name', 'robots').setAttribute('content', robots);
   tag('link[rel="canonical"]', () => {
     const l = document.createElement('link');
     l.rel = 'canonical';

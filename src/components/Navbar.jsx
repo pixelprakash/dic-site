@@ -16,6 +16,9 @@ export default function Navbar() {
   const [openMenu, setOpenMenu] = useState(null);
   const [mobileExpanded, setMobileExpanded] = useState(null);
   const closeTimer = useRef(null);
+  const linkRefs = useRef({});
+  const toggleRef = useRef(null);
+  const skipFocusOpen = useRef(false);
   const location = useLocation();
   const design = useDesign();
 
@@ -45,13 +48,43 @@ export default function Navbar() {
     }
   }, [location]);
 
+  // Escape closes whichever menu is open and puts focus back on what opened it.
   useEffect(() => {
     const onKeyDown = (e) => {
-      if (e.key === 'Escape') setOpenMenu(null);
+      if (e.key !== 'Escape') return;
+      if (openMenu) {
+        if (document.activeElement?.closest('.navbar__mega')) {
+          skipFocusOpen.current = true;
+          linkRefs.current[openMenu]?.focus();
+          skipFocusOpen.current = false;
+        }
+        setOpenMenu(null);
+      }
+      if (menuOpen) {
+        setMenuOpen(false);
+        toggleRef.current?.focus();
+      }
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, []);
+  }, [openMenu, menuOpen]);
+
+  // Keyboard users get the submenu too: it opens when its link takes focus and
+  // closes once focus moves on past both the link and the panel.
+  const onNavFocus = (e) => {
+    const inMenu = e.target.closest('.navbar__mega');
+    if (inMenu) {
+      clearTimeout(closeTimer.current);
+      return;
+    }
+    const path = e.target.closest('[data-menu]')?.dataset.menu;
+    if (path && !skipFocusOpen.current && e.target.matches(':focus-visible')) {
+      clearTimeout(closeTimer.current);
+      setOpenMenu(path);
+    } else if (!path) {
+      setOpenMenu(null);
+    }
+  };
 
   const openMenuFor = (path) => {
     clearTimeout(closeTimer.current);
@@ -75,7 +108,11 @@ export default function Navbar() {
   return (
     <>
     {/* <ScrollProgress /> */}
-    <nav className={`navbar ${scrolled ? 'scrolled' : ''} ${openMenu ? 'mega-open' : ''} ${overHero ? 'navbar--hero' : ''}`}>
+    <nav
+      aria-label="Main"
+      onFocus={onNavFocus}
+      className={`navbar ${scrolled ? 'scrolled' : ''} ${openMenu ? 'mega-open' : ''} ${overHero ? 'navbar--hero' : ''}`}
+    >
       <Link to="/" className="navbar__logo">
         <img src="/images/diclogo.webp" alt="DIC — Design Innovation Centre, IIT Hyderabad" />
       </Link>
@@ -89,6 +126,10 @@ export default function Navbar() {
           >
             <Link
               to={link.path}
+              ref={(el) => { linkRefs.current[link.path] = el; }}
+              data-menu={link.menu ? link.path : undefined}
+              aria-expanded={link.menu ? openMenu === link.path : undefined}
+              aria-current={location.pathname === link.path ? 'page' : undefined}
               className={`navbar__link ${location.pathname === link.path ? 'active' : ''} ${openMenu === link.path ? 'menu-open' : ''}`}
             >
               {link.label}
@@ -102,23 +143,6 @@ export default function Navbar() {
         ))}
       </div>
 
-      <SearchBar />
-
-      <Link to={CONTACT_LINK.path} className="navbar__contact">
-        {CONTACT_LINK.label}
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M5 12h14M12 5l7 7-7 7" />
-        </svg>
-      </Link>
-
-      <button
-        className={`navbar__toggle ${menuOpen ? 'open' : ''}`}
-        onClick={() => setMenuOpen(!menuOpen)}
-        aria-label="Toggle menu"
-      >
-        <span /><span /><span />
-      </button>
-
       {/* Mega menu backdrop + panel (desktop) */}
       <div
         className={`navbar__mega-backdrop ${openMenu ? 'open' : ''}`}
@@ -130,11 +154,11 @@ export default function Navbar() {
         onMouseLeave={scheduleClose}
       >
         {activeLink?.menu && (
-          <div className="navbar__mega-inner">
+          <div className={`navbar__mega-inner${activeLink.menu.featured ? '' : ' navbar__mega-inner--list'}`}>
             <div className="navbar__mega-columns">
-              {activeLink.menu.columns.map((col) => (
-                <div className="navbar__mega-col" key={col.heading}>
-                  <p className="navbar__mega-heading">{col.heading}</p>
+              {activeLink.menu.columns.map((col, i) => (
+                <div className="navbar__mega-col" key={col.heading || i}>
+                  {col.heading && <p className="navbar__mega-heading">{col.heading}</p>}
                   {col.items.map((item) => (
                     <Link key={item.label} to={item.path} className="navbar__mega-item">
                       <span className="navbar__mega-item-label">{item.label}</span>
@@ -144,6 +168,7 @@ export default function Navbar() {
                 </div>
               ))}
             </div>
+            {activeLink.menu.featured && (
             <Link to={activeLink.menu.featured.path} className="navbar__mega-featured">
               <div className="navbar__mega-featured-image">
                 <img src={activeLink.menu.featured.image} alt="" loading="lazy" />
@@ -159,9 +184,30 @@ export default function Navbar() {
                 </span>
               </div>
             </Link>
+            )}
           </div>
         )}
       </div>
+
+      <SearchBar />
+
+      <Link to={CONTACT_LINK.path} className="navbar__contact">
+        {CONTACT_LINK.label}
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </Link>
+
+      <button
+        ref={toggleRef}
+        type="button"
+        className={`navbar__toggle ${menuOpen ? 'open' : ''}`}
+        onClick={() => setMenuOpen(!menuOpen)}
+        aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+        aria-expanded={menuOpen}
+      >
+        <span /><span /><span />
+      </button>
 
       {/* Mobile full-screen menu */}
       <div className={`navbar__mobile-menu ${menuOpen ? 'open' : ''}`}>

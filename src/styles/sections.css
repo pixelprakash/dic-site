@@ -845,6 +845,12 @@
 }
 
 /* ─── Contact page ─── */
+.contact-enquiry {
+  display: grid;
+  grid-template-columns: minmax(0, 720px);
+  padding: var(--section-y) var(--page-gutter) 0;
+}
+
 .contact-content {
   padding: var(--section-y) var(--page-gutter);
   display: grid;
@@ -908,4 +914,69 @@
   margin: var(--space-5) 0 0;
   padding: 0;
   list-style: none;
+}
+
+/* Education — how to ask about joining a course. */
+.course-pills {
+  padding: 0;
+  list-style: none;
+}
+
+.course-enquiry {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+  margin-top: var(--space-7);
+  padding-top: var(--space-5);
+  border-top: 2px solid var(--color-ink);
+}
+
+.course-enquiry p {
+  max-width: 56ch;
+}
+
+.course-enquiry__address {
+  font-size: var(--text-sm);
+  user-select: all;
+}
+
+.marquee__controls {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 var(--page-gutter) var(--space-3);
+}
+
+.marquee__toggle {
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--line-strong);
+  font-weight: 600;
+}
+
+.marquee__toggle:hover {
+  background: var(--color-ink);
+  color: var(--color-white);
+}
+
+.marquee--paused .marquee__track {
+  animation-play-state: paused;
+}
+
+/* Nothing moves for reduced-motion visitors, so there is nothing to pause. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee__controls {
+    display: none;
+  }
+}
+
+/* holds the strip's place until its photos load */
+.marquee__track {
+  min-height: 280px;
+}
+
+@media (max-width: 768px) {
+  .marquee__track {
+    min-height: 200px;
+  }
 }

@@ -92,6 +92,17 @@ html[data-design='a'] .navbar__logo {
   background: var(--color-cream);
 }
 
+/* Once the page scrolls, the tile fits inside the bar so it never covers text. */
+html[data-design='a'] .navbar.scrolled .navbar__logo {
+  align-self: center;
+  margin-top: 0;
+  padding: 5px 10px;
+}
+
+html[data-design='a'] .navbar.scrolled .navbar__logo img {
+  height: 32px;
+}
+
 html[data-design='a'] .navbar__links .navbar__link {
   font-family: var(--font-display);
   font-weight: 700;
@@ -231,7 +242,7 @@ html[data-design='a'] .card--interactive:focus-within {
 /* ── Pill-shaped bits that hardcode their radius rather than use the token ── */
 html[data-design='a'] :is(
   .people-tag, .member-card__tag, .view-on-map__pill, .view-on-map__label,
-  .footer__submit, .footer__project-link, .search__field,
+  .footer__project-link, .search__field,
   .nw-chip, .np-ghost, .conference-detail__status, .project-detail__status,
   .project-detail__tags span, .project-detail__model-cta, .pr-pills span,
   .partners__logos span, .contact-cta__link,
@@ -390,7 +401,7 @@ html[data-design='a'] {
 }
 
 /* A short fade when a page arrives, instead of it appearing all at once. */
-html[data-design='a'] #main-content > :not(.dic-loader):not(.hh):not(.splash) {
+html[data-design='a'][data-navigated] #main-content > :not(.dic-loader):not(.hh):not(.splash) {
   animation: a-page-in 0.5s var(--ease-out) both;
 }
 
@@ -412,28 +423,26 @@ html[data-design='a'] .footer {
 
 html[data-design='a'] .footer__top {
   gap: clamp(32px, 6vw, 96px);
-  padding-bottom: clamp(48px, 6vw, 80px);
+  padding-bottom: 32px;
 }
 
-html[data-design='a'] .footer__brand,
-html[data-design='a'] .footer__form {
+html[data-design='a'] .footer__brand {
   padding: 0;
   border: 0;
   border-radius: 0;
   background: none;
 }
 
-html[data-design='a'] .footer__form-title {
-  margin: 0 0 8px;
+html[data-design='a'] .footer__cta-title {
   font-weight: 800;
   font-stretch: 75%;
-  font-size: clamp(3rem, 7vw, 6.5rem);
-  line-height: 0.9;
   letter-spacing: -0.02em;
-  color: var(--color-dic-red);
 }
 
-html[data-design='a'] .footer__field label,
+html[data-design='a'] .footer__cta-link {
+  font-family: var(--font-display);
+}
+
 html[data-design='a'] .footer__contact-group .footer__contact-title {
   font-family: var(--font-display);
   font-weight: 700;
@@ -442,37 +451,6 @@ html[data-design='a'] .footer__contact-group .footer__contact-title {
   text-transform: none;
   font-size: var(--text-md);
   color: rgba(255, 255, 255, 0.82);
-}
-
-html[data-design='a'] .footer__field :is(select, input, textarea) {
-  border-color: rgba(255, 255, 255, 0.3);
-  background: transparent;
-}
-
-html[data-design='a'] .footer__field :is(select, input, textarea):focus {
-  background: rgba(255, 255, 255, 0.06);
-}
-
-html[data-design='a'] .footer__submit {
-  min-height: 48px;
-  padding: 0 28px;
-  background: var(--color-dic-red-text-safe);
-  font-family: var(--font-display);
-  font-weight: 700;
-}
-
-html[data-design='a'] .footer__submit:hover:not(:disabled) {
-  background: var(--color-dic-red);
-  transform: none;
-}
-
-html[data-design='a'] .footer__socials a {
-  border-radius: 0;
-  border-color: rgba(255, 255, 255, 0.3);
-}
-
-html[data-design='a'] .footer__socials a:hover {
-  transform: none;
 }
 
 html[data-design='a'] .footer__logo-chip {

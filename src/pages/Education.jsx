@@ -91,10 +91,21 @@ export default function Education() {
           ref={catalogueRef}
         >
           <h2 className="section-title">Course Catalogue</h2>
-          <div className="course-pills">
+          <ul className="course-pills">
             {DIC_COURSES.map((c) => (
-              <span className="course-pill" key={c}>{c}</span>
+              <li className="course-pill" key={c}>{c}</li>
             ))}
+          </ul>
+          <div className="course-enquiry" id="enquire">
+            <h3>Interested in joining a course?</h3>
+            <p>
+              Write to the Centre to ask about eligibility, dates and how to apply. Please name
+              the course you are interested in.
+            </p>
+            <a className="btn" href="mailto:dic@des.iith.ac.in?subject=Course%20enquiry">
+              Ask about a course
+            </a>
+            <p className="course-enquiry__address">dic@des.iith.ac.in</p>
           </div>
         </div>
       </section>

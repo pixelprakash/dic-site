@@ -1,3 +1,4 @@
+import PhotoStrip from '../components/PhotoStrip';
 import ProjectCard from '../components/ProjectCard';
 import { MARQUEE_IMAGES, DIC_SELECTED_WORKS } from '../data/siteData';
 import { useProjects } from '../lib/cms';
@@ -14,14 +15,14 @@ export default function Projects() {
         <div className="page-header__accent" />
         <h1>Projects</h1>
         <p>
-          921 products delivered, improved, or initiated across heritage,
-          mobility, education, and sustainable design.
+          Design projects across cultural heritage, mobility, education and
+          sustainable design.
         </p>
       </div>
 
       <section className={`project-list reveal ${listVis ? 'visible' : ''}`} ref={listRef}>
-        {PROJECTS.map((project) => (
-          <ProjectCard key={project.slug} project={project} headingLevel={2} />
+        {PROJECTS.map((project, i) => (
+          <ProjectCard key={project.slug} project={project} headingLevel={2} priority={i === 0} />
         ))}
       </section>
 
@@ -39,13 +40,7 @@ export default function Projects() {
       </section>
 
       {/* Image Marquee */}
-      <section className="marquee" style={{ paddingBottom: 'var(--section-gap)' }}>
-        <div className="marquee__track">
-          {[...MARQUEE_IMAGES, ...MARQUEE_IMAGES].map((src, i) => (
-            <img key={i} src={src} alt="" loading="lazy" />
-          ))}
-        </div>
-      </section>
+      <PhotoStrip images={MARQUEE_IMAGES} />
     </>
   );
 }

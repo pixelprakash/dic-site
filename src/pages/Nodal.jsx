@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { responsive } from '../lib/img';
 import { useReveal } from '../hooks/useReveal';
 import { MARQUEE_IMAGES, ABOUT_STACK_IMAGES } from '../data/siteData';
 import { useNodalEvents, useNodalCentres } from '../lib/cms';
@@ -102,7 +103,7 @@ function NodalHero() {
       <section className="section nodal2-photos" aria-label="DIC projects">
         {ABOUT_STACK_IMAGES.map((img) => (
           <div className="nodal2-photos__item" key={img.src}>
-            <img src={img.src} alt={img.alt} loading="lazy" />
+            <img {...responsive(img.src)} sizes="(max-width: 700px) 50vw, 25vw" alt={img.alt} loading="lazy" decoding="async" />
           </div>
         ))}
       </section>
@@ -110,45 +111,72 @@ function NodalHero() {
   );
 }
 
-// Upcoming events — full-width rows stacked one after another (not the
-// grid-of-cards NodalFull used for the same EVENTS data).
+// Events — full-width rows stacked one after another. Whether an event is
+// upcoming or past is worked out from its dates, so a finished event drops into
+// "Past events" by itself and stops offering registration.
+const todayISO = () => {
+  const d = new Date();
+  return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+};
+
+function EventRow({ event: e, past }) {
+  const parts = eventDateParts(e.date);
+  const range =
+    e.end && e.end !== e.date ? `${formatDate(e.date)} – ${formatDate(e.end)}` : formatDate(e.date);
+  return (
+    <article className="nodal2-events__row">
+      <div className="nodal2-events__date" aria-hidden="true">
+        <b>{parts.day}</b>
+        <span>{parts.month}</span>
+      </div>
+      <div className="nodal2-events__body">
+        <h4>{e.title}</h4>
+        <p className="nodal2-events__meta">
+          {range} · {e.host} · {e.city}
+        </p>
+        <p className="nodal2-events__desc">{e.desc}</p>
+      </div>
+      {e.link ? (
+        <a className="nodal2-events__link" href={e.link} rel="noopener noreferrer">
+          {past ? 'Event website' : e.linkText || 'Details'}
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+      ) : (
+        !past && <span className="nodal2-events__link nodal2-events__link--muted">Details soon</span>
+      )}
+    </article>
+  );
+}
+
 function UpcomingEventsSection() {
   const { events: EVENTS } = useNodalEvents();
+  const today = todayISO();
+  const endOf = (e) => String(e.end || e.date).slice(0, 10);
+  const upcoming = EVENTS.filter((e) => endOf(e) >= today).sort((a, b) => a.date.localeCompare(b.date));
+  const past = EVENTS.filter((e) => endOf(e) < today).sort((a, b) => b.date.localeCompare(a.date));
   return (
-    <section className="section nodal2-events">
+    <section className="section nodal2-events" id="events">
       <h2 className="section-title">Events across the network</h2>
-      <div className="nodal2-events__list">
-        {EVENTS.map((e) => {
-          const parts = eventDateParts(e.date);
-          const range =
-            e.end && e.end !== e.date ? `${formatDate(e.date)} – ${formatDate(e.end)}` : formatDate(e.date);
-          return (
-            <article className="nodal2-events__row" key={e.title}>
-              <div className="nodal2-events__date" aria-hidden="true">
-                <b>{parts.day}</b>
-                <span>{parts.month}</span>
-              </div>
-              <div className="nodal2-events__body">
-                <h3>{e.title}</h3>
-                <p className="nodal2-events__meta">
-                  {range} · {e.host} · {e.city}
-                </p>
-                <p className="nodal2-events__desc">{e.desc}</p>
-              </div>
-              {e.link ? (
-                <a className="nodal2-events__link" href={e.link} rel="noopener noreferrer">
-                  {e.linkText || 'Details'}
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
-                </a>
-              ) : (
-                <span className="nodal2-events__link nodal2-events__link--muted">Details soon</span>
-              )}
-            </article>
-          );
-        })}
-      </div>
+
+      <h3 className="nodal2-events__group">Upcoming events</h3>
+      {upcoming.length > 0 ? (
+        <div className="nodal2-events__list">
+          {upcoming.map((e) => <EventRow key={e.title} event={e} />)}
+        </div>
+      ) : (
+        <p className="nodal2-muted">No upcoming events are listed right now.</p>
+      )}
+
+      {past.length > 0 && (
+        <>
+          <h3 className="nodal2-events__group">Past events</h3>
+          <div className="nodal2-events__list">
+            {past.map((e) => <EventRow key={e.title} event={e} past />)}
+          </div>
+        </>
+      )}
     </section>
   );
 }
@@ -305,6 +333,7 @@ function NodalNetwork() {
   const { centres } = useNodalCentres();
   const [filter, setFilter] = useState('all');
   const [query, setQuery] = useState('');
+  const [expanded, setExpanded] = useState(false);
 
   const shown = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -323,6 +352,9 @@ function NodalNetwork() {
       <div className="nodal2-dir-top">
         <div>
           <h2 className="section-title">80+ DIC nodes across India</h2>
+          <p className="nodal2-dir-lede">
+            This directory is still being completed: it lists {centres.length} of them so far.
+          </p>
         </div>
         <div className="nodal2-dir-controls">
           <div className="nodal2-filters" role="group" aria-label="Filter nodes">
@@ -344,7 +376,7 @@ function NodalNetwork() {
       </div>
 
       {shown.length > 0 ? (
-        <ol className="nodal2-ledger">
+        <ol className={`nodal2-ledger${expanded || query.trim() || filter !== 'all' ? '' : ' nodal2-ledger--short'}`}>
           {shown.map((c, i) => (
             <li className={`nodal2-row${c.role === 'nodal' ? ' nodal2-row--self' : ''}`} key={c.code}>
               <span className="nodal2-row__n">{String(i + 1).padStart(2, '0')}</span>
@@ -361,6 +393,11 @@ function NodalNetwork() {
         </ol>
       ) : (
         <p className="nodal2-muted">No institutions match that search.</p>
+      )}
+      {!expanded && !query.trim() && filter === 'all' && shown.length > 8 && (
+        <button type="button" className="nodal2-dir-more" onClick={() => setExpanded(true)}>
+          Show all {shown.length} listed nodes
+        </button>
       )}
       <p className="nodal2-dir-note" role="status">
         Showing {shown.length} of {centres.length} listed nodes. All {hubCount} hubs are listed; {spokeCount} of{' '}

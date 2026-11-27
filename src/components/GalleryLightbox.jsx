@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useDialogFocus } from '../hooks/useDialogFocus';
 import '../styles/GalleryLightbox.css';
 
 const EXIT_DURATION = 280; // ms — must match the CSS closing-animation duration below
@@ -47,12 +48,14 @@ export default function GalleryLightbox({ images = [], index, onClose, onNavigat
     };
   }, [mounted, index, count]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const dialogRef = useDialogFocus(mounted);
+
   if (!mounted) return null;
 
   const src = images[index];
 
   return (
-    <div className={`gallery-lightbox ${closing ? 'is-closing' : 'is-open'}`} role="dialog" aria-modal="true" aria-label="Image viewer">
+    <div ref={dialogRef} className={`gallery-lightbox ${closing ? 'is-closing' : 'is-open'}`} role="dialog" aria-modal="true" aria-label="Image viewer">
       <div className="gallery-lightbox__backdrop" onClick={onClose} />
 
       <button type="button" className="gallery-lightbox__close" onClick={onClose} aria-label="Close image viewer">

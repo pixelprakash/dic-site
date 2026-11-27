@@ -1,0 +1,65 @@
+/* Enquiry form on the Contact page (components/EnquiryForm.jsx). */
+.enquiry {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.enquiry__title {
+  margin: 0;
+  font-size: var(--fs-heading);
+}
+
+.enquiry__note {
+  margin: 0;
+  max-width: 52ch;
+  color: var(--color-stone);
+}
+
+.enquiry__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.enquiry__field label {
+  font-weight: 600;
+}
+
+.enquiry__field :is(select, input, textarea) {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--border-radius-sm);
+  background: var(--color-white);
+  color: var(--color-ink);
+  font: inherit;
+}
+
+.enquiry__field textarea {
+  resize: vertical;
+}
+
+.enquiry__field :is(select, input, textarea):focus-visible {
+  outline: 2px solid var(--color-dic-red);
+  outline-offset: 1px;
+}
+
+.enquiry__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.enquiry__status {
+  min-height: 1.6em;
+  margin: 0;
+  max-width: 52ch;
+}
+
+.enquiry__status--error {
+  color: var(--color-dic-red-text-safe);
+  font-weight: 600;
+}

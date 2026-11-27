@@ -126,3 +126,9 @@ html[data-design='a'] .research-lab-note a {
 html[data-design='a'] .about-netlink {
   color: var(--color-dic-red-text-safe);
 }
+
+@media (max-width: 480px) {
+  .about-netlink {
+    white-space: normal;
+  }
+}

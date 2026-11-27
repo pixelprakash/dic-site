@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Practices.css';
 
@@ -64,15 +64,40 @@ function Cards({ items, cols = 3 }) {
   );
 }
 
+/* On a phone the five practices would run to sixteen screens, so each starts
+   as its title and summary with a button for the rest (the button only shows at
+   phone width; on larger screens everything is always open). A link to a
+   section, from the table above or from another page, opens it. */
 function Section({ id, tint = false, title, sub, children }) {
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const openIfLinked = () => {
+      if (window.location.hash === `#${id}`) setOpen(true);
+    };
+    openIfLinked();
+    window.addEventListener('hashchange', openIfLinked);
+    return () => window.removeEventListener('hashchange', openIfLinked);
+  }, [id]);
+
   return (
-    <section className={`section${tint ? ' section--tint' : ''}`} id={id}>
+    <section className={`section pr-section${open ? ' pr-section--open' : ''}${tint ? ' section--tint' : ''}`} id={id}>
       <div className="split">
         <div className="split__head">
           <h2 className="section-title">{title}</h2>
           <p className="lede">{sub}</p>
+          <button
+            type="button"
+            className="pr-section__toggle"
+            aria-expanded={open}
+            aria-controls={`${id}-details`}
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? 'Hide details' : 'Show details'}
+            <span className="sr-only"> for {title}</span>
+          </button>
         </div>
-        <div className="split__body">{children}</div>
+        <div className="split__body" id={`${id}-details`}>{children}</div>
       </div>
     </section>
   );
@@ -132,7 +157,10 @@ export default function Practices() {
                 <tr key={row.id}>
                   <th scope="row"><a href={`#${row.id}`}>{row.label}</a></th>
                   {row.cells.map((cell, i) => (
-                    <td key={AUDIENCES[i]}><Mark cell={cell} /></td>
+                    <td key={AUDIENCES[i]} data-label={AUDIENCES[i]} data-empty={cell ? undefined : ''}>
+                      <Mark cell={cell} />
+                      {Array.isArray(cell) && <span className="pr-matrix__note">{cell[1]}</span>}
+                    </td>
                   ))}
                 </tr>
               ))}

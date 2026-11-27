@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import HomeHero from '../components/HomeHero';
 import FilmSlider from '../components/FilmSlider';
@@ -6,7 +6,7 @@ import FilmSlider from '../components/FilmSlider';
 // kept). Un-comment this import and the <Splash /> below to bring it back.
 // import Splash from '../components/Splash';
 import GondMuseumModal from '../components/GondMuseumModal';
-import { useProjects, useFeed, useCollaborators, useTestimonials } from '../lib/cms';
+import { useFeed, useCollaborators, useTestimonials } from '../lib/cms';
 import { fmtDate, newsPath, isOpen } from '../lib/news';
 import { useReveal } from '../hooks/useReveal';
 import '../styles/HomeRedesign.css';
@@ -29,61 +29,6 @@ const ChevronRight = () => (
   </svg>
 );
 
-/* Projects — grey panel, giant heading, card carousel (scroll-snap, drag or arrows). */
-function ProjectsPanel() {
-  const { projects } = useProjects();
-  const track = useRef(null);
-  const [revealRef, shown] = useReveal();
-
-  const page = (dir) => {
-    const el = track.current;
-    if (!el) return;
-    const card = el.querySelector('.hx-card');
-    const step = card ? card.getBoundingClientRect().width + 16 : el.clientWidth * 0.8;
-    el.scrollBy({ left: dir * step, behavior: 'smooth' });
-  };
-
-  if (!projects.length) return null;
-
-  return (
-    <section className={`hx-panel reveal ${shown ? 'visible' : ''}`} ref={revealRef} aria-labelledby="hx-projects-heading">
-      <div className="hx-panel__head">
-        <h2 className="hx-display hx-display--red" id="hx-projects-heading">Projects</h2>
-        <p className="hx-panel__sub">
-          Interdisciplinary design research across cultural heritage, autonomous mobility,
-          immersive education and sustainable innovation.
-        </p>
-        <div className="hx-panel__nav">
-          <button type="button" className="hx-arrow" onClick={() => page(-1)} aria-label="Previous projects">
-            <ChevronLeft />
-          </button>
-          <button type="button" className="hx-arrow" onClick={() => page(1)} aria-label="Next projects">
-            <ChevronRight />
-          </button>
-        </div>
-      </div>
-
-      <ul className="hx-track" ref={track}>
-        {projects.map((p) => (
-          <li className="hx-card" key={p.slug}>
-            <Link className="hx-card__link" to={`/projects/${p.slug}`}>
-              {p.image ? (
-                <img className="hx-card__img" src={p.image} alt="" loading="lazy" decoding="async" />
-              ) : (
-                <span className="hx-card__img hx-card__img--blank" aria-hidden="true" />
-              )}
-              <span className="hx-card__body">
-                {p.domain && <span className="hx-chip">{p.domain}</span>}
-                <span className="hx-card__title">{p.title}</span>
-              </span>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </section>
-  );
-}
-
 /* Spotlight — one large image, one headline, one action. */
 function Spotlight() {
   const [open, setOpen] = useState(false);
@@ -97,7 +42,6 @@ function Spotlight() {
         decoding="async"
       />
       <div className="hx-spot__copy">
-        <span className="hx-chip">Spotlight</span>
         <h2 className="hx-display" id="hx-spot-heading">Gond Virtual Museum</h2>
         <p className="hx-spot__text">
           A room of Gond folk art — tiger, horse, bird and dancer motifs — as a walkable 3D
@@ -261,11 +205,10 @@ export default function HomeRedesign() {
       {/* <Splash /> — parked, see the import note above */}
       <div className="home-sheet hx">
         <FilmSlider />
-        <ProjectsPanel />
+        <WhoWeAre />
         <Spotlight />
         <NewsRow />
         <TestimonialsPanel />
-        <WhoWeAre />
         <Collaborators />
       </div>
     </>

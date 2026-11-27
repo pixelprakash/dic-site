@@ -1,3 +1,5 @@
+# Everyone, including search engines and AI agents, may read the whole site.
+# A plain-text guide for AI agents is at /llms.txt (full text: /llms-full.txt).
 User-agent: *
 Allow: /
 

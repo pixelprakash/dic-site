@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useDialogFocus } from '../hooks/useDialogFocus'
 import Model3DViewer from './Model3DViewer'
 import '../styles/Model3DModal.css'
 
@@ -40,10 +41,12 @@ export default function Model3DModal({ isOpen, onClose, src, texture, label }) {
     }
   }, [mounted, onClose])
 
+  const dialogRef = useDialogFocus(mounted)
+
   if (!mounted) return null
 
   return (
-    <div className={`model-modal ${closing ? 'is-closing' : 'is-open'}`} role="dialog" aria-modal="true" aria-label={label || 'Interactive 3D model'}>
+    <div ref={dialogRef} className={`model-modal ${closing ? 'is-closing' : 'is-open'}`} role="dialog" aria-modal="true" aria-label={label || 'Interactive 3D model'}>
       <div className="model-modal__backdrop" onClick={onClose} />
       <div className="model-modal__panel">
         <button type="button" className="model-modal__close" onClick={onClose} aria-label="Close 3D model view">

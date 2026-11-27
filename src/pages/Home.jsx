@@ -1,7 +1,9 @@
-import HomeClassic from './HomeClassic';
+import { lazy } from 'react';
 import HomeRedesign from './HomeRedesign';
-import HomeC from './HomeC';
 import { useDesign } from '../lib/designVariant';
+
+const HomeClassic = lazy(() => import('./HomeClassic'));
+const HomeC = lazy(() => import('./HomeC'));
 
 // The home page for each site design (see lib/designVariant.js):
 //   a — HomeRedesign: the LFS-style redesign

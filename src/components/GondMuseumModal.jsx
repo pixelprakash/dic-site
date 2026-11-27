@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useDialogFocus } from '../hooks/useDialogFocus'
 import GondMuseumViewer from './GondMuseumViewer'
 import { DOCUMENTARIES } from '../data/gondDocumentaries'
 import '../styles/GondMuseumModal.css'
@@ -60,10 +61,12 @@ export default function GondMuseumModal({ isOpen, onClose }) {
     }
   }, [mounted, onClose, playing, showList])
 
+  const dialogRef = useDialogFocus(mounted)
+
   if (!mounted) return null
 
   return (
-    <div className={`gond-modal ${closing ? 'is-closing' : 'is-open'}`} role="dialog" aria-modal="true" aria-label="Gond Virtual Museum">
+    <div ref={dialogRef} className={`gond-modal ${closing ? 'is-closing' : 'is-open'}`} role="dialog" aria-modal="true" aria-label="Gond Virtual Museum">
       <button type="button" className="gond-modal__close" onClick={() => { playUiSound('/audio/gond/close_03.mp3'); onClose() }} aria-label="Exit the Gond Virtual Museum">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
           <path d="M6 6l12 12M18 6L6 18" />

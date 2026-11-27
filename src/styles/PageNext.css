@@ -1,0 +1,64 @@
+/* End-of-page navigation on project and research pages. */
+.page-next {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-5) var(--space-7);
+  padding: var(--space-6) var(--page-gutter);
+  border-top: 1px solid var(--line-strong);
+}
+
+.page-next__all {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  font-weight: 700;
+}
+
+.page-next__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  max-width: 52ch;
+}
+
+.page-next__label {
+  font-size: var(--text-sm);
+  color: var(--color-stone);
+}
+
+.page-next__title {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  line-height: var(--lh-snug);
+}
+
+.page-next a:hover .page-next__title,
+.page-next__all:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Academic titles can run to twenty words: at display size they swallowed the
+   whole first screen, so past a length they step down and run wider. */
+html .project-detail__header h1.title--long {
+  max-width: 26ch;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 1;
+}
+
+@media (max-width: 600px) {
+  html .project-detail__header h1.title--long {
+    font-size: 1.875rem;
+    line-height: 1.08;
+  }
+}
+
+/* With no picture there is no second column: the title takes the width. */
+html[data-design='a'] .page-header.project-detail__header:not(.project-detail__header--media) {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}

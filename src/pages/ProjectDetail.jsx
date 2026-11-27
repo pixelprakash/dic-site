@@ -5,7 +5,9 @@ import { setPageMeta } from '../lib/seo';
 import Model3DViewer from '../components/Model3DViewer';
 import Model3DModal from '../components/Model3DModal';
 import GalleryLightbox from '../components/GalleryLightbox';
+import { responsive } from '../lib/img';
 import PageFilms from '../components/PageFilms';
+import PageNext from '../components/PageNext';
 import '../styles/ProjectDetail.css';
 
 export default function ProjectDetail() {
@@ -68,7 +70,7 @@ export default function ProjectDetail() {
               <span className="project-detail__status">{status}</span>
             </div>
           )}
-          <h1>{title}</h1>
+          <h1 className={title.length > 55 ? 'title--long' : undefined}>{title}</h1>
           {subtitle && <p className="project-detail__subtitle">{subtitle}</p>}
           {subtitle2 && <p className="project-detail__subtitle">{subtitle2}</p>}
         </div>
@@ -152,7 +154,7 @@ export default function ProjectDetail() {
                 onClick={() => setLightboxIndex(i)}
                 aria-label={`View image ${i + 1} of ${gallery.length} full size`}
               >
-                <img src={src} alt="" loading="lazy" />
+                <img {...responsive(src)} sizes="(max-width: 700px) 100vw, 33vw" alt="" loading="lazy" decoding="async" />
                 <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3" />
                 </svg>
@@ -186,6 +188,8 @@ export default function ProjectDetail() {
           )}
         </section>
       )}
+
+      <PageNext items={projects} slug={slug} basePath="/projects" listLabel="All projects" nextLabel="Next project" />
 
       <section className="project-detail__cta">
         <h2>Interested in collaborating on this work?</h2>

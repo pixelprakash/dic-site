@@ -10,6 +10,8 @@ import { useMembers } from '../lib/cms';
 // the one section, rather than a single undifferentiated list.
 const TRACK_LABELS = { regular: 'Regular PhD', external: 'External PhD' };
 const TRACK_ORDER = ['regular', 'external'];
+// useLayoutEffect has no meaning while the build renders the page to HTML.
+const useBrowserLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect;
 import MemberCard from '../components/MemberCard';
 import MemberSpotlight from '../components/MemberSpotlight';
 import '../styles/People.css';
@@ -29,12 +31,19 @@ export default function People() {
   const [offset, setOffset] = useState(160);
   const [activeId, setActiveId] = useState(MEMBER_CATEGORIES[0].id);
   const [revealedIds, setRevealedIds] = useState(() => new Set());
+  const [query, setQuery] = useState('');
+  const term = query.trim().toLowerCase();
+  const matches = (m) =>
+    !term ||
+    [m.name, m.role, ...(m.tags || []), ...(m.researchAreas || [])].join(' ').toLowerCase().includes(term);
+  const inCategory = (c) => (MEMBERS[c.id] || []).filter(matches);
+  const found = term ? MEMBER_CATEGORIES.reduce((n, c) => n + inCategory(c).filter((m) => !m.placeholder).length, 0) : 0;
 
   // Sticky header sits directly under the navbar, and each section needs to
   // stop scrolling right where the sticky header's bottom edge is — both
   // measured live so this keeps working if the navbar or tag row ever
   // wraps to a different height (e.g. mobile).
-  useLayoutEffect(() => {
+  useBrowserLayoutEffect(() => {
     const measure = () => {
       const navbar = document.querySelector('.navbar');
       const measuredNavH = navbar ? navbar.getBoundingClientRect().height : 84;
@@ -139,7 +148,22 @@ export default function People() {
         <p>The faculty, researchers, designers and students of the Centre.</p>
       </header>
 
-      <div className="people-header" ref={headerRef} style={{ top: navH }}>
+      <div className="people-search" role="search">
+        <label htmlFor="people-search">Find a person</label>
+        <input
+          id="people-search"
+          type="search"
+          placeholder="Name, role or topic"
+          autoComplete="off"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+        <p role="status">
+          {term && (found ? `${found} ${found === 1 ? 'person' : 'people'} found` : 'No one matches that search.')}
+        </p>
+      </div>
+
+      <div className="people-header" ref={headerRef} style={{ top: navH }} hidden={Boolean(term)}>
         <nav className="people-tags" aria-label="Member categories">
           {MEMBER_CATEGORIES.map((c) => (
             <a
@@ -156,13 +180,15 @@ export default function People() {
 
       <div className="people-body">
         {MEMBER_CATEGORIES.map((c) => {
-          const members = c.id === 'past-members' ? sortPastMembers(MEMBERS[c.id] || []) : MEMBERS[c.id] || [];
-          const revealed = revealedIds.has(c.id);
+          const members = c.id === 'past-members' ? sortPastMembers(inCategory(c)) : inCategory(c);
+          // While searching, only the groups with a match are shown, at once.
+          const revealed = Boolean(term) || revealedIds.has(c.id);
           return (
             <section
               key={c.id}
               id={c.id}
               className={`people-section reveal ${revealed ? 'visible' : ''}`}
+              hidden={Boolean(term) && members.length === 0}
               style={{ scrollMarginTop: offset }}
             >
               <h2 className="people-section__title">{c.label}</h2>

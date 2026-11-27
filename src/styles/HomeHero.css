@@ -44,7 +44,9 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(rgba(0, 0, 0, 0.5) 0, rgba(0, 0, 0, 0) 22%),
+    /* the headline sits bottom-left over a photograph: shade that side */
+    linear-gradient(75deg, rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0.42) 36%, rgba(0, 0, 0, 0) 66%),
+    linear-gradient(rgba(0, 0, 0, 0.66) 0, rgba(0, 0, 0, 0) 22%),
     linear-gradient(rgba(0, 0, 0, 0.18) 0, rgba(0, 0, 0, 0.18) 100%),
     linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.78) 100%);
   pointer-events: none;
@@ -63,77 +65,6 @@
   letter-spacing: -0.02em;
   text-wrap: balance;
   color: var(--color-white);
-}
-
-/* Featured card: image, headline, arrow, one-word CTA — in DIC red. */
-.hh__notice {
-  position: relative;
-  flex: 0 0 auto;
-  display: grid;
-  grid-template-columns: 25% 1fr;
-  width: clamp(280px, 29.6vw, 430px);
-  min-height: 160px;
-  background: var(--color-dic-red);
-  color: var(--color-white);
-  transition: background 0.25s var(--ease-smooth);
-}
-
-.hh__notice:hover,
-.hh__notice:focus-visible {
-  background: var(--color-dic-red-text-safe);
-}
-
-.hh__notice-media {
-  display: block;
-  overflow: hidden;
-}
-
-.hh__notice-media img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.hh__notice-text {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 12px 56px 12px 10px;
-}
-
-.hh__notice-heading {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(1.0625rem, 1.7vw, 1.3rem);
-  line-height: 1.12;
-  letter-spacing: -0.01em;
-}
-
-.hh__notice-arrow {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  background: var(--color-white);
-  color: var(--color-ink);
-}
-
-.hh__notice-cta {
-  padding: 3px 8px;
-  background: #e6e6e6;
-  color: var(--color-ink);
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.8125rem;
-  line-height: 1.2;
 }
 
 /* The page that scrolls over the fixed hero. */
@@ -155,17 +86,5 @@
 
   .hh__title {
     max-width: none;
-  }
-
-  .hh__notice {
-    width: 100%;
-    min-height: 150px;
-    grid-template-columns: 30% 1fr;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hh__notice {
-    transition: none;
   }
 }

@@ -125,3 +125,53 @@
 }
 
 .pr-block-title { font-size: var(--text-xl); margin: 0 0 var(--space-3); }
+
+.pr-matrix__note {
+  display: none;
+}
+
+/* Phone: no sideways scrolling table. One block per practice, listing only the
+   audiences it is for, with any condition written out. */
+@media (max-width: 700px) {
+  .pr-matrix { min-width: 0; }
+  .pr-matrix thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .pr-matrix, .pr-matrix tbody, .pr-matrix tr, .pr-matrix th[scope='row'] { display: block; }
+  .pr-matrix tr { padding: var(--space-4) 0; border-bottom: 1px solid var(--line-strong); }
+  .pr-matrix tbody th { padding: 0 0 var(--space-2); border: 0; font-size: var(--text-md); }
+  .pr-matrix td { display: grid; grid-template-columns: 20px minmax(0, 1fr); align-items: center; column-gap: 10px; padding: 5px 0; border: 0; text-align: left; }
+  .pr-matrix tbody td { text-align: left; }
+  .pr-matrix td[data-empty] { display: none; }
+  .pr-matrix td::after { content: attr(data-label); grid-column: 2; grid-row: 1; }
+  .pr-matrix td > i { grid-column: 1; grid-row: 1; }
+  .pr-matrix__note { display: block; grid-column: 2; font-size: var(--text-sm); color: var(--color-stone); }
+}
+
+.pr-section__toggle {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .pr-section__toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-self: start;
+    min-height: 48px;
+    padding: 0 20px;
+    border: 1px solid var(--color-ink);
+    background: transparent;
+    color: var(--color-ink);
+    font-weight: 700;
+  }
+
+  .pr-section:not(.pr-section--open) .split__body {
+    display: none;
+  }
+
+  .pr-section:not(.pr-section--open) .split__head {
+    margin-bottom: 0;
+  }
+
+  .pr-section {
+    padding-block: var(--space-7);
+  }
+}
