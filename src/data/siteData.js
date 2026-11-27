@@ -19,12 +19,12 @@ const MEMBER_CATEGORY_LABELS = Object.fromEntries(MEMBER_CATEGORIES.map((c) => [
 // place for the iframe itself (a visitor's IP reached Google on page
 // load, before they'd ever chosen to play anything).
 export const VIDEOS = [
-  { id: "_jiQ5xb13pE", title: "DIC Project Documentary", channel: "DIC - IITH" },
-  { id: "OxqstyCRBwU", title: "Heritage Preservation", channel: "DIC - IITH" },
-  { id: "hinNkP3qjLo", title: "VR/AR in Education", channel: "DIC - IITH" },
-  { id: "gVAsxlgAvqw", title: "Urban Air Mobility", channel: "DIC - IITH" },
-  { id: "2pRFgecS3js", title: "Design Innovation", channel: "DIC - IITH" },
-  { id: "K0GEoz2SyeE", title: "Product Design Lab", channel: "DIC - IITH" },
+  { id: "_jiQ5xb13pE", title: "Ramappa Project", channel: "DIC - IITH" },
+  { id: "OxqstyCRBwU", title: "SHRI Meet Virtual Museum", channel: "DIC - IITH" },
+  { id: "hinNkP3qjLo", title: "Drone Taxi", channel: "DIC - IITH" },
+  { id: "gVAsxlgAvqw", title: "Dhokra Casting", channel: "DIC - IITH" },
+  { id: "2pRFgecS3js", title: "World of PAVs", channel: "DIC - IITH" },
+  { id: "K0GEoz2SyeE", title: "Fourth All India DIC Meet", channel: "DIC - IITH" },
 ];
 
 export const STATS = [

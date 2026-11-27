@@ -1,0 +1,321 @@
+/* Home film slider (see components/FilmSlider.jsx). A black band in the
+   redesign's language: condensed titles, red action, square corners. Mobile
+   first: the base rules are the phone layout. */
+.fs {
+  --fs-w: 82vw; /* width of the current film */
+  --fs-ease: 0.75s cubic-bezier(0.65, 0, 0.2, 1);
+  position: relative;
+  background: #000;
+  color: #fff;
+  padding: clamp(40px, 4.5vw, 72px) 0;
+  overflow: hidden;
+}
+
+.fs__head {
+  display: grid;
+  gap: 12px;
+  padding: 0 var(--page-gutter);
+  margin-bottom: clamp(24px, 2.6vw, 40px);
+}
+
+.fs .fs__head h2 {
+  margin: 0;
+  font-size: clamp(2.75rem, 5.6vw, 5.5rem);
+  color: #fff;
+}
+
+.fs .fs__head p {
+  margin: 0;
+  max-width: 38ch;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+/* ── Stage ── */
+.fs__stage {
+  position: relative;
+  /* the current film, plus room under it for its caption on a phone */
+  height: calc(var(--fs-w) * 0.5625 + 184px);
+  perspective: 1600px;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.fs__slide {
+  position: absolute;
+  top: 0;
+  left: calc(50% - var(--fs-w) / 2);
+  width: var(--fs-w);
+  transform-style: flat;
+  transition: transform var(--fs-ease), opacity var(--fs-ease), filter var(--fs-ease);
+}
+
+.fs__slide[data-pos='0'] { transform: none; z-index: 5; }
+.fs__slide[data-pos='-1'] { transform: translate3d(-86%, 0, -180px) rotateY(-34deg) scale(0.84); z-index: 4; }
+.fs__slide[data-pos='1'] { transform: translate3d(86%, 0, -180px) rotateY(34deg) scale(0.84); z-index: 4; }
+.fs__slide[data-pos='-2'] { transform: translate3d(-68%, 0, -520px) rotateY(-14deg) scale(0.74); z-index: 3; opacity: 0.55; }
+.fs__slide[data-pos='2'] { transform: translate3d(68%, 0, -520px) rotateY(14deg) scale(0.74); z-index: 3; opacity: 0.55; }
+.fs__slide[data-pos='out-l'] { transform: translate3d(-40%, 0, -800px) scale(0.6); z-index: 1; opacity: 0; visibility: hidden; }
+.fs__slide[data-pos='out-r'] { transform: translate3d(40%, 0, -800px) scale(0.6); z-index: 1; opacity: 0; visibility: hidden; }
+.fs__slide[data-pos='-1'],
+.fs__slide[data-pos='1'] { filter: brightness(0.72); }
+
+.fs__media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #111;
+}
+
+.fs__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* The player is three times the card's height and centred on it: the picture
+   fills the card exactly, and YouTube's title bar and logo fall outside. */
+.fs__preview {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+
+.fs__preview.is-live { opacity: 1; }
+
+.fs__preview iframe {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 300%;
+  border: 0;
+}
+
+.fs__pick {
+  position: absolute;
+  inset: 0 0 auto;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* ── Caption of the current film ── */
+.fs__over {
+  padding-top: 18px;
+  text-align: center;
+  animation: fsIn 0.6s 0.25s ease-out both;
+}
+
+.fs .fs__area {
+  margin: 0 0 6px;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.fs .fs__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 75%;
+  font-size: clamp(2rem, 8vw, 3rem);
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  color: #fff;
+}
+
+.fs__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.fs__btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: 0;
+  background: rgba(0, 0, 0, 0.35);
+  color: #fff;
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.fs__btn:hover,
+.fs__btn:focus-visible {
+  background: #fff;
+  border-color: #fff;
+  color: #000;
+}
+
+.fs__btn--red {
+  background: var(--color-dic-red);
+  border-color: var(--color-dic-red);
+  color: #fff;
+}
+
+/* ── Controls ── */
+.fs__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: clamp(16px, 2vw, 28px);
+  padding: 0 var(--page-gutter);
+}
+
+.fs__ctl {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 0;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.fs__ctl:hover { background: #fff; color: #000; }
+
+.fs :focus-visible,
+.fs__dialog :focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+.fs__progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.fs__count {
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.fs__track {
+  position: relative;
+  width: min(220px, 48vw);
+  height: 3px;
+  background: rgba(255, 255, 255, 0.22);
+  overflow: hidden;
+}
+
+.fs__fill {
+  position: absolute;
+  inset: 0;
+  background: var(--color-dic-red);
+  transform-origin: left center;
+  animation-name: fsFill;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+}
+
+/* ── Full film ── */
+.fs__dialog {
+  width: min(96vw, 1200px, calc((92vh - 56px) * 16 / 9));
+  max-width: none;
+  padding: 0;
+  border: 0;
+  background: #000;
+  color: #fff;
+}
+
+.fs__dialog::backdrop { background: rgba(0, 0, 0, 0.86); }
+
+.fs__dialog-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 6px 6px 6px 16px;
+}
+
+.fs__dialog-bar p {
+  margin: 0;
+  color: #fff;
+  font-weight: 600;
+}
+
+.fs__dialog-bar button {
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.fs__dialog iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+}
+
+/* ── Wider screens: the caption moves onto the film ── */
+@media (min-width: 760px) {
+  /* never taller than the screen can show along with its controls */
+  .fs { --fs-w: min(56vw, 1040px, calc((100vh - 340px) * 16 / 9)); }
+
+  .fs__head {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 24rem);
+    align-items: end;
+    gap: 32px;
+  }
+
+  .fs__stage { height: calc(var(--fs-w) * 0.5625); }
+
+  .fs__over {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 24px clamp(18px, 2.4vw, 32px);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.3) 48%, rgba(0, 0, 0, 0) 72%);
+  }
+
+  .fs .fs__title {
+    font-size: clamp(2.75rem, 5.4vw, 6rem);
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
+  }
+
+  .fs__progress {
+    width: auto;
+    margin: 0 0 0 20px;
+  }
+}
+
+@keyframes fsFill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes fsIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .fs__slide { transition: none; }
+  .fs__over { animation: none; }
+}

@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import HomeHero from '../components/HomeHero';
+import FilmSlider from '../components/FilmSlider';
 // First-visit intro — parked for now (components/Splash.jsx + styles/Splash.css are
 // kept). Un-comment this import and the <Splash /> below to bring it back.
 // import Splash from '../components/Splash';
@@ -259,6 +260,7 @@ export default function HomeRedesign() {
       <HomeHero />
       {/* <Splash /> — parked, see the import note above */}
       <div className="home-sheet hx">
+        <FilmSlider />
         <ProjectsPanel />
         <Spotlight />
         <NewsRow />
