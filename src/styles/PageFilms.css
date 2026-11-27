@@ -1,0 +1,15 @@
+/* A page's own films (components/PageFilms.jsx): one large, or two side by side. */
+.page-films__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(16px, 2.4vw, 32px);
+}
+
+.page-films__grid--one { max-width: 900px; }
+
+@media (min-width: 800px) {
+  .page-films__grid:not(.page-films__grid--one) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* outside the old Projects list there is no card to lift on hover */
+.page-films .yt-card:hover { transform: none; box-shadow: none; }

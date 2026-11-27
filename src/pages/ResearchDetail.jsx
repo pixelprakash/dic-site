@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useResearchProjects } from '../lib/cms';
 import { setPageMeta } from '../lib/seo';
 import GalleryLightbox from '../components/GalleryLightbox';
+import PageFilms from '../components/PageFilms';
 import '../styles/ProjectDetail.css';
 
 export default function ResearchDetail() {
@@ -65,7 +66,8 @@ export default function ResearchDetail() {
       </div>
 
       {sections.map((s, i) => (
-        <section className="project-detail__section" key={i}>
+        <Fragment key={i}>
+        <section className="project-detail__section">
           <h2 className="section-title">{s.title}</h2>
           {(s.paragraphs || []).map((p, j) => (
             <p className="project-detail__body" key={j}>{p}</p>
@@ -76,7 +78,11 @@ export default function ResearchDetail() {
             </ul>
           )}
         </section>
+        {/* the study's films sit right after its brief */}
+        {i === 0 && <PageFilms path={`/research/${slug}`} />}
+        </Fragment>
       ))}
+      {sections.length === 0 && <PageFilms path={`/research/${slug}`} />}
 
       {gallery.length > 0 && (
         <section className="project-detail__section">

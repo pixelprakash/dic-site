@@ -5,6 +5,7 @@ import { setPageMeta } from '../lib/seo';
 import Model3DViewer from '../components/Model3DViewer';
 import Model3DModal from '../components/Model3DModal';
 import GalleryLightbox from '../components/GalleryLightbox';
+import PageFilms from '../components/PageFilms';
 import '../styles/ProjectDetail.css';
 
 export default function ProjectDetail() {
@@ -116,6 +117,8 @@ export default function ProjectDetail() {
           <p className="project-detail__body" key={i}>{p}</p>
         ))}
       </section>
+
+      <PageFilms path={`/projects/${slug}`} />
 
       {(objectives.length > 0 || outcomes.length > 0) && (
         <section className="project-detail__section project-detail__pair">

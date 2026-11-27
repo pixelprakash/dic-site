@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import '../styles/ConferenceDetail.css';
+import PageFilms from '../components/PageFilms';
 
 // Photos from the event were shared directly in chat rather than as
 // files on disk, so there's nothing here yet to point an <img> at —
@@ -74,6 +75,8 @@ export default function FourthDicMeet() {
           />
         </div>
       </section>
+
+      <PageFilms path="/conferences/fourth-all-india-dic-meet" sectionClass="conference-detail__section" />
 
       {GALLERY.length > 0 && (
         <section className="conference-detail__section">

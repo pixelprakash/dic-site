@@ -18,13 +18,15 @@ const MEMBER_CATEGORY_LABELS = Object.fromEntries(MEMBER_CATEGORIES.map((c) => [
 // never changes, undermining the click-gated privacy design already in
 // place for the iframe itself (a visitor's IP reached Google on page
 // load, before they'd ever chosen to play anything).
+// Each film is shown on the page it belongs to (components/PageFilms.jsx);
+// `page` is that page's path.
 export const VIDEOS = [
-  { id: "_jiQ5xb13pE", title: "Ramappa Project", channel: "DIC - IITH" },
-  { id: "OxqstyCRBwU", title: "SHRI Meet Virtual Museum", channel: "DIC - IITH" },
-  { id: "hinNkP3qjLo", title: "Drone Taxi", channel: "DIC - IITH" },
-  { id: "gVAsxlgAvqw", title: "Dhokra Casting", channel: "DIC - IITH" },
-  { id: "2pRFgecS3js", title: "World of PAVs", channel: "DIC - IITH" },
-  { id: "K0GEoz2SyeE", title: "Fourth All India DIC Meet", channel: "DIC - IITH" },
+  { id: "_jiQ5xb13pE", title: "Ramappa Project", channel: "DIC - IITH", page: "/projects/telangana-cultural-heritage" },
+  { id: "OxqstyCRBwU", title: "SHRI Meet Virtual Museum", channel: "DIC - IITH", page: "/research/virtual-museum-gond-artefacts-3d-printing" },
+  { id: "hinNkP3qjLo", title: "Drone Taxi", channel: "DIC - IITH", page: "/projects/urban-air-mobility-safety-vr-study" },
+  { id: "gVAsxlgAvqw", title: "Dhokra Casting", channel: "DIC - IITH", page: "/research/virtual-museum-gond-artefacts-3d-printing" },
+  { id: "2pRFgecS3js", title: "World of PAVs", channel: "DIC - IITH", page: "/research/autonomous-urban-air-mobility-visual-safety" },
+  { id: "K0GEoz2SyeE", title: "Fourth All India DIC Meet", channel: "DIC - IITH", page: "/conferences/fourth-all-india-dic-meet" },
 ];
 
 export const STATS = [

@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import './YouTubeEmbed.css';
 
-export default function YouTubeEmbed({ videoId, title: propTitle, channel: propChannel }) {
+export default function YouTubeEmbed({ videoId, title: propTitle, channel: propChannel, large = false }) {
   const [playing, setPlaying] = useState(false);
   const [meta, setMeta] = useState({ title: propTitle || '', channel: propChannel || '' });
   const [imgLoaded, setImgLoaded] = useState(false);
@@ -28,10 +28,10 @@ export default function YouTubeEmbed({ videoId, title: propTitle, channel: propC
           <button
             className="yt-facade"
             onClick={handlePlay}
-            aria-label="Play video"
+            aria-label={`Play video: ${meta.title || 'film'}`}
           >
             <img
-              src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
+              src={`https://img.youtube.com/vi/${videoId}/${large ? 'maxresdefault' : 'hqdefault'}.jpg`}
               alt=""
               loading="lazy"
               onLoad={() => setImgLoaded(true)}
@@ -47,7 +47,7 @@ export default function YouTubeEmbed({ videoId, title: propTitle, channel: propC
           </button>
         ) : (
           <iframe
-            src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`}
+            src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`}
             title={meta.title || 'YouTube video'}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
