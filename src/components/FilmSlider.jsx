@@ -7,15 +7,16 @@ import '../styles/FilmSlider.css';
 // middle, its neighbours turned away on either side. It advances by itself and
 // the current film plays silently as a preview.
 //
-//  • Nothing from the YouTube player loads until the slider is on screen, and
-//    only the current slide has a player (privacy-enhanced youtube-nocookie).
-//    The thumbnail stays on top until the video is really playing.
+//  • No YouTube player loads until the slider is on screen. Then there are at
+//    most two: the current film, and the next one buffering so it can start
+//    at once (privacy-enhanced youtube-nocookie). The thumbnail stays on top
+//    until the video is really playing.
 //  • Auto-advance is the progress bar's own animation, so pausing the bar
 //    pauses the slider. It stops off screen, in a background tab, while the
 //    full film is open, while a keyboard user is inside it, and when the
 //    pause button is pressed (WCAG 2.2.2).
 //  • Reduced motion or data saver: starts paused, thumbnails only.
-const SECONDS = 12; // time on each film (the preview takes ~3 s to appear)
+const SECONDS = 8; // time on each film
 
 const thumb = (id) => `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
 const previewUrl = (f) =>
@@ -28,36 +29,58 @@ const offsetFrom = (i, active, n) => {
   return d;
 };
 
-function Preview({ film }) {
+const PLAYER_ORIGIN = 'https://www.youtube-nocookie.com';
+
+// One silent player. With `play` false it is the next film getting ready: it
+// buffers, is paused as soon as it starts, and then begins almost at once when
+// its slide comes to the middle.
+function Preview({ film, play }) {
   const frame = useRef(null);
+  const playRef = useRef(play);
   const [live, setLive] = useState(false);
+  playRef.current = play;
+
+  const send = useCallback((msg) => {
+    frame.current?.contentWindow?.postMessage(JSON.stringify(msg), PLAYER_ORIGIN);
+  }, []);
+  const command = useCallback((func) => send({ event: 'command', func, args: [] }), [send]);
 
   // Ask the player to report its state, and uncover it once it is playing.
   useEffect(() => {
     let reveal = 0;
+    let heard = false;
     const onMessage = (e) => {
       if (e.source !== frame.current?.contentWindow || typeof e.data !== 'string') return;
       let data;
       try { data = JSON.parse(e.data); } catch { return; }
+      heard = true;
       const state = data.event === 'onStateChange' ? data.info : data.info?.playerState;
-      if (state === 1 && !reveal) reveal = window.setTimeout(() => setLive(true), 600);
+      if (state !== 1) return;
+      if (!playRef.current) command('pauseVideo');
+      else if (!reveal) reveal = window.setTimeout(() => { reveal = 0; setLive(true); }, 150);
     };
     window.addEventListener('message', onMessage);
+    let tries = 0;
     const hello = window.setInterval(() => {
-      frame.current?.contentWindow?.postMessage('{"event":"listening","id":1}', 'https://www.youtube-nocookie.com');
-    }, 500);
-    const giveUp = window.setTimeout(() => window.clearInterval(hello), 8000);
+      tries += 1;
+      if (heard || tries > 60) window.clearInterval(hello);
+      else send({ event: 'listening', id: film.id });
+    }, 150);
     return () => {
       window.removeEventListener('message', onMessage);
       window.clearInterval(hello);
-      window.clearTimeout(giveUp);
       window.clearTimeout(reveal);
     };
-  }, [film.id]);
+  }, [film.id, send, command]);
+
+  useEffect(() => {
+    if (play) command('playVideo');
+    else setLive(false);
+  }, [play, command]);
 
   return (
-    <div className={`fs__preview${live ? ' is-live' : ''}`} aria-hidden="true">
-      <iframe ref={frame} src={previewUrl(film)} title={`Silent preview: ${film.title}`} tabIndex={-1} allow="autoplay; encrypted-media" />
+    <div className={`fs__preview${live && play ? ' is-live' : ''}`} aria-hidden="true">
+      <iframe ref={frame} src={previewUrl(film)} title={`Silent preview: ${film.title}`} tabIndex={-1} allow="autoplay; encrypted-media" onLoad={() => { send({ event: 'listening', id: film.id }); if (playRef.current) command('playVideo'); }} />
     </div>
   );
 }
@@ -92,10 +115,29 @@ export default function FilmSlider() {
       setInView(true);
       return undefined;
     }
-    const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { threshold: 0.45 });
+    const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { threshold: 0.3 });
     io.observe(el);
     return () => io.disconnect();
   }, []);
+
+  // Open the connections to YouTube as the slider approaches, so the first
+  // preview doesn't have to wait for them.
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el || calm || !('IntersectionObserver' in window)) return undefined;
+    const io = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      io.disconnect();
+      [PLAYER_ORIGIN, 'https://i.ytimg.com'].forEach((href) => {
+        const link = document.createElement('link');
+        link.rel = 'preconnect';
+        link.href = href;
+        document.head.appendChild(link);
+      });
+    }, { rootMargin: '600px 0px' });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [calm]);
 
   useEffect(() => {
     const onVisibility = () => setHidden(document.hidden);
@@ -159,7 +201,7 @@ export default function FilmSlider() {
             >
               <div className="fs__media">
                 <img src={f.poster || thumb(f.id)} alt="" width="1280" height="720" loading="lazy" decoding="async" draggable="false" />
-                {isActive && running && !calm && <Preview film={f} />}
+                {(isActive || i === (active + 1) % n) && running && !calm && <Preview film={f} play={isActive} />}
               </div>
 
               {isActive ? (
