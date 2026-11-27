@@ -1,9 +1,9 @@
 /* Home film slider (see components/FilmSlider.jsx). A black band in the
-   redesign's language: condensed titles, red action, square corners. Mobile
-   first: the base rules are the phone layout. */
+   redesign's language: condensed titles, one red action, square corners.
+   Mobile first: the base rules are the phone layout. */
 .fs {
-  --fs-w: 82vw; /* width of the current film */
-  --fs-ease: 0.75s cubic-bezier(0.65, 0, 0.2, 1);
+  --fs-w: 84vw; /* width of the current film */
+  --fs-ease: 0.7s cubic-bezier(0.65, 0, 0.2, 1);
   position: relative;
   background: #000;
   color: #fff;
@@ -24,15 +24,30 @@
   color: #fff;
 }
 
-.fs .fs__head p {
+.fs .fs__intro p {
   margin: 0;
-  max-width: 38ch;
+  max-width: 40ch;
   color: rgba(255, 255, 255, 0.78);
 }
 
+.fs__all {
+  display: inline-block;
+  padding: 10px 0;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--color-dic-red);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+
+.fs__all:hover { color: #fff; text-decoration-color: #fff; }
+
 /* ── Stage ── */
+.fs__viewport { position: relative; }
+
 /* Every slide sits in the same grid cell, so the stage is always as tall as
-   the current film plus its caption: nothing can run into the controls. */
+   the current film plus its caption: nothing can run into what follows. */
 .fs__stage {
   display: grid;
   grid-template-columns: var(--fs-w);
@@ -46,19 +61,17 @@
   grid-area: 1 / 1;
   align-self: start;
   min-width: 0;
-  transform-style: flat;
-  transition: transform var(--fs-ease), opacity var(--fs-ease), filter var(--fs-ease);
+  transition: transform var(--fs-ease), opacity var(--fs-ease), filter 0.3s ease;
 }
 
-.fs__slide[data-pos='0'] { transform: none; z-index: 5; }
-.fs__slide[data-pos='-1'] { transform: translate3d(-86%, 0, -180px) rotateY(-34deg) scale(0.84); z-index: 4; }
-.fs__slide[data-pos='1'] { transform: translate3d(86%, 0, -180px) rotateY(34deg) scale(0.84); z-index: 4; }
-.fs__slide[data-pos='-2'] { transform: translate3d(-68%, 0, -520px) rotateY(-14deg) scale(0.74); z-index: 3; opacity: 0.55; }
-.fs__slide[data-pos='2'] { transform: translate3d(68%, 0, -520px) rotateY(14deg) scale(0.74); z-index: 3; opacity: 0.55; }
-.fs__slide[data-pos='out-l'] { transform: translate3d(-40%, 0, -800px) scale(0.6); z-index: 1; opacity: 0; visibility: hidden; }
-.fs__slide[data-pos='out-r'] { transform: translate3d(40%, 0, -800px) scale(0.6); z-index: 1; opacity: 0; visibility: hidden; }
-.fs__slide[data-pos='-1'],
-.fs__slide[data-pos='1'] { filter: brightness(0.72); }
+.fs__slide[data-pos='0'] { transform: none; z-index: 3; }
+.fs__slide[data-pos='-1'] { transform: translate3d(-86%, 0, -180px) rotateY(-34deg) scale(0.84); z-index: 2; filter: brightness(0.6); }
+.fs__slide[data-pos='1'] { transform: translate3d(86%, 0, -180px) rotateY(34deg) scale(0.84); z-index: 2; filter: brightness(0.6); }
+.fs__slide[data-pos='-1']:hover,
+.fs__slide[data-pos='1']:hover { filter: brightness(1); }
+/* only the two neighbours show: anything further back read as stray slivers */
+.fs__slide[data-pos='out-l'] { transform: translate3d(-70%, 0, -600px) scale(0.66); z-index: 1; opacity: 0; visibility: hidden; }
+.fs__slide[data-pos='out-r'] { transform: translate3d(70%, 0, -600px) scale(0.66); z-index: 1; opacity: 0; visibility: hidden; }
 
 .fs__media {
   position: relative;
@@ -79,7 +92,7 @@
   position: absolute;
   inset: 0;
   opacity: 0;
-  transition: opacity 0.6s ease;
+  transition: opacity 0.4s ease;
   pointer-events: none;
 }
 
@@ -94,29 +107,60 @@
   border: 0;
 }
 
+/* The whole film is the "watch" target. The play mark shows on hover, and
+   whenever no preview is running — it never sits on a moving picture unasked,
+   because the films carry their own captions. */
+.fs__play {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.fs__play-mark {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  transition: opacity 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.fs__media:not(:has(.fs__preview.is-live)) .fs__play-mark,
+.fs__play:hover .fs__play-mark { opacity: 1; }
+
+.fs__play:hover .fs__play-mark {
+  background: var(--color-dic-red);
+  border-color: var(--color-dic-red);
+  transform: scale(1.06);
+}
+
 .fs__pick {
   position: absolute;
   inset: 0 0 auto;
   aspect-ratio: 16 / 9;
   width: 100%;
-  border: 0;
   padding: 0;
+  border: 0;
   background: transparent;
   cursor: pointer;
 }
 
 /* ── Caption of the current film: below the picture, never over it ── */
 .fs__over {
-  min-height: 176px; /* the same height for one- or two-line titles */
-  padding-top: 18px;
+  min-height: 150px; /* the same height for one- or two-line titles */
+  padding-top: 16px;
   text-align: center;
-  animation: fsIn 0.6s 0.25s ease-out both;
-}
-
-.fs .fs__area {
-  margin: 0 0 6px;
-  font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.82);
+  animation: fsIn 0.5s 0.2s ease-out both;
 }
 
 .fs .fs__title {
@@ -124,12 +168,19 @@
   font-family: var(--font-display);
   font-weight: 800;
   font-stretch: 75%;
-  font-size: clamp(2rem, 8vw, 3rem);
-  line-height: 0.92;
-  letter-spacing: -0.01em;
+  font-size: clamp(1.75rem, 7.4vw, 2.75rem);
+  line-height: 0.95;
+  letter-spacing: -0.005em;
   text-transform: uppercase;
   text-wrap: balance;
   color: #fff;
+}
+
+.fs .fs__meta {
+  margin: 6px 0 0;
+  font-size: 0.875rem;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.74);
 }
 
 .fs__actions {
@@ -144,15 +195,16 @@
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  padding: 0 18px;
-  border: 1px solid rgba(255, 255, 255, 0.75);
+  padding: 0 16px;
+  border: 1px solid rgba(255, 255, 255, 0.65);
   border-radius: 0;
-  background: rgba(0, 0, 0, 0.35);
+  background: transparent;
   color: #fff;
   font: inherit;
   font-size: 0.9375rem;
   font-weight: 600;
   text-decoration: none;
+  white-space: nowrap;
   cursor: pointer;
   transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
@@ -167,26 +219,47 @@
 .fs__btn--red {
   background: var(--color-dic-red);
   border-color: var(--color-dic-red);
-  color: #fff;
 }
 
-/* ── Controls ── */
-.fs__controls {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-top: clamp(16px, 2vw, 28px);
-  padding: 0 var(--page-gutter);
-}
-
-.fs__ctl {
-  display: grid;
+/* ── Arrows: beside the film (phones swipe, or use the index) ── */
+.fs__arrow {
+  position: absolute;
+  top: calc(var(--fs-w) * 0.28125 - 26px); /* middle of the picture */
+  z-index: 4;
+  display: none;
   place-items: center;
   width: 52px;
   height: 52px;
-  border: 1px solid rgba(255, 255, 255, 0.45);
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 0;
+  background: rgba(0, 0, 0, 0.72);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.fs__arrow--prev { left: calc(50% - var(--fs-w) / 2 - 68px); }
+.fs__arrow--next { right: calc(50% - var(--fs-w) / 2 - 68px); }
+.fs__arrow:hover { background: #fff; color: #000; }
+
+/* ── Pause + film index ── */
+.fs__bar {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-top: 8px;
+  padding: 0 var(--page-gutter);
+}
+
+.fs__pause {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.55);
   border-radius: 0;
   background: transparent;
   color: #fff;
@@ -194,36 +267,64 @@
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.fs__ctl:hover { background: #fff; color: #000; }
+.fs__pause:hover { background: #fff; color: #000; }
 
-.fs :focus-visible,
-.fs__dialog :focus-visible {
-  outline: 2px solid #fff;
-  outline-offset: 3px;
-}
-
-.fs__progress {
+.fs .fs__index {
+  position: relative; /* item offsets are measured from here */
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  width: 100%;
-  margin-top: 8px;
+  flex: 1;
+  min-width: 0;
+  gap: 8px;
+  margin: 0;
+  padding: 0 0 4px;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
 
-.fs__count {
-  font-size: 0.875rem;
-  font-variant-numeric: tabular-nums;
-  color: rgba(255, 255, 255, 0.82);
+.fs__index::-webkit-scrollbar { display: none; }
+
+.fs__index li {
+  flex: 1 0 92px;
+  margin: 0;
 }
+
+.fs__tab {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* keeps every progress line level */
+  align-items: stretch;
+  width: 100%;
+  min-height: 48px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.68);
+  font: inherit;
+  font-size: 0.8125rem;
+  line-height: 1.25;
+  text-align: left;
+  cursor: pointer;
+}
+
+.fs__tab:hover,
+.fs__tab[aria-current] { color: #fff; }
+.fs__tab[aria-current] { font-weight: 600; }
 
 .fs__track {
   position: relative;
-  width: min(220px, 48vw);
+  display: block;
+  flex: none;
   height: 3px;
-  background: rgba(255, 255, 255, 0.22);
+  margin-bottom: 9px;
+  background: rgba(255, 255, 255, 0.24);
   overflow: hidden;
 }
+
+.fs__tab:hover .fs__track { background: rgba(255, 255, 255, 0.55); }
+
+.fs__tab-name { display: block; }
 
 .fs__fill {
   position: absolute;
@@ -235,31 +336,53 @@
   animation-fill-mode: both;
 }
 
+.fs :focus-visible,
+.fs__dialog :focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* the index scrolls, so its focus ring is drawn inside */
+.fs .fs__tab:focus-visible { outline-offset: -2px; }
+
 /* ── Full film ── */
 .fs__dialog {
   width: min(96vw, 1200px, calc((92vh - 56px) * 16 / 9));
   max-width: none;
+  margin: auto; /* the site-wide margin reset would pin it to the top */
   padding: 0;
   border: 0;
   background: #000;
   color: #fff;
 }
 
-.fs__dialog::backdrop { background: rgba(0, 0, 0, 0.86); }
+.fs__dialog::backdrop { background: rgba(0, 0, 0, 0.88); }
 
 .fs__dialog-bar {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  gap: 8px 20px;
   padding: 6px 6px 6px 16px;
 }
 
 .fs__dialog-bar p {
+  flex: 1 1 12rem;
   margin: 0;
   color: #fff;
   font-weight: 600;
 }
+
+.fs__dialog-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.fs__dialog-link:hover { color: #fff; }
 
 .fs__dialog-bar button {
   min-height: 44px;
@@ -279,53 +402,52 @@
   border: 0;
 }
 
-/* ── Wider screens ── */
+/* ── Tablet and up ── */
 @media (min-width: 760px) {
-  /* never taller than the screen can show along with its caption and controls */
-  .fs { --fs-w: min(58vw, 1040px, max(500px, calc((100vh - 444px) * 16 / 9))); }
+  /* never taller than the screen can show along with its caption and index */
+  .fs { --fs-w: min(58vw, 1040px, max(500px, calc((100vh - 464px) * 16 / 9))); }
 
   .fs__head {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 24rem);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 26rem);
     align-items: end;
     gap: 32px;
   }
 
-  .fs__progress {
-    width: auto;
-    margin: 0 0 0 20px;
+  .fs__arrow { display: grid; }
+
+  /* the index shares the film's width and edges */
+  .fs__bar {
+    width: var(--fs-w);
+    margin-inline: auto;
+    padding: 0;
   }
+
+  .fs__index li { flex: 1 1 0; min-width: 0; }
 }
 
 /* Wide enough for one caption bar: title on the left, actions on the right,
    lined up with the edges of the film above it. */
 @media (min-width: 1100px) {
-  .fs__controls { margin-top: 4px; }
-
   .fs__over {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
-    column-gap: 24px;
     align-content: start;
-    align-items: center;
-    min-height: 100px;
+    align-items: start;
+    column-gap: 24px;
+    min-height: 92px;
     text-align: left;
   }
-
-  .fs__over > .fs__area,
-  .fs__over > .fs__title { grid-column: 1; }
 
   .fs .fs__title { font-size: clamp(1.5rem, calc(var(--fs-w) * 0.042), 2.75rem); }
 
   .fs__actions {
-    grid-column: 2;
-    grid-row: 1 / span 2;
     flex-wrap: nowrap;
     margin: 0;
   }
 }
 
 @keyframes fsFill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-@keyframes fsIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes fsIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 
 @media (prefers-reduced-motion: reduce) {
   .fs__slide { transition: none; }

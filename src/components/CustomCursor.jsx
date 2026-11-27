@@ -68,6 +68,12 @@ export default function CustomCursor() {
       dot.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
       dot.classList.add('is-on');
       dot.classList.toggle('is-link', Boolean(e.target.closest?.(INTERACTIVE)));
+      // No pen line across areas marked quiet (the films): it would draw
+      // over the picture being watched.
+      if (e.target.closest?.('[data-cursor="quiet"]')) {
+        gap = true;
+        return;
+      }
       points.push({ x: e.clientX, y: e.clientY, t: performance.now(), gap });
       gap = false;
       if (points.length > MAX_POINTS) points.shift();
