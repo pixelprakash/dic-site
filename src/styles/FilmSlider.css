@@ -31,20 +31,21 @@
 }
 
 /* ── Stage ── */
+/* Every slide sits in the same grid cell, so the stage is always as tall as
+   the current film plus its caption: nothing can run into the controls. */
 .fs__stage {
-  position: relative;
-  /* the current film, plus room under it for its caption on a phone */
-  height: calc(var(--fs-w) * 0.5625 + 184px);
+  display: grid;
+  grid-template-columns: var(--fs-w);
+  justify-content: center;
   perspective: 1600px;
   touch-action: pan-y;
   user-select: none;
 }
 
 .fs__slide {
-  position: absolute;
-  top: 0;
-  left: calc(50% - var(--fs-w) / 2);
-  width: var(--fs-w);
+  grid-area: 1 / 1;
+  align-self: start;
+  min-width: 0;
   transform-style: flat;
   transition: transform var(--fs-ease), opacity var(--fs-ease), filter var(--fs-ease);
 }
@@ -104,8 +105,9 @@
   cursor: pointer;
 }
 
-/* ── Caption of the current film ── */
+/* ── Caption of the current film: below the picture, never over it ── */
 .fs__over {
+  min-height: 176px; /* the same height for one- or two-line titles */
   padding-top: 18px;
   text-align: center;
   animation: fsIn 0.6s 0.25s ease-out both;
@@ -277,10 +279,10 @@
   border: 0;
 }
 
-/* ── Wider screens: the caption moves onto the film ── */
+/* ── Wider screens ── */
 @media (min-width: 760px) {
-  /* never taller than the screen can show along with its controls */
-  .fs { --fs-w: min(56vw, 1040px, calc((100vh - 340px) * 16 / 9)); }
+  /* never taller than the screen can show along with its caption and controls */
+  .fs { --fs-w: min(58vw, 1040px, max(500px, calc((100vh - 444px) * 16 / 9))); }
 
   .fs__head {
     grid-template-columns: minmax(0, 1fr) minmax(0, 24rem);
@@ -288,27 +290,37 @@
     gap: 32px;
   }
 
-  .fs__stage { height: calc(var(--fs-w) * 0.5625); }
-
-  .fs__over {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 0 24px clamp(18px, 2.4vw, 32px);
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.3) 48%, rgba(0, 0, 0, 0) 72%);
-  }
-
-  .fs .fs__title {
-    font-size: clamp(2.75rem, 5.4vw, 6rem);
-    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
-  }
-
   .fs__progress {
     width: auto;
     margin: 0 0 0 20px;
+  }
+}
+
+/* Wide enough for one caption bar: title on the left, actions on the right,
+   lined up with the edges of the film above it. */
+@media (min-width: 1100px) {
+  .fs__controls { margin-top: 4px; }
+
+  .fs__over {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 24px;
+    align-content: start;
+    align-items: center;
+    min-height: 100px;
+    text-align: left;
+  }
+
+  .fs__over > .fs__area,
+  .fs__over > .fs__title { grid-column: 1; }
+
+  .fs .fs__title { font-size: clamp(1.5rem, calc(var(--fs-w) * 0.042), 2.75rem); }
+
+  .fs__actions {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    flex-wrap: nowrap;
+    margin: 0;
   }
 }
 

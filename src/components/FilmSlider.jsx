@@ -4,12 +4,14 @@ import { FEATURED_FILMS } from '../data/featuredFilms';
 import '../styles/FilmSlider.css';
 
 // Home page film slider (after papernewyork.com): the current film large in the
-// middle, its neighbours turned away on either side. It advances by itself and
+// middle, its neighbours turned away on either side. No text is laid over the
+// picture — many of the films carry their own captions — so the title and
+// actions sit in a caption bar below it. It advances by itself and
 // the current film plays silently as a preview.
 //
 //  • No YouTube player loads until the slider is on screen. Then there are at
-//    most two: the current film, and the next one buffering so it can start
-//    at once (privacy-enhanced youtube-nocookie). The thumbnail stays on top
+//    most two: the current film, and the next one already running unseen so
+//    it can appear at once (privacy-enhanced youtube-nocookie). The thumbnail stays on top
 //    until the video is really playing.
 //  • Auto-advance is the progress bar's own animation, so pausing the bar
 //    pauses the slider. It stops off screen, in a background tab, while the
@@ -32,55 +34,46 @@ const offsetFrom = (i, active, n) => {
 const PLAYER_ORIGIN = 'https://www.youtube-nocookie.com';
 
 // One silent player. With `play` false it is the next film getting ready: it
-// buffers, is paused as soon as it starts, and then begins almost at once when
-// its slide comes to the middle.
+// is already running, unseen, so it can be uncovered the moment its slide comes
+// to the middle. It is never paused and resumed — YouTube flashes a large
+// pause/play icon over the picture when a script does that.
 function Preview({ film, play }) {
   const frame = useRef(null);
-  const playRef = useRef(play);
-  const [live, setLive] = useState(false);
-  playRef.current = play;
+  const [playing, setPlaying] = useState(false);
 
-  const send = useCallback((msg) => {
-    frame.current?.contentWindow?.postMessage(JSON.stringify(msg), PLAYER_ORIGIN);
-  }, []);
-  const command = useCallback((func) => send({ event: 'command', func, args: [] }), [send]);
+  const hello = useCallback(() => {
+    frame.current?.contentWindow?.postMessage(JSON.stringify({ event: 'listening', id: film.id }), PLAYER_ORIGIN);
+  }, [film.id]);
 
-  // Ask the player to report its state, and uncover it once it is playing.
+  // Ask the player to report its state, so it is only uncovered once playing.
   useEffect(() => {
-    let reveal = 0;
+    let settle = 0;
     let heard = false;
+    let tries = 0;
     const onMessage = (e) => {
       if (e.source !== frame.current?.contentWindow || typeof e.data !== 'string') return;
       let data;
       try { data = JSON.parse(e.data); } catch { return; }
       heard = true;
       const state = data.event === 'onStateChange' ? data.info : data.info?.playerState;
-      if (state !== 1) return;
-      if (!playRef.current) command('pauseVideo');
-      else if (!reveal) reveal = window.setTimeout(() => { reveal = 0; setLive(true); }, 150);
+      if (state === 1 && !settle) settle = window.setTimeout(() => setPlaying(true), 150);
     };
     window.addEventListener('message', onMessage);
-    let tries = 0;
-    const hello = window.setInterval(() => {
+    const ask = window.setInterval(() => {
       tries += 1;
-      if (heard || tries > 60) window.clearInterval(hello);
-      else send({ event: 'listening', id: film.id });
+      if (heard || tries > 60) window.clearInterval(ask);
+      else hello();
     }, 150);
     return () => {
       window.removeEventListener('message', onMessage);
-      window.clearInterval(hello);
-      window.clearTimeout(reveal);
+      window.clearInterval(ask);
+      window.clearTimeout(settle);
     };
-  }, [film.id, send, command]);
-
-  useEffect(() => {
-    if (play) command('playVideo');
-    else setLive(false);
-  }, [play, command]);
+  }, [hello]);
 
   return (
-    <div className={`fs__preview${live && play ? ' is-live' : ''}`} aria-hidden="true">
-      <iframe ref={frame} src={previewUrl(film)} title={`Silent preview: ${film.title}`} tabIndex={-1} allow="autoplay; encrypted-media" onLoad={() => { send({ event: 'listening', id: film.id }); if (playRef.current) command('playVideo'); }} />
+    <div className={`fs__preview${playing && play ? ' is-live' : ''}`} aria-hidden="true">
+      <iframe ref={frame} src={previewUrl(film)} title={`Silent preview: ${film.title}`} tabIndex={-1} allow="autoplay; encrypted-media" onLoad={hello} />
     </div>
   );
 }
